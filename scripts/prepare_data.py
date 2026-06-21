@@ -56,6 +56,8 @@ def main() -> None:
         labels=labels.astype(np.int64),
         dates=np.asarray(selected[date_col].dt.strftime("%Y-%m-%d"), dtype="U10"),
         action_values=np.asarray(config["action_values"], dtype=np.int64),
+        feature_names=np.asarray(feature_names, dtype=str),
+        investors=np.asarray(config["investors"], dtype=str),
     )
 
     metadata = {

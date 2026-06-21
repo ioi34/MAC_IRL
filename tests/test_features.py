@@ -14,26 +14,46 @@ def _config():
             "price": "adjusted_close",
             "fallback_price": "close",
             "trading_value": "trading_value",
-            "net_buy": {
-                "foreign": "foreign_net_buy",
-                "institution": "institution_net_buy",
-                "retail": "retail_net_buy",
+            "investor_trades": {
+                investor: {
+                    "buy_quantity": f"{investor}_buy_quantity",
+                    "sell_quantity": f"{investor}_sell_quantity",
+                    "buy_value": f"{investor}_buy_value",
+                    "sell_value": f"{investor}_sell_value",
+                }
+                for investor in ["foreign", "institution", "retail"]
             },
         },
         "investors": ["foreign", "institution", "retail"],
         "action_values": [-1, 1],
         "labeling": {"rolling_window": 3, "quantile": 0.50, "label_shift": 1},
-        "preprocess": {"ticker": None, "drop_missing_required": True},
+        "preprocess": {
+            "ticker": None,
+            "drop_missing_required": True,
+            "average_cost_rho": 0.98,
+        },
         "features": {
-            "selected": ["loss_aversion", "herd", "momentum", "volatility"],
+            "selected": ["underwater", "herd", "momentum", "volatility"],
             "params": {
-                "loss_aversion": {"reference_window": 3},
+                "underwater": {},
                 "herd": {"window": 2},
                 "momentum": {"window": 2},
                 "volatility": {"window": 3},
             },
         },
     }
+
+
+def _gross_trade_columns(n: int) -> dict[str, np.ndarray]:
+    columns = {}
+    for offset, investor in enumerate(["foreign", "institution", "retail"]):
+        buy_quantity = np.arange(n, dtype=float) + 10 + offset
+        sell_quantity = np.arange(n, dtype=float) + 5 + 2 * offset
+        columns[f"{investor}_buy_quantity"] = buy_quantity
+        columns[f"{investor}_sell_quantity"] = sell_quantity
+        columns[f"{investor}_buy_value"] = buy_quantity * np.linspace(100, 111, n)
+        columns[f"{investor}_sell_value"] = sell_quantity * np.linspace(99, 110, n)
+    return columns
 
 
 def test_feature_tensor_has_binary_actions_and_four_reward_features():
@@ -43,16 +63,14 @@ def test_feature_tensor_has_binary_actions_and_four_reward_features():
             "date": pd.date_range("2020-01-01", periods=n),
             "adjusted_close": np.linspace(100, 111, n),
             "trading_value": np.linspace(1000, 1110, n),
-            "foreign_net_buy": np.arange(n),
-            "institution_net_buy": np.arange(n) * -1,
-            "retail_net_buy": np.ones(n),
+            **_gross_trade_columns(n),
         }
     )
     config = _config()
     prepared = add_action_labels(prepare_daily_frame(frame, config), config)
     features, names = build_feature_tensor(prepared, config)
 
-    assert names == ["loss_aversion", "herd", "momentum", "volatility"]
+    assert names == ["underwater", "herd", "momentum", "volatility"]
     assert features.shape == (n, 3, 2, 4)
 
 
@@ -64,9 +82,7 @@ def test_herd_feature_uses_only_lagged_flows():
             "date": pd.date_range("2020-01-01", periods=n),
             "adjusted_close": np.linspace(100, 111, n),
             "trading_value": np.ones(n) * 1000,
-            "foreign_net_buy": np.zeros(n),
-            "institution_net_buy": np.arange(n),
-            "retail_net_buy": np.arange(n),
+            **_gross_trade_columns(n),
         }
     )
     prepared = add_action_labels(prepare_daily_frame(frame, config), config)

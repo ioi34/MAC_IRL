@@ -6,15 +6,15 @@ import numpy as np
 import pandas as pd
 
 from src.features.herd import build_herd
-from src.features.loss_aversion import build_loss_aversion
 from src.features.momentum import build_momentum
+from src.features.underwater import build_underwater
 from src.features.volatility import build_volatility
 
 FeatureBuilder = Callable[[pd.DataFrame, dict, str, int], pd.Series]
 
 
 FEATURE_REGISTRY: dict[str, FeatureBuilder] = {
-    "loss_aversion": build_loss_aversion,
+    "underwater": build_underwater,
     "herd": build_herd,
     "momentum": build_momentum,
     "volatility": build_volatility,
