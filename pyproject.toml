@@ -1,0 +1,21 @@
+[project]
+name = "mac-irl"
+version = "0.1.0"
+description = "Single-stock multi-agent contextual inverse reinforcement learning research code"
+requires-python = ">=3.10"
+dependencies = [
+  "numpy>=2.0",
+  "pandas>=2.2",
+  "PyYAML>=6.0",
+  "torch>=2.3",
+  "scikit-learn>=1.5",
+  "skfolio==0.20.1",
+  "joblib>=1.4",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]

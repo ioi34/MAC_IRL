@@ -1,0 +1,36 @@
+paths:
+  raw_daily: data/raw/samsung_macirl_2021_2025_FINAL.csv
+  processed_dataset: data/processed/dataset.npz
+  processed_metadata: data/processed/metadata.json
+
+columns:
+  date: date
+  ticker: ticker
+  price: adjusted_close
+  fallback_price: close
+  trading_value: trading_value
+  kospi200: kospi200
+  usdkrw: usdkrw
+  net_buy:
+    foreign: foreign_net_buy
+    institution: institution_net_buy
+    retail: retail_net_buy
+
+investors: [foreign, institution, retail]
+action_values: [-1, 1]
+action_names: [sell, buy]
+
+labeling:
+  rolling_window: 252
+  quantile: 0.50
+  label_shift: 1
+
+sample:
+  start: "2020-01-01"
+  end: "2025-12-31"
+  size: 973
+  selection: latest
+
+preprocess:
+  ticker: null
+  drop_missing_required: true

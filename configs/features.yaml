@@ -1,0 +1,18 @@
+features:
+  selected:
+    - loss_aversion
+    - herd
+    - momentum
+    - volatility
+  params:
+    loss_aversion:
+      reference_window: 60
+    herd:
+      window: 5
+    momentum:
+      window: 20
+    volatility:
+      window: 20
+
+scaling:
+  method: standard
