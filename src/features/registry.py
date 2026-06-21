@@ -5,37 +5,12 @@ from collections.abc import Callable
 import numpy as np
 import pandas as pd
 
-from src.features.investor import herd_flow
-from src.features.loss_aversion import ma_loss_gap
-from src.features.market import momentum, volatility
+from src.features.herd import build_herd
+from src.features.loss_aversion import build_loss_aversion
+from src.features.momentum import build_momentum
+from src.features.volatility import build_volatility
 
 FeatureBuilder = Callable[[pd.DataFrame, dict, str, int], pd.Series]
-
-
-def _action_signed(base: pd.Series, action: int) -> pd.Series:
-    return base * action
-
-
-def build_loss_aversion(df: pd.DataFrame, config: dict, investor: str, action: int) -> pd.Series:
-    params = config["features"]["params"]["loss_aversion"]
-    gap = ma_loss_gap(df, params["reference_window"])
-    return gap if action < 0 else gap * 0.0
-
-
-def build_herd(df: pd.DataFrame, config: dict, investor: str, action: int) -> pd.Series:
-    params = config["features"]["params"]["herd"]
-    base = herd_flow(df, investor, config["investors"], params["window"])
-    return _action_signed(base, action)
-
-
-def build_momentum(df: pd.DataFrame, config: dict, investor: str, action: int) -> pd.Series:
-    params = config["features"]["params"]["momentum"]
-    return _action_signed(momentum(df, params["window"]), action)
-
-
-def build_volatility(df: pd.DataFrame, config: dict, investor: str, action: int) -> pd.Series:
-    params = config["features"]["params"]["volatility"]
-    return _action_signed(-volatility(df, params["window"]), action)
 
 
 FEATURE_REGISTRY: dict[str, FeatureBuilder] = {

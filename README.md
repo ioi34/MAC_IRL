@@ -69,3 +69,13 @@ embargo_size=5
 - `split_XX/{investor}.pt`: 독립 모델 checkpoint
 
 보상특징 공식과 데이터 컬럼은 `configs/*.yaml`과 feature registry를 통해 변경할 수 있습니다.
+
+각 보상특징은 협업 시 충돌을 줄이기 위해 독립 파일이 계산과 행동 변환을 함께 소유합니다.
+
+```text
+src/features/loss_aversion.py
+src/features/herd.py
+src/features/momentum.py
+src/features/volatility.py
+src/features/registry.py  # 등록과 tensor 조립만 담당
+```
