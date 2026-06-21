@@ -9,6 +9,17 @@ def ma_loss_gap(df: pd.DataFrame, reference_window: int) -> pd.Series:
     return ((reference - df["price"]) / reference).clip(lower=0)
 
 
+def build_loss_aversion(
+    df: pd.DataFrame,
+    config: dict,
+    investor: str,
+    action: int,
+) -> pd.Series:
+    params = config["features"]["params"]["loss_aversion"]
+    gap = ma_loss_gap(df, params["reference_window"])
+    return gap if action < 0 else gap * 0.0
+
+
 def rolling_max_loss_gap(df: pd.DataFrame, reference_window: int) -> pd.Series:
     reference = df["price"].rolling(window=reference_window, min_periods=reference_window).max()
     return ((reference - df["price"]) / reference).clip(lower=0)
@@ -49,4 +60,3 @@ def average_cost_proxy_loss_gap(
             quantity = rho * quantity
 
     return pd.Series(gaps, index=df.index, name=f"loss_proxy_{investor}")
-
