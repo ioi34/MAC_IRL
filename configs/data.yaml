@@ -11,10 +11,22 @@ columns:
   trading_value: trading_value
   kospi200: kospi200
   usdkrw: usdkrw
-  net_buy:
-    foreign: foreign_net_buy
-    institution: institution_net_buy
-    retail: retail_net_buy
+  investor_trades:
+    foreign:
+      buy_quantity: foreign_buy_quantity
+      sell_quantity: foreign_sell_quantity
+      buy_value: foreign_buy_value
+      sell_value: foreign_sell_value
+    institution:
+      buy_quantity: institution_buy_quantity
+      sell_quantity: institution_sell_quantity
+      buy_value: institution_buy_value
+      sell_value: institution_sell_value
+    retail:
+      buy_quantity: retail_buy_quantity
+      sell_quantity: retail_sell_quantity
+      buy_value: retail_buy_value
+      sell_value: retail_sell_value
 
 investors: [foreign, institution, retail]
 action_values: [-1, 1]
@@ -34,3 +46,4 @@ sample:
 preprocess:
   ticker: null
   drop_missing_required: true
+  average_cost_rho: 0.98

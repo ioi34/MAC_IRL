@@ -40,6 +40,34 @@ def _evaluate_model(model, features: np.ndarray, labels: np.ndarray) -> dict:
     return evaluate_logits(logits, torch.as_tensor(labels, dtype=torch.long))
 
 
+def validate_processed_schema(data, config: dict) -> None:
+    required = {"features", "labels", "dates", "action_values", "feature_names", "investors"}
+    missing = sorted(required.difference(data))
+    if missing:
+        raise ValueError(
+            f"Processed dataset is stale or incomplete; missing arrays: {missing}. "
+            "Run `python -m scripts.prepare_data` with the current configs."
+        )
+
+    expected_features = list(config["features"]["selected"])
+    saved_features = data["feature_names"].astype(str).tolist()
+    expected_investors = list(config["investors"])
+    saved_investors = data["investors"].astype(str).tolist()
+    expected_actions = list(config["action_values"])
+    saved_actions = data["action_values"].astype(int).tolist()
+    if saved_features != expected_features:
+        raise ValueError(
+            f"Processed features {saved_features} do not match config {expected_features}. "
+            "Run `python -m scripts.prepare_data` again."
+        )
+    if saved_investors != expected_investors:
+        raise ValueError(
+            f"Processed investors {saved_investors} do not match config {expected_investors}."
+        )
+    if saved_actions != expected_actions:
+        raise ValueError(f"Processed actions {saved_actions} do not match config {expected_actions}.")
+
+
 def main() -> None:
     args = parse_args()
     config = load_configs(
@@ -49,11 +77,8 @@ def main() -> None:
         args.train_config,
         args.experiment_config,
     )
-    output_dir = Path(config["experiment"]["output_dir"])
-    logger = configure_logging(output_dir)
-    dump_yaml(config, output_dir / "config_snapshot.yaml")
-
     data = np.load(config["paths"]["processed_dataset"], allow_pickle=False)
+    validate_processed_schema(data, config)
     features = data["features"]
     labels = data["labels"]
     dates = data["dates"]
@@ -61,6 +86,9 @@ def main() -> None:
     feature_names = list(config["features"]["selected"])
     cv = build_cpcv(config)
     base_seed = int(config["seed"])
+    output_dir = Path(config["experiment"]["output_dir"])
+    logger = configure_logging(output_dir)
+    dump_yaml(config, output_dir / "config_snapshot.yaml")
 
     metric_rows = []
     weight_frames = []

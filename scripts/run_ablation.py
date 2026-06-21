@@ -11,7 +11,7 @@ from src.utils.config import dump_yaml, load_configs
 
 
 ABLATIONS = {
-    "remove_loss_aversion": {"loss_aversion"},
+    "remove_underwater": {"underwater"},
     "remove_herd": {"herd"},
     "remove_momentum": {"momentum"},
     "remove_volatility": {"volatility"},

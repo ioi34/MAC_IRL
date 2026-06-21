@@ -1,12 +1,11 @@
 features:
   selected:
-    - loss_aversion
+    - underwater
     - herd
     - momentum
     - volatility
   params:
-    loss_aversion:
-      reference_window: 60
+    underwater: {}
     herd:
       window: 5
     momentum:
