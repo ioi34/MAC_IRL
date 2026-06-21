@@ -1,0 +1,4 @@
+model:
+  reward_type: fixed_linear
+  investor_types: [foreign, institution, retail]
+  tau: 1.0
