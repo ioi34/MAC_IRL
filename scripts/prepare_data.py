@@ -74,12 +74,14 @@ def main() -> None:
         "scaling": "deferred_to_each_cpcv_training_split",
         "action_distribution": {
             investor: {
-                "sell": int((labels[:, idx] == 0).sum()),
-                "buy": int((labels[:, idx] == 1).sum()),
-                "sell_rate": float((labels[:, idx] == 0).mean()),
-                "buy_rate": float((labels[:, idx] == 1).mean()),
+                name: int((labels[:, investor_idx] == action_idx).sum())
+                for action_idx, name in enumerate(config["action_names"])
             }
-            for idx, investor in enumerate(config["investors"])
+            | {
+                f"{name}_rate": float((labels[:, investor_idx] == action_idx).mean())
+                for action_idx, name in enumerate(config["action_names"])
+            }
+            for investor_idx, investor in enumerate(config["investors"])
         },
     }
     metadata_path = Path(config["paths"]["processed_metadata"])

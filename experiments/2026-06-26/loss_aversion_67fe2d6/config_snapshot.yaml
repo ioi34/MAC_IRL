@@ -1,0 +1,85 @@
+paths:
+  raw_daily: data/raw/samsung_macirl_2021_2025_FINAL.csv
+  processed_dataset: data/processed/dataset.npz
+  processed_metadata: data/processed/metadata.json
+columns:
+  date: date
+  ticker: ticker
+  price: adjusted_close
+  fallback_price: close
+  trading_value: trading_value
+  kospi200: kospi200
+  usdkrw: usdkrw
+  net_buy:
+    foreign: foreign_net_buy
+    institution: institution_net_buy
+    retail: retail_net_buy
+investors:
+- foreign
+- institution
+- retail
+action_values:
+- -1
+- 1
+action_names:
+- sell
+- buy
+labeling:
+  rolling_window: 252
+  quantile: 0.5
+  label_shift: 1
+sample:
+  start: '2020-01-01'
+  end: '2025-12-31'
+  size: 973
+  selection: latest
+preprocess:
+  ticker: null
+  drop_missing_required: true
+features:
+  selected:
+  - loss_aversion
+  - herd
+  - momentum
+  - volatility
+  params:
+    loss_aversion:
+      reference_window: 60
+    herd:
+      window: 5
+    momentum:
+      window: 20
+    volatility:
+      window: 20
+scaling:
+  method: standard
+model:
+  reward_type: fixed_linear
+  investor_types:
+  - foreign
+  - institution
+  - retail
+  tau: 1.0
+seed: 42
+device: cpu
+epochs: 200
+batch_size: 256
+learning_rate: 0.01
+weight_decay: 0.0
+loss:
+  lambda_l1: 0.001
+cross_validation:
+  n_folds: 10
+  n_test_folds: 2
+  purged_size: 1
+  embargo_size: 5
+experiment:
+  name: mac_irl_binary_cpcv
+  output_dir: runs/mac_irl_binary_cpcv
+  save_checkpoints: true
+  ablations:
+    remove_herd: false
+    remove_loss_aversion: false
+    remove_momentum: false
+    remove_volatility: false
+    disable_l1: false

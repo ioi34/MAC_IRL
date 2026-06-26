@@ -1,0 +1,10 @@
+experiment:
+  name: exp_20260626_four_class_pairwise_persist_2021
+  output_dir: runs/exp_20260626_four_class_pairwise_persist_2021
+  save_checkpoints: true
+  ablations:
+    remove_herd: false
+    remove_underwater: false
+    remove_momentum: false
+    remove_volatility: false
+    disable_l1: false

@@ -1,0 +1,24 @@
+paths:
+  processed_dataset: data/processed/dataset_exp_2021_single_herd_persist.npz
+  processed_metadata: data/processed/metadata_exp_2021_single_herd_persist.json
+
+features:
+  selected:
+    - underwater
+    - herd
+    - momentum
+    - volatility
+    - persist
+  params:
+    underwater: {}
+    herd:
+      window: 5
+    momentum:
+      window: 20
+    volatility:
+      window: 20
+      magnitude: false
+    persist: {}
+
+scaling:
+  method: standard
