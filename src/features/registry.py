@@ -6,7 +6,13 @@ import numpy as np
 import pandas as pd
 
 from src.features.herd import build_herd
+from src.features.herd_pairwise import (
+    build_herd_from_foreign,
+    build_herd_from_institution,
+    build_herd_from_retail,
+)
 from src.features.momentum import build_momentum
+from src.features.persist import build_persist
 from src.features.underwater import build_underwater
 from src.features.volatility import build_volatility
 
@@ -18,6 +24,10 @@ FEATURE_REGISTRY: dict[str, FeatureBuilder] = {
     "herd": build_herd,
     "momentum": build_momentum,
     "volatility": build_volatility,
+    "persist": build_persist,
+    "herd_from_foreign": build_herd_from_foreign,
+    "herd_from_institution": build_herd_from_institution,
+    "herd_from_retail": build_herd_from_retail,
 }
 
 
