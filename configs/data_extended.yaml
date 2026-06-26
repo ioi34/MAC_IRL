@@ -1,5 +1,7 @@
 paths:
-  raw_daily: samsung_macirl_EXTENDED_2021_2025.csv
+  raw_daily: data/raw/samsung_macirl_EXTENDED_2021_2025.csv
+  processed_dataset: data/processed/dataset.npz
+  processed_metadata: data/processed/metadata.json
 
 columns:
   date: date
