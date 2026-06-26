@@ -71,7 +71,7 @@ def calculate_average_cost_state(
         previous_cost = average_cost
 
     average_cost = pd.Series(average_costs, index=values.index)
-    underwater_gap = ((average_cost - trade_vwap) / average_cost).clip(lower=0)
+    underwater_gap = ((average_cost - trade_vwap) / average_cost).clip(lower=0).fillna(0.0)
     return pd.DataFrame(
         {
             "buy_vwap": buy_vwap,

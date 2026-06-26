@@ -1,6 +1,6 @@
 experiment:
-  name: mac_irl_binary_cpcv
-  output_dir: runs/mac_irl_binary_cpcv
+  name: mac_irl_underwater_cpcv
+  output_dir: runs/mac_irl_underwater_cpcv
   save_checkpoints: true
   ablations:
     remove_herd: false

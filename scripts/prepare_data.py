@@ -16,8 +16,8 @@ from src.utils.config import load_configs
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Prepare unscaled MAC-IRL features")
-    parser.add_argument("--data-config", default="configs/data.yaml")
-    parser.add_argument("--features-config", default="configs/features.yaml")
+    parser.add_argument("--data-config", default="configs/data_extended.yaml")
+    parser.add_argument("--features-config", default="configs/features_underwater.yaml")
     return parser.parse_args()
 
 

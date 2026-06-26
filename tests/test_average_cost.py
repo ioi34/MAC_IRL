@@ -36,6 +36,19 @@ def test_sales_beyond_old_inventory_leave_new_buys_at_buy_vwap():
     assert state.loc[1, "average_cost_proxy"] == pytest.approx(80.0)
 
 
+def test_empty_inventory_has_no_underwater_exposure():
+    state = calculate_average_cost_state(
+        buy_quantity=pd.Series([10.0, 0.0]),
+        sell_quantity=pd.Series([0.0, 10.0]),
+        buy_value=pd.Series([1000.0, 0.0]),
+        sell_value=pd.Series([0.0, 900.0]),
+        rho=1.0,
+    )
+
+    assert np.isnan(state.loc[1, "average_cost_proxy"])
+    assert state.loc[1, "underwater_gap"] == 0.0
+
+
 def test_underwater_feature_is_one_identified_buy_sell_contrast():
     df = pd.DataFrame({"underwater_gap_foreign": [0.0, 0.2, 0.4]})
 

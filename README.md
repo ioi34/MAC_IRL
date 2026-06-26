@@ -12,7 +12,8 @@ pip install -r requirements.txt
 
 ## 입력 데이터
 
-기본 입력은 `data/raw/daily.csv`이며 컬럼명은 `configs/data.yaml`에서 변경할 수 있습니다.
+기본 입력은 `samsung_macirl_EXTENDED_2021_2025.csv`이며 컬럼명은
+`configs/data_extended.yaml`에서 변경할 수 있습니다.
 
 필수 컬럼:
 
@@ -62,7 +63,7 @@ embargo_size=5
 
 ## 결과
 
-`runs/mac_irl_binary_cpcv/`에 다음 파일이 생성됩니다.
+`runs/mac_irl_underwater_cpcv/`에 다음 파일이 생성됩니다.
 
 - `cv_metrics.csv`: split·투자자별 성능
 - `cv_metrics_summary.csv`: 성능 평균과 표준편차

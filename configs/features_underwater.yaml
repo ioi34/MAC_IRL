@@ -1,3 +1,7 @@
+paths:
+  processed_dataset: data/processed/dataset_underwater.npz
+  processed_metadata: data/processed/metadata_underwater.json
+
 features:
   selected:
     - underwater
