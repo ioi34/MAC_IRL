@@ -7,6 +7,10 @@ def test_each_reward_feature_is_owned_by_its_own_module():
         "herd": "src.features.herd",
         "momentum": "src.features.momentum",
         "volatility": "src.features.volatility",
+        "persist": "src.features.persist",
+        "herd_from_foreign": "src.features.herd_pairwise",
+        "herd_from_institution": "src.features.herd_pairwise",
+        "herd_from_retail": "src.features.herd_pairwise",
     }
 
     assert {name: builder.__module__ for name, builder in FEATURE_REGISTRY.items()} == expected_modules

@@ -68,3 +68,42 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
 ---
 
 **These guidelines are working if:** fewer unnecessary changes in diffs, fewer rewrites due to overcomplication, and clarifying questions come before implementation rather than after mistakes.
+
+## 5. Experiment Result Logging
+
+**Every experiment must leave a dated Korean result note.**
+
+When running or comparing experiments:
+
+- Create a summary file under `experiments/`.
+- Organize results by date and time, for example:
+  `experiments/YYYY-MM-DD/HHMM_experiment_name.md`
+- Write the experiment note in Korean.
+- Record what changed, what stayed fixed, and what result came out.
+- Keep the summary short enough to compare later.
+- Include paths to related run outputs, configs, logs, and result CSVs.
+- If an experiment was only planned but not run, mark it clearly as `미실행`.
+- If results are missing or overwritten, say so instead of guessing.
+
+Each experiment note should include:
+
+```text
+# [실험 이름]
+
+- 날짜/시간:
+- 목적:
+- 변경한 것:
+- 고정 조건:
+- 데이터:
+- 설정 파일:
+- 결과 폴더:
+- 주요 결과:
+- 해석:
+- 다음 액션:
+```
+
+Before reporting conclusions, check whether the result is based on:
+
+1. actual files in `runs/` or `experiments/`,
+2. Notion/GitHub notes only,
+3. or inference from code/config changes.
