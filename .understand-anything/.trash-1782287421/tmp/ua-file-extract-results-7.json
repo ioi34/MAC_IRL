@@ -1,0 +1,425 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 4,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "src/training/checkpoint.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 28,
+      "nonEmptyLines": 21,
+      "functions": [
+        {
+          "name": "save_checkpoint",
+          "startLine": 8,
+          "endLine": 19,
+          "params": [
+            "path",
+            "model",
+            "optimizer",
+            "epoch",
+            "metrics"
+          ]
+        },
+        {
+          "name": "load_checkpoint",
+          "startLine": 22,
+          "endLine": 27,
+          "params": [
+            "path",
+            "model",
+            "optimizer",
+            "map_location"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "save_checkpoint",
+          "line": 8,
+          "isDefault": false
+        },
+        {
+          "name": "load_checkpoint",
+          "line": 22,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "save_checkpoint",
+          "callee": "Path",
+          "lineNumber": 9
+        },
+        {
+          "caller": "save_checkpoint",
+          "callee": "target.parent.mkdir",
+          "lineNumber": 10
+        },
+        {
+          "caller": "save_checkpoint",
+          "callee": "torch.save",
+          "lineNumber": 11
+        },
+        {
+          "caller": "save_checkpoint",
+          "callee": "model.state_dict",
+          "lineNumber": 13
+        },
+        {
+          "caller": "save_checkpoint",
+          "callee": "optimizer.state_dict",
+          "lineNumber": 14
+        },
+        {
+          "caller": "load_checkpoint",
+          "callee": "torch.load",
+          "lineNumber": 23
+        },
+        {
+          "caller": "load_checkpoint",
+          "callee": "model.load_state_dict",
+          "lineNumber": 24
+        },
+        {
+          "caller": "load_checkpoint",
+          "callee": "checkpoint.get",
+          "lineNumber": 25
+        },
+        {
+          "caller": "load_checkpoint",
+          "callee": "optimizer.load_state_dict",
+          "lineNumber": 26
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 2,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/training/losses.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 16,
+      "nonEmptyLines": 11,
+      "functions": [
+        {
+          "name": "behavior_nll",
+          "startLine": 7,
+          "endLine": 8,
+          "params": [
+            "logits",
+            "labels"
+          ]
+        },
+        {
+          "name": "regularized_loss",
+          "startLine": 11,
+          "endLine": 16,
+          "params": [
+            "nll",
+            "l1_penalty",
+            "lambda_l1"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "behavior_nll",
+          "line": 7,
+          "isDefault": false
+        },
+        {
+          "name": "regularized_loss",
+          "line": 11,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "behavior_nll",
+          "callee": "F.cross_entropy",
+          "lineNumber": 8
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 2,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/training/trainer.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 56,
+      "nonEmptyLines": 47,
+      "functions": [
+        {
+          "name": "resolve_device",
+          "startLine": 12,
+          "endLine": 19,
+          "params": [
+            "name"
+          ]
+        },
+        {
+          "name": "train_investor_model",
+          "startLine": 22,
+          "endLine": 56,
+          "params": [
+            "model",
+            "train_loader",
+            "train_config",
+            "checkpoint_path"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "resolve_device",
+          "line": 12,
+          "isDefault": false
+        },
+        {
+          "name": "train_investor_model",
+          "line": 22,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "resolve_device",
+          "callee": "torch.device",
+          "lineNumber": 14
+        },
+        {
+          "caller": "resolve_device",
+          "callee": "torch.cuda.is_available",
+          "lineNumber": 15
+        },
+        {
+          "caller": "resolve_device",
+          "callee": "torch.device",
+          "lineNumber": 16
+        },
+        {
+          "caller": "resolve_device",
+          "callee": "torch.backends.mps.is_available",
+          "lineNumber": 17
+        },
+        {
+          "caller": "resolve_device",
+          "callee": "torch.device",
+          "lineNumber": 18
+        },
+        {
+          "caller": "resolve_device",
+          "callee": "torch.device",
+          "lineNumber": 19
+        },
+        {
+          "caller": "train_investor_model",
+          "callee": "resolve_device",
+          "lineNumber": 28
+        },
+        {
+          "caller": "train_investor_model",
+          "callee": "train_config.get",
+          "lineNumber": 28
+        },
+        {
+          "caller": "train_investor_model",
+          "callee": "model.to",
+          "lineNumber": 29
+        },
+        {
+          "caller": "train_investor_model",
+          "callee": "torch.optim.Adam",
+          "lineNumber": 30
+        },
+        {
+          "caller": "train_investor_model",
+          "callee": "model.parameters",
+          "lineNumber": 31
+        },
+        {
+          "caller": "train_investor_model",
+          "callee": "float",
+          "lineNumber": 32
+        },
+        {
+          "caller": "train_investor_model",
+          "callee": "float",
+          "lineNumber": 33
+        },
+        {
+          "caller": "train_investor_model",
+          "callee": "train_config.get",
+          "lineNumber": 33
+        },
+        {
+          "caller": "train_investor_model",
+          "callee": "float",
+          "lineNumber": 35
+        },
+        {
+          "caller": "train_investor_model",
+          "callee": "range",
+          "lineNumber": 38
+        },
+        {
+          "caller": "train_investor_model",
+          "callee": "int",
+          "lineNumber": 38
+        },
+        {
+          "caller": "train_investor_model",
+          "callee": "model.train",
+          "lineNumber": 39
+        },
+        {
+          "caller": "train_investor_model",
+          "callee": "phi.to",
+          "lineNumber": 43
+        },
+        {
+          "caller": "train_investor_model",
+          "callee": "labels.to",
+          "lineNumber": 44
+        },
+        {
+          "caller": "train_investor_model",
+          "callee": "optimizer.zero_grad",
+          "lineNumber": 45
+        },
+        {
+          "caller": "train_investor_model",
+          "callee": "behavior_nll",
+          "lineNumber": 46
+        },
+        {
+          "caller": "train_investor_model",
+          "callee": "model",
+          "lineNumber": 46
+        },
+        {
+          "caller": "train_investor_model",
+          "callee": "regularized_loss",
+          "lineNumber": 47
+        },
+        {
+          "caller": "train_investor_model",
+          "callee": "model.l1_penalty",
+          "lineNumber": 47
+        },
+        {
+          "caller": "train_investor_model",
+          "callee": "loss.backward",
+          "lineNumber": 48
+        },
+        {
+          "caller": "train_investor_model",
+          "callee": "optimizer.step",
+          "lineNumber": 49
+        },
+        {
+          "caller": "train_investor_model",
+          "callee": "float",
+          "lineNumber": 50
+        },
+        {
+          "caller": "train_investor_model",
+          "callee": "nll.detach",
+          "lineNumber": 50
+        },
+        {
+          "caller": "train_investor_model",
+          "callee": "len",
+          "lineNumber": 50
+        },
+        {
+          "caller": "train_investor_model",
+          "callee": "len",
+          "lineNumber": 51
+        },
+        {
+          "caller": "train_investor_model",
+          "callee": "save_checkpoint",
+          "lineNumber": 55
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 2,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "tests/test_losses.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 13,
+      "nonEmptyLines": 9,
+      "functions": [
+        {
+          "name": "test_single_investor_loss_has_no_investor_sum",
+          "startLine": 6,
+          "endLine": 13,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "test_single_investor_loss_has_no_investor_sum",
+          "line": 6,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "test_single_investor_loss_has_no_investor_sum",
+          "callee": "torch.zeros",
+          "lineNumber": 7
+        },
+        {
+          "caller": "test_single_investor_loss_has_no_investor_sum",
+          "callee": "torch.ones",
+          "lineNumber": 8
+        },
+        {
+          "caller": "test_single_investor_loss_has_no_investor_sum",
+          "callee": "behavior_nll",
+          "lineNumber": 9
+        },
+        {
+          "caller": "test_single_investor_loss_has_no_investor_sum",
+          "callee": "regularized_loss",
+          "lineNumber": 10
+        },
+        {
+          "caller": "test_single_investor_loss_has_no_investor_sum",
+          "callee": "torch.tensor",
+          "lineNumber": 10
+        },
+        {
+          "caller": "test_single_investor_loss_has_no_investor_sum",
+          "callee": "torch.isclose",
+          "lineNumber": 13
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    }
+  ]
+}

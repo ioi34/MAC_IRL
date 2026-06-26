@@ -1,0 +1,548 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 7,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "src/features/herd.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 18,
+      "nonEmptyLines": 13,
+      "functions": [
+        {
+          "name": "herd_flow",
+          "startLine": 6,
+          "endLine": 12,
+          "params": [
+            "df",
+            "investor",
+            "investors",
+            "window"
+          ]
+        },
+        {
+          "name": "build_herd",
+          "startLine": 15,
+          "endLine": 18,
+          "params": [
+            "df",
+            "config",
+            "investor",
+            "action"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "herd_flow",
+          "line": 6,
+          "isDefault": false
+        },
+        {
+          "name": "build_herd",
+          "line": 15,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "herd_flow",
+          "callee": "df[f\"u_{other}\"].shift(1).rolling(window=window, min_periods=window).mean",
+          "lineNumber": 9
+        },
+        {
+          "caller": "herd_flow",
+          "callee": "df[f\"u_{other}\"].shift(1).rolling",
+          "lineNumber": 9
+        },
+        {
+          "caller": "herd_flow",
+          "callee": "df[f\"u_{other}\"].shift",
+          "lineNumber": 9
+        },
+        {
+          "caller": "herd_flow",
+          "callee": "sum",
+          "lineNumber": 12
+        },
+        {
+          "caller": "herd_flow",
+          "callee": "len",
+          "lineNumber": 12
+        },
+        {
+          "caller": "build_herd",
+          "callee": "herd_flow",
+          "lineNumber": 17
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 2,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/features/loss_aversion.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 17,
+      "nonEmptyLines": 12,
+      "functions": [
+        {
+          "name": "loss_gap",
+          "startLine": 6,
+          "endLine": 11,
+          "params": [
+            "df",
+            "reference_window"
+          ]
+        },
+        {
+          "name": "build_loss_aversion",
+          "startLine": 14,
+          "endLine": 17,
+          "params": [
+            "df",
+            "config",
+            "investor",
+            "action"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "loss_gap",
+          "line": 6,
+          "isDefault": false
+        },
+        {
+          "name": "build_loss_aversion",
+          "line": 14,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "loss_gap",
+          "callee": "df[\"price\"].rolling(\n        window=reference_window,\n        min_periods=reference_window,\n    ).mean",
+          "lineNumber": 7
+        },
+        {
+          "caller": "loss_gap",
+          "callee": "df[\"price\"].rolling",
+          "lineNumber": 7
+        },
+        {
+          "caller": "loss_gap",
+          "callee": "((reference - df[\"price\"]) / reference).clip",
+          "lineNumber": 11
+        },
+        {
+          "caller": "build_loss_aversion",
+          "callee": "loss_gap",
+          "lineNumber": 16
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 2,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/features/momentum.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 13,
+      "nonEmptyLines": 8,
+      "functions": [
+        {
+          "name": "momentum",
+          "startLine": 7,
+          "endLine": 8,
+          "params": [
+            "df",
+            "window"
+          ]
+        },
+        {
+          "name": "build_momentum",
+          "startLine": 11,
+          "endLine": 13,
+          "params": [
+            "df",
+            "config",
+            "investor",
+            "action"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "momentum",
+          "line": 7,
+          "isDefault": false
+        },
+        {
+          "name": "build_momentum",
+          "line": 11,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "momentum",
+          "callee": "np.log",
+          "lineNumber": 8
+        },
+        {
+          "caller": "momentum",
+          "callee": "df[\"price\"].astype",
+          "lineNumber": 8
+        },
+        {
+          "caller": "momentum",
+          "callee": "df[\"price\"].shift(window).astype",
+          "lineNumber": 8
+        },
+        {
+          "caller": "momentum",
+          "callee": "df[\"price\"].shift",
+          "lineNumber": 8
+        },
+        {
+          "caller": "build_momentum",
+          "callee": "momentum",
+          "lineNumber": 13
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 2,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/features/registry.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 49,
+      "nonEmptyLines": 37,
+      "functions": [
+        {
+          "name": "build_feature_tensor",
+          "startLine": 26,
+          "endLine": 42,
+          "params": [
+            "df",
+            "config"
+          ]
+        },
+        {
+          "name": "valid_rows_for_model",
+          "startLine": 45,
+          "endLine": 49,
+          "params": [
+            "df",
+            "features",
+            "investors"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "build_feature_tensor",
+          "line": 26,
+          "isDefault": false
+        },
+        {
+          "name": "valid_rows_for_model",
+          "line": 45,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "build_feature_tensor",
+          "callee": "list",
+          "lineNumber": 27
+        },
+        {
+          "caller": "build_feature_tensor",
+          "callee": "list",
+          "lineNumber": 28
+        },
+        {
+          "caller": "build_feature_tensor",
+          "callee": "list",
+          "lineNumber": 29
+        },
+        {
+          "caller": "build_feature_tensor",
+          "callee": "np.empty",
+          "lineNumber": 30
+        },
+        {
+          "caller": "build_feature_tensor",
+          "callee": "len",
+          "lineNumber": 30
+        },
+        {
+          "caller": "build_feature_tensor",
+          "callee": "len",
+          "lineNumber": 30
+        },
+        {
+          "caller": "build_feature_tensor",
+          "callee": "len",
+          "lineNumber": 30
+        },
+        {
+          "caller": "build_feature_tensor",
+          "callee": "len",
+          "lineNumber": 30
+        },
+        {
+          "caller": "build_feature_tensor",
+          "callee": "enumerate",
+          "lineNumber": 32
+        },
+        {
+          "caller": "build_feature_tensor",
+          "callee": "KeyError",
+          "lineNumber": 34
+        },
+        {
+          "caller": "build_feature_tensor",
+          "callee": "sorted",
+          "lineNumber": 34
+        },
+        {
+          "caller": "build_feature_tensor",
+          "callee": "enumerate",
+          "lineNumber": 36
+        },
+        {
+          "caller": "build_feature_tensor",
+          "callee": "enumerate",
+          "lineNumber": 37
+        },
+        {
+          "caller": "build_feature_tensor",
+          "callee": "builder(df, config, investor, int(action)).to_numpy",
+          "lineNumber": 38
+        },
+        {
+          "caller": "build_feature_tensor",
+          "callee": "builder",
+          "lineNumber": 38
+        },
+        {
+          "caller": "build_feature_tensor",
+          "callee": "int",
+          "lineNumber": 38
+        },
+        {
+          "caller": "valid_rows_for_model",
+          "callee": "df[label_cols].notna().all(axis=1).to_numpy",
+          "lineNumber": 47
+        },
+        {
+          "caller": "valid_rows_for_model",
+          "callee": "df[label_cols].notna().all",
+          "lineNumber": 47
+        },
+        {
+          "caller": "valid_rows_for_model",
+          "callee": "df[label_cols].notna",
+          "lineNumber": 47
+        },
+        {
+          "caller": "valid_rows_for_model",
+          "callee": "np.isfinite(features).all",
+          "lineNumber": 48
+        },
+        {
+          "caller": "valid_rows_for_model",
+          "callee": "np.isfinite",
+          "lineNumber": 48
+        }
+      ],
+      "metrics": {
+        "importCount": 5,
+        "exportCount": 2,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/features/volatility.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 14,
+      "nonEmptyLines": 9,
+      "functions": [
+        {
+          "name": "volatility",
+          "startLine": 7,
+          "endLine": 9,
+          "params": [
+            "df",
+            "window"
+          ]
+        },
+        {
+          "name": "build_volatility",
+          "startLine": 12,
+          "endLine": 14,
+          "params": [
+            "df",
+            "config",
+            "investor",
+            "action"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "volatility",
+          "line": 7,
+          "isDefault": false
+        },
+        {
+          "name": "build_volatility",
+          "line": 12,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "volatility",
+          "callee": "np.log",
+          "lineNumber": 8
+        },
+        {
+          "caller": "volatility",
+          "callee": "df[\"price\"].astype",
+          "lineNumber": 8
+        },
+        {
+          "caller": "volatility",
+          "callee": "df[\"price\"].shift(1).astype",
+          "lineNumber": 8
+        },
+        {
+          "caller": "volatility",
+          "callee": "df[\"price\"].shift",
+          "lineNumber": 8
+        },
+        {
+          "caller": "volatility",
+          "callee": "returns.rolling(window=window, min_periods=window).std",
+          "lineNumber": 9
+        },
+        {
+          "caller": "volatility",
+          "callee": "returns.rolling",
+          "lineNumber": 9
+        },
+        {
+          "caller": "build_volatility",
+          "callee": "volatility",
+          "lineNumber": 14
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 2,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "tests/test_feature_modules.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 13,
+      "nonEmptyLines": 10,
+      "functions": [
+        {
+          "name": "test_each_reward_feature_is_owned_by_its_own_module",
+          "startLine": 4,
+          "endLine": 13,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "test_each_reward_feature_is_owned_by_its_own_module",
+          "line": 4,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "test_each_reward_feature_is_owned_by_its_own_module",
+          "callee": "FEATURE_REGISTRY.items",
+          "lineNumber": 13
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "tests/test_loss_aversion.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 20,
+      "nonEmptyLines": 15,
+      "functions": [
+        {
+          "name": "test_loss_aversion_applies_price_gap_only_to_sell_action",
+          "startLine": 6,
+          "endLine": 20,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "test_loss_aversion_applies_price_gap_only_to_sell_action",
+          "line": 6,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "test_loss_aversion_applies_price_gap_only_to_sell_action",
+          "callee": "pd.DataFrame",
+          "lineNumber": 7
+        },
+        {
+          "caller": "test_loss_aversion_applies_price_gap_only_to_sell_action",
+          "callee": "build_loss_aversion",
+          "lineNumber": 16
+        },
+        {
+          "caller": "test_loss_aversion_applies_price_gap_only_to_sell_action",
+          "callee": "build_loss_aversion",
+          "lineNumber": 17
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "projectRoot": "/Users/yumin/Desktop/MAC_IRL/MAC_IRL",
+  "batchFiles": [
+    {"path": "src/training/checkpoint.py", "language": "python", "sizeLines": 28, "fileCategory": "code"},
+    {"path": "src/training/losses.py", "language": "python", "sizeLines": 16, "fileCategory": "code"},
+    {"path": "src/training/trainer.py", "language": "python", "sizeLines": 56, "fileCategory": "code"},
+    {"path": "tests/test_losses.py", "language": "python", "sizeLines": 13, "fileCategory": "code"}
+  ],
+  "batchImportData": {
+    "src/training/checkpoint.py": [],
+    "src/training/losses.py": [],
+    "src/training/trainer.py": ["src/training/checkpoint.py", "src/training/losses.py"],
+    "tests/test_losses.py": ["src/training/losses.py"]
+  }
+}

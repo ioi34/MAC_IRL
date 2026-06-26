@@ -1,0 +1,881 @@
+{
+  "scriptCompleted": true,
+  "entryPointCandidates": [
+    {
+      "id": "document:README.md",
+      "score": 5,
+      "name": "README.md",
+      "summary": "MAC-IRL 프로젝트의 메인 문서로 설치, 입력 데이터 규격, 실행 파이프라인(prepare_data·train·evaluate), CPCV 모델 기본값, 보상특징 공식 및 결과 산출물을 안내합니다."
+    },
+    {
+      "id": "file:scripts/train.py",
+      "score": 2,
+      "name": "train.py",
+      "summary": "CPCV 기반 다중 에이전트 IRL 학습 파이프라인의 엔트리 포인트로, 전처리 데이터 로드·스키마 검증·fold별 scaler 학습·투자자별 reward 모델 학습·평가·결과 집계 및 CSV/JSON 산출물 저장을 총괄한다."
+    },
+    {
+      "id": "file:scripts/prepare_data.py",
+      "score": 2,
+      "name": "prepare_data.py",
+      "summary": "데이터 준비 파이프라인의 엔트리포인트 CLI 스크립트로, 일별 프레임 로드부터 전처리, action labeling, feature tensor 생성, 기간 필터링, 학습용 npz 및 메타데이터 저장까지를 오케스트레이션한다."
+    },
+    {
+      "id": "file:tests/test_features.py",
+      "score": 2,
+      "name": "test_features.py",
+      "summary": "전처리·라벨링·feature tensor 빌드 파이프라인을 합성 데이터로 검증하는 테스트로, 이진 action과 4개 reward feature 구성 및 herd feature가 lagged flow만 사용하는지를 확인한다."
+    },
+    {
+      "id": "document:AGENTS.md",
+      "score": 2,
+      "name": "AGENTS.md",
+      "summary": "LLM 코딩 에이전트를 위한 행동 가이드라인 문서로, 가정 명시·단순성 우선·외과적 변경·목표 기반 실행의 네 가지 원칙을 기술합니다."
+    }
+  ],
+  "fanInRanking": [
+    {
+      "id": "file:scripts/train.py",
+      "fanIn": 9,
+      "name": "train.py"
+    },
+    {
+      "id": "file:scripts/run_ablation.py",
+      "fanIn": 5,
+      "name": "run_ablation.py"
+    },
+    {
+      "id": "file:src/utils/config.py",
+      "fanIn": 5,
+      "name": "config.py"
+    },
+    {
+      "id": "file:scripts/prepare_data.py",
+      "fanIn": 4,
+      "name": "prepare_data.py"
+    },
+    {
+      "id": "file:src/features/registry.py",
+      "fanIn": 3,
+      "name": "registry.py"
+    },
+    {
+      "id": "file:src/data/labels.py",
+      "fanIn": 3,
+      "name": "labels.py"
+    },
+    {
+      "id": "file:src/data/average_cost.py",
+      "fanIn": 3,
+      "name": "average_cost.py"
+    },
+    {
+      "id": "file:src/data/splits.py",
+      "fanIn": 2,
+      "name": "splits.py"
+    },
+    {
+      "id": "file:src/features/loss_aversion.py",
+      "fanIn": 2,
+      "name": "loss_aversion.py"
+    },
+    {
+      "id": "file:src/data/preprocess.py",
+      "fanIn": 2,
+      "name": "preprocess.py"
+    },
+    {
+      "id": "file:tests/test_features.py",
+      "fanIn": 2,
+      "name": "test_features.py"
+    },
+    {
+      "id": "file:scripts/evaluate.py",
+      "fanIn": 2,
+      "name": "evaluate.py"
+    },
+    {
+      "id": "file:src/features/scaling.py",
+      "fanIn": 2,
+      "name": "scaling.py"
+    },
+    {
+      "id": "file:src/features/underwater.py",
+      "fanIn": 2,
+      "name": "underwater.py"
+    },
+    {
+      "id": "file:tests/test_average_cost.py",
+      "fanIn": 2,
+      "name": "test_average_cost.py"
+    },
+    {
+      "id": "file:tests/test_no_lookahead.py",
+      "fanIn": 2,
+      "name": "test_no_lookahead.py"
+    },
+    {
+      "id": "file:src/models/mac_irl.py",
+      "fanIn": 2,
+      "name": "mac_irl.py"
+    },
+    {
+      "id": "file:src/training/losses.py",
+      "fanIn": 2,
+      "name": "losses.py"
+    },
+    {
+      "id": "table:samsung_macirl_EXTENDED_2021_2025.csv:samsung_macirl_extended",
+      "fanIn": 2,
+      "name": "samsung_macirl_EXTENDED_2021_2025.csv"
+    },
+    {
+      "id": "file:src/evaluation/interpret.py",
+      "fanIn": 1,
+      "name": "interpret.py"
+    }
+  ],
+  "fanOutRanking": [
+    {
+      "id": "file:scripts/train.py",
+      "fanOut": 11,
+      "name": "train.py"
+    },
+    {
+      "id": "file:src/features/registry.py",
+      "fanOut": 6,
+      "name": "registry.py"
+    },
+    {
+      "id": "file:scripts/prepare_data.py",
+      "fanOut": 5,
+      "name": "prepare_data.py"
+    },
+    {
+      "id": "file:tests/test_features.py",
+      "fanOut": 3,
+      "name": "test_features.py"
+    },
+    {
+      "id": "file:src/models/mac_irl.py",
+      "fanOut": 3,
+      "name": "mac_irl.py"
+    },
+    {
+      "id": "config:configs/data.yaml",
+      "fanOut": 3,
+      "name": "data.yaml"
+    },
+    {
+      "id": "config:configs/experiment.yaml",
+      "fanOut": 3,
+      "name": "experiment.yaml"
+    },
+    {
+      "id": "config:configs/features.yaml",
+      "fanOut": 3,
+      "name": "features.yaml"
+    },
+    {
+      "id": "file:src/data/labels.py",
+      "fanOut": 2,
+      "name": "labels.py"
+    },
+    {
+      "id": "file:src/data/preprocess.py",
+      "fanOut": 2,
+      "name": "preprocess.py"
+    },
+    {
+      "id": "file:scripts/run_ablation.py",
+      "fanOut": 2,
+      "name": "run_ablation.py"
+    },
+    {
+      "id": "file:src/data/average_cost.py",
+      "fanOut": 2,
+      "name": "average_cost.py"
+    },
+    {
+      "id": "file:tests/test_average_cost.py",
+      "fanOut": 2,
+      "name": "test_average_cost.py"
+    },
+    {
+      "id": "file:tests/test_no_lookahead.py",
+      "fanOut": 2,
+      "name": "test_no_lookahead.py"
+    },
+    {
+      "id": "file:src/training/trainer.py",
+      "fanOut": 2,
+      "name": "trainer.py"
+    },
+    {
+      "id": "document:DATA_README.md",
+      "fanOut": 2,
+      "name": "DATA_README.md"
+    },
+    {
+      "id": "config:configs/data_loss_aversion.yaml",
+      "fanOut": 2,
+      "name": "data_loss_aversion.yaml"
+    },
+    {
+      "id": "config:configs/experiment_loss_aversion.yaml",
+      "fanOut": 2,
+      "name": "experiment_loss_aversion.yaml"
+    },
+    {
+      "id": "config:configs/features_loss_aversion.yaml",
+      "fanOut": 2,
+      "name": "features_loss_aversion.yaml"
+    },
+    {
+      "id": "config:configs/model.yaml",
+      "fanOut": 2,
+      "name": "model.yaml"
+    }
+  ],
+  "bfsTraversal": {
+    "startNode": "file:scripts/train.py",
+    "order": [
+      "file:scripts/train.py",
+      "file:src/data/splits.py",
+      "file:src/evaluation/interpret.py",
+      "file:src/evaluation/metrics.py",
+      "file:src/evaluation/reporting.py",
+      "file:src/features/scaling.py",
+      "file:src/models/mac_irl.py",
+      "file:src/training/trainer.py",
+      "file:src/utils/config.py",
+      "file:src/utils/logging.py",
+      "file:src/utils/seed.py",
+      "file:src/models/policy.py",
+      "file:src/models/reward.py",
+      "file:src/training/checkpoint.py",
+      "file:src/training/losses.py"
+    ],
+    "depthMap": {
+      "file:scripts/train.py": 0,
+      "file:src/data/splits.py": 1,
+      "file:src/evaluation/interpret.py": 1,
+      "file:src/evaluation/metrics.py": 1,
+      "file:src/evaluation/reporting.py": 1,
+      "file:src/features/scaling.py": 1,
+      "file:src/models/mac_irl.py": 1,
+      "file:src/training/trainer.py": 1,
+      "file:src/utils/config.py": 1,
+      "file:src/utils/logging.py": 1,
+      "file:src/utils/seed.py": 1,
+      "file:src/models/policy.py": 2,
+      "file:src/models/reward.py": 2,
+      "file:src/training/checkpoint.py": 2,
+      "file:src/training/losses.py": 2
+    },
+    "byDepth": {
+      "0": [
+        "file:scripts/train.py"
+      ],
+      "1": [
+        "file:src/data/splits.py",
+        "file:src/evaluation/interpret.py",
+        "file:src/evaluation/metrics.py",
+        "file:src/evaluation/reporting.py",
+        "file:src/features/scaling.py",
+        "file:src/models/mac_irl.py",
+        "file:src/training/trainer.py",
+        "file:src/utils/config.py",
+        "file:src/utils/logging.py",
+        "file:src/utils/seed.py"
+      ],
+      "2": [
+        "file:src/models/policy.py",
+        "file:src/models/reward.py",
+        "file:src/training/checkpoint.py",
+        "file:src/training/losses.py"
+      ]
+    }
+  },
+  "nonCodeFiles": {
+    "documentation": [
+      {
+        "id": "document:AGENTS.md",
+        "name": "AGENTS.md",
+        "type": "document",
+        "summary": "LLM 코딩 에이전트를 위한 행동 가이드라인 문서로, 가정 명시·단순성 우선·외과적 변경·목표 기반 실행의 네 가지 원칙을 기술합니다."
+      },
+      {
+        "id": "document:CLAUDE.md",
+        "name": "CLAUDE.md",
+        "type": "document",
+        "summary": "Claude Code 에이전트용 행동 지침 문서로 AGENTS.md와 동일한 네 가지 코딩 원칙(사고 우선, 단순성, 외과적 변경, 목표 기반 실행)을 담고 있습니다."
+      },
+      {
+        "id": "document:DATA_README.md",
+        "name": "DATA_README.md",
+        "type": "document",
+        "summary": "삼성전자(005930) 일별 수급·시세·거시 컨텍스트 데이터셋의 컬럼 정의, 데이터 출처(KRX·FinanceDataReader), 검증 결과 및 연구 설계 사용 지침을 설명하는 문서입니다."
+      },
+      {
+        "id": "document:README.md",
+        "name": "README.md",
+        "type": "document",
+        "summary": "MAC-IRL 프로젝트의 메인 문서로 설치, 입력 데이터 규격, 실행 파이프라인(prepare_data·train·evaluate), CPCV 모델 기본값, 보상특징 공식 및 결과 산출물을 안내합니다."
+      },
+      {
+        "id": "document:requirements.txt",
+        "name": "requirements.txt",
+        "type": "document",
+        "summary": "pip 설치용 의존성 목록으로 numpy, pandas, PyYAML, torch, scikit-learn, skfolio, joblib, pytest의 버전 제약을 명시합니다."
+      },
+      {
+        "id": "document:notebooks/README.md",
+        "name": "README.md",
+        "type": "document",
+        "summary": "notebooks 디렉터리의 용도를 설명하는 짧은 안내 문서."
+      }
+    ],
+    "infrastructure": [],
+    "data": [
+      {
+        "id": "table:samsung_macirl_2021_2025_FINAL.csv:samsung_macirl_final",
+        "name": "samsung_macirl_2021_2025_FINAL.csv",
+        "type": "table",
+        "summary": "삼성전자 2021-2025 일별 기본 데이터셋(9열, 약 1,225 거래일)으로 date·close·return·trading_value와 외국인·기관·개인 순매수, usdkrw, kospi200_return을 담은 IRL 입력 데이터입니다."
+      },
+      {
+        "id": "table:samsung_macirl_EXTENDED_2021_2025.csv:samsung_macirl_extended",
+        "name": "samsung_macirl_EXTENDED_2021_2025.csv",
+        "type": "table",
+        "summary": "삼성전자 2021-2025 일별 확장 데이터셋(21열, 약 1,225 거래일)으로 기본 변수에 더해 외국인·기관·개인별 매수·매도 금액·수량을 분리 수록한 권장 IRL 입력 데이터입니다."
+      }
+    ],
+    "config": [
+      {
+        "id": "config:pyproject.toml",
+        "name": "pyproject.toml",
+        "type": "config",
+        "summary": "mac-irl 패키지 매니페스트로 런타임 의존성(torch, pandas, scikit-learn, skfolio 등), dev 추가 의존성(pytest), pytest 설정을 정의합니다."
+      },
+      {
+        "id": "config:configs/data.yaml",
+        "name": "data.yaml",
+        "type": "config",
+        "summary": "원천 일별 CSV 경로, 컬럼 매핑(가격/투자자별 매수·매도 거래), 투자자 유형, action 정의, rolling 분위수 라벨링, 샘플 기간 및 전처리(평균단가 rho 등)를 정의하는 데이터 준비용 설정 파일."
+      },
+      {
+        "id": "config:configs/data_loss_aversion.yaml",
+        "name": "data_loss_aversion.yaml",
+        "type": "config",
+        "summary": "loss aversion 실험 변형용 데이터 설정으로, data.yaml과 동일한 구조를 가지면서 손실회피 시나리오에 맞춘 데이터 준비 파라미터를 제공한다."
+      },
+      {
+        "id": "config:configs/experiment.yaml",
+        "name": "experiment.yaml",
+        "type": "config",
+        "summary": "실험 이름, 출력 디렉터리, 체크포인트 저장 여부 및 feature/L1 ablation 토글을 정의하는 실험 메타 설정 파일."
+      },
+      {
+        "id": "config:configs/experiment_loss_aversion.yaml",
+        "name": "experiment_loss_aversion.yaml",
+        "type": "config",
+        "summary": "loss aversion 실험 변형의 실험 메타 설정으로, 별도의 이름·출력 디렉터리와 ablation 토글을 정의한다."
+      },
+      {
+        "id": "config:configs/features.yaml",
+        "name": "features.yaml",
+        "type": "config",
+        "summary": "선택 feature(underwater, herd, momentum, volatility)와 각 feature의 window 파라미터, 그리고 standard scaling 방식을 정의하는 feature 엔지니어링 설정 파일."
+      },
+      {
+        "id": "config:configs/features_loss_aversion.yaml",
+        "name": "features_loss_aversion.yaml",
+        "type": "config",
+        "summary": "loss aversion 실험 변형의 feature 설정으로, features.yaml과 유사한 feature 선택과 scaling 방식을 손실회피 시나리오에 맞춰 제공한다."
+      },
+      {
+        "id": "config:configs/model.yaml",
+        "name": "model.yaml",
+        "type": "config",
+        "summary": "보상 모델 타입(fixed_linear), 투자자 유형 목록, softmax 온도 tau 등 IRL 보상 모델의 하이퍼파라미터를 정의하는 설정 파일."
+      },
+      {
+        "id": "config:configs/train.yaml",
+        "name": "train.yaml",
+        "type": "config",
+        "summary": "seed, device, epochs, batch_size, learning_rate, L1 정규화 lambda, 그리고 CPCV 교차검증(n_folds, purge/embargo) 파라미터를 정의하는 학습 설정 파일."
+      }
+    ]
+  },
+  "clusters": [
+    {
+      "nodes": [
+        "file:scripts/train.py",
+        "file:src/data/splits.py",
+        "file:src/evaluation/interpret.py",
+        "file:src/evaluation/metrics.py",
+        "file:src/evaluation/reporting.py"
+      ],
+      "edgeCount": 4
+    },
+    {
+      "nodes": [
+        "file:src/features/registry.py",
+        "file:src/features/herd.py",
+        "file:src/features/loss_aversion.py",
+        "file:src/features/momentum.py",
+        "file:src/features/underwater.py"
+      ],
+      "edgeCount": 4
+    },
+    {
+      "nodes": [
+        "file:scripts/prepare_data.py",
+        "file:src/data/labels.py",
+        "file:src/data/loaders.py",
+        "file:src/data/preprocess.py",
+        "file:src/features/registry.py"
+      ],
+      "edgeCount": 4
+    },
+    {
+      "nodes": [
+        "file:src/utils/config.py",
+        "file:scripts/train.py",
+        "file:scripts/prepare_data.py",
+        "file:scripts/evaluate.py",
+        "file:scripts/run_ablation.py"
+      ],
+      "edgeCount": 4
+    },
+    {
+      "nodes": [
+        "file:src/models/mac_irl.py",
+        "file:scripts/train.py",
+        "file:src/models/policy.py",
+        "file:src/models/reward.py",
+        "file:tests/test_model_shapes.py"
+      ],
+      "edgeCount": 4
+    },
+    {
+      "nodes": [
+        "file:tests/test_features.py",
+        "file:src/data/labels.py",
+        "file:src/data/preprocess.py",
+        "file:src/features/registry.py"
+      ],
+      "edgeCount": 3
+    },
+    {
+      "nodes": [
+        "file:src/data/average_cost.py",
+        "file:src/data/preprocess.py",
+        "file:tests/test_average_cost.py",
+        "file:tests/test_no_lookahead.py"
+      ],
+      "edgeCount": 3
+    },
+    {
+      "nodes": [
+        "file:src/training/trainer.py",
+        "file:scripts/train.py",
+        "file:src/training/checkpoint.py",
+        "file:src/training/losses.py"
+      ],
+      "edgeCount": 3
+    },
+    {
+      "nodes": [
+        "file:src/features/scaling.py",
+        "file:scripts/train.py",
+        "file:tests/test_no_lookahead.py"
+      ],
+      "edgeCount": 2
+    }
+  ],
+  "layers": {
+    "count": 9,
+    "list": [
+      {
+        "id": "layer:data",
+        "name": "데이터 파이프라인 계층",
+        "description": "원천 CSV 로딩, 단일종목 전처리, 평균단가 상태 추적, action 라벨링, CPCV 분할까지 IRL 학습 데이터를 준비하는 src/data 모듈군이다."
+      },
+      {
+        "id": "layer:features",
+        "name": "Feature 엔지니어링 계층",
+        "description": "underwater·herd·momentum·volatility·loss_aversion reward feature 빌더와 이를 통합하는 registry, look-ahead 방지 scaler로 (시점·투자자·action·feature) 텐서를 조립하는 src/features 모듈군이다."
+      },
+      {
+        "id": "layer:model",
+        "name": "IRL 모델 계층",
+        "description": "FixedLinearReward와 softmax 정책을 결합해 투자자별 InvestorIRLModel을 구성하는 src/models의 핵심 역강화학습 모델 정의군이다."
+      },
+      {
+        "id": "layer:training",
+        "name": "학습 계층",
+        "description": "NLL+L1 loss, Adam 기반 epoch 학습 루프, checkpoint 저장·복원으로 투자자 모델을 학습시키는 src/training 모듈군이다."
+      },
+      {
+        "id": "layer:evaluation",
+        "name": "평가·해석 계층",
+        "description": "분류 metric 계산, fold별 CV 결과 집계, reward beta 가중치 해석, ablation feature 제거를 담당하는 src/evaluation 모듈군이다."
+      },
+      {
+        "id": "layer:utility",
+        "name": "공용 유틸리티 계층",
+        "description": "YAML config 로딩·병합, 로깅 설정, 재현성 seed 고정 등 전 계층이 공유하는 src/utils 횡단 관심사 유틸리티군이다."
+      },
+      {
+        "id": "layer:orchestration",
+        "name": "오케스트레이션 스크립트 계층",
+        "description": "데이터 수집·준비, CPCV 학습, 평가, ablation 실험을 CLI 엔트리포인트로 총괄 실행하는 scripts 및 데이터 수집 스크립트군이다."
+      },
+      {
+        "id": "layer:test",
+        "name": "테스트 계층",
+        "description": "CPCV 분할, no-lookahead, feature·라벨링·loss·모델 shape·스키마 무결성을 검증하는 pytest 단위/회귀 테스트 스위트이다."
+      },
+      {
+        "id": "layer:config",
+        "name": "설정·문서·데이터셋 계층",
+        "description": "data/feature/model/train/experiment YAML 설정과 loss_aversion 변형, 패키지 매니페스트, 프로젝트·데이터 문서, 삼성전자 입력 CSV 데이터셋을 묶은 프로젝트 지원 자원군이다."
+      }
+    ]
+  },
+  "nodeSummaryIndex": {
+    "file:scripts/train.py": {
+      "name": "train.py",
+      "type": "file",
+      "summary": "CPCV 기반 다중 에이전트 IRL 학습 파이프라인의 엔트리 포인트로, 전처리 데이터 로드·스키마 검증·fold별 scaler 학습·투자자별 reward 모델 학습·평가·결과 집계 및 CSV/JSON 산출물 저장을 총괄한다."
+    },
+    "file:src/data/splits.py": {
+      "name": "splits.py",
+      "type": "file",
+      "summary": "skfolio의 CombinatorialPurgedCV를 config로부터 구성하고 test fold들을 단일 인덱스 배열로 결합하는 CPCV 분할 유틸리티를 제공한다."
+    },
+    "file:src/evaluation/interpret.py": {
+      "name": "interpret.py",
+      "type": "file",
+      "summary": "학습된 reward 모델의 beta 가중치를 feature별 DataFrame으로 추출하고 투자자/feature 단위로 평균·부호 일관성 등을 요약하여 reward 함수 해석 결과를 제공한다."
+    },
+    "file:src/evaluation/metrics.py": {
+      "name": "metrics.py",
+      "type": "file",
+      "summary": "모델 logits와 라벨로부터 accuracy, F1, log_loss, confusion matrix 등 이진 분류 평가 지표를 계산하는 함수를 제공한다."
+    },
+    "file:src/evaluation/reporting.py": {
+      "name": "reporting.py",
+      "type": "file",
+      "summary": "fold별 CV 평가 지표를 long 포맷으로 변환한 뒤 투자자·metric 단위로 평균·표준편차를 집계하여 교차검증 결과 요약 테이블을 생성한다."
+    },
+    "file:src/utils/logging.py": {
+      "name": "logging.py",
+      "type": "file",
+      "summary": "콘솔과 출력 디렉터리 파일 핸들러를 함께 설정하는 표준 로깅 구성 유틸리티를 제공한다."
+    },
+    "file:src/utils/seed.py": {
+      "name": "seed.py",
+      "type": "file",
+      "summary": "random·numpy·torch 및 CUDA 시드를 일괄 설정하여 학습 재현성을 보장하는 유틸리티를 제공한다."
+    },
+    "file:tests/test_cpcv.py": {
+      "name": "test_cpcv.py",
+      "type": "file",
+      "summary": "CombinatorialPurgedCV가 45개의 서로소(disjoint) train/test split을 생성하고 결합된 test fold가 전체 인덱스를 정확히 커버하는지 검증하는 테스트이다."
+    },
+    "file:tests/test_processed_schema.py": {
+      "name": "test_processed_schema.py",
+      "type": "file",
+      "summary": "validate_processed_schema가 feature_names 누락 등 stale 데이터셋과 feature 의미 불일치를 ValueError로 거부하는지 검증하는 테스트이다."
+    },
+    "file:src/features/herd.py": {
+      "name": "herd.py",
+      "type": "file",
+      "summary": "다른 투자자들의 lagged underwater 플로우 평균을 herd 신호로 계산하는 reward feature 모듈로, build_herd가 registry에서 호출되는 빌더 인터페이스를 제공한다."
+    },
+    "file:src/features/loss_aversion.py": {
+      "name": "loss_aversion.py",
+      "type": "file",
+      "summary": "참조 가격 대비 현재 가격 하락 갭(loss gap)을 계산하는 reward feature 모듈로, sell action에만 손실 회피 신호를 적용하는 build_loss_aversion 빌더를 노출한다."
+    },
+    "file:src/features/momentum.py": {
+      "name": "momentum.py",
+      "type": "file",
+      "summary": "window 기간의 로그 가격 수익률을 momentum 신호로 계산하는 reward feature 모듈로, build_momentum 빌더 인터페이스를 제공한다."
+    },
+    "file:src/features/registry.py": {
+      "name": "registry.py",
+      "type": "file",
+      "summary": "모든 reward feature 빌더(underwater/loss_aversion/herd/momentum/volatility)를 FEATURE_REGISTRY로 통합하고, config 기반으로 (시점·투자자·action·feature) 4차원 feature 텐서를 조립하는 중앙 레지스트리 모듈이다."
+    },
+    "file:src/features/volatility.py": {
+      "name": "volatility.py",
+      "type": "file",
+      "summary": "로그 수익률의 window 기간 rolling 표준편차로 변동성을 계산하는 reward feature 모듈로, build_volatility 빌더 인터페이스를 제공한다."
+    },
+    "file:tests/test_feature_modules.py": {
+      "name": "test_feature_modules.py",
+      "type": "file",
+      "summary": "FEATURE_REGISTRY의 각 reward feature가 자신의 고유 모듈에 의해 소유되는지 검증하는 단위 테스트이다."
+    },
+    "file:tests/test_loss_aversion.py": {
+      "name": "test_loss_aversion.py",
+      "type": "file",
+      "summary": "build_loss_aversion이 가격 하락 갭을 sell action에만 적용하는지 확인하는 단위 테스트이다."
+    },
+    "file:scripts/prepare_data.py": {
+      "name": "prepare_data.py",
+      "type": "file",
+      "summary": "데이터 준비 파이프라인의 엔트리포인트 CLI 스크립트로, 일별 프레임 로드부터 전처리, action labeling, feature tensor 생성, 기간 필터링, 학습용 npz 및 메타데이터 저장까지를 오케스트레이션한다."
+    },
+    "file:src/data/labels.py": {
+      "name": "labels.py",
+      "type": "file",
+      "summary": "투자자별 net buy flow를 rolling quantile 기준으로 이진 action label(매수/관망)로 변환하고, t 시점 feature에 대해 t+1 행동을 타겟으로 정렬하는 라벨링 유틸리티."
+    },
+    "file:src/data/loaders.py": {
+      "name": "loaders.py",
+      "type": "file",
+      "summary": "CSV/Parquet 형식의 일별 원천 데이터를 확장자에 따라 읽어 DataFrame으로 반환하는 경량 데이터 로더."
+    },
+    "file:src/data/preprocess.py": {
+      "name": "preprocess.py",
+      "type": "file",
+      "summary": "원천 일별 프레임을 단일 종목 기준으로 필터링하고 가격·거래대금·투자자 net trade 컬럼을 정규화·정렬·결측 처리한 뒤 average cost state를 부가하는 전처리 모듈."
+    },
+    "file:tests/test_features.py": {
+      "name": "test_features.py",
+      "type": "file",
+      "summary": "전처리·라벨링·feature tensor 빌드 파이프라인을 합성 데이터로 검증하는 테스트로, 이진 action과 4개 reward feature 구성 및 herd feature가 lagged flow만 사용하는지를 확인한다."
+    },
+    "file:tests/test_labels.py": {
+      "name": "test_labels.py",
+      "type": "file",
+      "summary": "이진 action label이 과거 window만 사용하는지와 t 시점 feature가 t+1 행동을 타겟으로 정렬되는지를 검증하는 라벨링 단위 테스트."
+    },
+    "file:scripts/evaluate.py": {
+      "name": "evaluate.py",
+      "type": "file",
+      "summary": "학습된 모델의 평가 지표와 보상 가중치를 출력하는 평가 entry script로, config를 로드한 뒤 결과 CSV를 읽어 콘솔에 표시한다."
+    },
+    "file:scripts/run_ablation.py": {
+      "name": "run_ablation.py",
+      "type": "file",
+      "summary": "정의된 ablation 조합별로 feature를 제거한 config를 생성하고 subprocess로 학습·평가 파이프라인을 실행하는 ablation 실험 entry script."
+    },
+    "file:src/evaluation/ablation.py": {
+      "name": "ablation.py",
+      "type": "file",
+      "summary": "ablation 실험을 위해 config에서 지정된 feature 목록을 제거한 deep copy를 반환하는 유틸 모듈."
+    },
+    "file:src/utils/config.py": {
+      "name": "config.py",
+      "type": "file",
+      "summary": "프로젝트 전반에서 사용하는 YAML config 로더로, 여러 config 파일을 deep_merge로 병합해 단일 설정을 만들고 dump_yaml로 직렬화하는 헬퍼를 제공한다."
+    },
+    "file:tests/test_config.py": {
+      "name": "test_config.py",
+      "type": "file",
+      "summary": "기본 feature config가 registry 스키마와 일치하는지 검증하는 config 로더 단위 테스트."
+    },
+    "file:src/data/average_cost.py": {
+      "name": "average_cost.py",
+      "type": "file",
+      "summary": "투자자별 매수/매도 거래로부터 평균단가(average cost) 기반 보유 상태를 시점별로 추적하고, trade VWAP과 평단 대비 underwater 노출을 산출하는 핵심 상태 추적 모듈."
+    },
+    "file:src/features/scaling.py": {
+      "name": "scaling.py",
+      "type": "file",
+      "summary": "train 구간 인덱스만으로 StandardScaler를 적합하여 look-ahead를 방지하고, feature tensor 변환 및 scaler 저장/로드를 담당하는 특징 스케일링 유틸리티."
+    },
+    "file:src/features/underwater.py": {
+      "name": "underwater.py",
+      "type": "file",
+      "summary": "average cost 상태 데이터프레임에서 특정 투자자/액션의 underwater 컬럼을 선택해 반환하는 얇은 feature 추출 함수."
+    },
+    "file:tests/test_average_cost.py": {
+      "name": "test_average_cost.py",
+      "type": "file",
+      "summary": "average cost 상태 추적의 inventory 갱신, trade VWAP, underwater 노출, 입력 검증 동작을 검증하는 단위 테스트."
+    },
+    "file:tests/test_no_lookahead.py": {
+      "name": "test_no_lookahead.py",
+      "type": "file",
+      "summary": "StandardScaler가 train 인덱스만 사용하는지, 미래 거래가 현재 average cost 상태를 변경하지 않는지를 검증하는 no-lookahead 회귀 테스트."
+    },
+    "file:src/models/mac_irl.py": {
+      "name": "mac_irl.py",
+      "type": "file",
+      "summary": "단일 투자자 에이전트를 위한 핵심 IRL 모델로, FixedLinearReward를 감싸 reward와 softmax 정책 logits, L1 정규화를 한 모듈로 결합한다."
+    },
+    "file:src/models/policy.py": {
+      "name": "policy.py",
+      "type": "file",
+      "summary": "온도 파라미터 tau를 적용한 softmax 정책 함수를 제공하여 reward 벡터를 action logits 및 확률 분포로 변환한다."
+    },
+    "file:src/models/reward.py": {
+      "name": "reward.py",
+      "type": "file",
+      "summary": "학습 가능한 beta 가중치로 R = beta^T phi 형태의 고정 linear reward를 계산하는 PyTorch 모듈과 L1 정규화 penalty를 정의한다."
+    },
+    "file:tests/test_model_shapes.py": {
+      "name": "test_model_shapes.py",
+      "type": "file",
+      "summary": "InvestorIRLModel의 출력 shape를 검증하고 서로 다른 투자자 모델이 reward 가중치를 공유하지 않음을 확인하는 pytest 테스트이다."
+    },
+    "file:src/training/checkpoint.py": {
+      "name": "checkpoint.py",
+      "type": "file",
+      "summary": "모델·optimizer state_dict와 epoch, metrics를 torch.save/torch.load로 직렬화하는 checkpoint 저장·복원 유틸리티를 제공한다."
+    },
+    "file:src/training/losses.py": {
+      "name": "losses.py",
+      "type": "file",
+      "summary": "행동 모방을 위한 NLL(cross-entropy) loss와 L1 penalty를 결합한 regularized loss를 정의하는 IRL 학습 손실 함수 모듈이다."
+    },
+    "file:src/training/trainer.py": {
+      "name": "trainer.py",
+      "type": "file",
+      "summary": "단일 투자자 모델에 대한 epoch 단위 학습 루프로, device 선택·Adam optimizer 구성·NLL+L1 loss 역전파·checkpoint 저장을 수행한다."
+    },
+    "file:tests/test_losses.py": {
+      "name": "test_losses.py",
+      "type": "file",
+      "summary": "단일 투자자 설정에서 loss에 investor 차원 합산이 없음을 검증하는 behavior_nll·regularized_loss 단위 테스트이다."
+    },
+    "document:AGENTS.md": {
+      "name": "AGENTS.md",
+      "type": "document",
+      "summary": "LLM 코딩 에이전트를 위한 행동 가이드라인 문서로, 가정 명시·단순성 우선·외과적 변경·목표 기반 실행의 네 가지 원칙을 기술합니다."
+    },
+    "document:CLAUDE.md": {
+      "name": "CLAUDE.md",
+      "type": "document",
+      "summary": "Claude Code 에이전트용 행동 지침 문서로 AGENTS.md와 동일한 네 가지 코딩 원칙(사고 우선, 단순성, 외과적 변경, 목표 기반 실행)을 담고 있습니다."
+    },
+    "document:DATA_README.md": {
+      "name": "DATA_README.md",
+      "type": "document",
+      "summary": "삼성전자(005930) 일별 수급·시세·거시 컨텍스트 데이터셋의 컬럼 정의, 데이터 출처(KRX·FinanceDataReader), 검증 결과 및 연구 설계 사용 지침을 설명하는 문서입니다."
+    },
+    "document:README.md": {
+      "name": "README.md",
+      "type": "document",
+      "summary": "MAC-IRL 프로젝트의 메인 문서로 설치, 입력 데이터 규격, 실행 파이프라인(prepare_data·train·evaluate), CPCV 모델 기본값, 보상특징 공식 및 결과 산출물을 안내합니다."
+    },
+    "config:pyproject.toml": {
+      "name": "pyproject.toml",
+      "type": "config",
+      "summary": "mac-irl 패키지 매니페스트로 런타임 의존성(torch, pandas, scikit-learn, skfolio 등), dev 추가 의존성(pytest), pytest 설정을 정의합니다."
+    },
+    "document:requirements.txt": {
+      "name": "requirements.txt",
+      "type": "document",
+      "summary": "pip 설치용 의존성 목록으로 numpy, pandas, PyYAML, torch, scikit-learn, skfolio, joblib, pytest의 버전 제약을 명시합니다."
+    },
+    "table:samsung_macirl_2021_2025_FINAL.csv:samsung_macirl_final": {
+      "name": "samsung_macirl_2021_2025_FINAL.csv",
+      "type": "table",
+      "summary": "삼성전자 2021-2025 일별 기본 데이터셋(9열, 약 1,225 거래일)으로 date·close·return·trading_value와 외국인·기관·개인 순매수, usdkrw, kospi200_return을 담은 IRL 입력 데이터입니다."
+    },
+    "table:samsung_macirl_EXTENDED_2021_2025.csv:samsung_macirl_extended": {
+      "name": "samsung_macirl_EXTENDED_2021_2025.csv",
+      "type": "table",
+      "summary": "삼성전자 2021-2025 일별 확장 데이터셋(21열, 약 1,225 거래일)으로 기본 변수에 더해 외국인·기관·개인별 매수·매도 금액·수량을 분리 수록한 권장 IRL 입력 데이터입니다."
+    },
+    "config:configs/data.yaml": {
+      "name": "data.yaml",
+      "type": "config",
+      "summary": "원천 일별 CSV 경로, 컬럼 매핑(가격/투자자별 매수·매도 거래), 투자자 유형, action 정의, rolling 분위수 라벨링, 샘플 기간 및 전처리(평균단가 rho 등)를 정의하는 데이터 준비용 설정 파일."
+    },
+    "config:configs/data_loss_aversion.yaml": {
+      "name": "data_loss_aversion.yaml",
+      "type": "config",
+      "summary": "loss aversion 실험 변형용 데이터 설정으로, data.yaml과 동일한 구조를 가지면서 손실회피 시나리오에 맞춘 데이터 준비 파라미터를 제공한다."
+    },
+    "config:configs/experiment.yaml": {
+      "name": "experiment.yaml",
+      "type": "config",
+      "summary": "실험 이름, 출력 디렉터리, 체크포인트 저장 여부 및 feature/L1 ablation 토글을 정의하는 실험 메타 설정 파일."
+    },
+    "config:configs/experiment_loss_aversion.yaml": {
+      "name": "experiment_loss_aversion.yaml",
+      "type": "config",
+      "summary": "loss aversion 실험 변형의 실험 메타 설정으로, 별도의 이름·출력 디렉터리와 ablation 토글을 정의한다."
+    },
+    "config:configs/features.yaml": {
+      "name": "features.yaml",
+      "type": "config",
+      "summary": "선택 feature(underwater, herd, momentum, volatility)와 각 feature의 window 파라미터, 그리고 standard scaling 방식을 정의하는 feature 엔지니어링 설정 파일."
+    },
+    "config:configs/features_loss_aversion.yaml": {
+      "name": "features_loss_aversion.yaml",
+      "type": "config",
+      "summary": "loss aversion 실험 변형의 feature 설정으로, features.yaml과 유사한 feature 선택과 scaling 방식을 손실회피 시나리오에 맞춰 제공한다."
+    },
+    "config:configs/model.yaml": {
+      "name": "model.yaml",
+      "type": "config",
+      "summary": "보상 모델 타입(fixed_linear), 투자자 유형 목록, softmax 온도 tau 등 IRL 보상 모델의 하이퍼파라미터를 정의하는 설정 파일."
+    },
+    "config:configs/train.yaml": {
+      "name": "train.yaml",
+      "type": "config",
+      "summary": "seed, device, epochs, batch_size, learning_rate, L1 정규화 lambda, 그리고 CPCV 교차검증(n_folds, purge/embargo) 파라미터를 정의하는 학습 설정 파일."
+    },
+    "file:collect_base.py": {
+      "name": "collect_base.py",
+      "type": "file",
+      "summary": "FinanceDataReader를 사용해 단일종목 OHLCV, KOSPI200, USD/KRW 시계열을 수집하고 결측치를 보정한 뒤 baseline CSV로 저장하는 독립 실행형 데이터 수집 스크립트."
+    },
+    "document:notebooks/README.md": {
+      "name": "README.md",
+      "type": "document",
+      "summary": "notebooks 디렉터리의 용도를 설명하는 짧은 안내 문서."
+    },
+    "file:scripts/__init__.py": {
+      "name": "__init__.py",
+      "type": "file",
+      "summary": "MAC-IRL 실험용 CLI 진입점을 묶는 scripts 패키지 마커."
+    },
+    "file:src/__init__.py": {
+      "name": "__init__.py",
+      "type": "file",
+      "summary": "MAC-IRL 연구 코드의 최상위 src 패키지 마커."
+    },
+    "file:src/data/__init__.py": {
+      "name": "__init__.py",
+      "type": "file",
+      "summary": "데이터 로딩, 라벨링, 분할, 데이터셋 유틸리티를 담는 src.data 패키지 마커."
+    },
+    "file:src/evaluation/__init__.py": {
+      "name": "__init__.py",
+      "type": "file",
+      "summary": "평가 및 해석 헬퍼를 담는 src.evaluation 패키지 마커."
+    },
+    "file:src/features/__init__.py": {
+      "name": "__init__.py",
+      "type": "file",
+      "summary": "보상 특징(reward feature) 구성 유틸리티를 담는 src.features 패키지 마커."
+    },
+    "file:src/models/__init__.py": {
+      "name": "__init__.py",
+      "type": "file",
+      "summary": "MAC-IRL 모델 구성요소를 담는 src.models 패키지 마커."
+    },
+    "file:src/training/__init__.py": {
+      "name": "__init__.py",
+      "type": "file",
+      "summary": "학습 루프, 손실 함수, 체크포인팅을 담는 src.training 패키지 마커."
+    },
+    "file:src/utils/__init__.py": {
+      "name": "__init__.py",
+      "type": "file",
+      "summary": "공용 유틸리티를 담는 src.utils 패키지 마커."
+    }
+  },
+  "totalNodes": 66,
+  "totalEdges": 80
+}

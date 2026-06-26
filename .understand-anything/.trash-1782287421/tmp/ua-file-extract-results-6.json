@@ -1,0 +1,280 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 4,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "src/models/mac_irl.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 21,
+      "nonEmptyLines": 15,
+      "classes": [
+        {
+          "name": "InvestorIRLModel",
+          "startLine": 10,
+          "endLine": 21,
+          "methods": [
+            "__init__",
+            "forward",
+            "l1_penalty"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "InvestorIRLModel",
+          "line": 10,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "__init__",
+          "callee": "super().__init__",
+          "lineNumber": 12
+        },
+        {
+          "caller": "__init__",
+          "callee": "super",
+          "lineNumber": 12
+        },
+        {
+          "caller": "__init__",
+          "callee": "FixedLinearReward",
+          "lineNumber": 14
+        },
+        {
+          "caller": "forward",
+          "callee": "self.reward_model",
+          "lineNumber": 17
+        },
+        {
+          "caller": "forward",
+          "callee": "reward_logits",
+          "lineNumber": 18
+        },
+        {
+          "caller": "l1_penalty",
+          "callee": "self.reward_model.l1_penalty",
+          "lineNumber": 21
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "src/models/policy.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 14,
+      "nonEmptyLines": 8,
+      "functions": [
+        {
+          "name": "reward_logits",
+          "startLine": 6,
+          "endLine": 9,
+          "params": [
+            "rewards",
+            "tau"
+          ]
+        },
+        {
+          "name": "action_probabilities",
+          "startLine": 12,
+          "endLine": 13,
+          "params": [
+            "rewards",
+            "tau"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "reward_logits",
+          "line": 6,
+          "isDefault": false
+        },
+        {
+          "name": "action_probabilities",
+          "line": 12,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "reward_logits",
+          "callee": "ValueError",
+          "lineNumber": 8
+        },
+        {
+          "caller": "action_probabilities",
+          "callee": "torch.softmax",
+          "lineNumber": 13
+        },
+        {
+          "caller": "action_probabilities",
+          "callee": "reward_logits",
+          "lineNumber": 13
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 2,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/models/reward.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 16,
+      "nonEmptyLines": 11,
+      "classes": [
+        {
+          "name": "FixedLinearReward",
+          "startLine": 7,
+          "endLine": 16,
+          "methods": [
+            "__init__",
+            "forward",
+            "l1_penalty"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "FixedLinearReward",
+          "line": 7,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "__init__",
+          "callee": "super().__init__",
+          "lineNumber": 9
+        },
+        {
+          "caller": "__init__",
+          "callee": "super",
+          "lineNumber": 9
+        },
+        {
+          "caller": "__init__",
+          "callee": "nn.Parameter",
+          "lineNumber": 10
+        },
+        {
+          "caller": "__init__",
+          "callee": "torch.zeros",
+          "lineNumber": 10
+        },
+        {
+          "caller": "forward",
+          "callee": "torch.einsum",
+          "lineNumber": 13
+        },
+        {
+          "caller": "l1_penalty",
+          "callee": "self.beta.abs().sum",
+          "lineNumber": 16
+        },
+        {
+          "caller": "l1_penalty",
+          "callee": "self.beta.abs",
+          "lineNumber": 16
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "tests/test_model_shapes.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 19,
+      "nonEmptyLines": 12,
+      "functions": [
+        {
+          "name": "test_independent_investor_model_output_shape",
+          "startLine": 6,
+          "endLine": 12,
+          "params": []
+        },
+        {
+          "name": "test_investor_models_do_not_share_reward_weights",
+          "startLine": 15,
+          "endLine": 19,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "test_independent_investor_model_output_shape",
+          "line": 6,
+          "isDefault": false
+        },
+        {
+          "name": "test_investor_models_do_not_share_reward_weights",
+          "line": 15,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "test_independent_investor_model_output_shape",
+          "callee": "InvestorIRLModel",
+          "lineNumber": 7
+        },
+        {
+          "caller": "test_independent_investor_model_output_shape",
+          "callee": "torch.randn",
+          "lineNumber": 8
+        },
+        {
+          "caller": "test_independent_investor_model_output_shape",
+          "callee": "model",
+          "lineNumber": 9
+        },
+        {
+          "caller": "test_investor_models_do_not_share_reward_weights",
+          "callee": "InvestorIRLModel",
+          "lineNumber": 16
+        },
+        {
+          "caller": "test_investor_models_do_not_share_reward_weights",
+          "callee": "InvestorIRLModel",
+          "lineNumber": 17
+        },
+        {
+          "caller": "test_investor_models_do_not_share_reward_weights",
+          "callee": "foreign.reward_model.beta.data_ptr",
+          "lineNumber": 19
+        },
+        {
+          "caller": "test_investor_models_do_not_share_reward_weights",
+          "callee": "retail.reward_model.beta.data_ptr",
+          "lineNumber": 19
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 2,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    }
+  ]
+}

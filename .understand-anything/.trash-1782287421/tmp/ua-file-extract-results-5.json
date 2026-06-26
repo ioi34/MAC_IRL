@@ -1,0 +1,789 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 5,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "src/data/average_cost.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 101,
+      "nonEmptyLines": 89,
+      "functions": [
+        {
+          "name": "calculate_average_cost_state",
+          "startLine": 7,
+          "endLine": 85,
+          "params": [
+            "buy_quantity",
+            "sell_quantity",
+            "buy_value",
+            "sell_value",
+            "rho"
+          ]
+        },
+        {
+          "name": "add_average_cost_states",
+          "startLine": 88,
+          "endLine": 101,
+          "params": [
+            "df",
+            "config"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "calculate_average_cost_state",
+          "line": 7,
+          "isDefault": false
+        },
+        {
+          "name": "add_average_cost_states",
+          "line": 88,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "calculate_average_cost_state",
+          "callee": "ValueError",
+          "lineNumber": 15
+        },
+        {
+          "caller": "calculate_average_cost_state",
+          "callee": "pd.DataFrame(\n        {\n            \"buy_quantity\": pd.to_numeric(buy_quantity, errors=\"raise\"),\n            \"sell_quantity\": pd.to_numeric(sell_quantity, errors=\"raise\"),\n            \"buy_value\": pd.to_numeric(buy_value, errors=\"raise\"),\n            \"sell_value\": pd.to_numeric(sell_value, errors=\"raise\"),\n        },\n        index=buy_quantity.index,\n    ).astype",
+          "lineNumber": 17
+        },
+        {
+          "caller": "calculate_average_cost_state",
+          "callee": "pd.DataFrame",
+          "lineNumber": 17
+        },
+        {
+          "caller": "calculate_average_cost_state",
+          "callee": "pd.to_numeric",
+          "lineNumber": 19
+        },
+        {
+          "caller": "calculate_average_cost_state",
+          "callee": "pd.to_numeric",
+          "lineNumber": 20
+        },
+        {
+          "caller": "calculate_average_cost_state",
+          "callee": "pd.to_numeric",
+          "lineNumber": 21
+        },
+        {
+          "caller": "calculate_average_cost_state",
+          "callee": "pd.to_numeric",
+          "lineNumber": 22
+        },
+        {
+          "caller": "calculate_average_cost_state",
+          "callee": "np.isfinite(values.to_numpy()).all",
+          "lineNumber": 26
+        },
+        {
+          "caller": "calculate_average_cost_state",
+          "callee": "np.isfinite",
+          "lineNumber": 26
+        },
+        {
+          "caller": "calculate_average_cost_state",
+          "callee": "values.to_numpy",
+          "lineNumber": 26
+        },
+        {
+          "caller": "calculate_average_cost_state",
+          "callee": "ValueError",
+          "lineNumber": 27
+        },
+        {
+          "caller": "calculate_average_cost_state",
+          "callee": "(values < 0).any().any",
+          "lineNumber": 28
+        },
+        {
+          "caller": "calculate_average_cost_state",
+          "callee": "(values < 0).any",
+          "lineNumber": 28
+        },
+        {
+          "caller": "calculate_average_cost_state",
+          "callee": "ValueError",
+          "lineNumber": 29
+        },
+        {
+          "caller": "calculate_average_cost_state",
+          "callee": "((values[\"buy_quantity\"] == 0) & (values[\"buy_value\"] != 0)).any",
+          "lineNumber": 30
+        },
+        {
+          "caller": "calculate_average_cost_state",
+          "callee": "ValueError",
+          "lineNumber": 31
+        },
+        {
+          "caller": "calculate_average_cost_state",
+          "callee": "((values[\"sell_quantity\"] == 0) & (values[\"sell_value\"] != 0)).any",
+          "lineNumber": 32
+        },
+        {
+          "caller": "calculate_average_cost_state",
+          "callee": "ValueError",
+          "lineNumber": 33
+        },
+        {
+          "caller": "calculate_average_cost_state",
+          "callee": "((values[\"buy_quantity\"] > 0) & (values[\"buy_value\"] <= 0)).any",
+          "lineNumber": 34
+        },
+        {
+          "caller": "calculate_average_cost_state",
+          "callee": "ValueError",
+          "lineNumber": 35
+        },
+        {
+          "caller": "calculate_average_cost_state",
+          "callee": "((values[\"sell_quantity\"] > 0) & (values[\"sell_value\"] <= 0)).any",
+          "lineNumber": 36
+        },
+        {
+          "caller": "calculate_average_cost_state",
+          "callee": "ValueError",
+          "lineNumber": 37
+        },
+        {
+          "caller": "calculate_average_cost_state",
+          "callee": "values[\"buy_value\"].div",
+          "lineNumber": 39
+        },
+        {
+          "caller": "calculate_average_cost_state",
+          "callee": "values[\"buy_quantity\"].replace",
+          "lineNumber": 39
+        },
+        {
+          "caller": "calculate_average_cost_state",
+          "callee": "values[\"sell_value\"].div",
+          "lineNumber": 40
+        },
+        {
+          "caller": "calculate_average_cost_state",
+          "callee": "values[\"sell_quantity\"].replace",
+          "lineNumber": 40
+        },
+        {
+          "caller": "calculate_average_cost_state",
+          "callee": "(values[\"buy_value\"] + values[\"sell_value\"]).div",
+          "lineNumber": 42
+        },
+        {
+          "caller": "calculate_average_cost_state",
+          "callee": "total_quantity.replace",
+          "lineNumber": 43
+        },
+        {
+          "caller": "calculate_average_cost_state",
+          "callee": "np.zeros",
+          "lineNumber": 46
+        },
+        {
+          "caller": "calculate_average_cost_state",
+          "callee": "len",
+          "lineNumber": 46
+        },
+        {
+          "caller": "calculate_average_cost_state",
+          "callee": "np.full",
+          "lineNumber": 47
+        },
+        {
+          "caller": "calculate_average_cost_state",
+          "callee": "len",
+          "lineNumber": 47
+        },
+        {
+          "caller": "calculate_average_cost_state",
+          "callee": "enumerate",
+          "lineNumber": 51
+        },
+        {
+          "caller": "calculate_average_cost_state",
+          "callee": "values.itertuples",
+          "lineNumber": 51
+        },
+        {
+          "caller": "calculate_average_cost_state",
+          "callee": "max",
+          "lineNumber": 53
+        },
+        {
+          "caller": "calculate_average_cost_state",
+          "callee": "max",
+          "lineNumber": 54
+        },
+        {
+          "caller": "calculate_average_cost_state",
+          "callee": "pd.Series",
+          "lineNumber": 73
+        },
+        {
+          "caller": "calculate_average_cost_state",
+          "callee": "((average_cost - trade_vwap) / average_cost).clip(lower=0).fillna",
+          "lineNumber": 74
+        },
+        {
+          "caller": "calculate_average_cost_state",
+          "callee": "((average_cost - trade_vwap) / average_cost).clip",
+          "lineNumber": 74
+        },
+        {
+          "caller": "calculate_average_cost_state",
+          "callee": "pd.DataFrame",
+          "lineNumber": 75
+        },
+        {
+          "caller": "add_average_cost_states",
+          "callee": "df.copy",
+          "lineNumber": 89
+        },
+        {
+          "caller": "add_average_cost_states",
+          "callee": "float",
+          "lineNumber": 90
+        },
+        {
+          "caller": "add_average_cost_states",
+          "callee": "config[\"columns\"][\"investor_trades\"].items",
+          "lineNumber": 91
+        },
+        {
+          "caller": "add_average_cost_states",
+          "callee": "calculate_average_cost_state",
+          "lineNumber": 92
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 2,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/features/scaling.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 28,
+      "nonEmptyLines": 18,
+      "functions": [
+        {
+          "name": "fit_feature_scaler",
+          "startLine": 10,
+          "endLine": 12,
+          "params": [
+            "features",
+            "train_indices"
+          ]
+        },
+        {
+          "name": "transform_feature_tensor",
+          "startLine": 15,
+          "endLine": 18,
+          "params": [
+            "features",
+            "scaler"
+          ]
+        },
+        {
+          "name": "save_feature_scaler",
+          "startLine": 21,
+          "endLine": 24,
+          "params": [
+            "scaler",
+            "path"
+          ]
+        },
+        {
+          "name": "load_feature_scaler",
+          "startLine": 27,
+          "endLine": 28,
+          "params": [
+            "path"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "fit_feature_scaler",
+          "line": 10,
+          "isDefault": false
+        },
+        {
+          "name": "transform_feature_tensor",
+          "line": 15,
+          "isDefault": false
+        },
+        {
+          "name": "save_feature_scaler",
+          "line": 21,
+          "isDefault": false
+        },
+        {
+          "name": "load_feature_scaler",
+          "line": 27,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "fit_feature_scaler",
+          "callee": "StandardScaler().fit",
+          "lineNumber": 12
+        },
+        {
+          "caller": "fit_feature_scaler",
+          "callee": "StandardScaler",
+          "lineNumber": 12
+        },
+        {
+          "caller": "fit_feature_scaler",
+          "callee": "train.reshape",
+          "lineNumber": 12
+        },
+        {
+          "caller": "transform_feature_tensor",
+          "callee": "scaler.transform",
+          "lineNumber": 17
+        },
+        {
+          "caller": "transform_feature_tensor",
+          "callee": "features.reshape",
+          "lineNumber": 17
+        },
+        {
+          "caller": "transform_feature_tensor",
+          "callee": "transformed.reshape(shape).astype",
+          "lineNumber": 18
+        },
+        {
+          "caller": "transform_feature_tensor",
+          "callee": "transformed.reshape",
+          "lineNumber": 18
+        },
+        {
+          "caller": "save_feature_scaler",
+          "callee": "Path",
+          "lineNumber": 22
+        },
+        {
+          "caller": "save_feature_scaler",
+          "callee": "target.parent.mkdir",
+          "lineNumber": 23
+        },
+        {
+          "caller": "save_feature_scaler",
+          "callee": "joblib.dump",
+          "lineNumber": 24
+        },
+        {
+          "caller": "load_feature_scaler",
+          "callee": "joblib.load",
+          "lineNumber": 28
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 4,
+        "functionCount": 4,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/features/underwater.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 7,
+      "nonEmptyLines": 4,
+      "functions": [
+        {
+          "name": "build_underwater",
+          "startLine": 6,
+          "endLine": 7,
+          "params": [
+            "df",
+            "config",
+            "investor",
+            "action"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "build_underwater",
+          "line": 6,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "tests/test_average_cost.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 70,
+      "nonEmptyLines": 54,
+      "functions": [
+        {
+          "name": "test_average_cost_state_updates_inventory_and_uses_trade_vwap",
+          "startLine": 9,
+          "endLine": 23,
+          "params": []
+        },
+        {
+          "name": "test_sales_beyond_old_inventory_leave_new_buys_at_buy_vwap",
+          "startLine": 26,
+          "endLine": 36,
+          "params": []
+        },
+        {
+          "name": "test_empty_inventory_has_no_underwater_exposure",
+          "startLine": 39,
+          "endLine": 49,
+          "params": []
+        },
+        {
+          "name": "test_underwater_feature_is_one_identified_buy_sell_contrast",
+          "startLine": 52,
+          "endLine": 59,
+          "params": []
+        },
+        {
+          "name": "test_average_cost_state_rejects_value_without_quantity",
+          "startLine": 62,
+          "endLine": 70,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "test_average_cost_state_updates_inventory_and_uses_trade_vwap",
+          "line": 9,
+          "isDefault": false
+        },
+        {
+          "name": "test_sales_beyond_old_inventory_leave_new_buys_at_buy_vwap",
+          "line": 26,
+          "isDefault": false
+        },
+        {
+          "name": "test_empty_inventory_has_no_underwater_exposure",
+          "line": 39,
+          "isDefault": false
+        },
+        {
+          "name": "test_underwater_feature_is_one_identified_buy_sell_contrast",
+          "line": 52,
+          "isDefault": false
+        },
+        {
+          "name": "test_average_cost_state_rejects_value_without_quantity",
+          "line": 62,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "test_average_cost_state_updates_inventory_and_uses_trade_vwap",
+          "callee": "calculate_average_cost_state",
+          "lineNumber": 10
+        },
+        {
+          "caller": "test_average_cost_state_updates_inventory_and_uses_trade_vwap",
+          "callee": "pd.Series",
+          "lineNumber": 11
+        },
+        {
+          "caller": "test_average_cost_state_updates_inventory_and_uses_trade_vwap",
+          "callee": "pd.Series",
+          "lineNumber": 12
+        },
+        {
+          "caller": "test_average_cost_state_updates_inventory_and_uses_trade_vwap",
+          "callee": "pd.Series",
+          "lineNumber": 13
+        },
+        {
+          "caller": "test_average_cost_state_updates_inventory_and_uses_trade_vwap",
+          "callee": "pd.Series",
+          "lineNumber": 14
+        },
+        {
+          "caller": "test_average_cost_state_updates_inventory_and_uses_trade_vwap",
+          "callee": "state[\"holding_proxy\"].tolist",
+          "lineNumber": 18
+        },
+        {
+          "caller": "test_average_cost_state_updates_inventory_and_uses_trade_vwap",
+          "callee": "pytest.approx",
+          "lineNumber": 19
+        },
+        {
+          "caller": "test_average_cost_state_updates_inventory_and_uses_trade_vwap",
+          "callee": "pytest.approx",
+          "lineNumber": 20
+        },
+        {
+          "caller": "test_average_cost_state_updates_inventory_and_uses_trade_vwap",
+          "callee": "pytest.approx",
+          "lineNumber": 21
+        },
+        {
+          "caller": "test_average_cost_state_updates_inventory_and_uses_trade_vwap",
+          "callee": "pytest.approx",
+          "lineNumber": 22
+        },
+        {
+          "caller": "test_average_cost_state_updates_inventory_and_uses_trade_vwap",
+          "callee": "pytest.approx",
+          "lineNumber": 23
+        },
+        {
+          "caller": "test_sales_beyond_old_inventory_leave_new_buys_at_buy_vwap",
+          "callee": "calculate_average_cost_state",
+          "lineNumber": 27
+        },
+        {
+          "caller": "test_sales_beyond_old_inventory_leave_new_buys_at_buy_vwap",
+          "callee": "pd.Series",
+          "lineNumber": 28
+        },
+        {
+          "caller": "test_sales_beyond_old_inventory_leave_new_buys_at_buy_vwap",
+          "callee": "pd.Series",
+          "lineNumber": 29
+        },
+        {
+          "caller": "test_sales_beyond_old_inventory_leave_new_buys_at_buy_vwap",
+          "callee": "pd.Series",
+          "lineNumber": 30
+        },
+        {
+          "caller": "test_sales_beyond_old_inventory_leave_new_buys_at_buy_vwap",
+          "callee": "pd.Series",
+          "lineNumber": 31
+        },
+        {
+          "caller": "test_sales_beyond_old_inventory_leave_new_buys_at_buy_vwap",
+          "callee": "pytest.approx",
+          "lineNumber": 35
+        },
+        {
+          "caller": "test_sales_beyond_old_inventory_leave_new_buys_at_buy_vwap",
+          "callee": "pytest.approx",
+          "lineNumber": 36
+        },
+        {
+          "caller": "test_empty_inventory_has_no_underwater_exposure",
+          "callee": "calculate_average_cost_state",
+          "lineNumber": 40
+        },
+        {
+          "caller": "test_empty_inventory_has_no_underwater_exposure",
+          "callee": "pd.Series",
+          "lineNumber": 41
+        },
+        {
+          "caller": "test_empty_inventory_has_no_underwater_exposure",
+          "callee": "pd.Series",
+          "lineNumber": 42
+        },
+        {
+          "caller": "test_empty_inventory_has_no_underwater_exposure",
+          "callee": "pd.Series",
+          "lineNumber": 43
+        },
+        {
+          "caller": "test_empty_inventory_has_no_underwater_exposure",
+          "callee": "pd.Series",
+          "lineNumber": 44
+        },
+        {
+          "caller": "test_empty_inventory_has_no_underwater_exposure",
+          "callee": "np.isnan",
+          "lineNumber": 48
+        },
+        {
+          "caller": "test_underwater_feature_is_one_identified_buy_sell_contrast",
+          "callee": "pd.DataFrame",
+          "lineNumber": 53
+        },
+        {
+          "caller": "test_underwater_feature_is_one_identified_buy_sell_contrast",
+          "callee": "build_underwater",
+          "lineNumber": 55
+        },
+        {
+          "caller": "test_underwater_feature_is_one_identified_buy_sell_contrast",
+          "callee": "build_underwater",
+          "lineNumber": 56
+        },
+        {
+          "caller": "test_underwater_feature_is_one_identified_buy_sell_contrast",
+          "callee": "np.testing.assert_allclose",
+          "lineNumber": 58
+        },
+        {
+          "caller": "test_underwater_feature_is_one_identified_buy_sell_contrast",
+          "callee": "np.testing.assert_allclose",
+          "lineNumber": 59
+        },
+        {
+          "caller": "test_average_cost_state_rejects_value_without_quantity",
+          "callee": "pytest.raises",
+          "lineNumber": 63
+        },
+        {
+          "caller": "test_average_cost_state_rejects_value_without_quantity",
+          "callee": "calculate_average_cost_state",
+          "lineNumber": 64
+        },
+        {
+          "caller": "test_average_cost_state_rejects_value_without_quantity",
+          "callee": "pd.Series",
+          "lineNumber": 65
+        },
+        {
+          "caller": "test_average_cost_state_rejects_value_without_quantity",
+          "callee": "pd.Series",
+          "lineNumber": 66
+        },
+        {
+          "caller": "test_average_cost_state_rejects_value_without_quantity",
+          "callee": "pd.Series",
+          "lineNumber": 67
+        },
+        {
+          "caller": "test_average_cost_state_rejects_value_without_quantity",
+          "callee": "pd.Series",
+          "lineNumber": 68
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 5,
+        "functionCount": 5,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "tests/test_no_lookahead.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 32,
+      "nonEmptyLines": 24,
+      "functions": [
+        {
+          "name": "test_standard_scaler_fit_uses_train_indices_only",
+          "startLine": 8,
+          "endLine": 14,
+          "params": []
+        },
+        {
+          "name": "test_future_trades_do_not_change_current_average_cost_state",
+          "startLine": 17,
+          "endLine": 32,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "test_standard_scaler_fit_uses_train_indices_only",
+          "line": 8,
+          "isDefault": false
+        },
+        {
+          "name": "test_future_trades_do_not_change_current_average_cost_state",
+          "line": 17,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "test_standard_scaler_fit_uses_train_indices_only",
+          "callee": "np.ones",
+          "lineNumber": 9
+        },
+        {
+          "caller": "test_standard_scaler_fit_uses_train_indices_only",
+          "callee": "fit_feature_scaler",
+          "lineNumber": 11
+        },
+        {
+          "caller": "test_standard_scaler_fit_uses_train_indices_only",
+          "callee": "np.array",
+          "lineNumber": 11
+        },
+        {
+          "caller": "test_standard_scaler_fit_uses_train_indices_only",
+          "callee": "scaler.mean_.tolist",
+          "lineNumber": 13
+        },
+        {
+          "caller": "test_standard_scaler_fit_uses_train_indices_only",
+          "callee": "scaler.scale_.tolist",
+          "lineNumber": 14
+        },
+        {
+          "caller": "test_future_trades_do_not_change_current_average_cost_state",
+          "callee": "pd.Series",
+          "lineNumber": 18
+        },
+        {
+          "caller": "test_future_trades_do_not_change_current_average_cost_state",
+          "callee": "pd.Series",
+          "lineNumber": 19
+        },
+        {
+          "caller": "test_future_trades_do_not_change_current_average_cost_state",
+          "callee": "pd.Series",
+          "lineNumber": 20
+        },
+        {
+          "caller": "test_future_trades_do_not_change_current_average_cost_state",
+          "callee": "pd.Series",
+          "lineNumber": 21
+        },
+        {
+          "caller": "test_future_trades_do_not_change_current_average_cost_state",
+          "callee": "calculate_average_cost_state",
+          "lineNumber": 22
+        },
+        {
+          "caller": "test_future_trades_do_not_change_current_average_cost_state",
+          "callee": "calculate_average_cost_state",
+          "lineNumber": 28
+        },
+        {
+          "caller": "test_future_trades_do_not_change_current_average_cost_state",
+          "callee": "pd.testing.assert_frame_equal",
+          "lineNumber": 32
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 2,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    }
+  ]
+}

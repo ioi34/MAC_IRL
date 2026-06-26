@@ -1,0 +1,370 @@
+{
+  "projectRoot": "/Users/yumin/Desktop/MAC_IRL/MAC_IRL",
+  "files": [
+    {
+      "path": ".DS_Store",
+      "language": "unknown",
+      "fileCategory": "code"
+    },
+    {
+      "path": ".understand-anything/.understandignore",
+      "language": "unknown",
+      "fileCategory": "code"
+    },
+    {
+      "path": ".understand-anything/config.json",
+      "language": "json",
+      "fileCategory": "config"
+    },
+    {
+      "path": "AGENTS.md",
+      "language": "markdown",
+      "fileCategory": "docs"
+    },
+    {
+      "path": "CLAUDE.md",
+      "language": "markdown",
+      "fileCategory": "docs"
+    },
+    {
+      "path": "collect_base.py",
+      "language": "python",
+      "fileCategory": "code"
+    },
+    {
+      "path": "configs/data_loss_aversion.yaml",
+      "language": "yaml",
+      "fileCategory": "config"
+    },
+    {
+      "path": "configs/data.yaml",
+      "language": "yaml",
+      "fileCategory": "config"
+    },
+    {
+      "path": "configs/experiment_loss_aversion.yaml",
+      "language": "yaml",
+      "fileCategory": "config"
+    },
+    {
+      "path": "configs/experiment.yaml",
+      "language": "yaml",
+      "fileCategory": "config"
+    },
+    {
+      "path": "configs/features_loss_aversion.yaml",
+      "language": "yaml",
+      "fileCategory": "config"
+    },
+    {
+      "path": "configs/features.yaml",
+      "language": "yaml",
+      "fileCategory": "config"
+    },
+    {
+      "path": "configs/model.yaml",
+      "language": "yaml",
+      "fileCategory": "config"
+    },
+    {
+      "path": "configs/train.yaml",
+      "language": "yaml",
+      "fileCategory": "config"
+    },
+    {
+      "path": "DATA_README.md",
+      "language": "markdown",
+      "fileCategory": "docs"
+    },
+    {
+      "path": "data/interim/.gitkeep",
+      "language": "unknown",
+      "fileCategory": "code"
+    },
+    {
+      "path": "data/processed/.gitkeep",
+      "language": "unknown",
+      "fileCategory": "code"
+    },
+    {
+      "path": "data/raw/.gitkeep",
+      "language": "unknown",
+      "fileCategory": "code"
+    },
+    {
+      "path": "data/scalers/.gitkeep",
+      "language": "unknown",
+      "fileCategory": "code"
+    },
+    {
+      "path": "notebooks/README.md",
+      "language": "markdown",
+      "fileCategory": "docs"
+    },
+    {
+      "path": "pyproject.toml",
+      "language": "toml",
+      "fileCategory": "config"
+    },
+    {
+      "path": "README.md",
+      "language": "markdown",
+      "fileCategory": "docs"
+    },
+    {
+      "path": "requirements.txt",
+      "language": "txt",
+      "fileCategory": "docs"
+    },
+    {
+      "path": "samsung_macirl_2021_2025_FINAL.csv",
+      "language": "csv",
+      "fileCategory": "data"
+    },
+    {
+      "path": "samsung_macirl_EXTENDED_2021_2025.csv",
+      "language": "csv",
+      "fileCategory": "data"
+    },
+    {
+      "path": "scripts/__init__.py",
+      "language": "python",
+      "fileCategory": "code"
+    },
+    {
+      "path": "scripts/evaluate.py",
+      "language": "python",
+      "fileCategory": "code"
+    },
+    {
+      "path": "scripts/prepare_data.py",
+      "language": "python",
+      "fileCategory": "code"
+    },
+    {
+      "path": "scripts/run_ablation.py",
+      "language": "python",
+      "fileCategory": "code"
+    },
+    {
+      "path": "scripts/train.py",
+      "language": "python",
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/__init__.py",
+      "language": "python",
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/data/__init__.py",
+      "language": "python",
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/data/average_cost.py",
+      "language": "python",
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/data/labels.py",
+      "language": "python",
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/data/loaders.py",
+      "language": "python",
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/data/preprocess.py",
+      "language": "python",
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/data/splits.py",
+      "language": "python",
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/evaluation/__init__.py",
+      "language": "python",
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/evaluation/ablation.py",
+      "language": "python",
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/evaluation/interpret.py",
+      "language": "python",
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/evaluation/metrics.py",
+      "language": "python",
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/evaluation/reporting.py",
+      "language": "python",
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/features/__init__.py",
+      "language": "python",
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/features/herd.py",
+      "language": "python",
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/features/loss_aversion.py",
+      "language": "python",
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/features/momentum.py",
+      "language": "python",
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/features/registry.py",
+      "language": "python",
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/features/scaling.py",
+      "language": "python",
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/features/underwater.py",
+      "language": "python",
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/features/volatility.py",
+      "language": "python",
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/models/__init__.py",
+      "language": "python",
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/models/mac_irl.py",
+      "language": "python",
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/models/policy.py",
+      "language": "python",
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/models/reward.py",
+      "language": "python",
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/training/__init__.py",
+      "language": "python",
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/training/checkpoint.py",
+      "language": "python",
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/training/losses.py",
+      "language": "python",
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/training/trainer.py",
+      "language": "python",
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/utils/__init__.py",
+      "language": "python",
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/utils/config.py",
+      "language": "python",
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/utils/logging.py",
+      "language": "python",
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/utils/seed.py",
+      "language": "python",
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_average_cost.py",
+      "language": "python",
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_config.py",
+      "language": "python",
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_cpcv.py",
+      "language": "python",
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_feature_modules.py",
+      "language": "python",
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_features.py",
+      "language": "python",
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_labels.py",
+      "language": "python",
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_loss_aversion.py",
+      "language": "python",
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_losses.py",
+      "language": "python",
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_model_shapes.py",
+      "language": "python",
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_no_lookahead.py",
+      "language": "python",
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_processed_schema.py",
+      "language": "python",
+      "fileCategory": "code"
+    }
+  ]
+}

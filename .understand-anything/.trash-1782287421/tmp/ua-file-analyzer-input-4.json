@@ -1,0 +1,11 @@
+{
+  "projectRoot": "/Users/yumin/Desktop/MAC_IRL/MAC_IRL",
+  "batchFiles": [
+    {"path": "scripts/evaluate.py", "language": "python", "sizeLines": 30, "fileCategory": "code"},
+    {"path": "scripts/run_ablation.py", "language": "python", "sizeLines": 95, "fileCategory": "code"},
+    {"path": "src/evaluation/ablation.py", "language": "python", "sizeLines": 12, "fileCategory": "code"},
+    {"path": "src/utils/config.py", "language": "python", "sizeLines": 40, "fileCategory": "code"},
+    {"path": "tests/test_config.py", "language": "python", "sizeLines": 8, "fileCategory": "code"}
+  ],
+  "batchImportData": {"scripts/evaluate.py":["src/utils/config.py"],"scripts/run_ablation.py":["src/evaluation/ablation.py","src/utils/config.py"],"src/evaluation/ablation.py":[],"src/utils/config.py":[],"tests/test_config.py":["src/utils/config.py"]}
+}

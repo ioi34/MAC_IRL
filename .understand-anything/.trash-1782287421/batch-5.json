@@ -1,0 +1,212 @@
+{
+  "nodes": [
+    {
+      "id": "file:src/data/average_cost.py",
+      "type": "file",
+      "name": "average_cost.py",
+      "filePath": "src/data/average_cost.py",
+      "summary": "투자자별 매수/매도 거래로부터 평균단가(average cost) 기반 보유 상태를 시점별로 추적하고, trade VWAP과 평단 대비 underwater 노출을 산출하는 핵심 상태 추적 모듈.",
+      "tags": ["data-model", "feature-engineering", "state-tracking", "validation", "service"],
+      "complexity": "moderate",
+      "languageNotes": "pandas/numpy 기반의 시계열 누적 평단 계산. itertuples로 행 단위 순차 inventory 갱신을 수행하며, 입력 유효성 검증을 위해 다수의 ValueError 가드를 둠."
+    },
+    {
+      "id": "function:src/data/average_cost.py:calculate_average_cost_state",
+      "type": "function",
+      "name": "calculate_average_cost_state",
+      "filePath": "src/data/average_cost.py",
+      "lineRange": [7, 85],
+      "summary": "매수/매도 수량 및 금액 시계열로부터 누적 보유량과 average cost를 순차 계산하고, trade VWAP 및 평단 대비 underwater(클립된 손실 비율) 상태를 반환한다.",
+      "tags": ["feature-engineering", "state-tracking", "validation", "vwap"],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:src/data/average_cost.py:add_average_cost_states",
+      "type": "function",
+      "name": "add_average_cost_states",
+      "filePath": "src/data/average_cost.py",
+      "lineRange": [88, 101],
+      "summary": "config의 investor_trades 컬럼 매핑을 순회하며 각 투자자에 대해 average cost 상태를 계산하여 데이터프레임에 추가하는 래퍼 함수.",
+      "tags": ["feature-engineering", "data-pipeline", "config-driven"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/features/scaling.py",
+      "type": "file",
+      "name": "scaling.py",
+      "filePath": "src/features/scaling.py",
+      "summary": "train 구간 인덱스만으로 StandardScaler를 적합하여 look-ahead를 방지하고, feature tensor 변환 및 scaler 저장/로드를 담당하는 특징 스케일링 유틸리티.",
+      "tags": ["utility", "feature-engineering", "serialization", "no-lookahead"],
+      "complexity": "simple",
+      "languageNotes": "scikit-learn StandardScaler와 joblib을 사용해 train-only fit으로 데이터 누수를 차단."
+    },
+    {
+      "id": "function:src/features/scaling.py:fit_feature_scaler",
+      "type": "function",
+      "name": "fit_feature_scaler",
+      "filePath": "src/features/scaling.py",
+      "lineRange": [10, 12],
+      "summary": "train_indices에 해당하는 feature만 reshape하여 StandardScaler를 적합함으로써 학습 구간 외 정보 누수를 방지한다.",
+      "tags": ["feature-engineering", "no-lookahead", "scaler"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/features/scaling.py:transform_feature_tensor",
+      "type": "function",
+      "name": "transform_feature_tensor",
+      "filePath": "src/features/scaling.py",
+      "lineRange": [15, 18],
+      "summary": "적합된 scaler로 feature tensor를 reshape 후 변환하고 원래 shape로 복원하여 반환한다.",
+      "tags": ["feature-engineering", "serialization", "scaler"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/features/underwater.py",
+      "type": "file",
+      "name": "underwater.py",
+      "filePath": "src/features/underwater.py",
+      "summary": "average cost 상태 데이터프레임에서 특정 투자자/액션의 underwater 컬럼을 선택해 반환하는 얇은 feature 추출 함수.",
+      "tags": ["feature-engineering", "utility", "underwater"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:tests/test_average_cost.py",
+      "type": "file",
+      "name": "test_average_cost.py",
+      "filePath": "tests/test_average_cost.py",
+      "summary": "average cost 상태 추적의 inventory 갱신, trade VWAP, underwater 노출, 입력 검증 동작을 검증하는 단위 테스트.",
+      "tags": ["test", "validation", "feature-engineering"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:tests/test_no_lookahead.py",
+      "type": "file",
+      "name": "test_no_lookahead.py",
+      "filePath": "tests/test_no_lookahead.py",
+      "summary": "StandardScaler가 train 인덱스만 사용하는지, 미래 거래가 현재 average cost 상태를 변경하지 않는지를 검증하는 no-lookahead 회귀 테스트.",
+      "tags": ["test", "no-lookahead", "validation"],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:src/data/average_cost.py",
+      "target": "function:src/data/average_cost.py:calculate_average_cost_state",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/data/average_cost.py",
+      "target": "function:src/data/average_cost.py:add_average_cost_states",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/data/average_cost.py",
+      "target": "function:src/data/average_cost.py:calculate_average_cost_state",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/data/average_cost.py",
+      "target": "function:src/data/average_cost.py:add_average_cost_states",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:src/data/average_cost.py:add_average_cost_states",
+      "target": "function:src/data/average_cost.py:calculate_average_cost_state",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/features/scaling.py",
+      "target": "function:src/features/scaling.py:fit_feature_scaler",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/features/scaling.py",
+      "target": "function:src/features/scaling.py:transform_feature_tensor",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/features/scaling.py",
+      "target": "function:src/features/scaling.py:fit_feature_scaler",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/features/scaling.py",
+      "target": "function:src/features/scaling.py:transform_feature_tensor",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:tests/test_average_cost.py",
+      "target": "file:src/data/average_cost.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:tests/test_average_cost.py",
+      "target": "file:src/features/underwater.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:tests/test_no_lookahead.py",
+      "target": "file:src/data/average_cost.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:tests/test_no_lookahead.py",
+      "target": "file:src/features/scaling.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/data/average_cost.py",
+      "target": "file:tests/test_average_cost.py",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:src/features/underwater.py",
+      "target": "file:tests/test_average_cost.py",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:src/data/average_cost.py",
+      "target": "file:tests/test_no_lookahead.py",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:src/features/scaling.py",
+      "target": "file:tests/test_no_lookahead.py",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    }
+  ]
+}

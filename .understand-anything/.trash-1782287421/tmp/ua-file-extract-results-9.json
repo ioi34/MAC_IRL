@@ -1,0 +1,290 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 8,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "configs/data.yaml",
+      "language": "yaml",
+      "fileCategory": "config",
+      "totalLines": 49,
+      "nonEmptyLines": 44,
+      "sections": [
+        {
+          "heading": "paths",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "columns",
+          "level": 1,
+          "line": 6
+        },
+        {
+          "heading": "investors",
+          "level": 1,
+          "line": 31
+        },
+        {
+          "heading": "action_values",
+          "level": 1,
+          "line": 32
+        },
+        {
+          "heading": "action_names",
+          "level": 1,
+          "line": 33
+        },
+        {
+          "heading": "labeling",
+          "level": 1,
+          "line": 35
+        },
+        {
+          "heading": "sample",
+          "level": 1,
+          "line": 40
+        },
+        {
+          "heading": "preprocess",
+          "level": 1,
+          "line": 46
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 8
+      }
+    },
+    {
+      "path": "configs/data_loss_aversion.yaml",
+      "language": "yaml",
+      "fileCategory": "config",
+      "totalLines": 49,
+      "nonEmptyLines": 44,
+      "sections": [
+        {
+          "heading": "paths",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "columns",
+          "level": 1,
+          "line": 6
+        },
+        {
+          "heading": "investors",
+          "level": 1,
+          "line": 31
+        },
+        {
+          "heading": "action_values",
+          "level": 1,
+          "line": 32
+        },
+        {
+          "heading": "action_names",
+          "level": 1,
+          "line": 33
+        },
+        {
+          "heading": "labeling",
+          "level": 1,
+          "line": 35
+        },
+        {
+          "heading": "sample",
+          "level": 1,
+          "line": 40
+        },
+        {
+          "heading": "preprocess",
+          "level": 1,
+          "line": 46
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 8
+      }
+    },
+    {
+      "path": "configs/experiment.yaml",
+      "language": "yaml",
+      "fileCategory": "config",
+      "totalLines": 10,
+      "nonEmptyLines": 10,
+      "sections": [
+        {
+          "heading": "experiment",
+          "level": 1,
+          "line": 1
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 1
+      }
+    },
+    {
+      "path": "configs/experiment_loss_aversion.yaml",
+      "language": "yaml",
+      "fileCategory": "config",
+      "totalLines": 10,
+      "nonEmptyLines": 10,
+      "sections": [
+        {
+          "heading": "experiment",
+          "level": 1,
+          "line": 1
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 1
+      }
+    },
+    {
+      "path": "configs/features.yaml",
+      "language": "yaml",
+      "fileCategory": "config",
+      "totalLines": 17,
+      "nonEmptyLines": 16,
+      "sections": [
+        {
+          "heading": "features",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "scaling",
+          "level": 1,
+          "line": 16
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 2
+      }
+    },
+    {
+      "path": "configs/features_loss_aversion.yaml",
+      "language": "yaml",
+      "fileCategory": "config",
+      "totalLines": 18,
+      "nonEmptyLines": 17,
+      "sections": [
+        {
+          "heading": "features",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "scaling",
+          "level": 1,
+          "line": 17
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 2
+      }
+    },
+    {
+      "path": "configs/model.yaml",
+      "language": "yaml",
+      "fileCategory": "config",
+      "totalLines": 4,
+      "nonEmptyLines": 4,
+      "sections": [
+        {
+          "heading": "model",
+          "level": 1,
+          "line": 1
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 1
+      }
+    },
+    {
+      "path": "configs/train.yaml",
+      "language": "yaml",
+      "fileCategory": "config",
+      "totalLines": 15,
+      "nonEmptyLines": 13,
+      "sections": [
+        {
+          "heading": "seed",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "device",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "epochs",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "batch_size",
+          "level": 1,
+          "line": 4
+        },
+        {
+          "heading": "learning_rate",
+          "level": 1,
+          "line": 5
+        },
+        {
+          "heading": "weight_decay",
+          "level": 1,
+          "line": 6
+        },
+        {
+          "heading": "loss",
+          "level": 1,
+          "line": 8
+        },
+        {
+          "heading": "cross_validation",
+          "level": 1,
+          "line": 11
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 8
+      }
+    }
+  ]
+}

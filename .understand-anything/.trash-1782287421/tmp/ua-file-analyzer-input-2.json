@@ -1,0 +1,21 @@
+{
+  "projectRoot": "/Users/yumin/Desktop/MAC_IRL/MAC_IRL",
+  "batchFiles": [
+    {"path": "src/features/herd.py", "language": "python", "sizeLines": 18, "fileCategory": "code"},
+    {"path": "src/features/loss_aversion.py", "language": "python", "sizeLines": 17, "fileCategory": "code"},
+    {"path": "src/features/momentum.py", "language": "python", "sizeLines": 13, "fileCategory": "code"},
+    {"path": "src/features/registry.py", "language": "python", "sizeLines": 49, "fileCategory": "code"},
+    {"path": "src/features/volatility.py", "language": "python", "sizeLines": 14, "fileCategory": "code"},
+    {"path": "tests/test_feature_modules.py", "language": "python", "sizeLines": 13, "fileCategory": "code"},
+    {"path": "tests/test_loss_aversion.py", "language": "python", "sizeLines": 20, "fileCategory": "code"}
+  ],
+  "batchImportData": {
+    "src/features/herd.py": [],
+    "src/features/loss_aversion.py": [],
+    "src/features/momentum.py": [],
+    "src/features/registry.py": ["src/features/herd.py", "src/features/loss_aversion.py", "src/features/momentum.py", "src/features/underwater.py", "src/features/volatility.py"],
+    "src/features/volatility.py": [],
+    "tests/test_feature_modules.py": ["src/features/registry.py"],
+    "tests/test_loss_aversion.py": ["src/features/loss_aversion.py"]
+  }
+}

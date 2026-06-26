@@ -1,0 +1,166 @@
+{
+  "nodes": [
+    {
+      "id": "file:scripts/prepare_data.py",
+      "type": "file",
+      "name": "prepare_data.py",
+      "filePath": "scripts/prepare_data.py",
+      "summary": "데이터 준비 파이프라인의 엔트리포인트 CLI 스크립트로, 일별 프레임 로드부터 전처리, action labeling, feature tensor 생성, 기간 필터링, 학습용 npz 및 메타데이터 저장까지를 오케스트레이션한다.",
+      "tags": ["entry-point", "data-pipeline", "cli", "serialization"],
+      "complexity": "moderate",
+      "languageNotes": "argparse 기반 CLI와 numpy savez_compressed를 사용해 features/labels/dates를 묶어 저장한다."
+    },
+    {
+      "id": "function:scripts/prepare_data.py:main",
+      "type": "function",
+      "name": "main",
+      "filePath": "scripts/prepare_data.py",
+      "lineRange": [24, 89],
+      "summary": "config를 로드하고 일별 프레임을 전처리·라벨링·feature tensor화한 뒤 학습 기간으로 필터링하여 npz와 라벨 분포 메타데이터를 디스크에 기록하는 메인 실행 함수.",
+      "tags": ["entry-point", "data-pipeline", "orchestration", "serialization"],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:src/data/labels.py",
+      "type": "file",
+      "name": "labels.py",
+      "filePath": "src/data/labels.py",
+      "summary": "투자자별 net buy flow를 rolling quantile 기준으로 이진 action label(매수/관망)로 변환하고, t 시점 feature에 대해 t+1 행동을 타겟으로 정렬하는 라벨링 유틸리티.",
+      "tags": ["data-model", "labeling", "utility", "validation"],
+      "complexity": "simple",
+      "languageNotes": "shift(1) 기반 rolling median으로 미래 정보 누수를 방지하고 label.shift로 t+1 타겟을 만든다."
+    },
+    {
+      "id": "function:src/data/labels.py:rolling_binary_action_labels",
+      "type": "function",
+      "name": "rolling_binary_action_labels",
+      "filePath": "src/data/labels.py",
+      "lineRange": [11, 20],
+      "summary": "과거 window 구간의 rolling quantile threshold를 사용해 net buy flow를 매수(1)/관망(0) 이진 라벨로 변환하며, 현재 시점 정보 누수를 막기 위해 shift(1)을 적용한다.",
+      "tags": ["labeling", "rolling-median", "validation"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/data/labels.py:add_action_labels",
+      "type": "function",
+      "name": "add_action_labels",
+      "filePath": "src/data/labels.py",
+      "lineRange": [23, 35],
+      "summary": "config의 투자자 목록을 순회하며 각 투자자에 대해 이진 action label을 계산하고 t+1 타겟으로 shift하여 DataFrame에 컬럼으로 추가한다.",
+      "tags": ["labeling", "data-model", "config-driven"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/data/loaders.py",
+      "type": "file",
+      "name": "loaders.py",
+      "filePath": "src/data/loaders.py",
+      "summary": "CSV/Parquet 형식의 일별 원천 데이터를 확장자에 따라 읽어 DataFrame으로 반환하는 경량 데이터 로더.",
+      "tags": ["utility", "data-loader", "io"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/data/preprocess.py",
+      "type": "file",
+      "name": "preprocess.py",
+      "filePath": "src/data/preprocess.py",
+      "summary": "원천 일별 프레임을 단일 종목 기준으로 필터링하고 가격·거래대금·투자자 net trade 컬럼을 정규화·정렬·결측 처리한 뒤 average cost state를 부가하는 전처리 모듈.",
+      "tags": ["data-model", "preprocessing", "validation", "config-driven"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/data/preprocess.py:prepare_daily_frame",
+      "type": "function",
+      "name": "prepare_daily_frame",
+      "filePath": "src/data/preprocess.py",
+      "lineRange": [19, 58],
+      "summary": "config 기반으로 날짜 변환, 종목 필터, 가격 컬럼 해석, 투자자별 net trade 및 trading value 수치화, 중복 제거·정렬·dropna를 수행하고 average cost state를 추가하여 정제된 일별 프레임을 반환한다.",
+      "tags": ["preprocessing", "data-model", "config-driven", "validation"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:tests/test_features.py",
+      "type": "file",
+      "name": "test_features.py",
+      "filePath": "tests/test_features.py",
+      "summary": "전처리·라벨링·feature tensor 빌드 파이프라인을 합성 데이터로 검증하는 테스트로, 이진 action과 4개 reward feature 구성 및 herd feature가 lagged flow만 사용하는지를 확인한다.",
+      "tags": ["test", "data-pipeline", "validation"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:tests/test_features.py:_config",
+      "type": "function",
+      "name": "_config",
+      "filePath": "tests/test_features.py",
+      "lineRange": [9, 44],
+      "summary": "테스트에서 공유하는 전처리·feature·labeling 설정 딕셔너리를 구성하는 픽스처 헬퍼.",
+      "tags": ["test", "fixture", "config"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:tests/test_features.py:test_feature_tensor_has_binary_actions_and_four_reward_features",
+      "type": "function",
+      "name": "test_feature_tensor_has_binary_actions_and_four_reward_features",
+      "filePath": "tests/test_features.py",
+      "lineRange": [59, 74],
+      "summary": "합성 일별 데이터를 전처리·라벨링한 뒤 build_feature_tensor 결과가 이진 action과 4개 reward feature를 갖는지 검증하는 테스트.",
+      "tags": ["test", "validation", "data-pipeline"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:tests/test_features.py:test_herd_feature_uses_only_lagged_flows",
+      "type": "function",
+      "name": "test_herd_feature_uses_only_lagged_flows",
+      "filePath": "tests/test_features.py",
+      "lineRange": [77, 94],
+      "summary": "herd feature가 현재 시점이 아닌 과거(lagged) flow만 사용하는지 두 입력 시나리오 비교로 검증하여 정보 누수가 없음을 보장하는 테스트.",
+      "tags": ["test", "validation", "feature-engineering"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:tests/test_labels.py",
+      "type": "file",
+      "name": "test_labels.py",
+      "filePath": "tests/test_labels.py",
+      "summary": "이진 action label이 과거 window만 사용하는지와 t 시점 feature가 t+1 행동을 타겟으로 정렬되는지를 검증하는 라벨링 단위 테스트.",
+      "tags": ["test", "labeling", "validation"],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {"source": "file:scripts/prepare_data.py", "target": "file:src/data/labels.py", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:scripts/prepare_data.py", "target": "file:src/data/loaders.py", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:scripts/prepare_data.py", "target": "file:src/data/preprocess.py", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:scripts/prepare_data.py", "target": "file:src/features/registry.py", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:scripts/prepare_data.py", "target": "file:src/utils/config.py", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:src/data/preprocess.py", "target": "file:src/data/average_cost.py", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:tests/test_features.py", "target": "file:src/data/labels.py", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:tests/test_features.py", "target": "file:src/data/preprocess.py", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:tests/test_features.py", "target": "file:src/features/registry.py", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:tests/test_labels.py", "target": "file:src/data/labels.py", "type": "imports", "direction": "forward", "weight": 0.7},
+
+    {"source": "file:scripts/prepare_data.py", "target": "function:scripts/prepare_data.py:main", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:scripts/prepare_data.py", "target": "function:scripts/prepare_data.py:main", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:src/data/labels.py", "target": "function:src/data/labels.py:rolling_binary_action_labels", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:src/data/labels.py", "target": "function:src/data/labels.py:rolling_binary_action_labels", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:src/data/labels.py", "target": "function:src/data/labels.py:add_action_labels", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:src/data/labels.py", "target": "function:src/data/labels.py:add_action_labels", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:src/data/preprocess.py", "target": "function:src/data/preprocess.py:prepare_daily_frame", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:src/data/preprocess.py", "target": "function:src/data/preprocess.py:prepare_daily_frame", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:tests/test_features.py", "target": "function:tests/test_features.py:_config", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:tests/test_features.py", "target": "function:tests/test_features.py:test_feature_tensor_has_binary_actions_and_four_reward_features", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:tests/test_features.py", "target": "function:tests/test_features.py:test_herd_feature_uses_only_lagged_flows", "type": "contains", "direction": "forward", "weight": 1.0},
+
+    {"source": "function:scripts/prepare_data.py:main", "target": "function:src/data/preprocess.py:prepare_daily_frame", "type": "calls", "direction": "forward", "weight": 0.8},
+    {"source": "function:scripts/prepare_data.py:main", "target": "function:src/data/labels.py:add_action_labels", "type": "calls", "direction": "forward", "weight": 0.8},
+    {"source": "function:scripts/prepare_data.py:main", "target": "function:src/features/registry.py:build_feature_tensor", "type": "calls", "direction": "forward", "weight": 0.8},
+    {"source": "function:scripts/prepare_data.py:main", "target": "function:src/features/registry.py:valid_rows_for_model", "type": "calls", "direction": "forward", "weight": 0.8},
+    {"source": "function:scripts/prepare_data.py:main", "target": "function:src/utils/config.py:load_configs", "type": "calls", "direction": "forward", "weight": 0.8},
+    {"source": "function:src/data/labels.py:add_action_labels", "target": "function:src/data/labels.py:rolling_binary_action_labels", "type": "calls", "direction": "forward", "weight": 0.8},
+    {"source": "function:src/data/preprocess.py:prepare_daily_frame", "target": "function:src/data/average_cost.py:add_average_cost_states", "type": "calls", "direction": "forward", "weight": 0.8},
+
+    {"source": "file:src/data/labels.py", "target": "file:tests/test_labels.py", "type": "tested_by", "direction": "forward", "weight": 0.5},
+    {"source": "file:src/data/labels.py", "target": "file:tests/test_features.py", "type": "tested_by", "direction": "forward", "weight": 0.5},
+    {"source": "file:src/data/preprocess.py", "target": "file:tests/test_features.py", "type": "tested_by", "direction": "forward", "weight": 0.5}
+  ]
+}

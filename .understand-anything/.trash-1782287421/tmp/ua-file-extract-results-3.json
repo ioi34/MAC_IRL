@@ -1,0 +1,993 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 6,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "scripts/prepare_data.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 93,
+      "nonEmptyLines": 81,
+      "functions": [
+        {
+          "name": "parse_args",
+          "startLine": 17,
+          "endLine": 21,
+          "params": []
+        },
+        {
+          "name": "main",
+          "startLine": 24,
+          "endLine": 89,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "parse_args",
+          "line": 17,
+          "isDefault": false
+        },
+        {
+          "name": "main",
+          "line": 24,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "parse_args",
+          "callee": "argparse.ArgumentParser",
+          "lineNumber": 18
+        },
+        {
+          "caller": "parse_args",
+          "callee": "parser.add_argument",
+          "lineNumber": 19
+        },
+        {
+          "caller": "parse_args",
+          "callee": "parser.add_argument",
+          "lineNumber": 20
+        },
+        {
+          "caller": "parse_args",
+          "callee": "parser.parse_args",
+          "lineNumber": 21
+        },
+        {
+          "caller": "main",
+          "callee": "parse_args",
+          "lineNumber": 25
+        },
+        {
+          "caller": "main",
+          "callee": "load_configs",
+          "lineNumber": 26
+        },
+        {
+          "caller": "main",
+          "callee": "load_daily_frame",
+          "lineNumber": 27
+        },
+        {
+          "caller": "main",
+          "callee": "prepare_daily_frame",
+          "lineNumber": 28
+        },
+        {
+          "caller": "main",
+          "callee": "add_action_labels",
+          "lineNumber": 29
+        },
+        {
+          "caller": "main",
+          "callee": "build_feature_tensor",
+          "lineNumber": 30
+        },
+        {
+          "caller": "main",
+          "callee": "pd.to_datetime",
+          "lineNumber": 33
+        },
+        {
+          "caller": "main",
+          "callee": "sample.get",
+          "lineNumber": 35
+        },
+        {
+          "caller": "main",
+          "callee": "ValueError",
+          "lineNumber": 36
+        },
+        {
+          "caller": "main",
+          "callee": "pd.Timestamp",
+          "lineNumber": 37
+        },
+        {
+          "caller": "main",
+          "callee": "pd.Timestamp",
+          "lineNumber": 37
+        },
+        {
+          "caller": "main",
+          "callee": "valid_rows_for_model",
+          "lineNumber": 38
+        },
+        {
+          "caller": "main",
+          "callee": "np.flatnonzero",
+          "lineNumber": 39
+        },
+        {
+          "caller": "main",
+          "callee": "in_period.to_numpy",
+          "lineNumber": 39
+        },
+        {
+          "caller": "main",
+          "callee": "int",
+          "lineNumber": 40
+        },
+        {
+          "caller": "main",
+          "callee": "len",
+          "lineNumber": 41
+        },
+        {
+          "caller": "main",
+          "callee": "ValueError",
+          "lineNumber": 42
+        },
+        {
+          "caller": "main",
+          "callee": "len",
+          "lineNumber": 43
+        },
+        {
+          "caller": "main",
+          "callee": "labeled.iloc[selected_indices].reset_index",
+          "lineNumber": 47
+        },
+        {
+          "caller": "main",
+          "callee": "labels_array",
+          "lineNumber": 49
+        },
+        {
+          "caller": "main",
+          "callee": "Path",
+          "lineNumber": 51
+        },
+        {
+          "caller": "main",
+          "callee": "output_path.parent.mkdir",
+          "lineNumber": 52
+        },
+        {
+          "caller": "main",
+          "callee": "np.savez_compressed",
+          "lineNumber": 53
+        },
+        {
+          "caller": "main",
+          "callee": "selected_features.astype",
+          "lineNumber": 55
+        },
+        {
+          "caller": "main",
+          "callee": "labels.astype",
+          "lineNumber": 56
+        },
+        {
+          "caller": "main",
+          "callee": "np.asarray",
+          "lineNumber": 57
+        },
+        {
+          "caller": "main",
+          "callee": "selected[date_col].dt.strftime",
+          "lineNumber": 57
+        },
+        {
+          "caller": "main",
+          "callee": "np.asarray",
+          "lineNumber": 58
+        },
+        {
+          "caller": "main",
+          "callee": "np.asarray",
+          "lineNumber": 59
+        },
+        {
+          "caller": "main",
+          "callee": "np.asarray",
+          "lineNumber": 60
+        },
+        {
+          "caller": "main",
+          "callee": "len",
+          "lineNumber": 64
+        },
+        {
+          "caller": "main",
+          "callee": "str",
+          "lineNumber": 65
+        },
+        {
+          "caller": "main",
+          "callee": "selected[date_col].iloc[0].date",
+          "lineNumber": 65
+        },
+        {
+          "caller": "main",
+          "callee": "str",
+          "lineNumber": 66
+        },
+        {
+          "caller": "main",
+          "callee": "selected[date_col].iloc[-1].date",
+          "lineNumber": 66
+        },
+        {
+          "caller": "main",
+          "callee": "list",
+          "lineNumber": 70
+        },
+        {
+          "caller": "main",
+          "callee": "len",
+          "lineNumber": 71
+        },
+        {
+          "caller": "main",
+          "callee": "len",
+          "lineNumber": 72
+        },
+        {
+          "caller": "main",
+          "callee": "int",
+          "lineNumber": 73
+        },
+        {
+          "caller": "main",
+          "callee": "int",
+          "lineNumber": 77
+        },
+        {
+          "caller": "main",
+          "callee": "(labels[:, idx] == 0).sum",
+          "lineNumber": 77
+        },
+        {
+          "caller": "main",
+          "callee": "int",
+          "lineNumber": 78
+        },
+        {
+          "caller": "main",
+          "callee": "(labels[:, idx] == 1).sum",
+          "lineNumber": 78
+        },
+        {
+          "caller": "main",
+          "callee": "float",
+          "lineNumber": 79
+        },
+        {
+          "caller": "main",
+          "callee": "(labels[:, idx] == 0).mean",
+          "lineNumber": 79
+        },
+        {
+          "caller": "main",
+          "callee": "float",
+          "lineNumber": 80
+        },
+        {
+          "caller": "main",
+          "callee": "(labels[:, idx] == 1).mean",
+          "lineNumber": 80
+        },
+        {
+          "caller": "main",
+          "callee": "enumerate",
+          "lineNumber": 82
+        },
+        {
+          "caller": "main",
+          "callee": "Path",
+          "lineNumber": 85
+        },
+        {
+          "caller": "main",
+          "callee": "metadata_path.parent.mkdir",
+          "lineNumber": 86
+        },
+        {
+          "caller": "main",
+          "callee": "metadata_path.open",
+          "lineNumber": 87
+        },
+        {
+          "caller": "main",
+          "callee": "json.dump",
+          "lineNumber": 88
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 89
+        },
+        {
+          "caller": "main",
+          "callee": "json.dumps",
+          "lineNumber": 89
+        }
+      ],
+      "metrics": {
+        "importCount": 5,
+        "exportCount": 2,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/data/labels.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 40,
+      "nonEmptyLines": 31,
+      "functions": [
+        {
+          "name": "rolling_binary_action_labels",
+          "startLine": 11,
+          "endLine": 20,
+          "params": [
+            "flow",
+            "window",
+            "quantile"
+          ]
+        },
+        {
+          "name": "add_action_labels",
+          "startLine": 23,
+          "endLine": 35,
+          "params": [
+            "df",
+            "config"
+          ]
+        },
+        {
+          "name": "labels_array",
+          "startLine": 38,
+          "endLine": 40,
+          "params": [
+            "df",
+            "investors"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "rolling_binary_action_labels",
+          "line": 11,
+          "isDefault": false
+        },
+        {
+          "name": "add_action_labels",
+          "line": 23,
+          "isDefault": false
+        },
+        {
+          "name": "labels_array",
+          "line": 38,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "rolling_binary_action_labels",
+          "callee": "flow.shift(1).rolling(window=window, min_periods=window).quantile",
+          "lineNumber": 16
+        },
+        {
+          "caller": "rolling_binary_action_labels",
+          "callee": "flow.shift(1).rolling",
+          "lineNumber": 16
+        },
+        {
+          "caller": "rolling_binary_action_labels",
+          "callee": "flow.shift",
+          "lineNumber": 16
+        },
+        {
+          "caller": "rolling_binary_action_labels",
+          "callee": "pd.Series",
+          "lineNumber": 17
+        },
+        {
+          "caller": "rolling_binary_action_labels",
+          "callee": "labels.mask",
+          "lineNumber": 18
+        },
+        {
+          "caller": "rolling_binary_action_labels",
+          "callee": "labels.mask",
+          "lineNumber": 19
+        },
+        {
+          "caller": "add_action_labels",
+          "callee": "df.copy",
+          "lineNumber": 24
+        },
+        {
+          "caller": "add_action_labels",
+          "callee": "rolling_binary_action_labels",
+          "lineNumber": 27
+        },
+        {
+          "caller": "add_action_labels",
+          "callee": "label.shift",
+          "lineNumber": 32
+        },
+        {
+          "caller": "add_action_labels",
+          "callee": "int",
+          "lineNumber": 32
+        },
+        {
+          "caller": "add_action_labels",
+          "callee": "labeling.get",
+          "lineNumber": 32
+        },
+        {
+          "caller": "add_action_labels",
+          "callee": "shifted.map",
+          "lineNumber": 34
+        },
+        {
+          "caller": "labels_array",
+          "callee": "df[cols].to_numpy",
+          "lineNumber": 40
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 3,
+        "functionCount": 3,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/data/loaders.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 21,
+      "nonEmptyLines": 14,
+      "functions": [
+        {
+          "name": "read_table",
+          "startLine": 8,
+          "endLine": 16,
+          "params": [
+            "path"
+          ]
+        },
+        {
+          "name": "load_daily_frame",
+          "startLine": 19,
+          "endLine": 20,
+          "params": [
+            "config"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "read_table",
+          "line": 8,
+          "isDefault": false
+        },
+        {
+          "name": "load_daily_frame",
+          "line": 19,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "read_table",
+          "callee": "Path",
+          "lineNumber": 9
+        },
+        {
+          "caller": "read_table",
+          "callee": "source.exists",
+          "lineNumber": 10
+        },
+        {
+          "caller": "read_table",
+          "callee": "FileNotFoundError",
+          "lineNumber": 11
+        },
+        {
+          "caller": "read_table",
+          "callee": "source.suffix.lower",
+          "lineNumber": 12
+        },
+        {
+          "caller": "read_table",
+          "callee": "pd.read_csv",
+          "lineNumber": 13
+        },
+        {
+          "caller": "read_table",
+          "callee": "source.suffix.lower",
+          "lineNumber": 14
+        },
+        {
+          "caller": "read_table",
+          "callee": "pd.read_parquet",
+          "lineNumber": 15
+        },
+        {
+          "caller": "read_table",
+          "callee": "ValueError",
+          "lineNumber": 16
+        },
+        {
+          "caller": "load_daily_frame",
+          "callee": "read_table",
+          "lineNumber": 20
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 2,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/data/preprocess.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 58,
+      "nonEmptyLines": 46,
+      "functions": [
+        {
+          "name": "resolve_price_column",
+          "startLine": 9,
+          "endLine": 16,
+          "params": [
+            "df",
+            "columns"
+          ]
+        },
+        {
+          "name": "prepare_daily_frame",
+          "startLine": 19,
+          "endLine": 58,
+          "params": [
+            "df",
+            "config"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "resolve_price_column",
+          "line": 9,
+          "isDefault": false
+        },
+        {
+          "name": "prepare_daily_frame",
+          "line": 19,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "resolve_price_column",
+          "callee": "columns.get",
+          "lineNumber": 11
+        },
+        {
+          "caller": "resolve_price_column",
+          "callee": "KeyError",
+          "lineNumber": 16
+        },
+        {
+          "caller": "prepare_daily_frame",
+          "callee": "df.copy",
+          "lineNumber": 22
+        },
+        {
+          "caller": "prepare_daily_frame",
+          "callee": "pd.to_datetime",
+          "lineNumber": 23
+        },
+        {
+          "caller": "prepare_daily_frame",
+          "callee": "config.get(\"preprocess\", {}).get",
+          "lineNumber": 25
+        },
+        {
+          "caller": "prepare_daily_frame",
+          "callee": "config.get",
+          "lineNumber": 25
+        },
+        {
+          "caller": "prepare_daily_frame",
+          "callee": "columns.get",
+          "lineNumber": 26
+        },
+        {
+          "caller": "prepare_daily_frame",
+          "callee": "out.loc[out[ticker_col] == ticker].copy",
+          "lineNumber": 28
+        },
+        {
+          "caller": "prepare_daily_frame",
+          "callee": "resolve_price_column",
+          "lineNumber": 30
+        },
+        {
+          "caller": "prepare_daily_frame",
+          "callee": "out[price_col].astype",
+          "lineNumber": 32
+        },
+        {
+          "caller": "prepare_daily_frame",
+          "callee": "columns[\"investor_trades\"].values",
+          "lineNumber": 36
+        },
+        {
+          "caller": "prepare_daily_frame",
+          "callee": "investor_columns.values",
+          "lineNumber": 37
+        },
+        {
+          "caller": "prepare_daily_frame",
+          "callee": "KeyError",
+          "lineNumber": 42
+        },
+        {
+          "caller": "prepare_daily_frame",
+          "callee": "out.sort_values(date_col).drop_duplicates",
+          "lineNumber": 47
+        },
+        {
+          "caller": "prepare_daily_frame",
+          "callee": "out.sort_values",
+          "lineNumber": 47
+        },
+        {
+          "caller": "prepare_daily_frame",
+          "callee": "pd.to_numeric(out[columns[\"trading_value\"]], errors=\"raise\").replace",
+          "lineNumber": 48
+        },
+        {
+          "caller": "prepare_daily_frame",
+          "callee": "pd.to_numeric",
+          "lineNumber": 48
+        },
+        {
+          "caller": "prepare_daily_frame",
+          "callee": "columns[\"investor_trades\"].items",
+          "lineNumber": 49
+        },
+        {
+          "caller": "prepare_daily_frame",
+          "callee": "pd.to_numeric",
+          "lineNumber": 50
+        },
+        {
+          "caller": "prepare_daily_frame",
+          "callee": "pd.to_numeric",
+          "lineNumber": 51
+        },
+        {
+          "caller": "prepare_daily_frame",
+          "callee": "config.get(\"preprocess\", {}).get",
+          "lineNumber": 55
+        },
+        {
+          "caller": "prepare_daily_frame",
+          "callee": "config.get",
+          "lineNumber": 55
+        },
+        {
+          "caller": "prepare_daily_frame",
+          "callee": "out.dropna",
+          "lineNumber": 56
+        },
+        {
+          "caller": "prepare_daily_frame",
+          "callee": "add_average_cost_states",
+          "lineNumber": 58
+        },
+        {
+          "caller": "prepare_daily_frame",
+          "callee": "out.reset_index",
+          "lineNumber": 58
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 2,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "tests/test_features.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 94,
+      "nonEmptyLines": 83,
+      "functions": [
+        {
+          "name": "_config",
+          "startLine": 9,
+          "endLine": 44,
+          "params": []
+        },
+        {
+          "name": "_gross_trade_columns",
+          "startLine": 47,
+          "endLine": 56,
+          "params": [
+            "n"
+          ]
+        },
+        {
+          "name": "test_feature_tensor_has_binary_actions_and_four_reward_features",
+          "startLine": 59,
+          "endLine": 74,
+          "params": []
+        },
+        {
+          "name": "test_herd_feature_uses_only_lagged_flows",
+          "startLine": 77,
+          "endLine": 94,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "_config",
+          "line": 9,
+          "isDefault": false
+        },
+        {
+          "name": "_gross_trade_columns",
+          "line": 47,
+          "isDefault": false
+        },
+        {
+          "name": "test_feature_tensor_has_binary_actions_and_four_reward_features",
+          "line": 59,
+          "isDefault": false
+        },
+        {
+          "name": "test_herd_feature_uses_only_lagged_flows",
+          "line": 77,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "_gross_trade_columns",
+          "callee": "enumerate",
+          "lineNumber": 49
+        },
+        {
+          "caller": "_gross_trade_columns",
+          "callee": "np.arange",
+          "lineNumber": 50
+        },
+        {
+          "caller": "_gross_trade_columns",
+          "callee": "np.arange",
+          "lineNumber": 51
+        },
+        {
+          "caller": "_gross_trade_columns",
+          "callee": "np.linspace",
+          "lineNumber": 54
+        },
+        {
+          "caller": "_gross_trade_columns",
+          "callee": "np.linspace",
+          "lineNumber": 55
+        },
+        {
+          "caller": "test_feature_tensor_has_binary_actions_and_four_reward_features",
+          "callee": "pd.DataFrame",
+          "lineNumber": 61
+        },
+        {
+          "caller": "test_feature_tensor_has_binary_actions_and_four_reward_features",
+          "callee": "pd.date_range",
+          "lineNumber": 63
+        },
+        {
+          "caller": "test_feature_tensor_has_binary_actions_and_four_reward_features",
+          "callee": "np.linspace",
+          "lineNumber": 64
+        },
+        {
+          "caller": "test_feature_tensor_has_binary_actions_and_four_reward_features",
+          "callee": "np.linspace",
+          "lineNumber": 65
+        },
+        {
+          "caller": "test_feature_tensor_has_binary_actions_and_four_reward_features",
+          "callee": "_gross_trade_columns",
+          "lineNumber": 66
+        },
+        {
+          "caller": "test_feature_tensor_has_binary_actions_and_four_reward_features",
+          "callee": "_config",
+          "lineNumber": 69
+        },
+        {
+          "caller": "test_feature_tensor_has_binary_actions_and_four_reward_features",
+          "callee": "add_action_labels",
+          "lineNumber": 70
+        },
+        {
+          "caller": "test_feature_tensor_has_binary_actions_and_four_reward_features",
+          "callee": "prepare_daily_frame",
+          "lineNumber": 70
+        },
+        {
+          "caller": "test_feature_tensor_has_binary_actions_and_four_reward_features",
+          "callee": "build_feature_tensor",
+          "lineNumber": 71
+        },
+        {
+          "caller": "test_herd_feature_uses_only_lagged_flows",
+          "callee": "_config",
+          "lineNumber": 78
+        },
+        {
+          "caller": "test_herd_feature_uses_only_lagged_flows",
+          "callee": "pd.DataFrame",
+          "lineNumber": 80
+        },
+        {
+          "caller": "test_herd_feature_uses_only_lagged_flows",
+          "callee": "pd.date_range",
+          "lineNumber": 82
+        },
+        {
+          "caller": "test_herd_feature_uses_only_lagged_flows",
+          "callee": "np.linspace",
+          "lineNumber": 83
+        },
+        {
+          "caller": "test_herd_feature_uses_only_lagged_flows",
+          "callee": "np.ones",
+          "lineNumber": 84
+        },
+        {
+          "caller": "test_herd_feature_uses_only_lagged_flows",
+          "callee": "_gross_trade_columns",
+          "lineNumber": 85
+        },
+        {
+          "caller": "test_herd_feature_uses_only_lagged_flows",
+          "callee": "add_action_labels",
+          "lineNumber": 88
+        },
+        {
+          "caller": "test_herd_feature_uses_only_lagged_flows",
+          "callee": "prepare_daily_frame",
+          "lineNumber": 88
+        },
+        {
+          "caller": "test_herd_feature_uses_only_lagged_flows",
+          "callee": "build_feature_tensor",
+          "lineNumber": 89
+        },
+        {
+          "caller": "test_herd_feature_uses_only_lagged_flows",
+          "callee": "build_feature_tensor",
+          "lineNumber": 91
+        },
+        {
+          "caller": "test_herd_feature_uses_only_lagged_flows",
+          "callee": "config[\"features\"][\"selected\"].index",
+          "lineNumber": 92
+        },
+        {
+          "caller": "test_herd_feature_uses_only_lagged_flows",
+          "callee": "np.array_equal",
+          "lineNumber": 94
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 4,
+        "functionCount": 4,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "tests/test_labels.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 24,
+      "nonEmptyLines": 17,
+      "functions": [
+        {
+          "name": "test_binary_labels_use_past_window_only",
+          "startLine": 6,
+          "endLine": 12,
+          "params": []
+        },
+        {
+          "name": "test_features_at_t_target_action_at_t_plus_one",
+          "startLine": 15,
+          "endLine": 24,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "test_binary_labels_use_past_window_only",
+          "line": 6,
+          "isDefault": false
+        },
+        {
+          "name": "test_features_at_t_target_action_at_t_plus_one",
+          "line": 15,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "test_binary_labels_use_past_window_only",
+          "callee": "pd.Series",
+          "lineNumber": 7
+        },
+        {
+          "caller": "test_binary_labels_use_past_window_only",
+          "callee": "rolling_binary_action_labels",
+          "lineNumber": 8
+        },
+        {
+          "caller": "test_binary_labels_use_past_window_only",
+          "callee": "labels.iloc[:3].isna().all",
+          "lineNumber": 10
+        },
+        {
+          "caller": "test_binary_labels_use_past_window_only",
+          "callee": "labels.iloc[:3].isna",
+          "lineNumber": 10
+        },
+        {
+          "caller": "test_features_at_t_target_action_at_t_plus_one",
+          "callee": "pd.DataFrame",
+          "lineNumber": 16
+        },
+        {
+          "caller": "test_features_at_t_target_action_at_t_plus_one",
+          "callee": "add_action_labels",
+          "lineNumber": 21
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 2,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    }
+  ]
+}

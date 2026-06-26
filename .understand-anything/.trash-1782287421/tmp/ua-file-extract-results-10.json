@@ -1,0 +1,547 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 10,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "collect_base.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 122,
+      "nonEmptyLines": 100,
+      "functions": [
+        {
+          "name": "log",
+          "startLine": 33,
+          "endLine": 34,
+          "params": [
+            "msg"
+          ]
+        },
+        {
+          "name": "pick_col",
+          "startLine": 37,
+          "endLine": 42,
+          "params": [
+            "df",
+            "keywords"
+          ]
+        },
+        {
+          "name": "get_ohlcv",
+          "startLine": 45,
+          "endLine": 63,
+          "params": []
+        },
+        {
+          "name": "get_kospi200",
+          "startLine": 66,
+          "endLine": 76,
+          "params": []
+        },
+        {
+          "name": "get_usdkrw",
+          "startLine": 79,
+          "endLine": 89,
+          "params": []
+        },
+        {
+          "name": "main",
+          "startLine": 92,
+          "endLine": 114,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "log",
+          "line": 33,
+          "isDefault": false
+        },
+        {
+          "name": "pick_col",
+          "line": 37,
+          "isDefault": false
+        },
+        {
+          "name": "get_ohlcv",
+          "line": 45,
+          "isDefault": false
+        },
+        {
+          "name": "get_kospi200",
+          "line": 66,
+          "isDefault": false
+        },
+        {
+          "name": "get_usdkrw",
+          "line": 79,
+          "isDefault": false
+        },
+        {
+          "name": "main",
+          "line": 92,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "log",
+          "callee": "print",
+          "lineNumber": 34
+        },
+        {
+          "caller": "log",
+          "callee": "time.strftime",
+          "lineNumber": 34
+        },
+        {
+          "caller": "pick_col",
+          "callee": "k.lower",
+          "lineNumber": 40
+        },
+        {
+          "caller": "pick_col",
+          "callee": "str(c).lower",
+          "lineNumber": 40
+        },
+        {
+          "caller": "pick_col",
+          "callee": "str",
+          "lineNumber": 40
+        },
+        {
+          "caller": "pick_col",
+          "callee": "KeyError",
+          "lineNumber": 42
+        },
+        {
+          "caller": "pick_col",
+          "callee": "list",
+          "lineNumber": 42
+        },
+        {
+          "caller": "get_ohlcv",
+          "callee": "log",
+          "lineNumber": 46
+        },
+        {
+          "caller": "get_ohlcv",
+          "callee": "fdr.DataReader",
+          "lineNumber": 47
+        },
+        {
+          "caller": "get_ohlcv",
+          "callee": "RuntimeError",
+          "lineNumber": 49
+        },
+        {
+          "caller": "get_ohlcv",
+          "callee": "df.copy",
+          "lineNumber": 50
+        },
+        {
+          "caller": "get_ohlcv",
+          "callee": "pd.to_datetime",
+          "lineNumber": 51
+        },
+        {
+          "caller": "get_ohlcv",
+          "callee": "pick_col",
+          "lineNumber": 53
+        },
+        {
+          "caller": "get_ohlcv",
+          "callee": "pd.DataFrame",
+          "lineNumber": 54
+        },
+        {
+          "caller": "get_ohlcv",
+          "callee": "pick_col",
+          "lineNumber": 58
+        },
+        {
+          "caller": "get_ohlcv",
+          "callee": "pick_col",
+          "lineNumber": 60
+        },
+        {
+          "caller": "get_ohlcv",
+          "callee": "log",
+          "lineNumber": 61
+        },
+        {
+          "caller": "get_ohlcv",
+          "callee": "out[\"close\"].pct_change",
+          "lineNumber": 62
+        },
+        {
+          "caller": "get_kospi200",
+          "callee": "log",
+          "lineNumber": 67
+        },
+        {
+          "caller": "get_kospi200",
+          "callee": "fdr.DataReader",
+          "lineNumber": 68
+        },
+        {
+          "caller": "get_kospi200",
+          "callee": "RuntimeError",
+          "lineNumber": 70
+        },
+        {
+          "caller": "get_kospi200",
+          "callee": "df.copy",
+          "lineNumber": 71
+        },
+        {
+          "caller": "get_kospi200",
+          "callee": "pd.to_datetime",
+          "lineNumber": 72
+        },
+        {
+          "caller": "get_kospi200",
+          "callee": "pd.DataFrame",
+          "lineNumber": 74
+        },
+        {
+          "caller": "get_kospi200",
+          "callee": "df[pick_col(df, [\"Close\"])].pct_change",
+          "lineNumber": 75
+        },
+        {
+          "caller": "get_kospi200",
+          "callee": "pick_col",
+          "lineNumber": 75
+        },
+        {
+          "caller": "get_usdkrw",
+          "callee": "log",
+          "lineNumber": 80
+        },
+        {
+          "caller": "get_usdkrw",
+          "callee": "fdr.DataReader",
+          "lineNumber": 81
+        },
+        {
+          "caller": "get_usdkrw",
+          "callee": "RuntimeError",
+          "lineNumber": 83
+        },
+        {
+          "caller": "get_usdkrw",
+          "callee": "df.copy",
+          "lineNumber": 84
+        },
+        {
+          "caller": "get_usdkrw",
+          "callee": "pd.to_datetime",
+          "lineNumber": 85
+        },
+        {
+          "caller": "get_usdkrw",
+          "callee": "pd.DataFrame",
+          "lineNumber": 87
+        },
+        {
+          "caller": "get_usdkrw",
+          "callee": "pick_col",
+          "lineNumber": 88
+        },
+        {
+          "caller": "main",
+          "callee": "get_ohlcv",
+          "lineNumber": 93
+        },
+        {
+          "caller": "main",
+          "callee": "get_kospi200",
+          "lineNumber": 94
+        },
+        {
+          "caller": "main",
+          "callee": "get_usdkrw",
+          "lineNumber": 95
+        },
+        {
+          "caller": "main",
+          "callee": "ohlcv.join(k200, how=\"left\").join",
+          "lineNumber": 97
+        },
+        {
+          "caller": "main",
+          "callee": "ohlcv.join",
+          "lineNumber": 97
+        },
+        {
+          "caller": "main",
+          "callee": "df[\"usdkrw\"].ffill",
+          "lineNumber": 98
+        },
+        {
+          "caller": "main",
+          "callee": "df[\"kospi200_return\"].ffill",
+          "lineNumber": 99
+        },
+        {
+          "caller": "main",
+          "callee": "pd.to_datetime",
+          "lineNumber": 100
+        },
+        {
+          "caller": "main",
+          "callee": "pd.to_datetime",
+          "lineNumber": 100
+        },
+        {
+          "caller": "main",
+          "callee": "df.reset_index",
+          "lineNumber": 103
+        },
+        {
+          "caller": "main",
+          "callee": "pd.to_datetime(df[\"date\"]).dt.strftime",
+          "lineNumber": 104
+        },
+        {
+          "caller": "main",
+          "callee": "pd.to_datetime",
+          "lineNumber": 104
+        },
+        {
+          "caller": "main",
+          "callee": "df.to_csv",
+          "lineNumber": 105
+        },
+        {
+          "caller": "main",
+          "callee": "log",
+          "lineNumber": 107
+        },
+        {
+          "caller": "main",
+          "callee": "len",
+          "lineNumber": 107
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 108
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 109
+        },
+        {
+          "caller": "main",
+          "callee": "df.head(3).to_string",
+          "lineNumber": 109
+        },
+        {
+          "caller": "main",
+          "callee": "df.head",
+          "lineNumber": 109
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 110
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 111
+        },
+        {
+          "caller": "main",
+          "callee": "df.tail(3).to_string",
+          "lineNumber": 111
+        },
+        {
+          "caller": "main",
+          "callee": "df.tail",
+          "lineNumber": 111
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 112
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 113
+        },
+        {
+          "caller": "main",
+          "callee": "df.isna().sum().to_string",
+          "lineNumber": 113
+        },
+        {
+          "caller": "main",
+          "callee": "df.isna().sum",
+          "lineNumber": 113
+        },
+        {
+          "caller": "main",
+          "callee": "df.isna",
+          "lineNumber": 113
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 114
+        },
+        {
+          "caller": "main",
+          "callee": "df['date'].min",
+          "lineNumber": 114
+        },
+        {
+          "caller": "main",
+          "callee": "df['date'].max",
+          "lineNumber": 114
+        },
+        {
+          "caller": "main",
+          "callee": "len",
+          "lineNumber": 114
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 6,
+        "functionCount": 6,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "notebooks/README.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 7,
+      "nonEmptyLines": 5,
+      "sections": [
+        {
+          "heading": "Notebooks",
+          "level": 1,
+          "line": 1
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 1
+      }
+    },
+    {
+      "path": "scripts/__init__.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 1,
+      "nonEmptyLines": 1,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/__init__.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 2,
+      "nonEmptyLines": 1,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/data/__init__.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 2,
+      "nonEmptyLines": 1,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/evaluation/__init__.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 2,
+      "nonEmptyLines": 1,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/features/__init__.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 2,
+      "nonEmptyLines": 1,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/models/__init__.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 2,
+      "nonEmptyLines": 1,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/training/__init__.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 2,
+      "nonEmptyLines": 1,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/utils/__init__.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 2,
+      "nonEmptyLines": 1,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    }
+  ]
+}

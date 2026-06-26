@@ -1,0 +1,253 @@
+{
+  "nodes": [
+    {
+      "id": "file:src/training/checkpoint.py",
+      "type": "file",
+      "name": "checkpoint.py",
+      "filePath": "src/training/checkpoint.py",
+      "summary": "모델·optimizer state_dict와 epoch, metrics를 torch.save/torch.load로 직렬화하는 checkpoint 저장·복원 유틸리티를 제공한다.",
+      "tags": ["serialization", "checkpoint", "utility", "pytorch"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/training/losses.py",
+      "type": "file",
+      "name": "losses.py",
+      "filePath": "src/training/losses.py",
+      "summary": "행동 모방을 위한 NLL(cross-entropy) loss와 L1 penalty를 결합한 regularized loss를 정의하는 IRL 학습 손실 함수 모듈이다.",
+      "tags": ["loss-function", "irl", "validation", "pytorch"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/training/trainer.py",
+      "type": "file",
+      "name": "trainer.py",
+      "filePath": "src/training/trainer.py",
+      "summary": "단일 투자자 모델에 대한 epoch 단위 학습 루프로, device 선택·Adam optimizer 구성·NLL+L1 loss 역전파·checkpoint 저장을 수행한다.",
+      "tags": ["service", "training-loop", "irl", "pytorch"],
+      "complexity": "moderate",
+      "languageNotes": "torch.cuda / torch.backends.mps 가용성에 따라 device를 동적으로 선택하는 패턴 사용."
+    },
+    {
+      "id": "file:tests/test_losses.py",
+      "type": "file",
+      "name": "test_losses.py",
+      "filePath": "tests/test_losses.py",
+      "summary": "단일 투자자 설정에서 loss에 investor 차원 합산이 없음을 검증하는 behavior_nll·regularized_loss 단위 테스트이다.",
+      "tags": ["test", "loss-function", "irl"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/training/checkpoint.py:save_checkpoint",
+      "type": "function",
+      "name": "save_checkpoint",
+      "filePath": "src/training/checkpoint.py",
+      "lineRange": [8, 19],
+      "summary": "대상 경로의 부모 디렉터리를 생성한 뒤 model·optimizer의 state_dict, epoch, metrics를 묶어 torch.save로 저장한다.",
+      "tags": ["serialization", "checkpoint", "utility"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/training/checkpoint.py:load_checkpoint",
+      "type": "function",
+      "name": "load_checkpoint",
+      "filePath": "src/training/checkpoint.py",
+      "lineRange": [22, 27],
+      "summary": "torch.load로 checkpoint를 읽어 model state_dict를 복원하고, optimizer가 주어지면 optimizer 상태도 함께 복원한다.",
+      "tags": ["serialization", "checkpoint", "utility"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/training/losses.py:behavior_nll",
+      "type": "function",
+      "name": "behavior_nll",
+      "filePath": "src/training/losses.py",
+      "lineRange": [7, 8],
+      "summary": "logits와 labels에 대한 cross-entropy로 행동 모방 NLL loss를 계산한다.",
+      "tags": ["loss-function", "irl", "utility"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/training/losses.py:regularized_loss",
+      "type": "function",
+      "name": "regularized_loss",
+      "filePath": "src/training/losses.py",
+      "lineRange": [11, 16],
+      "summary": "NLL loss에 lambda_l1 가중치를 곱한 L1 penalty를 더해 정규화된 최종 학습 loss를 산출한다.",
+      "tags": ["loss-function", "regularization", "irl"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/training/trainer.py:resolve_device",
+      "type": "function",
+      "name": "resolve_device",
+      "filePath": "src/training/trainer.py",
+      "lineRange": [12, 19],
+      "summary": "지정된 이름 또는 cuda/mps 가용성에 따라 적절한 torch.device를 선택해 반환한다.",
+      "tags": ["utility", "device", "pytorch"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/training/trainer.py:train_investor_model",
+      "type": "function",
+      "name": "train_investor_model",
+      "filePath": "src/training/trainer.py",
+      "lineRange": [22, 56],
+      "summary": "투자자 모델을 device로 옮기고 Adam optimizer로 epoch 루프를 돌며 NLL+L1 loss를 역전파하고 학습 종료 후 checkpoint를 저장한다.",
+      "tags": ["training-loop", "service", "irl", "pytorch"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:tests/test_losses.py:test_single_investor_loss_has_no_investor_sum",
+      "type": "function",
+      "name": "test_single_investor_loss_has_no_investor_sum",
+      "filePath": "tests/test_losses.py",
+      "lineRange": [6, 13],
+      "summary": "behavior_nll과 regularized_loss를 호출해 단일 투자자 설정에서 loss 값이 기대치와 일치함을 torch.isclose로 검증한다.",
+      "tags": ["test", "loss-function", "irl"],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:src/training/checkpoint.py",
+      "target": "function:src/training/checkpoint.py:save_checkpoint",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/training/checkpoint.py",
+      "target": "function:src/training/checkpoint.py:save_checkpoint",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/training/checkpoint.py",
+      "target": "function:src/training/checkpoint.py:load_checkpoint",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/training/checkpoint.py",
+      "target": "function:src/training/checkpoint.py:load_checkpoint",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/training/losses.py",
+      "target": "function:src/training/losses.py:behavior_nll",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/training/losses.py",
+      "target": "function:src/training/losses.py:behavior_nll",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/training/losses.py",
+      "target": "function:src/training/losses.py:regularized_loss",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/training/losses.py",
+      "target": "function:src/training/losses.py:regularized_loss",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/training/trainer.py",
+      "target": "function:src/training/trainer.py:resolve_device",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/training/trainer.py",
+      "target": "function:src/training/trainer.py:resolve_device",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/training/trainer.py",
+      "target": "function:src/training/trainer.py:train_investor_model",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/training/trainer.py",
+      "target": "function:src/training/trainer.py:train_investor_model",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:tests/test_losses.py",
+      "target": "function:tests/test_losses.py:test_single_investor_loss_has_no_investor_sum",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/training/trainer.py",
+      "target": "file:src/training/checkpoint.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/training/trainer.py",
+      "target": "file:src/training/losses.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:tests/test_losses.py",
+      "target": "file:src/training/losses.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "function:src/training/trainer.py:train_investor_model",
+      "target": "function:src/training/checkpoint.py:save_checkpoint",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:src/training/trainer.py:train_investor_model",
+      "target": "function:src/training/losses.py:behavior_nll",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:src/training/trainer.py:train_investor_model",
+      "target": "function:src/training/losses.py:regularized_loss",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/training/losses.py",
+      "target": "file:tests/test_losses.py",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    }
+  ]
+}
