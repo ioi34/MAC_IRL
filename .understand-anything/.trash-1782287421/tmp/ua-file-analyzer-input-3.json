@@ -1,0 +1,12 @@
+{
+  "projectRoot": "/Users/yumin/Desktop/MAC_IRL/MAC_IRL",
+  "batchFiles": [
+    {"path": "scripts/prepare_data.py", "language": "python", "sizeLines": 93, "fileCategory": "code"},
+    {"path": "src/data/labels.py", "language": "python", "sizeLines": 40, "fileCategory": "code"},
+    {"path": "src/data/loaders.py", "language": "python", "sizeLines": 21, "fileCategory": "code"},
+    {"path": "src/data/preprocess.py", "language": "python", "sizeLines": 58, "fileCategory": "code"},
+    {"path": "tests/test_features.py", "language": "python", "sizeLines": 94, "fileCategory": "code"},
+    {"path": "tests/test_labels.py", "language": "python", "sizeLines": 24, "fileCategory": "code"}
+  ],
+  "batchImportData": {"scripts/prepare_data.py":["src/data/labels.py","src/data/loaders.py","src/data/preprocess.py","src/features/registry.py","src/utils/config.py"],"src/data/labels.py":[],"src/data/loaders.py":[],"src/data/preprocess.py":["src/data/average_cost.py"],"tests/test_features.py":["src/data/labels.py","src/data/preprocess.py","src/features/registry.py"],"tests/test_labels.py":["src/data/labels.py"]}
+}

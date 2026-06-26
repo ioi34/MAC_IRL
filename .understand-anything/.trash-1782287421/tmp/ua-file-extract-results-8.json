@@ -1,0 +1,241 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 8,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "AGENTS.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 70,
+      "nonEmptyLines": 44,
+      "sections": [
+        {
+          "heading": "AGENTS.md",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "1. Think Before Coding",
+          "level": 2,
+          "line": 7
+        },
+        {
+          "heading": "2. Simplicity First",
+          "level": 2,
+          "line": 18
+        },
+        {
+          "heading": "3. Surgical Changes",
+          "level": 2,
+          "line": 30
+        },
+        {
+          "heading": "4. Goal-Driven Execution",
+          "level": 2,
+          "line": 48
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 5
+      }
+    },
+    {
+      "path": "CLAUDE.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 70,
+      "nonEmptyLines": 44,
+      "sections": [
+        {
+          "heading": "CLAUDE.md",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "1. Think Before Coding",
+          "level": 2,
+          "line": 7
+        },
+        {
+          "heading": "2. Simplicity First",
+          "level": 2,
+          "line": 18
+        },
+        {
+          "heading": "3. Surgical Changes",
+          "level": 2,
+          "line": 30
+        },
+        {
+          "heading": "4. Goal-Driven Execution",
+          "level": 2,
+          "line": 48
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 5
+      }
+    },
+    {
+      "path": "DATA_README.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 65,
+      "nonEmptyLines": 49,
+      "sections": [
+        {
+          "heading": "단일종목 MAC-IRL 데이터셋 (삼성전자 005930)",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "컬럼 정의",
+          "level": 2,
+          "line": 12
+        },
+        {
+          "heading": "기본 변수 (연구 설계 필수)",
+          "level": 3,
+          "line": 14
+        },
+        {
+          "heading": "확장 변수 (투자자별 매수·매도 분리)",
+          "level": 3,
+          "line": 28
+        },
+        {
+          "heading": "데이터 출처",
+          "level": 2,
+          "line": 41
+        },
+        {
+          "heading": "검증 결과 (2026-06-22)",
+          "level": 2,
+          "line": 51
+        },
+        {
+          "heading": "사용 참고 (연구 설계)",
+          "level": 2,
+          "line": 60
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 7
+      }
+    },
+    {
+      "path": "README.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 104,
+      "nonEmptyLines": 78,
+      "sections": [
+        {
+          "heading": "MAC-IRL",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "설치",
+          "level": 2,
+          "line": 5
+        },
+        {
+          "heading": "입력 데이터",
+          "level": 2,
+          "line": 13
+        },
+        {
+          "heading": "실행",
+          "level": 2,
+          "line": 33
+        },
+        {
+          "heading": "모델 기본값",
+          "level": 2,
+          "line": 53
+        },
+        {
+          "heading": "결과",
+          "level": 2,
+          "line": 63
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 6
+      }
+    },
+    {
+      "path": "pyproject.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 21,
+      "nonEmptyLines": 19,
+      "sections": [
+        {
+          "heading": "project",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "project.optional-dependencies",
+          "level": 2,
+          "line": 16
+        },
+        {
+          "heading": "tool.pytest.ini_options",
+          "level": 3,
+          "line": 19
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 3
+      }
+    },
+    {
+      "path": "requirements.txt",
+      "language": "txt",
+      "fileCategory": "docs",
+      "totalLines": 8,
+      "nonEmptyLines": 8,
+      "metrics": {}
+    },
+    {
+      "path": "samsung_macirl_2021_2025_FINAL.csv",
+      "language": "csv",
+      "fileCategory": "data",
+      "totalLines": 1226,
+      "nonEmptyLines": 1226,
+      "metrics": {}
+    },
+    {
+      "path": "samsung_macirl_EXTENDED_2021_2025.csv",
+      "language": "csv",
+      "fileCategory": "data",
+      "totalLines": 1226,
+      "nonEmptyLines": 1226,
+      "metrics": {}
+    }
+  ]
+}

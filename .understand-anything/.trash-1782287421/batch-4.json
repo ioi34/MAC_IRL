@@ -1,0 +1,321 @@
+{
+  "nodes": [
+    {
+      "id": "file:scripts/evaluate.py",
+      "type": "file",
+      "name": "evaluate.py",
+      "filePath": "scripts/evaluate.py",
+      "summary": "학습된 모델의 평가 지표와 보상 가중치를 출력하는 평가 entry script로, config를 로드한 뒤 결과 CSV를 읽어 콘솔에 표시한다.",
+      "tags": ["entry-point", "evaluation", "cli", "script"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:scripts/evaluate.py:main",
+      "type": "function",
+      "name": "main",
+      "filePath": "scripts/evaluate.py",
+      "lineRange": [17, 26],
+      "summary": "인자를 파싱하고 config를 로드한 뒤 metrics·weights 결과 CSV를 읽어 콘솔에 출력하는 평가 진입 함수.",
+      "tags": ["entry-point", "evaluation", "cli"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:scripts/run_ablation.py",
+      "type": "file",
+      "name": "run_ablation.py",
+      "filePath": "scripts/run_ablation.py",
+      "summary": "정의된 ablation 조합별로 feature를 제거한 config를 생성하고 subprocess로 학습·평가 파이프라인을 실행하는 ablation 실험 entry script.",
+      "tags": ["entry-point", "ablation", "cli", "experiment"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:scripts/run_ablation.py:main",
+      "type": "function",
+      "name": "main",
+      "filePath": "scripts/run_ablation.py",
+      "lineRange": [31, 91],
+      "summary": "ABLATIONS 항목을 순회하며 feature를 제거한 config를 YAML로 dump하고 subprocess.run으로 학습·평가를 순차 실행하는 ablation 오케스트레이션 함수.",
+      "tags": ["ablation", "orchestration", "experiment", "subprocess"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:src/evaluation/ablation.py",
+      "type": "file",
+      "name": "ablation.py",
+      "filePath": "src/evaluation/ablation.py",
+      "summary": "ablation 실험을 위해 config에서 지정된 feature 목록을 제거한 deep copy를 반환하는 유틸 모듈.",
+      "tags": ["utility", "ablation", "config", "evaluation"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/evaluation/ablation.py:remove_features",
+      "type": "function",
+      "name": "remove_features",
+      "filePath": "src/evaluation/ablation.py",
+      "lineRange": [6, 11],
+      "summary": "주어진 config를 deepcopy한 뒤 features_to_remove에 해당하는 항목을 제거하여 ablation용 config를 생성한다.",
+      "tags": ["utility", "ablation", "config"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/utils/config.py",
+      "type": "file",
+      "name": "config.py",
+      "filePath": "src/utils/config.py",
+      "summary": "프로젝트 전반에서 사용하는 YAML config 로더로, 여러 config 파일을 deep_merge로 병합해 단일 설정을 만들고 dump_yaml로 직렬화하는 헬퍼를 제공한다.",
+      "tags": ["utility", "config", "yaml", "serialization"],
+      "complexity": "simple",
+      "languageNotes": "재귀적 deep_merge로 중첩 dict를 병합하는 전형적인 설정 병합 패턴."
+    },
+    {
+      "id": "function:src/utils/config.py:load_yaml",
+      "type": "function",
+      "name": "load_yaml",
+      "filePath": "src/utils/config.py",
+      "lineRange": [10, 15],
+      "summary": "지정 경로의 YAML 파일을 safe_load로 읽어 dict로 반환하며, dict가 아니면 ValueError를 발생시킨다.",
+      "tags": ["utility", "yaml", "config", "validation"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/utils/config.py:deep_merge",
+      "type": "function",
+      "name": "deep_merge",
+      "filePath": "src/utils/config.py",
+      "lineRange": [18, 25],
+      "summary": "base config를 deepcopy한 뒤 override의 중첩 dict 항목을 재귀적으로 병합하여 결합된 설정을 반환한다.",
+      "tags": ["utility", "config", "recursion", "merge"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/utils/config.py:load_configs",
+      "type": "function",
+      "name": "load_configs",
+      "filePath": "src/utils/config.py",
+      "lineRange": [28, 32],
+      "summary": "여러 YAML config 파일을 load_yaml로 읽어 deep_merge로 합쳐 단일 설정 dict를 구성하는 진입 헬퍼.",
+      "tags": ["utility", "config", "yaml", "entry-point"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/utils/config.py:dump_yaml",
+      "type": "function",
+      "name": "dump_yaml",
+      "filePath": "src/utils/config.py",
+      "lineRange": [35, 39],
+      "summary": "대상 경로의 부모 디렉터리를 생성한 뒤 config dict를 YAML로 직렬화해 파일로 저장한다.",
+      "tags": ["utility", "config", "yaml", "serialization"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:tests/test_config.py",
+      "type": "file",
+      "name": "test_config.py",
+      "filePath": "tests/test_config.py",
+      "summary": "기본 feature config가 registry 스키마와 일치하는지 검증하는 config 로더 단위 테스트.",
+      "tags": ["test", "config", "validation"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:tests/test_config.py:test_default_feature_config_matches_registry_schema",
+      "type": "function",
+      "name": "test_default_feature_config_matches_registry_schema",
+      "filePath": "tests/test_config.py",
+      "lineRange": [4, 8],
+      "summary": "load_configs로 기본 설정을 로드해 feature config가 registry 스키마와 일치하는지 검증하는 테스트 케이스.",
+      "tags": ["test", "config", "validation"],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:scripts/evaluate.py",
+      "target": "function:scripts/evaluate.py:main",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:scripts/evaluate.py",
+      "target": "function:scripts/evaluate.py:main",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:scripts/evaluate.py",
+      "target": "file:src/utils/config.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "function:scripts/evaluate.py:main",
+      "target": "function:src/utils/config.py:load_configs",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:scripts/run_ablation.py",
+      "target": "function:scripts/run_ablation.py:main",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:scripts/run_ablation.py",
+      "target": "function:scripts/run_ablation.py:main",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:scripts/run_ablation.py",
+      "target": "file:src/evaluation/ablation.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:scripts/run_ablation.py",
+      "target": "file:src/utils/config.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "function:scripts/run_ablation.py:main",
+      "target": "function:src/evaluation/ablation.py:remove_features",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:scripts/run_ablation.py:main",
+      "target": "function:src/utils/config.py:load_configs",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:scripts/run_ablation.py:main",
+      "target": "function:src/utils/config.py:dump_yaml",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/evaluation/ablation.py",
+      "target": "function:src/evaluation/ablation.py:remove_features",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/evaluation/ablation.py",
+      "target": "function:src/evaluation/ablation.py:remove_features",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/utils/config.py",
+      "target": "function:src/utils/config.py:load_yaml",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/utils/config.py",
+      "target": "function:src/utils/config.py:deep_merge",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/utils/config.py",
+      "target": "function:src/utils/config.py:load_configs",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/utils/config.py",
+      "target": "function:src/utils/config.py:dump_yaml",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/utils/config.py",
+      "target": "function:src/utils/config.py:load_yaml",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/utils/config.py",
+      "target": "function:src/utils/config.py:deep_merge",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/utils/config.py",
+      "target": "function:src/utils/config.py:load_configs",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/utils/config.py",
+      "target": "function:src/utils/config.py:dump_yaml",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:src/utils/config.py:load_configs",
+      "target": "function:src/utils/config.py:deep_merge",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:src/utils/config.py:load_configs",
+      "target": "function:src/utils/config.py:load_yaml",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:tests/test_config.py",
+      "target": "function:tests/test_config.py:test_default_feature_config_matches_registry_schema",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_config.py",
+      "target": "file:src/utils/config.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/utils/config.py",
+      "target": "file:tests/test_config.py",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "function:tests/test_config.py:test_default_feature_config_matches_registry_schema",
+      "target": "function:src/utils/config.py:load_configs",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    }
+  ]
+}

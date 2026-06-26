@@ -1,0 +1,15 @@
+{
+  "projectRoot": "/Users/yumin/Desktop/MAC_IRL/MAC_IRL",
+  "batchFiles": [
+    {"path":"scripts/train.py","language":"python","sizeLines":213,"fileCategory":"code"},
+    {"path":"src/data/splits.py","language":"python","sizeLines":20,"fileCategory":"code"},
+    {"path":"src/evaluation/interpret.py","language":"python","sizeLines":42,"fileCategory":"code"},
+    {"path":"src/evaluation/metrics.py","language":"python","sizeLines":17,"fileCategory":"code"},
+    {"path":"src/evaluation/reporting.py","language":"python","sizeLines":18,"fileCategory":"code"},
+    {"path":"src/utils/logging.py","language":"python","sizeLines":20,"fileCategory":"code"},
+    {"path":"src/utils/seed.py","language":"python","sizeLines":19,"fileCategory":"code"},
+    {"path":"tests/test_cpcv.py","language":"python","sizeLines":23,"fileCategory":"code"},
+    {"path":"tests/test_processed_schema.py","language":"python","sizeLines":38,"fileCategory":"code"}
+  ],
+  "batchImportData": {"scripts/train.py":["src/data/splits.py","src/evaluation/interpret.py","src/evaluation/metrics.py","src/evaluation/reporting.py","src/features/scaling.py","src/models/mac_irl.py","src/training/trainer.py","src/utils/config.py","src/utils/logging.py","src/utils/seed.py"],"src/data/splits.py":[],"src/evaluation/interpret.py":[],"src/evaluation/metrics.py":[],"src/evaluation/reporting.py":[],"src/utils/logging.py":["src/utils/logging.py"],"src/utils/seed.py":[],"tests/test_cpcv.py":["src/data/splits.py"],"tests/test_processed_schema.py":["scripts/train.py"]}
+}

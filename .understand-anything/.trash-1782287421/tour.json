@@ -1,0 +1,90 @@
+[
+  {
+    "order": 1,
+    "title": "프로젝트 개요와 연구 설계",
+    "description": "README.md로 시작해 MAC-IRL이 무엇을 푸는지 이해합니다. 단일종목(삼성전자)에서 외국인·기관·개인 세 투자자 그룹의 행동을 모방하도록 투자자별 독립 reward 모델을 학습하고, skfolio CPCV로 누수 없이 평가하는 연구입니다. 실행 파이프라인(prepare_data → train → evaluate), CPCV 기본값, 보상특징 공식, 결과 산출물까지 전체 로드맵을 먼저 잡습니다.",
+    "nodeIds": ["document:README.md", "document:requirements.txt"]
+  },
+  {
+    "order": 2,
+    "title": "입력 데이터셋과 데이터 명세",
+    "description": "모델이 학습하는 원천 데이터를 봅니다. EXTENDED CSV는 외국인·기관·개인별 매수·매도 금액·수량을 분리 수록한 권장 입력으로, 평균단가(average cost) 추적에 필요한 거래 단위 정보를 제공합니다. DATA_README.md는 컬럼 정의·데이터 출처(KRX·FinanceDataReader)·검증 결과를 설명하며, 이후 모든 feature가 이 컬럼들 위에서 계산됩니다.",
+    "nodeIds": ["document:DATA_README.md", "table:samsung_macirl_EXTENDED_2021_2025.csv:samsung_macirl_extended", "table:samsung_macirl_2021_2025_FINAL.csv:samsung_macirl_final", "file:collect_base.py"]
+  },
+  {
+    "order": 3,
+    "title": "설정으로 본 실험 구조",
+    "description": "1단계의 '왜'를 코드 이전에 config로 구체화합니다. data.yaml은 컬럼 매핑·action 정의·rolling 분위수 라벨링·전처리(rho)를, features.yaml은 선택 feature와 window·scaling을, model.yaml은 reward 타입(fixed_linear)·투자자 목록·온도 tau를, train.yaml은 CPCV(n_folds·purge·embargo)·L1 lambda를 정의합니다. 모든 스크립트가 이 YAML들을 병합해 동작하므로 여기서 전체 하이퍼파라미터 지형을 파악합니다.",
+    "nodeIds": ["config:configs/data.yaml", "config:configs/features.yaml", "config:configs/model.yaml", "config:configs/train.yaml", "config:configs/experiment.yaml"],
+    "languageLesson": "YAML 설정은 코드와 파라미터를 분리합니다. 이 프로젝트는 여러 YAML 파일을 deep_merge로 합쳐 단일 config를 만들어, 같은 코드로 base 실험과 loss_aversion 변형을 전환합니다."
+  },
+  {
+    "order": 4,
+    "title": "공용 유틸리티: config·seed·logging",
+    "description": "fanIn이 가장 높은 횡단 모듈들입니다. config.py는 3단계의 YAML들을 load_yaml→deep_merge→load_configs로 병합하는 로더로, 거의 모든 스크립트가 의존합니다(fanIn 5). seed.py는 random·numpy·torch·CUDA 시드를 일괄 고정해 재현성을 보장하고, logging.py는 콘솔과 출력 디렉터리 파일 핸들러를 함께 설정합니다. 이 세 모듈을 먼저 알면 이후 엔트리포인트들의 부트스트랩 코드가 쉽게 읽힙니다.",
+    "nodeIds": ["file:src/utils/config.py", "file:src/utils/seed.py", "file:src/utils/logging.py"]
+  },
+  {
+    "order": 5,
+    "title": "데이터 준비 파이프라인 진입점",
+    "description": "파이프라인 첫 단계인 prepare_data.py를 봅니다. 이 CLI는 config를 로드한 뒤 loaders로 일별 프레임을 읽고, preprocess로 전처리, labels로 action을 부여하고, features registry로 feature tensor를 만들어 학습용 npz와 메타데이터로 저장합니다. 4단계의 config 로더를 직접 호출하는 첫 오케스트레이터로, 데이터 계층 전체의 호출 순서를 한눈에 보여줍니다.",
+    "nodeIds": ["file:scripts/prepare_data.py", "file:src/data/loaders.py"]
+  },
+  {
+    "order": 6,
+    "title": "전처리와 평균단가 상태 추적",
+    "description": "5단계가 호출하는 데이터 계층의 핵심입니다. preprocess.py는 단일종목 필터링·정규화·정렬·결측 처리 후 average_cost를 부가하고, average_cost.py는 투자자별 매수·매도로부터 평균단가 기반 보유 상태와 평단 대비 underwater 노출을 시점별로 추적합니다. 이 underwater 상태가 이후 손실회피·군집추종 feature의 토대가 됩니다. no-lookahead 테스트가 미래 거래가 현재 상태를 바꾸지 않음을 보장합니다.",
+    "nodeIds": ["file:src/data/preprocess.py", "file:src/data/average_cost.py", "file:tests/test_no_lookahead.py"],
+    "languageLesson": "시계열 IRL에서 look-ahead bias 방지가 핵심입니다. average cost는 t 시점까지의 거래만으로 누적 갱신되어야 하며, no-lookahead 테스트가 이 인과 순서를 회귀 방지합니다."
+  },
+  {
+    "order": 7,
+    "title": "행동 라벨링: 전문가 시연 만들기",
+    "description": "IRL은 '전문가 행동'을 모방하므로, 무엇이 행동인지 정의가 결정적입니다. labels.py는 투자자별 net buy flow를 과거 rolling 분위수 기준으로 이진 action(매수/관망)으로 변환하고, t 시점 feature에 대해 t+1 행동을 타겟으로 정렬합니다. 라벨이 과거 window만 사용하고 정렬이 올바른지를 단위 테스트가 검증하여, 학습이 미래를 엿보지 않도록 합니다.",
+    "nodeIds": ["file:src/data/labels.py", "file:tests/test_labels.py"]
+  },
+  {
+    "order": 8,
+    "title": "Reward Feature와 중앙 레지스트리",
+    "description": "보상 함수의 입력 phi를 만드는 feature 계층입니다. registry.py는 underwater·loss_aversion·herd·momentum·volatility 빌더를 FEATURE_REGISTRY로 통합해 config 기반으로 (시점·투자자·action·feature) 4차원 텐서를 조립합니다. 각 빌더는 README의 공식과 대응됩니다: loss_aversion은 sell에만 적용되는 손실 갭, herd는 다른 투자자들의 lagged underwater 평균(군집추종), momentum/volatility는 20일 수익률·변동성입니다.",
+    "nodeIds": ["file:src/features/registry.py", "file:src/features/loss_aversion.py", "file:src/features/herd.py", "file:src/features/momentum.py", "file:src/features/volatility.py"]
+  },
+  {
+    "order": 9,
+    "title": "look-ahead 방지 scaling",
+    "description": "8단계에서 조립한 feature 텐서를 표준화하는 마지막 데이터 처리 단계입니다. scaling.py는 train 구간 인덱스만으로 StandardScaler를 fit해 검증/테스트 정보가 새지 않도록 하고, transform과 scaler 저장/로드를 담당합니다. README가 강조한 '스케일러는 train index에만 fit' 원칙이 여기서 구현되며, 10단계의 CPCV fold마다 새로 fit됩니다.",
+    "nodeIds": ["file:src/features/scaling.py", "file:src/features/underwater.py"]
+  },
+  {
+    "order": 10,
+    "title": "IRL 모델: reward → policy → InvestorIRLModel",
+    "description": "프로젝트의 심장인 모델 계층입니다. reward.py의 FixedLinearReward는 학습 가능한 beta로 R = beta^T phi 를 계산하고 L1 penalty를 제공합니다. policy.py는 온도 tau의 softmax로 reward를 action 확률로 변환하며, mac_irl.py의 InvestorIRLModel이 둘을 묶어 한 투자자 에이전트를 구성합니다. 투자자마다 독립된 beta를 가져 reward 가중치를 공유하지 않는 것이 '다중 에이전트' 설계의 핵심입니다.",
+    "nodeIds": ["file:src/models/reward.py", "file:src/models/policy.py", "file:src/models/mac_irl.py", "file:tests/test_model_shapes.py"],
+    "languageLesson": "선형 reward + softmax 정책은 최대엔트로피 IRL의 기본 형태입니다. R=beta^T·phi 가 선형이라 beta가 곧 feature별 선호 가중치로 해석 가능하며, 13단계의 reward 해석이 이 구조에 기댑니다."
+  },
+  {
+    "order": 11,
+    "title": "학습 루프: NLL+L1 loss와 trainer",
+    "description": "10단계의 모델을 실제로 학습시키는 계층입니다. losses.py는 행동 모방을 위한 NLL(cross-entropy)과 L1 penalty를 결합한 regularized loss를 정의하고, trainer.py의 train_investor_model은 device 선택·Adam 구성·역전파·checkpoint 저장으로 epoch 루프를 돕니다. checkpoint.py는 model/optimizer state와 metrics를 직렬화합니다. 투자자 한 명씩 독립적으로 이 루프가 돕니다.",
+    "nodeIds": ["file:src/training/losses.py", "file:src/training/trainer.py", "file:src/training/checkpoint.py"]
+  },
+  {
+    "order": 12,
+    "title": "CPCV 분할과 학습 오케스트레이션",
+    "description": "모든 계층을 묶는 메인 엔트리포인트 train.py(fanIn·fanOut 모두 최고)입니다. splits.py가 skfolio CombinatorialPurgedCV로 45개 purged/embargo split을 구성하면, train.py는 fold마다 scaler를 train index에만 fit하고(9단계), 투자자별 모델을 학습(11단계)·평가한 뒤 결과를 집계해 CSV/JSON으로 저장합니다. 45 split이 서로소이고 전체 인덱스를 덮는지 CPCV 테스트가 검증합니다.",
+    "nodeIds": ["file:scripts/train.py", "file:src/data/splits.py", "file:tests/test_cpcv.py"],
+    "languageLesson": "CPCV(Combinatorial Purged Cross-Validation)는 금융 시계열 누수 방지 기법입니다. purge는 train/test 경계 인접 샘플을 제거하고 embargo는 test 직후 구간을 학습에서 배제해, 자기상관으로 인한 과대평가를 막습니다."
+  },
+  {
+    "order": 13,
+    "title": "평가·해석: metric, 집계, reward 가중치",
+    "description": "학습 결과를 수치와 해석으로 환원하는 평가 계층입니다. metrics.py는 logits·라벨로 accuracy·F1·log_loss·confusion matrix를 계산하고, reporting.py는 fold별 지표를 long 포맷으로 모아 투자자·metric 단위 평균·표준편차로 집계합니다. interpret.py는 학습된 beta(10단계)를 feature별로 추출해 투자자별 선호와 부호 일관성을 요약하는데, 이것이 '어떤 동기로 거래하는가'라는 연구 질문의 답입니다. evaluate.py는 저장된 결과 CSV를 콘솔로 보여줍니다.",
+    "nodeIds": ["file:src/evaluation/metrics.py", "file:src/evaluation/reporting.py", "file:src/evaluation/interpret.py", "file:scripts/evaluate.py"]
+  },
+  {
+    "order": 14,
+    "title": "Ablation 실험과 개발 가이드라인",
+    "description": "마무리로 feature 기여도를 검증하는 ablation과 협업 규칙을 봅니다. ablation.py는 config에서 지정 feature를 제거한 deep copy를 만들고, run_ablation.py는 조합별 config를 생성해 subprocess로 학습·평가를 반복 실행합니다. CLAUDE.md/AGENTS.md는 이 연구 코드에 기여할 때 따라야 할 네 가지 원칙(사고 우선·단순성·외과적 변경·목표 기반 실행)을 정의하여, 실험 코드의 일관성을 유지합니다.",
+    "nodeIds": ["file:scripts/run_ablation.py", "file:src/evaluation/ablation.py", "document:CLAUDE.md", "document:AGENTS.md"]
+  }
+]

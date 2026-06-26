@@ -1,0 +1,159 @@
+{
+  "nodes": [
+    {
+      "id": "file:src/models/mac_irl.py",
+      "type": "file",
+      "name": "mac_irl.py",
+      "filePath": "src/models/mac_irl.py",
+      "summary": "단일 투자자 에이전트를 위한 핵심 IRL 모델로, FixedLinearReward를 감싸 reward와 softmax 정책 logits, L1 정규화를 한 모듈로 결합한다.",
+      "tags": ["data-model", "irl", "policy", "reward", "entry-point"],
+      "complexity": "simple",
+      "languageNotes": "torch.nn.Module을 상속하는 PyTorch 모델 모듈로, reward 모델을 합성(composition)하여 forward에서 reward_logits를 호출한다."
+    },
+    {
+      "id": "class:src/models/mac_irl.py:InvestorIRLModel",
+      "type": "class",
+      "name": "InvestorIRLModel",
+      "filePath": "src/models/mac_irl.py",
+      "lineRange": [10, 21],
+      "summary": "FixedLinearReward를 내부에 보유한 nn.Module로, forward에서 contextual feature로부터 reward를 계산하고 softmax 기반 action logits를 산출하며 l1_penalty를 노출한다.",
+      "tags": ["data-model", "irl", "neural-network", "policy"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/models/policy.py",
+      "type": "file",
+      "name": "policy.py",
+      "filePath": "src/models/policy.py",
+      "summary": "온도 파라미터 tau를 적용한 softmax 정책 함수를 제공하여 reward 벡터를 action logits 및 확률 분포로 변환한다.",
+      "tags": ["policy", "softmax", "irl", "utility"],
+      "complexity": "simple",
+      "languageNotes": "순수 함수형 모듈로, torch.softmax를 사용해 reward를 정책 확률로 매핑한다."
+    },
+    {
+      "id": "function:src/models/policy.py:reward_logits",
+      "type": "function",
+      "name": "reward_logits",
+      "filePath": "src/models/policy.py",
+      "lineRange": [6, 9],
+      "summary": "reward 벡터를 온도 tau로 나누어 softmax logits를 산출하며, tau가 0 이하일 때 ValueError를 발생시킨다.",
+      "tags": ["policy", "softmax", "validation", "irl"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/models/reward.py",
+      "type": "file",
+      "name": "reward.py",
+      "filePath": "src/models/reward.py",
+      "summary": "학습 가능한 beta 가중치로 R = beta^T phi 형태의 고정 linear reward를 계산하는 PyTorch 모듈과 L1 정규화 penalty를 정의한다.",
+      "tags": ["reward", "irl", "linear-model", "neural-network"],
+      "complexity": "simple",
+      "languageNotes": "nn.Parameter로 beta를 등록하고 torch.einsum으로 contextual feature와의 선형 결합을 수행한다."
+    },
+    {
+      "id": "class:src/models/reward.py:FixedLinearReward",
+      "type": "class",
+      "name": "FixedLinearReward",
+      "filePath": "src/models/reward.py",
+      "lineRange": [7, 16],
+      "summary": "feature dimension 크기의 beta 파라미터를 학습하여 einsum으로 linear reward를 산출하고, beta의 절댓값 합으로 L1 penalty를 제공하는 nn.Module이다.",
+      "tags": ["reward", "linear-model", "irl", "regularization"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:tests/test_model_shapes.py",
+      "type": "file",
+      "name": "test_model_shapes.py",
+      "filePath": "tests/test_model_shapes.py",
+      "summary": "InvestorIRLModel의 출력 shape를 검증하고 서로 다른 투자자 모델이 reward 가중치를 공유하지 않음을 확인하는 pytest 테스트이다.",
+      "tags": ["test", "irl", "data-model", "validation"],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:src/models/mac_irl.py",
+      "target": "file:src/models/policy.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/models/mac_irl.py",
+      "target": "file:src/models/reward.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "tests/test_model_shapes.py",
+      "target": "file:src/models/mac_irl.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/models/mac_irl.py",
+      "target": "class:src/models/mac_irl.py:InvestorIRLModel",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/models/mac_irl.py",
+      "target": "class:src/models/mac_irl.py:InvestorIRLModel",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/models/policy.py",
+      "target": "function:src/models/policy.py:reward_logits",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/models/policy.py",
+      "target": "function:src/models/policy.py:reward_logits",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/models/reward.py",
+      "target": "class:src/models/reward.py:FixedLinearReward",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/models/reward.py",
+      "target": "class:src/models/reward.py:FixedLinearReward",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "class:src/models/mac_irl.py:InvestorIRLModel",
+      "target": "class:src/models/reward.py:FixedLinearReward",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "class:src/models/mac_irl.py:InvestorIRLModel",
+      "target": "function:src/models/policy.py:reward_logits",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/models/mac_irl.py",
+      "target": "file:tests/test_model_shapes.py",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    }
+  ]
+}

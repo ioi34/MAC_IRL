@@ -1,0 +1,19 @@
+{
+  "fixedSectionOk": true,
+  "nodesRecovered": 0,
+  "edgesRestored": 5,
+  "crossBatchEdgesAdded": 0,
+  "typesRemapped": 0,
+  "complexityRemapped": 0,
+  "notes": [
+    "All 12 dropped edges targeted functions below the analyzer significance threshold (build_cpcv, combine_test_folds, summarize_cv_metrics, configure_logging, set_seed, save_feature_scaler, build_herd, build_loss_aversion, build_underwater); none were emitted as nodes. Re-pointed to containing file nodes rather than inventing function nodes.",
+    "Restored 5 'calls' edges from function:scripts/train.py:main to the containing file nodes (splits.py, reporting.py, logging.py, seed.py, scaling.py).",
+    "Skipped 1 train.py->splits.py edge (combine_test_folds) as duplicate of an existing main->file:src/data/splits.py calls edge.",
+    "Skipped 3 registry builder 'calls' edges (build_herd/build_loss_aversion/build_underwater): file:src/features/registry.py already has imports edges to those files, so file-level calls would be redundant.",
+    "Skipped 2 splits.py contains/exports edges for build_cpcv: no function node exists and file-contains-itself is meaningless.",
+    "test_model_shapes.py import edge was already recovered by the merge script via importMap (recoveredFromImportMap=true).",
+    "Cross-batch check: every non-self importMap relationship already has a corresponding imports edge; the only self-import (src/utils/logging.py importing itself) is data noise and correctly produces no edge.",
+    "No nodes lacked ids; no unknown node types; no unknown complexity values. Input/output node count stable at 108, so no >30% ID-correction concern.",
+    "Re-pointed edges tagged repointedFromDroppedEdge=true for provenance."
+  ]
+}

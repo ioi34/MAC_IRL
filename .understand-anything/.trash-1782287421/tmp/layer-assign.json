@@ -1,0 +1,86 @@
+{
+  "orchestration": [
+    "file:scripts/train.py",
+    "file:scripts/prepare_data.py",
+    "file:scripts/evaluate.py",
+    "file:scripts/run_ablation.py",
+    "file:collect_base.py",
+    "file:scripts/__init__.py"
+  ],
+  "data": [
+    "file:src/data/splits.py",
+    "file:src/data/labels.py",
+    "file:src/data/loaders.py",
+    "file:src/data/preprocess.py",
+    "file:src/data/average_cost.py",
+    "file:src/data/__init__.py"
+  ],
+  "evaluation": [
+    "file:src/evaluation/interpret.py",
+    "file:src/evaluation/metrics.py",
+    "file:src/evaluation/reporting.py",
+    "file:src/evaluation/ablation.py",
+    "file:src/evaluation/__init__.py"
+  ],
+  "utils": [
+    "file:src/utils/logging.py",
+    "file:src/utils/seed.py",
+    "file:src/utils/config.py",
+    "file:src/__init__.py",
+    "file:src/utils/__init__.py"
+  ],
+  "test": [
+    "file:tests/test_cpcv.py",
+    "file:tests/test_processed_schema.py",
+    "file:tests/test_feature_modules.py",
+    "file:tests/test_loss_aversion.py",
+    "file:tests/test_features.py",
+    "file:tests/test_labels.py",
+    "file:tests/test_config.py",
+    "file:tests/test_average_cost.py",
+    "file:tests/test_no_lookahead.py",
+    "file:tests/test_model_shapes.py",
+    "file:tests/test_losses.py"
+  ],
+  "features": [
+    "file:src/features/herd.py",
+    "file:src/features/loss_aversion.py",
+    "file:src/features/momentum.py",
+    "file:src/features/registry.py",
+    "file:src/features/volatility.py",
+    "file:src/features/scaling.py",
+    "file:src/features/underwater.py",
+    "file:src/features/__init__.py"
+  ],
+  "models": [
+    "file:src/models/mac_irl.py",
+    "file:src/models/policy.py",
+    "file:src/models/reward.py",
+    "file:src/models/__init__.py"
+  ],
+  "training": [
+    "file:src/training/checkpoint.py",
+    "file:src/training/losses.py",
+    "file:src/training/trainer.py",
+    "file:src/training/__init__.py"
+  ],
+  "support": [
+    "document:AGENTS.md",
+    "document:CLAUDE.md",
+    "document:DATA_README.md",
+    "document:README.md",
+    "config:pyproject.toml",
+    "document:requirements.txt",
+    "table:samsung_macirl_2021_2025_FINAL.csv:samsung_macirl_final",
+    "table:samsung_macirl_EXTENDED_2021_2025.csv:samsung_macirl_extended",
+    "config:configs/data.yaml",
+    "config:configs/data_loss_aversion.yaml",
+    "config:configs/experiment.yaml",
+    "config:configs/experiment_loss_aversion.yaml",
+    "config:configs/features.yaml",
+    "config:configs/features_loss_aversion.yaml",
+    "config:configs/model.yaml",
+    "config:configs/train.yaml",
+    "document:notebooks/README.md"
+  ]
+}

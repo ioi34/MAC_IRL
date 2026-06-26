@@ -1,0 +1,217 @@
+{
+  "nodes": [
+    {
+      "id": "file:collect_base.py",
+      "type": "file",
+      "name": "collect_base.py",
+      "filePath": "collect_base.py",
+      "summary": "FinanceDataReader를 사용해 단일종목 OHLCV, KOSPI200, USD/KRW 시계열을 수집하고 결측치를 보정한 뒤 baseline CSV로 저장하는 독립 실행형 데이터 수집 스크립트.",
+      "tags": ["data-pipeline", "data-collection", "entry-point", "script", "finance"],
+      "complexity": "moderate",
+      "languageNotes": "FinanceDataReader(fdr) 기반 외부 시장 데이터 수집과 pandas join/ffill을 활용한 결측 보정 패턴을 사용한다."
+    },
+    {
+      "id": "function:collect_base.py:pick_col",
+      "type": "function",
+      "name": "pick_col",
+      "filePath": "collect_base.py",
+      "lineRange": [37, 42],
+      "summary": "키워드 목록을 기준으로 DataFrame에서 대소문자를 무시하고 일치하는 컬럼명을 찾아 반환하며, 없으면 KeyError를 발생시키는 헬퍼.",
+      "tags": ["utility", "dataframe", "column-matching"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:collect_base.py:get_ohlcv",
+      "type": "function",
+      "name": "get_ohlcv",
+      "filePath": "collect_base.py",
+      "lineRange": [45, 63],
+      "summary": "대상 종목의 OHLCV 데이터를 FinanceDataReader로 받아와 표준 컬럼으로 정규화하고 종가 수익률을 계산해 반환한다.",
+      "tags": ["data-collection", "finance", "ohlcv", "serialization"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:collect_base.py:get_kospi200",
+      "type": "function",
+      "name": "get_kospi200",
+      "filePath": "collect_base.py",
+      "lineRange": [66, 76],
+      "summary": "KOSPI200 지수 시계열을 수집하고 종가 기반 수익률을 계산해 contextual 특징으로 반환한다.",
+      "tags": ["data-collection", "finance", "market-context"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:collect_base.py:get_usdkrw",
+      "type": "function",
+      "name": "get_usdkrw",
+      "filePath": "collect_base.py",
+      "lineRange": [79, 89],
+      "summary": "USD/KRW 환율 시계열을 수집해 contextual 특징 컬럼으로 정규화하여 반환한다.",
+      "tags": ["data-collection", "finance", "market-context"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:collect_base.py:main",
+      "type": "function",
+      "name": "main",
+      "filePath": "collect_base.py",
+      "lineRange": [92, 114],
+      "summary": "OHLCV, KOSPI200, USD/KRW 데이터를 join하여 결측치를 ffill로 보정한 baseline 데이터셋을 CSV로 저장하고 요약 통계를 출력하는 진입점 함수.",
+      "tags": ["entry-point", "data-pipeline", "orchestration"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:notebooks/README.md",
+      "type": "document",
+      "name": "README.md",
+      "filePath": "notebooks/README.md",
+      "summary": "notebooks 디렉터리의 용도를 설명하는 짧은 안내 문서.",
+      "tags": ["documentation", "notebooks", "overview"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:scripts/__init__.py",
+      "type": "file",
+      "name": "__init__.py",
+      "filePath": "scripts/__init__.py",
+      "summary": "MAC-IRL 실험용 CLI 진입점을 묶는 scripts 패키지 마커.",
+      "tags": ["entry-point", "package-init", "barrel"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/__init__.py",
+      "type": "file",
+      "name": "__init__.py",
+      "filePath": "src/__init__.py",
+      "summary": "MAC-IRL 연구 코드의 최상위 src 패키지 마커.",
+      "tags": ["entry-point", "package-init", "barrel"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/data/__init__.py",
+      "type": "file",
+      "name": "__init__.py",
+      "filePath": "src/data/__init__.py",
+      "summary": "데이터 로딩, 라벨링, 분할, 데이터셋 유틸리티를 담는 src.data 패키지 마커.",
+      "tags": ["package-init", "barrel", "data"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/evaluation/__init__.py",
+      "type": "file",
+      "name": "__init__.py",
+      "filePath": "src/evaluation/__init__.py",
+      "summary": "평가 및 해석 헬퍼를 담는 src.evaluation 패키지 마커.",
+      "tags": ["package-init", "barrel", "evaluation"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/features/__init__.py",
+      "type": "file",
+      "name": "__init__.py",
+      "filePath": "src/features/__init__.py",
+      "summary": "보상 특징(reward feature) 구성 유틸리티를 담는 src.features 패키지 마커.",
+      "tags": ["package-init", "barrel", "features"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/models/__init__.py",
+      "type": "file",
+      "name": "__init__.py",
+      "filePath": "src/models/__init__.py",
+      "summary": "MAC-IRL 모델 구성요소를 담는 src.models 패키지 마커.",
+      "tags": ["package-init", "barrel", "models"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/training/__init__.py",
+      "type": "file",
+      "name": "__init__.py",
+      "filePath": "src/training/__init__.py",
+      "summary": "학습 루프, 손실 함수, 체크포인팅을 담는 src.training 패키지 마커.",
+      "tags": ["package-init", "barrel", "training"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/utils/__init__.py",
+      "type": "file",
+      "name": "__init__.py",
+      "filePath": "src/utils/__init__.py",
+      "summary": "공용 유틸리티를 담는 src.utils 패키지 마커.",
+      "tags": ["package-init", "barrel", "utility"],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:collect_base.py",
+      "target": "function:collect_base.py:pick_col",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:collect_base.py",
+      "target": "function:collect_base.py:get_ohlcv",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:collect_base.py",
+      "target": "function:collect_base.py:get_kospi200",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:collect_base.py",
+      "target": "function:collect_base.py:get_usdkrw",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:collect_base.py",
+      "target": "function:collect_base.py:main",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:collect_base.py",
+      "target": "function:collect_base.py:pick_col",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:collect_base.py",
+      "target": "function:collect_base.py:get_ohlcv",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:collect_base.py",
+      "target": "function:collect_base.py:get_kospi200",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:collect_base.py",
+      "target": "function:collect_base.py:get_usdkrw",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:collect_base.py",
+      "target": "function:collect_base.py:main",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "projectRoot": "/Users/yumin/Desktop/MAC_IRL/MAC_IRL",
+  "batchFiles": [
+    {"path": "src/data/average_cost.py", "language": "python", "sizeLines": 101, "fileCategory": "code"},
+    {"path": "src/features/scaling.py", "language": "python", "sizeLines": 28, "fileCategory": "code"},
+    {"path": "src/features/underwater.py", "language": "python", "sizeLines": 7, "fileCategory": "code"},
+    {"path": "tests/test_average_cost.py", "language": "python", "sizeLines": 70, "fileCategory": "code"},
+    {"path": "tests/test_no_lookahead.py", "language": "python", "sizeLines": 32, "fileCategory": "code"}
+  ],
+  "batchImportData": {"src/data/average_cost.py":[],"src/features/scaling.py":[],"src/features/underwater.py":[],"tests/test_average_cost.py":["src/data/average_cost.py","src/features/underwater.py"],"tests/test_no_lookahead.py":["src/data/average_cost.py","src/features/scaling.py"]}
+}

@@ -1,0 +1,518 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 5,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "scripts/evaluate.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 30,
+      "nonEmptyLines": 21,
+      "functions": [
+        {
+          "name": "parse_args",
+          "startLine": 11,
+          "endLine": 14,
+          "params": []
+        },
+        {
+          "name": "main",
+          "startLine": 17,
+          "endLine": 26,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "parse_args",
+          "line": 11,
+          "isDefault": false
+        },
+        {
+          "name": "main",
+          "line": 17,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "parse_args",
+          "callee": "argparse.ArgumentParser",
+          "lineNumber": 12
+        },
+        {
+          "caller": "parse_args",
+          "callee": "parser.add_argument",
+          "lineNumber": 13
+        },
+        {
+          "caller": "parse_args",
+          "callee": "parser.parse_args",
+          "lineNumber": 14
+        },
+        {
+          "caller": "main",
+          "callee": "parse_args",
+          "lineNumber": 18
+        },
+        {
+          "caller": "main",
+          "callee": "load_configs",
+          "lineNumber": 19
+        },
+        {
+          "caller": "main",
+          "callee": "Path",
+          "lineNumber": 20
+        },
+        {
+          "caller": "main",
+          "callee": "pd.read_csv",
+          "lineNumber": 21
+        },
+        {
+          "caller": "main",
+          "callee": "pd.read_csv",
+          "lineNumber": 22
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 23
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 24
+        },
+        {
+          "caller": "main",
+          "callee": "metrics.to_string",
+          "lineNumber": 24
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 25
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 26
+        },
+        {
+          "caller": "main",
+          "callee": "weights.to_string",
+          "lineNumber": 26
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 2,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "scripts/run_ablation.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 95,
+      "nonEmptyLines": 82,
+      "functions": [
+        {
+          "name": "parse_args",
+          "startLine": 21,
+          "endLine": 28,
+          "params": []
+        },
+        {
+          "name": "main",
+          "startLine": 31,
+          "endLine": 91,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "parse_args",
+          "line": 21,
+          "isDefault": false
+        },
+        {
+          "name": "main",
+          "line": 31,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "parse_args",
+          "callee": "argparse.ArgumentParser",
+          "lineNumber": 22
+        },
+        {
+          "caller": "parse_args",
+          "callee": "parser.add_argument",
+          "lineNumber": 23
+        },
+        {
+          "caller": "parse_args",
+          "callee": "parser.add_argument",
+          "lineNumber": 24
+        },
+        {
+          "caller": "parse_args",
+          "callee": "parser.add_argument",
+          "lineNumber": 25
+        },
+        {
+          "caller": "parse_args",
+          "callee": "parser.add_argument",
+          "lineNumber": 26
+        },
+        {
+          "caller": "parse_args",
+          "callee": "parser.add_argument",
+          "lineNumber": 27
+        },
+        {
+          "caller": "parse_args",
+          "callee": "parser.parse_args",
+          "lineNumber": 28
+        },
+        {
+          "caller": "main",
+          "callee": "parse_args",
+          "lineNumber": 32
+        },
+        {
+          "caller": "main",
+          "callee": "load_configs",
+          "lineNumber": 33
+        },
+        {
+          "caller": "main",
+          "callee": "Path",
+          "lineNumber": 34
+        },
+        {
+          "caller": "main",
+          "callee": "ablation_dir.mkdir",
+          "lineNumber": 35
+        },
+        {
+          "caller": "main",
+          "callee": "ABLATIONS.items",
+          "lineNumber": 37
+        },
+        {
+          "caller": "main",
+          "callee": "remove_features",
+          "lineNumber": 38
+        },
+        {
+          "caller": "main",
+          "callee": "deepcopy",
+          "lineNumber": 39
+        },
+        {
+          "caller": "main",
+          "callee": "data_config.update",
+          "lineNumber": 40
+        },
+        {
+          "caller": "main",
+          "callee": "dump_yaml",
+          "lineNumber": 58
+        },
+        {
+          "caller": "main",
+          "callee": "dump_yaml",
+          "lineNumber": 59
+        },
+        {
+          "caller": "main",
+          "callee": "dump_yaml",
+          "lineNumber": 60
+        },
+        {
+          "caller": "main",
+          "callee": "subprocess.run",
+          "lineNumber": 62
+        },
+        {
+          "caller": "main",
+          "callee": "str",
+          "lineNumber": 68
+        },
+        {
+          "caller": "main",
+          "callee": "str",
+          "lineNumber": 70
+        },
+        {
+          "caller": "main",
+          "callee": "subprocess.run",
+          "lineNumber": 74
+        },
+        {
+          "caller": "main",
+          "callee": "str",
+          "lineNumber": 80
+        },
+        {
+          "caller": "main",
+          "callee": "str",
+          "lineNumber": 82
+        },
+        {
+          "caller": "main",
+          "callee": "str",
+          "lineNumber": 88
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 2,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/evaluation/ablation.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 12,
+      "nonEmptyLines": 8,
+      "functions": [
+        {
+          "name": "remove_features",
+          "startLine": 6,
+          "endLine": 11,
+          "params": [
+            "config",
+            "features_to_remove"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "remove_features",
+          "line": 6,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "remove_features",
+          "callee": "deepcopy",
+          "lineNumber": 7
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/utils/config.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 40,
+      "nonEmptyLines": 29,
+      "functions": [
+        {
+          "name": "load_yaml",
+          "startLine": 10,
+          "endLine": 15,
+          "params": [
+            "path"
+          ]
+        },
+        {
+          "name": "deep_merge",
+          "startLine": 18,
+          "endLine": 25,
+          "params": [
+            "base",
+            "override"
+          ]
+        },
+        {
+          "name": "load_configs",
+          "startLine": 28,
+          "endLine": 32,
+          "params": []
+        },
+        {
+          "name": "dump_yaml",
+          "startLine": 35,
+          "endLine": 39,
+          "params": [
+            "config",
+            "path"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "load_yaml",
+          "line": 10,
+          "isDefault": false
+        },
+        {
+          "name": "deep_merge",
+          "line": 18,
+          "isDefault": false
+        },
+        {
+          "name": "load_configs",
+          "line": 28,
+          "isDefault": false
+        },
+        {
+          "name": "dump_yaml",
+          "line": 35,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "load_yaml",
+          "callee": "Path(path).open",
+          "lineNumber": 11
+        },
+        {
+          "caller": "load_yaml",
+          "callee": "Path",
+          "lineNumber": 11
+        },
+        {
+          "caller": "load_yaml",
+          "callee": "yaml.safe_load",
+          "lineNumber": 12
+        },
+        {
+          "caller": "load_yaml",
+          "callee": "isinstance",
+          "lineNumber": 13
+        },
+        {
+          "caller": "load_yaml",
+          "callee": "ValueError",
+          "lineNumber": 14
+        },
+        {
+          "caller": "deep_merge",
+          "callee": "deepcopy",
+          "lineNumber": 19
+        },
+        {
+          "caller": "deep_merge",
+          "callee": "override.items",
+          "lineNumber": 20
+        },
+        {
+          "caller": "deep_merge",
+          "callee": "isinstance",
+          "lineNumber": 21
+        },
+        {
+          "caller": "deep_merge",
+          "callee": "isinstance",
+          "lineNumber": 21
+        },
+        {
+          "caller": "deep_merge",
+          "callee": "result.get",
+          "lineNumber": 21
+        },
+        {
+          "caller": "deep_merge",
+          "callee": "deep_merge",
+          "lineNumber": 22
+        },
+        {
+          "caller": "deep_merge",
+          "callee": "deepcopy",
+          "lineNumber": 24
+        },
+        {
+          "caller": "load_configs",
+          "callee": "deep_merge",
+          "lineNumber": 31
+        },
+        {
+          "caller": "load_configs",
+          "callee": "load_yaml",
+          "lineNumber": 31
+        },
+        {
+          "caller": "dump_yaml",
+          "callee": "Path",
+          "lineNumber": 36
+        },
+        {
+          "caller": "dump_yaml",
+          "callee": "target.parent.mkdir",
+          "lineNumber": 37
+        },
+        {
+          "caller": "dump_yaml",
+          "callee": "target.open",
+          "lineNumber": 38
+        },
+        {
+          "caller": "dump_yaml",
+          "callee": "yaml.safe_dump",
+          "lineNumber": 39
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 4,
+        "functionCount": 4,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "tests/test_config.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 8,
+      "nonEmptyLines": 5,
+      "functions": [
+        {
+          "name": "test_default_feature_config_matches_registry_schema",
+          "startLine": 4,
+          "endLine": 8,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "test_default_feature_config_matches_registry_schema",
+          "line": 4,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "test_default_feature_config_matches_registry_schema",
+          "callee": "load_configs",
+          "lineNumber": 5
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    }
+  ]
+}

@@ -1,0 +1,132 @@
+{
+  "nodes": [
+    {
+      "id": "file:src/features/herd.py",
+      "type": "file",
+      "name": "herd.py",
+      "filePath": "src/features/herd.py",
+      "summary": "다른 투자자들의 lagged underwater 플로우 평균을 herd 신호로 계산하는 reward feature 모듈로, build_herd가 registry에서 호출되는 빌더 인터페이스를 제공한다.",
+      "tags": ["data-model", "feature", "herd", "factory"],
+      "complexity": "simple",
+      "languageNotes": "shift(1)으로 lookahead bias를 피하고, 같은 시점의 다른 투자자 플로우를 rolling 평균으로 집계한다."
+    },
+    {
+      "id": "function:src/features/herd.py:herd_flow",
+      "type": "function",
+      "name": "herd_flow",
+      "filePath": "src/features/herd.py",
+      "lineRange": [6, 12],
+      "summary": "대상 investor를 제외한 나머지 투자자들의 lagged underwater 플로우를 window 기간 rolling 평균하여 herd 강도를 산출한다.",
+      "tags": ["feature", "herd", "rolling"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/features/loss_aversion.py",
+      "type": "file",
+      "name": "loss_aversion.py",
+      "filePath": "src/features/loss_aversion.py",
+      "summary": "참조 가격 대비 현재 가격 하락 갭(loss gap)을 계산하는 reward feature 모듈로, sell action에만 손실 회피 신호를 적용하는 build_loss_aversion 빌더를 노출한다.",
+      "tags": ["data-model", "feature", "loss-aversion", "factory"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/features/loss_aversion.py:loss_gap",
+      "type": "function",
+      "name": "loss_gap",
+      "filePath": "src/features/loss_aversion.py",
+      "lineRange": [6, 11],
+      "summary": "reference_window 동안의 rolling 평균 가격을 참조점으로 삼아 현재 가격과의 하락 갭을 0 이상으로 clip하여 반환한다.",
+      "tags": ["feature", "loss-aversion", "rolling"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/features/momentum.py",
+      "type": "file",
+      "name": "momentum.py",
+      "filePath": "src/features/momentum.py",
+      "summary": "window 기간의 로그 가격 수익률을 momentum 신호로 계산하는 reward feature 모듈로, build_momentum 빌더 인터페이스를 제공한다.",
+      "tags": ["data-model", "feature", "momentum", "factory"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/features/registry.py",
+      "type": "file",
+      "name": "registry.py",
+      "filePath": "src/features/registry.py",
+      "summary": "모든 reward feature 빌더(underwater/loss_aversion/herd/momentum/volatility)를 FEATURE_REGISTRY로 통합하고, config 기반으로 (시점·투자자·action·feature) 4차원 feature 텐서를 조립하는 중앙 레지스트리 모듈이다.",
+      "tags": ["barrel", "feature", "factory", "data-pipeline", "registry"],
+      "complexity": "moderate",
+      "languageNotes": "Callable 타입 별칭으로 빌더 시그니처를 통일하고, np.empty 4D 텐서에 중첩 루프로 빌더 출력을 채운다."
+    },
+    {
+      "id": "function:src/features/registry.py:build_feature_tensor",
+      "type": "function",
+      "name": "build_feature_tensor",
+      "filePath": "src/features/registry.py",
+      "lineRange": [26, 42],
+      "summary": "config에서 선택된 feature, 투자자, action 목록을 읽어 FEATURE_REGISTRY 빌더를 순회 호출하며 (행, 투자자, action, feature) 형태의 float32 텐서를 생성한다.",
+      "tags": ["feature", "factory", "data-pipeline", "tensor"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/features/registry.py:valid_rows_for_model",
+      "type": "function",
+      "name": "valid_rows_for_model",
+      "filePath": "src/features/registry.py",
+      "lineRange": [45, 49],
+      "summary": "투자자별 action 라벨이 모두 존재하고 feature 텐서가 모두 유한값인 행만 True로 표시하는 학습 가능 행 마스크를 반환한다.",
+      "tags": ["feature", "validation", "masking"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/features/volatility.py",
+      "type": "file",
+      "name": "volatility.py",
+      "filePath": "src/features/volatility.py",
+      "summary": "로그 수익률의 window 기간 rolling 표준편차로 변동성을 계산하는 reward feature 모듈로, build_volatility 빌더 인터페이스를 제공한다.",
+      "tags": ["data-model", "feature", "volatility", "factory"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:tests/test_feature_modules.py",
+      "type": "file",
+      "name": "test_feature_modules.py",
+      "filePath": "tests/test_feature_modules.py",
+      "summary": "FEATURE_REGISTRY의 각 reward feature가 자신의 고유 모듈에 의해 소유되는지 검증하는 단위 테스트이다.",
+      "tags": ["test", "feature", "registry"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:tests/test_loss_aversion.py",
+      "type": "file",
+      "name": "test_loss_aversion.py",
+      "filePath": "tests/test_loss_aversion.py",
+      "summary": "build_loss_aversion이 가격 하락 갭을 sell action에만 적용하는지 확인하는 단위 테스트이다.",
+      "tags": ["test", "feature", "loss-aversion"],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {"source": "file:src/features/herd.py", "target": "function:src/features/herd.py:herd_flow", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:src/features/herd.py", "target": "function:src/features/herd.py:herd_flow", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:src/features/loss_aversion.py", "target": "function:src/features/loss_aversion.py:loss_gap", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:src/features/loss_aversion.py", "target": "function:src/features/loss_aversion.py:loss_gap", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:src/features/registry.py", "target": "function:src/features/registry.py:build_feature_tensor", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:src/features/registry.py", "target": "function:src/features/registry.py:build_feature_tensor", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:src/features/registry.py", "target": "function:src/features/registry.py:valid_rows_for_model", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:src/features/registry.py", "target": "function:src/features/registry.py:valid_rows_for_model", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:src/features/registry.py", "target": "file:src/features/herd.py", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:src/features/registry.py", "target": "file:src/features/loss_aversion.py", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:src/features/registry.py", "target": "file:src/features/momentum.py", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:src/features/registry.py", "target": "file:src/features/underwater.py", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:src/features/registry.py", "target": "file:src/features/volatility.py", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:src/features/registry.py", "target": "function:src/features/herd.py:build_herd", "type": "calls", "direction": "forward", "weight": 0.8},
+    {"source": "file:src/features/registry.py", "target": "function:src/features/loss_aversion.py:build_loss_aversion", "type": "calls", "direction": "forward", "weight": 0.8},
+    {"source": "file:src/features/registry.py", "target": "function:src/features/underwater.py:build_underwater", "type": "calls", "direction": "forward", "weight": 0.8},
+    {"source": "file:tests/test_feature_modules.py", "target": "file:src/features/registry.py", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:src/features/registry.py", "target": "file:tests/test_feature_modules.py", "type": "tested_by", "direction": "forward", "weight": 0.5},
+    {"source": "file:tests/test_loss_aversion.py", "target": "file:src/features/loss_aversion.py", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:src/features/loss_aversion.py", "target": "file:tests/test_loss_aversion.py", "type": "tested_by", "direction": "forward", "weight": 0.5},
+    {"source": "file:tests/test_loss_aversion.py", "target": "function:src/features/loss_aversion.py:loss_gap", "type": "calls", "direction": "forward", "weight": 0.8}
+  ]
+}

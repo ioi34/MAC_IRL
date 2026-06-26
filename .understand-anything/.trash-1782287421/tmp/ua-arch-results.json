@@ -1,0 +1,538 @@
+{
+  "scriptCompleted": true,
+  "commonPrefix": "",
+  "directoryGroups": {
+    "scripts": [
+      "file:scripts/train.py",
+      "file:scripts/prepare_data.py",
+      "file:scripts/evaluate.py",
+      "file:scripts/run_ablation.py",
+      "file:scripts/__init__.py"
+    ],
+    "src": [
+      "file:src/data/splits.py",
+      "file:src/evaluation/interpret.py",
+      "file:src/evaluation/metrics.py",
+      "file:src/evaluation/reporting.py",
+      "file:src/utils/logging.py",
+      "file:src/utils/seed.py",
+      "file:src/features/herd.py",
+      "file:src/features/loss_aversion.py",
+      "file:src/features/momentum.py",
+      "file:src/features/registry.py",
+      "file:src/features/volatility.py",
+      "file:src/data/labels.py",
+      "file:src/data/loaders.py",
+      "file:src/data/preprocess.py",
+      "file:src/evaluation/ablation.py",
+      "file:src/utils/config.py",
+      "file:src/data/average_cost.py",
+      "file:src/features/scaling.py",
+      "file:src/features/underwater.py",
+      "file:src/models/mac_irl.py",
+      "file:src/models/policy.py",
+      "file:src/models/reward.py",
+      "file:src/training/checkpoint.py",
+      "file:src/training/losses.py",
+      "file:src/training/trainer.py",
+      "file:src/__init__.py",
+      "file:src/data/__init__.py",
+      "file:src/evaluation/__init__.py",
+      "file:src/features/__init__.py",
+      "file:src/models/__init__.py",
+      "file:src/training/__init__.py",
+      "file:src/utils/__init__.py"
+    ],
+    "tests": [
+      "file:tests/test_cpcv.py",
+      "file:tests/test_processed_schema.py",
+      "file:tests/test_feature_modules.py",
+      "file:tests/test_loss_aversion.py",
+      "file:tests/test_features.py",
+      "file:tests/test_labels.py",
+      "file:tests/test_config.py",
+      "file:tests/test_average_cost.py",
+      "file:tests/test_no_lookahead.py",
+      "file:tests/test_model_shapes.py",
+      "file:tests/test_losses.py"
+    ],
+    "root": [
+      "document:AGENTS.md",
+      "document:CLAUDE.md",
+      "document:DATA_README.md",
+      "document:README.md",
+      "config:pyproject.toml",
+      "document:requirements.txt",
+      "table:samsung_macirl_2021_2025_FINAL.csv:samsung_macirl_final",
+      "table:samsung_macirl_EXTENDED_2021_2025.csv:samsung_macirl_extended",
+      "file:collect_base.py"
+    ],
+    "configs": [
+      "config:configs/data.yaml",
+      "config:configs/data_loss_aversion.yaml",
+      "config:configs/experiment.yaml",
+      "config:configs/experiment_loss_aversion.yaml",
+      "config:configs/features.yaml",
+      "config:configs/features_loss_aversion.yaml",
+      "config:configs/model.yaml",
+      "config:configs/train.yaml"
+    ],
+    "notebooks": [
+      "document:notebooks/README.md"
+    ]
+  },
+  "nodeTypeGroups": {
+    "file": [
+      "file:scripts/train.py",
+      "file:src/data/splits.py",
+      "file:src/evaluation/interpret.py",
+      "file:src/evaluation/metrics.py",
+      "file:src/evaluation/reporting.py",
+      "file:src/utils/logging.py",
+      "file:src/utils/seed.py",
+      "file:tests/test_cpcv.py",
+      "file:tests/test_processed_schema.py",
+      "file:src/features/herd.py",
+      "file:src/features/loss_aversion.py",
+      "file:src/features/momentum.py",
+      "file:src/features/registry.py",
+      "file:src/features/volatility.py",
+      "file:tests/test_feature_modules.py",
+      "file:tests/test_loss_aversion.py",
+      "file:scripts/prepare_data.py",
+      "file:src/data/labels.py",
+      "file:src/data/loaders.py",
+      "file:src/data/preprocess.py",
+      "file:tests/test_features.py",
+      "file:tests/test_labels.py",
+      "file:scripts/evaluate.py",
+      "file:scripts/run_ablation.py",
+      "file:src/evaluation/ablation.py",
+      "file:src/utils/config.py",
+      "file:tests/test_config.py",
+      "file:src/data/average_cost.py",
+      "file:src/features/scaling.py",
+      "file:src/features/underwater.py",
+      "file:tests/test_average_cost.py",
+      "file:tests/test_no_lookahead.py",
+      "file:src/models/mac_irl.py",
+      "file:src/models/policy.py",
+      "file:src/models/reward.py",
+      "file:tests/test_model_shapes.py",
+      "file:src/training/checkpoint.py",
+      "file:src/training/losses.py",
+      "file:src/training/trainer.py",
+      "file:tests/test_losses.py",
+      "file:collect_base.py",
+      "file:scripts/__init__.py",
+      "file:src/__init__.py",
+      "file:src/data/__init__.py",
+      "file:src/evaluation/__init__.py",
+      "file:src/features/__init__.py",
+      "file:src/models/__init__.py",
+      "file:src/training/__init__.py",
+      "file:src/utils/__init__.py"
+    ],
+    "document": [
+      "document:AGENTS.md",
+      "document:CLAUDE.md",
+      "document:DATA_README.md",
+      "document:README.md",
+      "document:requirements.txt",
+      "document:notebooks/README.md"
+    ],
+    "config": [
+      "config:pyproject.toml",
+      "config:configs/data.yaml",
+      "config:configs/data_loss_aversion.yaml",
+      "config:configs/experiment.yaml",
+      "config:configs/experiment_loss_aversion.yaml",
+      "config:configs/features.yaml",
+      "config:configs/features_loss_aversion.yaml",
+      "config:configs/model.yaml",
+      "config:configs/train.yaml"
+    ],
+    "table": [
+      "table:samsung_macirl_2021_2025_FINAL.csv:samsung_macirl_final",
+      "table:samsung_macirl_EXTENDED_2021_2025.csv:samsung_macirl_extended"
+    ]
+  },
+  "crossCategoryEdges": [
+    {
+      "fromType": "config",
+      "toType": "file",
+      "edgeType": "configures",
+      "count": 19
+    },
+    {
+      "fromType": "document",
+      "toType": "table",
+      "edgeType": "documents",
+      "count": 3
+    },
+    {
+      "fromType": "document",
+      "toType": "config",
+      "edgeType": "related",
+      "count": 1
+    }
+  ],
+  "interGroupImports": [
+    {
+      "from": "scripts",
+      "to": "src",
+      "count": 18
+    },
+    {
+      "from": "tests",
+      "to": "src",
+      "count": 14
+    },
+    {
+      "from": "tests",
+      "to": "scripts",
+      "count": 1
+    }
+  ],
+  "intraGroupDensity": {
+    "scripts": {
+      "internalEdges": 0,
+      "totalEdges": 19,
+      "density": 0
+    },
+    "src": {
+      "internalEdges": 10,
+      "totalEdges": 42,
+      "density": 0.238
+    },
+    "tests": {
+      "internalEdges": 0,
+      "totalEdges": 15,
+      "density": 0
+    },
+    "root": {
+      "internalEdges": 0,
+      "totalEdges": 0,
+      "density": 0
+    },
+    "configs": {
+      "internalEdges": 0,
+      "totalEdges": 0,
+      "density": 0
+    },
+    "notebooks": {
+      "internalEdges": 0,
+      "totalEdges": 0,
+      "density": 0
+    }
+  },
+  "patternMatches": {
+    "tests": "test"
+  },
+  "fileLevelPatterns": [
+    {
+      "id": "file:tests/test_cpcv.py",
+      "pattern": "test"
+    },
+    {
+      "id": "file:tests/test_processed_schema.py",
+      "pattern": "test"
+    },
+    {
+      "id": "file:tests/test_feature_modules.py",
+      "pattern": "test"
+    },
+    {
+      "id": "file:tests/test_loss_aversion.py",
+      "pattern": "test"
+    },
+    {
+      "id": "file:tests/test_features.py",
+      "pattern": "test"
+    },
+    {
+      "id": "file:tests/test_labels.py",
+      "pattern": "test"
+    },
+    {
+      "id": "file:tests/test_config.py",
+      "pattern": "test"
+    },
+    {
+      "id": "file:tests/test_average_cost.py",
+      "pattern": "test"
+    },
+    {
+      "id": "file:tests/test_no_lookahead.py",
+      "pattern": "test"
+    },
+    {
+      "id": "file:tests/test_model_shapes.py",
+      "pattern": "test"
+    },
+    {
+      "id": "file:tests/test_losses.py",
+      "pattern": "test"
+    },
+    {
+      "id": "document:AGENTS.md",
+      "pattern": "documentation"
+    },
+    {
+      "id": "document:CLAUDE.md",
+      "pattern": "documentation"
+    },
+    {
+      "id": "document:DATA_README.md",
+      "pattern": "documentation"
+    },
+    {
+      "id": "document:README.md",
+      "pattern": "documentation"
+    },
+    {
+      "id": "config:pyproject.toml",
+      "pattern": "config"
+    },
+    {
+      "id": "document:notebooks/README.md",
+      "pattern": "documentation"
+    },
+    {
+      "id": "file:scripts/__init__.py",
+      "pattern": "entry"
+    },
+    {
+      "id": "file:src/__init__.py",
+      "pattern": "entry"
+    },
+    {
+      "id": "file:src/data/__init__.py",
+      "pattern": "entry"
+    },
+    {
+      "id": "file:src/evaluation/__init__.py",
+      "pattern": "entry"
+    },
+    {
+      "id": "file:src/features/__init__.py",
+      "pattern": "entry"
+    },
+    {
+      "id": "file:src/models/__init__.py",
+      "pattern": "entry"
+    },
+    {
+      "id": "file:src/training/__init__.py",
+      "pattern": "entry"
+    },
+    {
+      "id": "file:src/utils/__init__.py",
+      "pattern": "entry"
+    }
+  ],
+  "deploymentTopology": {
+    "hasDockerfile": false,
+    "hasCompose": false,
+    "hasK8s": false,
+    "hasTerraform": false,
+    "hasCI": false,
+    "infraFiles": []
+  },
+  "dataPipeline": {
+    "schemaFiles": [],
+    "migrationFiles": [],
+    "dataModelFiles": [
+      "src/features/herd.py",
+      "src/features/loss_aversion.py",
+      "src/features/momentum.py",
+      "src/features/volatility.py",
+      "src/data/labels.py",
+      "src/data/preprocess.py",
+      "src/data/average_cost.py",
+      "src/models/mac_irl.py",
+      "tests/test_model_shapes.py",
+      "samsung_macirl_2021_2025_FINAL.csv",
+      "samsung_macirl_EXTENDED_2021_2025.csv"
+    ],
+    "apiHandlerFiles": []
+  },
+  "docCoverage": {
+    "groupsWithDocs": 2,
+    "totalGroups": 6,
+    "coverageRatio": 0.33,
+    "undocumentedGroups": [
+      "scripts",
+      "src",
+      "tests",
+      "configs"
+    ]
+  },
+  "dependencyDirection": [
+    {
+      "dependent": "scripts",
+      "dependsOn": "src"
+    },
+    {
+      "dependent": "tests",
+      "dependsOn": "src"
+    },
+    {
+      "dependent": "tests",
+      "dependsOn": "scripts"
+    }
+  ],
+  "fileStats": {
+    "totalFileNodes": 66,
+    "filesPerGroup": {
+      "scripts": 5,
+      "src": 32,
+      "tests": 11,
+      "root": 9,
+      "configs": 8,
+      "notebooks": 1
+    },
+    "nodeTypeCounts": {
+      "file": 49,
+      "document": 6,
+      "config": 9,
+      "table": 2
+    }
+  },
+  "fileFanIn": {
+    "file:scripts/train.py": 1,
+    "file:src/data/splits.py": 2,
+    "file:src/evaluation/interpret.py": 1,
+    "file:src/evaluation/metrics.py": 1,
+    "file:src/evaluation/reporting.py": 1,
+    "file:src/utils/logging.py": 1,
+    "file:src/utils/seed.py": 1,
+    "file:tests/test_cpcv.py": 0,
+    "file:tests/test_processed_schema.py": 0,
+    "file:src/features/herd.py": 1,
+    "file:src/features/loss_aversion.py": 2,
+    "file:src/features/momentum.py": 1,
+    "file:src/features/registry.py": 3,
+    "file:src/features/volatility.py": 1,
+    "file:tests/test_feature_modules.py": 0,
+    "file:tests/test_loss_aversion.py": 0,
+    "file:scripts/prepare_data.py": 0,
+    "file:src/data/labels.py": 3,
+    "file:src/data/loaders.py": 1,
+    "file:src/data/preprocess.py": 2,
+    "file:tests/test_features.py": 0,
+    "file:tests/test_labels.py": 0,
+    "file:scripts/evaluate.py": 0,
+    "file:scripts/run_ablation.py": 0,
+    "file:src/evaluation/ablation.py": 1,
+    "file:src/utils/config.py": 5,
+    "file:tests/test_config.py": 0,
+    "file:src/data/average_cost.py": 3,
+    "file:src/features/scaling.py": 2,
+    "file:src/features/underwater.py": 2,
+    "file:tests/test_average_cost.py": 0,
+    "file:tests/test_no_lookahead.py": 0,
+    "file:src/models/mac_irl.py": 2,
+    "file:src/models/policy.py": 1,
+    "file:src/models/reward.py": 1,
+    "file:tests/test_model_shapes.py": 0,
+    "file:src/training/checkpoint.py": 1,
+    "file:src/training/losses.py": 2,
+    "file:src/training/trainer.py": 1,
+    "file:tests/test_losses.py": 0,
+    "document:AGENTS.md": 0,
+    "document:CLAUDE.md": 0,
+    "document:DATA_README.md": 0,
+    "document:README.md": 0,
+    "config:pyproject.toml": 0,
+    "document:requirements.txt": 0,
+    "table:samsung_macirl_2021_2025_FINAL.csv:samsung_macirl_final": 0,
+    "table:samsung_macirl_EXTENDED_2021_2025.csv:samsung_macirl_extended": 0,
+    "config:configs/data.yaml": 0,
+    "config:configs/data_loss_aversion.yaml": 0,
+    "config:configs/experiment.yaml": 0,
+    "config:configs/experiment_loss_aversion.yaml": 0,
+    "config:configs/features.yaml": 0,
+    "config:configs/features_loss_aversion.yaml": 0,
+    "config:configs/model.yaml": 0,
+    "config:configs/train.yaml": 0,
+    "file:collect_base.py": 0,
+    "document:notebooks/README.md": 0,
+    "file:scripts/__init__.py": 0,
+    "file:src/__init__.py": 0,
+    "file:src/data/__init__.py": 0,
+    "file:src/evaluation/__init__.py": 0,
+    "file:src/features/__init__.py": 0,
+    "file:src/models/__init__.py": 0,
+    "file:src/training/__init__.py": 0,
+    "file:src/utils/__init__.py": 0
+  },
+  "fileFanOut": {
+    "file:scripts/train.py": 10,
+    "file:src/data/splits.py": 0,
+    "file:src/evaluation/interpret.py": 0,
+    "file:src/evaluation/metrics.py": 0,
+    "file:src/evaluation/reporting.py": 0,
+    "file:src/utils/logging.py": 0,
+    "file:src/utils/seed.py": 0,
+    "file:tests/test_cpcv.py": 1,
+    "file:tests/test_processed_schema.py": 1,
+    "file:src/features/herd.py": 0,
+    "file:src/features/loss_aversion.py": 0,
+    "file:src/features/momentum.py": 0,
+    "file:src/features/registry.py": 5,
+    "file:src/features/volatility.py": 0,
+    "file:tests/test_feature_modules.py": 1,
+    "file:tests/test_loss_aversion.py": 1,
+    "file:scripts/prepare_data.py": 5,
+    "file:src/data/labels.py": 0,
+    "file:src/data/loaders.py": 0,
+    "file:src/data/preprocess.py": 1,
+    "file:tests/test_features.py": 3,
+    "file:tests/test_labels.py": 1,
+    "file:scripts/evaluate.py": 1,
+    "file:scripts/run_ablation.py": 2,
+    "file:src/evaluation/ablation.py": 0,
+    "file:src/utils/config.py": 0,
+    "file:tests/test_config.py": 1,
+    "file:src/data/average_cost.py": 0,
+    "file:src/features/scaling.py": 0,
+    "file:src/features/underwater.py": 0,
+    "file:tests/test_average_cost.py": 2,
+    "file:tests/test_no_lookahead.py": 2,
+    "file:src/models/mac_irl.py": 2,
+    "file:src/models/policy.py": 0,
+    "file:src/models/reward.py": 0,
+    "file:tests/test_model_shapes.py": 1,
+    "file:src/training/checkpoint.py": 0,
+    "file:src/training/losses.py": 0,
+    "file:src/training/trainer.py": 2,
+    "file:tests/test_losses.py": 1,
+    "document:AGENTS.md": 0,
+    "document:CLAUDE.md": 0,
+    "document:DATA_README.md": 0,
+    "document:README.md": 0,
+    "config:pyproject.toml": 0,
+    "document:requirements.txt": 0,
+    "table:samsung_macirl_2021_2025_FINAL.csv:samsung_macirl_final": 0,
+    "table:samsung_macirl_EXTENDED_2021_2025.csv:samsung_macirl_extended": 0,
+    "config:configs/data.yaml": 0,
+    "config:configs/data_loss_aversion.yaml": 0,
+    "config:configs/experiment.yaml": 0,
+    "config:configs/experiment_loss_aversion.yaml": 0,
+    "config:configs/features.yaml": 0,
+    "config:configs/features_loss_aversion.yaml": 0,
+    "config:configs/model.yaml": 0,
+    "config:configs/train.yaml": 0,
+    "file:collect_base.py": 0,
+    "document:notebooks/README.md": 0,
+    "file:scripts/__init__.py": 0,
+    "file:src/__init__.py": 0,
+    "file:src/data/__init__.py": 0,
+    "file:src/evaluation/__init__.py": 0,
+    "file:src/features/__init__.py": 0,
+    "file:src/models/__init__.py": 0,
+    "file:src/training/__init__.py": 0,
+    "file:src/utils/__init__.py": 0
+  }
+}

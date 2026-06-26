@@ -1,0 +1,1391 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 9,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "scripts/train.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 213,
+      "nonEmptyLines": 192,
+      "functions": [
+        {
+          "name": "parse_args",
+          "startLine": 25,
+          "endLine": 32,
+          "params": []
+        },
+        {
+          "name": "_evaluate_model",
+          "startLine": 35,
+          "endLine": 40,
+          "params": [
+            "model",
+            "features",
+            "labels"
+          ]
+        },
+        {
+          "name": "validate_processed_schema",
+          "startLine": 43,
+          "endLine": 68,
+          "params": [
+            "data",
+            "config"
+          ]
+        },
+        {
+          "name": "main",
+          "startLine": 71,
+          "endLine": 209,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "parse_args",
+          "line": 25,
+          "isDefault": false
+        },
+        {
+          "name": "_evaluate_model",
+          "line": 35,
+          "isDefault": false
+        },
+        {
+          "name": "validate_processed_schema",
+          "line": 43,
+          "isDefault": false
+        },
+        {
+          "name": "main",
+          "line": 71,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "parse_args",
+          "callee": "argparse.ArgumentParser",
+          "lineNumber": 26
+        },
+        {
+          "caller": "parse_args",
+          "callee": "parser.add_argument",
+          "lineNumber": 27
+        },
+        {
+          "caller": "parse_args",
+          "callee": "parser.add_argument",
+          "lineNumber": 28
+        },
+        {
+          "caller": "parse_args",
+          "callee": "parser.add_argument",
+          "lineNumber": 29
+        },
+        {
+          "caller": "parse_args",
+          "callee": "parser.add_argument",
+          "lineNumber": 30
+        },
+        {
+          "caller": "parse_args",
+          "callee": "parser.add_argument",
+          "lineNumber": 31
+        },
+        {
+          "caller": "parse_args",
+          "callee": "parser.parse_args",
+          "lineNumber": 32
+        },
+        {
+          "caller": "_evaluate_model",
+          "callee": "model.to",
+          "lineNumber": 36
+        },
+        {
+          "caller": "_evaluate_model",
+          "callee": "model.eval",
+          "lineNumber": 37
+        },
+        {
+          "caller": "_evaluate_model",
+          "callee": "torch.no_grad",
+          "lineNumber": 38
+        },
+        {
+          "caller": "_evaluate_model",
+          "callee": "model",
+          "lineNumber": 39
+        },
+        {
+          "caller": "_evaluate_model",
+          "callee": "torch.as_tensor",
+          "lineNumber": 39
+        },
+        {
+          "caller": "_evaluate_model",
+          "callee": "evaluate_logits",
+          "lineNumber": 40
+        },
+        {
+          "caller": "_evaluate_model",
+          "callee": "torch.as_tensor",
+          "lineNumber": 40
+        },
+        {
+          "caller": "validate_processed_schema",
+          "callee": "sorted",
+          "lineNumber": 45
+        },
+        {
+          "caller": "validate_processed_schema",
+          "callee": "required.difference",
+          "lineNumber": 45
+        },
+        {
+          "caller": "validate_processed_schema",
+          "callee": "ValueError",
+          "lineNumber": 47
+        },
+        {
+          "caller": "validate_processed_schema",
+          "callee": "list",
+          "lineNumber": 52
+        },
+        {
+          "caller": "validate_processed_schema",
+          "callee": "data[\"feature_names\"].astype(str).tolist",
+          "lineNumber": 53
+        },
+        {
+          "caller": "validate_processed_schema",
+          "callee": "data[\"feature_names\"].astype",
+          "lineNumber": 53
+        },
+        {
+          "caller": "validate_processed_schema",
+          "callee": "list",
+          "lineNumber": 54
+        },
+        {
+          "caller": "validate_processed_schema",
+          "callee": "data[\"investors\"].astype(str).tolist",
+          "lineNumber": 55
+        },
+        {
+          "caller": "validate_processed_schema",
+          "callee": "data[\"investors\"].astype",
+          "lineNumber": 55
+        },
+        {
+          "caller": "validate_processed_schema",
+          "callee": "list",
+          "lineNumber": 56
+        },
+        {
+          "caller": "validate_processed_schema",
+          "callee": "data[\"action_values\"].astype(int).tolist",
+          "lineNumber": 57
+        },
+        {
+          "caller": "validate_processed_schema",
+          "callee": "data[\"action_values\"].astype",
+          "lineNumber": 57
+        },
+        {
+          "caller": "validate_processed_schema",
+          "callee": "ValueError",
+          "lineNumber": 59
+        },
+        {
+          "caller": "validate_processed_schema",
+          "callee": "ValueError",
+          "lineNumber": 64
+        },
+        {
+          "caller": "validate_processed_schema",
+          "callee": "ValueError",
+          "lineNumber": 68
+        },
+        {
+          "caller": "main",
+          "callee": "parse_args",
+          "lineNumber": 72
+        },
+        {
+          "caller": "main",
+          "callee": "load_configs",
+          "lineNumber": 73
+        },
+        {
+          "caller": "main",
+          "callee": "np.load",
+          "lineNumber": 80
+        },
+        {
+          "caller": "main",
+          "callee": "validate_processed_schema",
+          "lineNumber": 81
+        },
+        {
+          "caller": "main",
+          "callee": "list",
+          "lineNumber": 85
+        },
+        {
+          "caller": "main",
+          "callee": "list",
+          "lineNumber": 86
+        },
+        {
+          "caller": "main",
+          "callee": "build_cpcv",
+          "lineNumber": 87
+        },
+        {
+          "caller": "main",
+          "callee": "int",
+          "lineNumber": 88
+        },
+        {
+          "caller": "main",
+          "callee": "Path",
+          "lineNumber": 89
+        },
+        {
+          "caller": "main",
+          "callee": "configure_logging",
+          "lineNumber": 90
+        },
+        {
+          "caller": "main",
+          "callee": "dump_yaml",
+          "lineNumber": 91
+        },
+        {
+          "caller": "main",
+          "callee": "np.arange(len(features)).reshape",
+          "lineNumber": 97
+        },
+        {
+          "caller": "main",
+          "callee": "np.arange",
+          "lineNumber": 97
+        },
+        {
+          "caller": "main",
+          "callee": "len",
+          "lineNumber": 97
+        },
+        {
+          "caller": "main",
+          "callee": "enumerate",
+          "lineNumber": 99
+        },
+        {
+          "caller": "main",
+          "callee": "cv.split",
+          "lineNumber": 99
+        },
+        {
+          "caller": "main",
+          "callee": "combine_test_folds",
+          "lineNumber": 100
+        },
+        {
+          "caller": "main",
+          "callee": "np.intersect1d",
+          "lineNumber": 101
+        },
+        {
+          "caller": "main",
+          "callee": "RuntimeError",
+          "lineNumber": 102
+        },
+        {
+          "caller": "main",
+          "callee": "split_dir.mkdir",
+          "lineNumber": 105
+        },
+        {
+          "caller": "main",
+          "callee": "np.setdiff1d",
+          "lineNumber": 106
+        },
+        {
+          "caller": "main",
+          "callee": "np.arange",
+          "lineNumber": 107
+        },
+        {
+          "caller": "main",
+          "callee": "len",
+          "lineNumber": 107
+        },
+        {
+          "caller": "main",
+          "callee": "np.union1d",
+          "lineNumber": 108
+        },
+        {
+          "caller": "main",
+          "callee": "np.savez_compressed",
+          "lineNumber": 110
+        },
+        {
+          "caller": "main",
+          "callee": "split_records.append",
+          "lineNumber": 118
+        },
+        {
+          "caller": "main",
+          "callee": "len",
+          "lineNumber": 121
+        },
+        {
+          "caller": "main",
+          "callee": "len",
+          "lineNumber": 122
+        },
+        {
+          "caller": "main",
+          "callee": "len",
+          "lineNumber": 123
+        },
+        {
+          "caller": "main",
+          "callee": "enumerate",
+          "lineNumber": 127
+        },
+        {
+          "caller": "main",
+          "callee": "len",
+          "lineNumber": 128
+        },
+        {
+          "caller": "main",
+          "callee": "set_seed",
+          "lineNumber": 129
+        },
+        {
+          "caller": "main",
+          "callee": "fit_feature_scaler",
+          "lineNumber": 131
+        },
+        {
+          "caller": "main",
+          "callee": "save_feature_scaler",
+          "lineNumber": 132
+        },
+        {
+          "caller": "main",
+          "callee": "transform_feature_tensor",
+          "lineNumber": 133
+        },
+        {
+          "caller": "main",
+          "callee": "transform_feature_tensor",
+          "lineNumber": 134
+        },
+        {
+          "caller": "main",
+          "callee": "TensorDataset",
+          "lineNumber": 135
+        },
+        {
+          "caller": "main",
+          "callee": "torch.as_tensor",
+          "lineNumber": 136
+        },
+        {
+          "caller": "main",
+          "callee": "torch.as_tensor",
+          "lineNumber": 137
+        },
+        {
+          "caller": "main",
+          "callee": "torch.Generator().manual_seed",
+          "lineNumber": 139
+        },
+        {
+          "caller": "main",
+          "callee": "torch.Generator",
+          "lineNumber": 139
+        },
+        {
+          "caller": "main",
+          "callee": "DataLoader",
+          "lineNumber": 140
+        },
+        {
+          "caller": "main",
+          "callee": "int",
+          "lineNumber": 142
+        },
+        {
+          "caller": "main",
+          "callee": "InvestorIRLModel",
+          "lineNumber": 146
+        },
+        {
+          "caller": "main",
+          "callee": "float",
+          "lineNumber": 148
+        },
+        {
+          "caller": "main",
+          "callee": "train_investor_model",
+          "lineNumber": 150
+        },
+        {
+          "caller": "main",
+          "callee": "_evaluate_model",
+          "lineNumber": 156
+        },
+        {
+          "caller": "main",
+          "callee": "confusion_records.append",
+          "lineNumber": 161
+        },
+        {
+          "caller": "main",
+          "callee": "test_metrics.pop",
+          "lineNumber": 165
+        },
+        {
+          "caller": "main",
+          "callee": "metric_rows.append",
+          "lineNumber": 168
+        },
+        {
+          "caller": "main",
+          "callee": "len",
+          "lineNumber": 172
+        },
+        {
+          "caller": "main",
+          "callee": "len",
+          "lineNumber": 173
+        },
+        {
+          "caller": "main",
+          "callee": "weight_frames.append",
+          "lineNumber": 178
+        },
+        {
+          "caller": "main",
+          "callee": "reward_weights_frame",
+          "lineNumber": 178
+        },
+        {
+          "caller": "main",
+          "callee": "logger.info",
+          "lineNumber": 180
+        },
+        {
+          "caller": "main",
+          "callee": "cv.get_n_splits",
+          "lineNumber": 180
+        },
+        {
+          "caller": "main",
+          "callee": "pd.DataFrame",
+          "lineNumber": 182
+        },
+        {
+          "caller": "main",
+          "callee": "pd.concat",
+          "lineNumber": 183
+        },
+        {
+          "caller": "main",
+          "callee": "summarize_cv_metrics",
+          "lineNumber": 184
+        },
+        {
+          "caller": "main",
+          "callee": "summarize_reward_weights",
+          "lineNumber": 185
+        },
+        {
+          "caller": "main",
+          "callee": "pd.DataFrame",
+          "lineNumber": 186
+        },
+        {
+          "caller": "main",
+          "callee": "metrics.to_csv",
+          "lineNumber": 188
+        },
+        {
+          "caller": "main",
+          "callee": "metrics_summary.to_csv",
+          "lineNumber": 189
+        },
+        {
+          "caller": "main",
+          "callee": "weights.to_csv",
+          "lineNumber": 190
+        },
+        {
+          "caller": "main",
+          "callee": "weights_summary.to_csv",
+          "lineNumber": 191
+        },
+        {
+          "caller": "main",
+          "callee": "split_summary.to_csv",
+          "lineNumber": 192
+        },
+        {
+          "caller": "main",
+          "callee": "(output_dir / \"confusion_matrices.json\").open",
+          "lineNumber": 193
+        },
+        {
+          "caller": "main",
+          "callee": "json.dump",
+          "lineNumber": 194
+        },
+        {
+          "caller": "main",
+          "callee": "len",
+          "lineNumber": 196
+        },
+        {
+          "caller": "main",
+          "callee": "int",
+          "lineNumber": 197
+        },
+        {
+          "caller": "main",
+          "callee": "cv.get_n_splits",
+          "lineNumber": 197
+        },
+        {
+          "caller": "main",
+          "callee": "int",
+          "lineNumber": 198
+        },
+        {
+          "caller": "main",
+          "callee": "version",
+          "lineNumber": 200
+        },
+        {
+          "caller": "main",
+          "callee": "version",
+          "lineNumber": 201
+        },
+        {
+          "caller": "main",
+          "callee": "version",
+          "lineNumber": 202
+        },
+        {
+          "caller": "main",
+          "callee": "metrics_summary.to_dict",
+          "lineNumber": 204
+        },
+        {
+          "caller": "main",
+          "callee": "weights_summary.to_dict",
+          "lineNumber": 205
+        },
+        {
+          "caller": "main",
+          "callee": "(output_dir / \"cv_summary.json\").open",
+          "lineNumber": 207
+        },
+        {
+          "caller": "main",
+          "callee": "json.dump",
+          "lineNumber": 208
+        },
+        {
+          "caller": "main",
+          "callee": "logger.info",
+          "lineNumber": 209
+        },
+        {
+          "caller": "main",
+          "callee": "len",
+          "lineNumber": 209
+        }
+      ],
+      "metrics": {
+        "importCount": 10,
+        "exportCount": 4,
+        "functionCount": 4,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/data/splits.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 20,
+      "nonEmptyLines": 15,
+      "functions": [
+        {
+          "name": "build_cpcv",
+          "startLine": 7,
+          "endLine": 14,
+          "params": [
+            "config"
+          ]
+        },
+        {
+          "name": "combine_test_folds",
+          "startLine": 17,
+          "endLine": 20,
+          "params": [
+            "test_folds"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "build_cpcv",
+          "line": 7,
+          "isDefault": false
+        },
+        {
+          "name": "combine_test_folds",
+          "line": 17,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "build_cpcv",
+          "callee": "CombinatorialPurgedCV",
+          "lineNumber": 9
+        },
+        {
+          "caller": "build_cpcv",
+          "callee": "int",
+          "lineNumber": 10
+        },
+        {
+          "caller": "build_cpcv",
+          "callee": "int",
+          "lineNumber": 11
+        },
+        {
+          "caller": "build_cpcv",
+          "callee": "int",
+          "lineNumber": 12
+        },
+        {
+          "caller": "build_cpcv",
+          "callee": "int",
+          "lineNumber": 13
+        },
+        {
+          "caller": "combine_test_folds",
+          "callee": "isinstance",
+          "lineNumber": 18
+        },
+        {
+          "caller": "combine_test_folds",
+          "callee": "test_folds.astype",
+          "lineNumber": 19
+        },
+        {
+          "caller": "combine_test_folds",
+          "callee": "np.sort(np.concatenate(list(test_folds))).astype",
+          "lineNumber": 20
+        },
+        {
+          "caller": "combine_test_folds",
+          "callee": "np.sort",
+          "lineNumber": 20
+        },
+        {
+          "caller": "combine_test_folds",
+          "callee": "np.concatenate",
+          "lineNumber": 20
+        },
+        {
+          "caller": "combine_test_folds",
+          "callee": "list",
+          "lineNumber": 20
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 2,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/evaluation/interpret.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 42,
+      "nonEmptyLines": 37,
+      "functions": [
+        {
+          "name": "reward_weights_frame",
+          "startLine": 6,
+          "endLine": 20,
+          "params": [
+            "model",
+            "investor",
+            "feature_names",
+            "split"
+          ]
+        },
+        {
+          "name": "summarize_reward_weights",
+          "startLine": 23,
+          "endLine": 42,
+          "params": [
+            "weights"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "reward_weights_frame",
+          "line": 6,
+          "isDefault": false
+        },
+        {
+          "name": "summarize_reward_weights",
+          "line": 23,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "reward_weights_frame",
+          "callee": "model.reward_model.beta.detach().cpu().numpy",
+          "lineNumber": 12
+        },
+        {
+          "caller": "reward_weights_frame",
+          "callee": "model.reward_model.beta.detach().cpu",
+          "lineNumber": 12
+        },
+        {
+          "caller": "reward_weights_frame",
+          "callee": "model.reward_model.beta.detach",
+          "lineNumber": 12
+        },
+        {
+          "caller": "reward_weights_frame",
+          "callee": "pd.DataFrame",
+          "lineNumber": 13
+        },
+        {
+          "caller": "reward_weights_frame",
+          "callee": "beta.astype",
+          "lineNumber": 18
+        },
+        {
+          "caller": "summarize_reward_weights",
+          "callee": "weights.groupby",
+          "lineNumber": 25
+        },
+        {
+          "caller": "summarize_reward_weights",
+          "callee": "float",
+          "lineNumber": 27
+        },
+        {
+          "caller": "summarize_reward_weights",
+          "callee": "values.mean",
+          "lineNumber": 27
+        },
+        {
+          "caller": "summarize_reward_weights",
+          "callee": "values.map",
+          "lineNumber": 29
+        },
+        {
+          "caller": "summarize_reward_weights",
+          "callee": "rows.append",
+          "lineNumber": 30
+        },
+        {
+          "caller": "summarize_reward_weights",
+          "callee": "float",
+          "lineNumber": 35
+        },
+        {
+          "caller": "summarize_reward_weights",
+          "callee": "values.std",
+          "lineNumber": 35
+        },
+        {
+          "caller": "summarize_reward_weights",
+          "callee": "float",
+          "lineNumber": 36
+        },
+        {
+          "caller": "summarize_reward_weights",
+          "callee": "(signs > 0).mean",
+          "lineNumber": 36
+        },
+        {
+          "caller": "summarize_reward_weights",
+          "callee": "float",
+          "lineNumber": 37
+        },
+        {
+          "caller": "summarize_reward_weights",
+          "callee": "(signs < 0).mean",
+          "lineNumber": 37
+        },
+        {
+          "caller": "summarize_reward_weights",
+          "callee": "float",
+          "lineNumber": 39
+        },
+        {
+          "caller": "summarize_reward_weights",
+          "callee": "(signs == dominant_sign).mean",
+          "lineNumber": 39
+        },
+        {
+          "caller": "summarize_reward_weights",
+          "callee": "pd.DataFrame",
+          "lineNumber": 42
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 2,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/evaluation/metrics.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 17,
+      "nonEmptyLines": 14,
+      "functions": [
+        {
+          "name": "evaluate_logits",
+          "startLine": 8,
+          "endLine": 17,
+          "params": [
+            "logits",
+            "labels"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "evaluate_logits",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "evaluate_logits",
+          "callee": "torch.softmax(logits, dim=-1).detach().cpu().numpy",
+          "lineNumber": 9
+        },
+        {
+          "caller": "evaluate_logits",
+          "callee": "torch.softmax(logits, dim=-1).detach().cpu",
+          "lineNumber": 9
+        },
+        {
+          "caller": "evaluate_logits",
+          "callee": "torch.softmax(logits, dim=-1).detach",
+          "lineNumber": 9
+        },
+        {
+          "caller": "evaluate_logits",
+          "callee": "torch.softmax",
+          "lineNumber": 9
+        },
+        {
+          "caller": "evaluate_logits",
+          "callee": "probabilities.argmax",
+          "lineNumber": 10
+        },
+        {
+          "caller": "evaluate_logits",
+          "callee": "labels.detach().cpu().numpy",
+          "lineNumber": 11
+        },
+        {
+          "caller": "evaluate_logits",
+          "callee": "labels.detach().cpu",
+          "lineNumber": 11
+        },
+        {
+          "caller": "evaluate_logits",
+          "callee": "labels.detach",
+          "lineNumber": 11
+        },
+        {
+          "caller": "evaluate_logits",
+          "callee": "float",
+          "lineNumber": 13
+        },
+        {
+          "caller": "evaluate_logits",
+          "callee": "accuracy_score",
+          "lineNumber": 13
+        },
+        {
+          "caller": "evaluate_logits",
+          "callee": "float",
+          "lineNumber": 14
+        },
+        {
+          "caller": "evaluate_logits",
+          "callee": "f1_score",
+          "lineNumber": 14
+        },
+        {
+          "caller": "evaluate_logits",
+          "callee": "float",
+          "lineNumber": 15
+        },
+        {
+          "caller": "evaluate_logits",
+          "callee": "log_loss",
+          "lineNumber": 15
+        },
+        {
+          "caller": "evaluate_logits",
+          "callee": "confusion_matrix(true, predicted, labels=[0, 1]).tolist",
+          "lineNumber": 16
+        },
+        {
+          "caller": "evaluate_logits",
+          "callee": "confusion_matrix",
+          "lineNumber": 16
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/evaluation/reporting.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 18,
+      "nonEmptyLines": 15,
+      "functions": [
+        {
+          "name": "summarize_cv_metrics",
+          "startLine": 6,
+          "endLine": 18,
+          "params": [
+            "metrics"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "summarize_cv_metrics",
+          "line": 6,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "summarize_cv_metrics",
+          "callee": "metrics.melt",
+          "lineNumber": 8
+        },
+        {
+          "caller": "summarize_cv_metrics",
+          "callee": "long.groupby([\"investor\", \"metric\"], sort=False)[\"value\"]\n        .agg([\"mean\", \"std\"])\n        .reset_index",
+          "lineNumber": 15
+        },
+        {
+          "caller": "summarize_cv_metrics",
+          "callee": "long.groupby([\"investor\", \"metric\"], sort=False)[\"value\"]\n        .agg",
+          "lineNumber": 15
+        },
+        {
+          "caller": "summarize_cv_metrics",
+          "callee": "long.groupby",
+          "lineNumber": 15
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/utils/logging.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 20,
+      "nonEmptyLines": 15,
+      "functions": [
+        {
+          "name": "configure_logging",
+          "startLine": 7,
+          "endLine": 19,
+          "params": [
+            "output_dir"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "configure_logging",
+          "line": 7,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "configure_logging",
+          "callee": "logging.StreamHandler",
+          "lineNumber": 8
+        },
+        {
+          "caller": "configure_logging",
+          "callee": "Path(output_dir).mkdir",
+          "lineNumber": 10
+        },
+        {
+          "caller": "configure_logging",
+          "callee": "Path",
+          "lineNumber": 10
+        },
+        {
+          "caller": "configure_logging",
+          "callee": "handlers.append",
+          "lineNumber": 11
+        },
+        {
+          "caller": "configure_logging",
+          "callee": "logging.FileHandler",
+          "lineNumber": 11
+        },
+        {
+          "caller": "configure_logging",
+          "callee": "Path",
+          "lineNumber": 11
+        },
+        {
+          "caller": "configure_logging",
+          "callee": "logging.basicConfig",
+          "lineNumber": 13
+        },
+        {
+          "caller": "configure_logging",
+          "callee": "logging.getLogger",
+          "lineNumber": 19
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/utils/seed.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 19,
+      "nonEmptyLines": 14,
+      "functions": [
+        {
+          "name": "set_seed",
+          "startLine": 10,
+          "endLine": 18,
+          "params": [
+            "seed"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "set_seed",
+          "line": 10,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "set_seed",
+          "callee": "random.seed",
+          "lineNumber": 11
+        },
+        {
+          "caller": "set_seed",
+          "callee": "np.random.seed",
+          "lineNumber": 12
+        },
+        {
+          "caller": "set_seed",
+          "callee": "str",
+          "lineNumber": 13
+        },
+        {
+          "caller": "set_seed",
+          "callee": "torch.manual_seed",
+          "lineNumber": 14
+        },
+        {
+          "caller": "set_seed",
+          "callee": "torch.cuda.is_available",
+          "lineNumber": 15
+        },
+        {
+          "caller": "set_seed",
+          "callee": "torch.cuda.manual_seed_all",
+          "lineNumber": 16
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "tests/test_cpcv.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 23,
+      "nonEmptyLines": 19,
+      "functions": [
+        {
+          "name": "test_cpcv_produces_45_disjoint_train_test_splits",
+          "startLine": 6,
+          "endLine": 23,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "test_cpcv_produces_45_disjoint_train_test_splits",
+          "line": 6,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "test_cpcv_produces_45_disjoint_train_test_splits",
+          "callee": "build_cpcv",
+          "lineNumber": 15
+        },
+        {
+          "caller": "test_cpcv_produces_45_disjoint_train_test_splits",
+          "callee": "list",
+          "lineNumber": 16
+        },
+        {
+          "caller": "test_cpcv_produces_45_disjoint_train_test_splits",
+          "callee": "cv.split",
+          "lineNumber": 16
+        },
+        {
+          "caller": "test_cpcv_produces_45_disjoint_train_test_splits",
+          "callee": "np.arange(1000).reshape",
+          "lineNumber": 16
+        },
+        {
+          "caller": "test_cpcv_produces_45_disjoint_train_test_splits",
+          "callee": "np.arange",
+          "lineNumber": 16
+        },
+        {
+          "caller": "test_cpcv_produces_45_disjoint_train_test_splits",
+          "callee": "len",
+          "lineNumber": 18
+        },
+        {
+          "caller": "test_cpcv_produces_45_disjoint_train_test_splits",
+          "callee": "combine_test_folds",
+          "lineNumber": 20
+        },
+        {
+          "caller": "test_cpcv_produces_45_disjoint_train_test_splits",
+          "callee": "np.intersect1d",
+          "lineNumber": 21
+        },
+        {
+          "caller": "test_cpcv_produces_45_disjoint_train_test_splits",
+          "callee": "np.setdiff1d",
+          "lineNumber": 22
+        },
+        {
+          "caller": "test_cpcv_produces_45_disjoint_train_test_splits",
+          "callee": "np.arange",
+          "lineNumber": 22
+        },
+        {
+          "caller": "test_cpcv_produces_45_disjoint_train_test_splits",
+          "callee": "np.union1d",
+          "lineNumber": 22
+        },
+        {
+          "caller": "test_cpcv_produces_45_disjoint_train_test_splits",
+          "callee": "len",
+          "lineNumber": 23
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "tests/test_processed_schema.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 38,
+      "nonEmptyLines": 29,
+      "functions": [
+        {
+          "name": "_config",
+          "startLine": 7,
+          "endLine": 12,
+          "params": []
+        },
+        {
+          "name": "test_processed_schema_rejects_stale_dataset_without_feature_names",
+          "startLine": 15,
+          "endLine": 24,
+          "params": []
+        },
+        {
+          "name": "test_processed_schema_rejects_different_feature_meanings",
+          "startLine": 27,
+          "endLine": 38,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "_config",
+          "line": 7,
+          "isDefault": false
+        },
+        {
+          "name": "test_processed_schema_rejects_stale_dataset_without_feature_names",
+          "line": 15,
+          "isDefault": false
+        },
+        {
+          "name": "test_processed_schema_rejects_different_feature_meanings",
+          "line": 27,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "test_processed_schema_rejects_stale_dataset_without_feature_names",
+          "callee": "np.empty",
+          "lineNumber": 17
+        },
+        {
+          "caller": "test_processed_schema_rejects_stale_dataset_without_feature_names",
+          "callee": "np.empty",
+          "lineNumber": 18
+        },
+        {
+          "caller": "test_processed_schema_rejects_stale_dataset_without_feature_names",
+          "callee": "np.array",
+          "lineNumber": 19
+        },
+        {
+          "caller": "test_processed_schema_rejects_stale_dataset_without_feature_names",
+          "callee": "np.array",
+          "lineNumber": 20
+        },
+        {
+          "caller": "test_processed_schema_rejects_stale_dataset_without_feature_names",
+          "callee": "pytest.raises",
+          "lineNumber": 23
+        },
+        {
+          "caller": "test_processed_schema_rejects_stale_dataset_without_feature_names",
+          "callee": "validate_processed_schema",
+          "lineNumber": 24
+        },
+        {
+          "caller": "test_processed_schema_rejects_stale_dataset_without_feature_names",
+          "callee": "_config",
+          "lineNumber": 24
+        },
+        {
+          "caller": "test_processed_schema_rejects_different_feature_meanings",
+          "callee": "np.empty",
+          "lineNumber": 29
+        },
+        {
+          "caller": "test_processed_schema_rejects_different_feature_meanings",
+          "callee": "np.empty",
+          "lineNumber": 30
+        },
+        {
+          "caller": "test_processed_schema_rejects_different_feature_meanings",
+          "callee": "np.array",
+          "lineNumber": 31
+        },
+        {
+          "caller": "test_processed_schema_rejects_different_feature_meanings",
+          "callee": "np.array",
+          "lineNumber": 32
+        },
+        {
+          "caller": "test_processed_schema_rejects_different_feature_meanings",
+          "callee": "np.array",
+          "lineNumber": 33
+        },
+        {
+          "caller": "test_processed_schema_rejects_different_feature_meanings",
+          "callee": "np.array",
+          "lineNumber": 34
+        },
+        {
+          "caller": "test_processed_schema_rejects_different_feature_meanings",
+          "callee": "pytest.raises",
+          "lineNumber": 37
+        },
+        {
+          "caller": "test_processed_schema_rejects_different_feature_meanings",
+          "callee": "validate_processed_schema",
+          "lineNumber": 38
+        },
+        {
+          "caller": "test_processed_schema_rejects_different_feature_meanings",
+          "callee": "_config",
+          "lineNumber": 38
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 3,
+        "functionCount": 3,
+        "classCount": 0
+      }
+    }
+  ]
+}

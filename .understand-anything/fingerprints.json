@@ -1,0 +1,2441 @@
+{
+  "version": "1.0.0",
+  "gitCommitHash": "a07d148c758091512fa1c94245e3af6d80ea051d",
+  "generatedAt": "2026-06-24T07:50:10.981Z",
+  "files": {
+    "AGENTS.md": {
+      "filePath": "AGENTS.md",
+      "contentHash": "18a2c092713bf890be8aa476379f89f10b8cfe64a4dd31035f0be61d7c03c6da",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 71,
+      "hasStructuralAnalysis": true
+    },
+    "CLAUDE.md": {
+      "filePath": "CLAUDE.md",
+      "contentHash": "9f6e21b248dd0e15338fd9af1bace186599cf871a2eb02035f842f2f3d3dcd53",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 71,
+      "hasStructuralAnalysis": true
+    },
+    "collect_base.py": {
+      "filePath": "collect_base.py",
+      "contentHash": "5c8688c9315a0ad7d3ebbbe3768e97dabc809e14515372223ab387e31e528728",
+      "functions": [
+        {
+          "name": "log",
+          "params": [
+            "msg"
+          ],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "pick_col",
+          "params": [
+            "df",
+            "keywords"
+          ],
+          "exported": true,
+          "lineCount": 6
+        },
+        {
+          "name": "get_ohlcv",
+          "params": [],
+          "exported": true,
+          "lineCount": 19
+        },
+        {
+          "name": "get_kospi200",
+          "params": [],
+          "exported": true,
+          "lineCount": 11
+        },
+        {
+          "name": "get_usdkrw",
+          "params": [],
+          "exported": true,
+          "lineCount": 11
+        },
+        {
+          "name": "main",
+          "params": [],
+          "exported": true,
+          "lineCount": 23
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "sys",
+          "specifiers": [
+            "sys"
+          ]
+        },
+        {
+          "source": "time",
+          "specifiers": [
+            "time"
+          ]
+        },
+        {
+          "source": "pandas",
+          "specifiers": [
+            "pd"
+          ]
+        },
+        {
+          "source": "FinanceDataReader",
+          "specifiers": [
+            "fdr"
+          ]
+        }
+      ],
+      "exports": [
+        "log",
+        "pick_col",
+        "get_ohlcv",
+        "get_kospi200",
+        "get_usdkrw",
+        "main"
+      ],
+      "totalLines": 123,
+      "hasStructuralAnalysis": true
+    },
+    "configs/data_loss_aversion.yaml": {
+      "filePath": "configs/data_loss_aversion.yaml",
+      "contentHash": "e0f987b143e6340a08f0c410fd242e3639ea201b8ae1a536d650d96881b8dc8a",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 50,
+      "hasStructuralAnalysis": true
+    },
+    "configs/data.yaml": {
+      "filePath": "configs/data.yaml",
+      "contentHash": "061387fb641335953853a4387e75c6fcc6b69f52612b8a40bab608a6375b9c1d",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 50,
+      "hasStructuralAnalysis": true
+    },
+    "configs/experiment_loss_aversion.yaml": {
+      "filePath": "configs/experiment_loss_aversion.yaml",
+      "contentHash": "7bbe28bb63940dd3bb720be5b7598005fd8e6e0d387a8947c471d17de3a2bfc1",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 11,
+      "hasStructuralAnalysis": true
+    },
+    "configs/experiment.yaml": {
+      "filePath": "configs/experiment.yaml",
+      "contentHash": "998d5dceca2b82d6a9d60b7bb847c83ffb60307cca36f59b73ac752c5138fb1d",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 11,
+      "hasStructuralAnalysis": true
+    },
+    "configs/features_loss_aversion.yaml": {
+      "filePath": "configs/features_loss_aversion.yaml",
+      "contentHash": "bda88c72dcdc85af27955294ab93df0dd325273db2fac5f3c9f76272ffdde1fe",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 19,
+      "hasStructuralAnalysis": true
+    },
+    "configs/features.yaml": {
+      "filePath": "configs/features.yaml",
+      "contentHash": "62f11907b4affc72c99f07c567727cc5d0b076cae7d0d38d77410638af985765",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 18,
+      "hasStructuralAnalysis": true
+    },
+    "configs/model.yaml": {
+      "filePath": "configs/model.yaml",
+      "contentHash": "02f2c6ddfc8bd2e9fc6849ad56b65128d7995b7d893ea6545bd622fc084d02c5",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 5,
+      "hasStructuralAnalysis": true
+    },
+    "configs/train.yaml": {
+      "filePath": "configs/train.yaml",
+      "contentHash": "d156fd512ae784c76c0aefc57181c1040d8bad3a45d56f6e0dd8ab0b5d5b87ca",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 16,
+      "hasStructuralAnalysis": true
+    },
+    "DATA_README.md": {
+      "filePath": "DATA_README.md",
+      "contentHash": "a772598861f8c0e1f1ee6e72d48b13beba3639a5f7b561a46cbb6374c0494462",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 66,
+      "hasStructuralAnalysis": true
+    },
+    "notebooks/README.md": {
+      "filePath": "notebooks/README.md",
+      "contentHash": "bbddc88623d792afd3dcfcfd48a237915252b22eb06763e71ed24a743fd1e58f",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 8,
+      "hasStructuralAnalysis": true
+    },
+    "pyproject.toml": {
+      "filePath": "pyproject.toml",
+      "contentHash": "947ee1d4d1d85910a799f58712344715091c5bfc08c05892d0d11737da94f9fe",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 22,
+      "hasStructuralAnalysis": true
+    },
+    "README.md": {
+      "filePath": "README.md",
+      "contentHash": "889be42195628cf85a46a8ae5ecea3710fc3486d92a2ebe87f7d48d29e3e308d",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 105,
+      "hasStructuralAnalysis": true
+    },
+    "requirements.txt": {
+      "filePath": "requirements.txt",
+      "contentHash": "917ee187953cb29c04c40502987d41519691f20cda06b0fcd52605cfe21d1d23",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 9,
+      "hasStructuralAnalysis": false
+    },
+    "samsung_macirl_2021_2025_FINAL.csv": {
+      "filePath": "samsung_macirl_2021_2025_FINAL.csv",
+      "contentHash": "b09bd8eea127893f4020388eda42554ac4720b800df1e05c05ded4f8d4d9b15e",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 1227,
+      "hasStructuralAnalysis": false
+    },
+    "samsung_macirl_EXTENDED_2021_2025.csv": {
+      "filePath": "samsung_macirl_EXTENDED_2021_2025.csv",
+      "contentHash": "aa2cab845932c430f5b1b7b57192d24621499bf73cbbb79af118a10057e1d863",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 1227,
+      "hasStructuralAnalysis": false
+    },
+    "scripts/__init__.py": {
+      "filePath": "scripts/__init__.py",
+      "contentHash": "d10ad097d32624164ef36ac189f62ec0b819c3bceee082b5e00d8125363002e5",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 2,
+      "hasStructuralAnalysis": true
+    },
+    "scripts/evaluate.py": {
+      "filePath": "scripts/evaluate.py",
+      "contentHash": "a2f033248188f3a24fee74f6f84b8f94a74eda3c7dc647c560ef55aa7293a47d",
+      "functions": [
+        {
+          "name": "parse_args",
+          "params": [],
+          "returnType": "argparse.Namespace",
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "main",
+          "params": [],
+          "returnType": "None",
+          "exported": true,
+          "lineCount": 10
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "argparse",
+          "specifiers": [
+            "argparse"
+          ]
+        },
+        {
+          "source": "pathlib",
+          "specifiers": [
+            "Path"
+          ]
+        },
+        {
+          "source": "pandas",
+          "specifiers": [
+            "pd"
+          ]
+        },
+        {
+          "source": "src.utils.config",
+          "specifiers": [
+            "load_configs"
+          ]
+        }
+      ],
+      "exports": [
+        "parse_args",
+        "main"
+      ],
+      "totalLines": 31,
+      "hasStructuralAnalysis": true
+    },
+    "scripts/prepare_data.py": {
+      "filePath": "scripts/prepare_data.py",
+      "contentHash": "aa5d3934705e2d0840ae222129acacacca13b379ed7e6d922a5d6a0b5097672c",
+      "functions": [
+        {
+          "name": "parse_args",
+          "params": [],
+          "returnType": "argparse.Namespace",
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "main",
+          "params": [],
+          "returnType": "None",
+          "exported": true,
+          "lineCount": 66
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "argparse",
+          "specifiers": [
+            "argparse"
+          ]
+        },
+        {
+          "source": "json",
+          "specifiers": [
+            "json"
+          ]
+        },
+        {
+          "source": "pathlib",
+          "specifiers": [
+            "Path"
+          ]
+        },
+        {
+          "source": "numpy",
+          "specifiers": [
+            "np"
+          ]
+        },
+        {
+          "source": "pandas",
+          "specifiers": [
+            "pd"
+          ]
+        },
+        {
+          "source": "src.data.labels",
+          "specifiers": [
+            "add_action_labels",
+            "labels_array"
+          ]
+        },
+        {
+          "source": "src.data.loaders",
+          "specifiers": [
+            "load_daily_frame"
+          ]
+        },
+        {
+          "source": "src.data.preprocess",
+          "specifiers": [
+            "prepare_daily_frame"
+          ]
+        },
+        {
+          "source": "src.features.registry",
+          "specifiers": [
+            "build_feature_tensor",
+            "valid_rows_for_model"
+          ]
+        },
+        {
+          "source": "src.utils.config",
+          "specifiers": [
+            "load_configs"
+          ]
+        }
+      ],
+      "exports": [
+        "parse_args",
+        "main"
+      ],
+      "totalLines": 94,
+      "hasStructuralAnalysis": true
+    },
+    "scripts/run_ablation.py": {
+      "filePath": "scripts/run_ablation.py",
+      "contentHash": "2041b9ca9c3cb34346bfe12e03bda3ed43f56d4139eca95f793529aabc451bc7",
+      "functions": [
+        {
+          "name": "parse_args",
+          "params": [],
+          "returnType": "argparse.Namespace",
+          "exported": true,
+          "lineCount": 8
+        },
+        {
+          "name": "main",
+          "params": [],
+          "returnType": "None",
+          "exported": true,
+          "lineCount": 61
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "argparse",
+          "specifiers": [
+            "argparse"
+          ]
+        },
+        {
+          "source": "subprocess",
+          "specifiers": [
+            "subprocess"
+          ]
+        },
+        {
+          "source": "sys",
+          "specifiers": [
+            "sys"
+          ]
+        },
+        {
+          "source": "copy",
+          "specifiers": [
+            "deepcopy"
+          ]
+        },
+        {
+          "source": "pathlib",
+          "specifiers": [
+            "Path"
+          ]
+        },
+        {
+          "source": "src.evaluation.ablation",
+          "specifiers": [
+            "remove_features"
+          ]
+        },
+        {
+          "source": "src.utils.config",
+          "specifiers": [
+            "dump_yaml",
+            "load_configs"
+          ]
+        }
+      ],
+      "exports": [
+        "parse_args",
+        "main"
+      ],
+      "totalLines": 96,
+      "hasStructuralAnalysis": true
+    },
+    "scripts/train.py": {
+      "filePath": "scripts/train.py",
+      "contentHash": "b6454336f7cda6fa24da5b82fe307f778882ef528038541b4730bcd6670f90a4",
+      "functions": [
+        {
+          "name": "parse_args",
+          "params": [],
+          "returnType": "argparse.Namespace",
+          "exported": true,
+          "lineCount": 8
+        },
+        {
+          "name": "_evaluate_model",
+          "params": [
+            "model",
+            "features",
+            "labels"
+          ],
+          "returnType": "dict",
+          "exported": true,
+          "lineCount": 6
+        },
+        {
+          "name": "validate_processed_schema",
+          "params": [
+            "data",
+            "config"
+          ],
+          "returnType": "None",
+          "exported": true,
+          "lineCount": 26
+        },
+        {
+          "name": "main",
+          "params": [],
+          "returnType": "None",
+          "exported": true,
+          "lineCount": 139
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "argparse",
+          "specifiers": [
+            "argparse"
+          ]
+        },
+        {
+          "source": "json",
+          "specifiers": [
+            "json"
+          ]
+        },
+        {
+          "source": "importlib.metadata",
+          "specifiers": [
+            "version"
+          ]
+        },
+        {
+          "source": "pathlib",
+          "specifiers": [
+            "Path"
+          ]
+        },
+        {
+          "source": "numpy",
+          "specifiers": [
+            "np"
+          ]
+        },
+        {
+          "source": "pandas",
+          "specifiers": [
+            "pd"
+          ]
+        },
+        {
+          "source": "torch",
+          "specifiers": [
+            "torch"
+          ]
+        },
+        {
+          "source": "torch.utils.data",
+          "specifiers": [
+            "DataLoader",
+            "TensorDataset"
+          ]
+        },
+        {
+          "source": "src.data.splits",
+          "specifiers": [
+            "build_cpcv",
+            "combine_test_folds"
+          ]
+        },
+        {
+          "source": "src.evaluation.interpret",
+          "specifiers": [
+            "reward_weights_frame",
+            "summarize_reward_weights"
+          ]
+        },
+        {
+          "source": "src.evaluation.metrics",
+          "specifiers": [
+            "evaluate_logits"
+          ]
+        },
+        {
+          "source": "src.evaluation.reporting",
+          "specifiers": [
+            "summarize_cv_metrics"
+          ]
+        },
+        {
+          "source": "src.features.scaling",
+          "specifiers": [
+            "fit_feature_scaler",
+            "save_feature_scaler",
+            "transform_feature_tensor"
+          ]
+        },
+        {
+          "source": "src.models.mac_irl",
+          "specifiers": [
+            "InvestorIRLModel"
+          ]
+        },
+        {
+          "source": "src.training.trainer",
+          "specifiers": [
+            "train_investor_model"
+          ]
+        },
+        {
+          "source": "src.utils.config",
+          "specifiers": [
+            "dump_yaml",
+            "load_configs"
+          ]
+        },
+        {
+          "source": "src.utils.logging",
+          "specifiers": [
+            "configure_logging"
+          ]
+        },
+        {
+          "source": "src.utils.seed",
+          "specifiers": [
+            "set_seed"
+          ]
+        }
+      ],
+      "exports": [
+        "parse_args",
+        "_evaluate_model",
+        "validate_processed_schema",
+        "main"
+      ],
+      "totalLines": 214,
+      "hasStructuralAnalysis": true
+    },
+    "src/__init__.py": {
+      "filePath": "src/__init__.py",
+      "contentHash": "196fcba0fcb9eeae2af5056a547c19f948adfc15c2a35d452cd38f78c3f9023a",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 3,
+      "hasStructuralAnalysis": true
+    },
+    "src/data/__init__.py": {
+      "filePath": "src/data/__init__.py",
+      "contentHash": "e4d2199274617b9e3a9e10a621f82a2889f3796dc550209cb33acc257e83eb22",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 3,
+      "hasStructuralAnalysis": true
+    },
+    "src/data/average_cost.py": {
+      "filePath": "src/data/average_cost.py",
+      "contentHash": "8c64d9a1cf7aac61fd90f596a3d7c3cb8c9f2705e83245064fc5e5cd6f85074a",
+      "functions": [
+        {
+          "name": "calculate_average_cost_state",
+          "params": [
+            "buy_quantity",
+            "sell_quantity",
+            "buy_value",
+            "sell_value",
+            "rho"
+          ],
+          "returnType": "pd.DataFrame",
+          "exported": true,
+          "lineCount": 79
+        },
+        {
+          "name": "add_average_cost_states",
+          "params": [
+            "df",
+            "config"
+          ],
+          "returnType": "pd.DataFrame",
+          "exported": true,
+          "lineCount": 14
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "numpy",
+          "specifiers": [
+            "np"
+          ]
+        },
+        {
+          "source": "pandas",
+          "specifiers": [
+            "pd"
+          ]
+        }
+      ],
+      "exports": [
+        "calculate_average_cost_state",
+        "add_average_cost_states"
+      ],
+      "totalLines": 102,
+      "hasStructuralAnalysis": true
+    },
+    "src/data/labels.py": {
+      "filePath": "src/data/labels.py",
+      "contentHash": "6259269e503d8184fdad92347c618c6f1f327683e33e760264b284ba1cd1521d",
+      "functions": [
+        {
+          "name": "rolling_binary_action_labels",
+          "params": [
+            "flow",
+            "window",
+            "quantile"
+          ],
+          "returnType": "pd.Series",
+          "exported": true,
+          "lineCount": 10
+        },
+        {
+          "name": "add_action_labels",
+          "params": [
+            "df",
+            "config"
+          ],
+          "returnType": "pd.DataFrame",
+          "exported": true,
+          "lineCount": 13
+        },
+        {
+          "name": "labels_array",
+          "params": [
+            "df",
+            "investors"
+          ],
+          "returnType": "np.ndarray",
+          "exported": true,
+          "lineCount": 3
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "numpy",
+          "specifiers": [
+            "np"
+          ]
+        },
+        {
+          "source": "pandas",
+          "specifiers": [
+            "pd"
+          ]
+        }
+      ],
+      "exports": [
+        "rolling_binary_action_labels",
+        "add_action_labels",
+        "labels_array"
+      ],
+      "totalLines": 41,
+      "hasStructuralAnalysis": true
+    },
+    "src/data/loaders.py": {
+      "filePath": "src/data/loaders.py",
+      "contentHash": "c987ed4b722dbd7a03df190db79133fcd014f4a607bb841dbd7c82e64b1c1ced",
+      "functions": [
+        {
+          "name": "read_table",
+          "params": [
+            "path"
+          ],
+          "returnType": "pd.DataFrame",
+          "exported": true,
+          "lineCount": 9
+        },
+        {
+          "name": "load_daily_frame",
+          "params": [
+            "config"
+          ],
+          "returnType": "pd.DataFrame",
+          "exported": true,
+          "lineCount": 2
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "pathlib",
+          "specifiers": [
+            "Path"
+          ]
+        },
+        {
+          "source": "pandas",
+          "specifiers": [
+            "pd"
+          ]
+        }
+      ],
+      "exports": [
+        "read_table",
+        "load_daily_frame"
+      ],
+      "totalLines": 22,
+      "hasStructuralAnalysis": true
+    },
+    "src/data/preprocess.py": {
+      "filePath": "src/data/preprocess.py",
+      "contentHash": "ba34b93f0db06c01ac072024662e3cc01cdcf3b7f048f7eeb196e088342d01ef",
+      "functions": [
+        {
+          "name": "resolve_price_column",
+          "params": [
+            "df",
+            "columns"
+          ],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 8
+        },
+        {
+          "name": "prepare_daily_frame",
+          "params": [
+            "df",
+            "config"
+          ],
+          "returnType": "pd.DataFrame",
+          "exported": true,
+          "lineCount": 40
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "numpy",
+          "specifiers": [
+            "np"
+          ]
+        },
+        {
+          "source": "pandas",
+          "specifiers": [
+            "pd"
+          ]
+        },
+        {
+          "source": "src.data.average_cost",
+          "specifiers": [
+            "add_average_cost_states"
+          ]
+        }
+      ],
+      "exports": [
+        "resolve_price_column",
+        "prepare_daily_frame"
+      ],
+      "totalLines": 59,
+      "hasStructuralAnalysis": true
+    },
+    "src/data/splits.py": {
+      "filePath": "src/data/splits.py",
+      "contentHash": "976f535b129db08374e80c71e5b87fef7398bd65ccd50fb1d0af62690703dc8b",
+      "functions": [
+        {
+          "name": "build_cpcv",
+          "params": [
+            "config"
+          ],
+          "returnType": "CombinatorialPurgedCV",
+          "exported": true,
+          "lineCount": 8
+        },
+        {
+          "name": "combine_test_folds",
+          "params": [
+            "test_folds"
+          ],
+          "returnType": "np.ndarray",
+          "exported": true,
+          "lineCount": 4
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "numpy",
+          "specifiers": [
+            "np"
+          ]
+        },
+        {
+          "source": "skfolio.model_selection",
+          "specifiers": [
+            "CombinatorialPurgedCV"
+          ]
+        }
+      ],
+      "exports": [
+        "build_cpcv",
+        "combine_test_folds"
+      ],
+      "totalLines": 21,
+      "hasStructuralAnalysis": true
+    },
+    "src/evaluation/__init__.py": {
+      "filePath": "src/evaluation/__init__.py",
+      "contentHash": "4b3ebf5f8fd19feaceec3efe511374cfcca0fa0b765049620eee5b1faa174511",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 3,
+      "hasStructuralAnalysis": true
+    },
+    "src/evaluation/ablation.py": {
+      "filePath": "src/evaluation/ablation.py",
+      "contentHash": "7cfe1f43b58d344a992dc3d50a8374c319584c15355b2fb7e7124b44835004c2",
+      "functions": [
+        {
+          "name": "remove_features",
+          "params": [
+            "config",
+            "features_to_remove"
+          ],
+          "returnType": "dict",
+          "exported": true,
+          "lineCount": 6
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "copy",
+          "specifiers": [
+            "deepcopy"
+          ]
+        }
+      ],
+      "exports": [
+        "remove_features"
+      ],
+      "totalLines": 13,
+      "hasStructuralAnalysis": true
+    },
+    "src/evaluation/interpret.py": {
+      "filePath": "src/evaluation/interpret.py",
+      "contentHash": "888e8936c293cd04ac5db9fc5b2a190aa9b7e535ff4cc691db40462406e044da",
+      "functions": [
+        {
+          "name": "reward_weights_frame",
+          "params": [
+            "model",
+            "investor",
+            "feature_names",
+            "split"
+          ],
+          "returnType": "pd.DataFrame",
+          "exported": true,
+          "lineCount": 15
+        },
+        {
+          "name": "summarize_reward_weights",
+          "params": [
+            "weights"
+          ],
+          "returnType": "pd.DataFrame",
+          "exported": true,
+          "lineCount": 20
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "pandas",
+          "specifiers": [
+            "pd"
+          ]
+        }
+      ],
+      "exports": [
+        "reward_weights_frame",
+        "summarize_reward_weights"
+      ],
+      "totalLines": 43,
+      "hasStructuralAnalysis": true
+    },
+    "src/evaluation/metrics.py": {
+      "filePath": "src/evaluation/metrics.py",
+      "contentHash": "231e612c291d4c861726d0e56faa0804bb18e0582f5790fa90c14603af46b14e",
+      "functions": [
+        {
+          "name": "evaluate_logits",
+          "params": [
+            "logits",
+            "labels"
+          ],
+          "returnType": "dict",
+          "exported": true,
+          "lineCount": 10
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "numpy",
+          "specifiers": [
+            "np"
+          ]
+        },
+        {
+          "source": "torch",
+          "specifiers": [
+            "torch"
+          ]
+        },
+        {
+          "source": "sklearn.metrics",
+          "specifiers": [
+            "accuracy_score",
+            "confusion_matrix",
+            "f1_score",
+            "log_loss"
+          ]
+        }
+      ],
+      "exports": [
+        "evaluate_logits"
+      ],
+      "totalLines": 18,
+      "hasStructuralAnalysis": true
+    },
+    "src/evaluation/reporting.py": {
+      "filePath": "src/evaluation/reporting.py",
+      "contentHash": "3cc083aa61e6d060599c519a48ca88d52b19e27b2122ccd454597d514a30aff0",
+      "functions": [
+        {
+          "name": "summarize_cv_metrics",
+          "params": [
+            "metrics"
+          ],
+          "returnType": "pd.DataFrame",
+          "exported": true,
+          "lineCount": 13
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "pandas",
+          "specifiers": [
+            "pd"
+          ]
+        }
+      ],
+      "exports": [
+        "summarize_cv_metrics"
+      ],
+      "totalLines": 19,
+      "hasStructuralAnalysis": true
+    },
+    "src/features/__init__.py": {
+      "filePath": "src/features/__init__.py",
+      "contentHash": "20cca80d9c6cb9fcc01f225cd90492435c4afa9c55e8d4c4fea96b8dab799a65",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 3,
+      "hasStructuralAnalysis": true
+    },
+    "src/features/herd.py": {
+      "filePath": "src/features/herd.py",
+      "contentHash": "f76ff08008f43ea125b96415200089141985efc247a42296e98e09b26750b335",
+      "functions": [
+        {
+          "name": "herd_flow",
+          "params": [
+            "df",
+            "investor",
+            "investors",
+            "window"
+          ],
+          "returnType": "pd.Series",
+          "exported": true,
+          "lineCount": 7
+        },
+        {
+          "name": "build_herd",
+          "params": [
+            "df",
+            "config",
+            "investor",
+            "action"
+          ],
+          "returnType": "pd.Series",
+          "exported": true,
+          "lineCount": 4
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "pandas",
+          "specifiers": [
+            "pd"
+          ]
+        }
+      ],
+      "exports": [
+        "herd_flow",
+        "build_herd"
+      ],
+      "totalLines": 19,
+      "hasStructuralAnalysis": true
+    },
+    "src/features/loss_aversion.py": {
+      "filePath": "src/features/loss_aversion.py",
+      "contentHash": "50cab0cfc356672ce380030e679672f32fbf6d20fb93ae99cae760fa52651aaa",
+      "functions": [
+        {
+          "name": "loss_gap",
+          "params": [
+            "df",
+            "reference_window"
+          ],
+          "returnType": "pd.Series",
+          "exported": true,
+          "lineCount": 6
+        },
+        {
+          "name": "build_loss_aversion",
+          "params": [
+            "df",
+            "config",
+            "investor",
+            "action"
+          ],
+          "returnType": "pd.Series",
+          "exported": true,
+          "lineCount": 4
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "pandas",
+          "specifiers": [
+            "pd"
+          ]
+        }
+      ],
+      "exports": [
+        "loss_gap",
+        "build_loss_aversion"
+      ],
+      "totalLines": 18,
+      "hasStructuralAnalysis": true
+    },
+    "src/features/momentum.py": {
+      "filePath": "src/features/momentum.py",
+      "contentHash": "f65de5031b0c57f8925ef9df36e95ec7a31a1347305820f122dc07b2f8775ba1",
+      "functions": [
+        {
+          "name": "momentum",
+          "params": [
+            "df",
+            "window"
+          ],
+          "returnType": "pd.Series",
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "build_momentum",
+          "params": [
+            "df",
+            "config",
+            "investor",
+            "action"
+          ],
+          "returnType": "pd.Series",
+          "exported": true,
+          "lineCount": 3
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "numpy",
+          "specifiers": [
+            "np"
+          ]
+        },
+        {
+          "source": "pandas",
+          "specifiers": [
+            "pd"
+          ]
+        }
+      ],
+      "exports": [
+        "momentum",
+        "build_momentum"
+      ],
+      "totalLines": 14,
+      "hasStructuralAnalysis": true
+    },
+    "src/features/registry.py": {
+      "filePath": "src/features/registry.py",
+      "contentHash": "cb9057137211bfb403b3594fda42228e6ded04beb164e991fb4c747bcec62e98",
+      "functions": [
+        {
+          "name": "build_feature_tensor",
+          "params": [
+            "df",
+            "config"
+          ],
+          "returnType": "tuple[np.ndarray, list[str]]",
+          "exported": true,
+          "lineCount": 17
+        },
+        {
+          "name": "valid_rows_for_model",
+          "params": [
+            "df",
+            "features",
+            "investors"
+          ],
+          "returnType": "np.ndarray",
+          "exported": true,
+          "lineCount": 5
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "collections.abc",
+          "specifiers": [
+            "Callable"
+          ]
+        },
+        {
+          "source": "numpy",
+          "specifiers": [
+            "np"
+          ]
+        },
+        {
+          "source": "pandas",
+          "specifiers": [
+            "pd"
+          ]
+        },
+        {
+          "source": "src.features.herd",
+          "specifiers": [
+            "build_herd"
+          ]
+        },
+        {
+          "source": "src.features.loss_aversion",
+          "specifiers": [
+            "build_loss_aversion"
+          ]
+        },
+        {
+          "source": "src.features.momentum",
+          "specifiers": [
+            "build_momentum"
+          ]
+        },
+        {
+          "source": "src.features.underwater",
+          "specifiers": [
+            "build_underwater"
+          ]
+        },
+        {
+          "source": "src.features.volatility",
+          "specifiers": [
+            "build_volatility"
+          ]
+        }
+      ],
+      "exports": [
+        "build_feature_tensor",
+        "valid_rows_for_model"
+      ],
+      "totalLines": 50,
+      "hasStructuralAnalysis": true
+    },
+    "src/features/scaling.py": {
+      "filePath": "src/features/scaling.py",
+      "contentHash": "e5985cde7de100c418fd911b054c8d17a2feb69431fab4c0131104efa4ae8d3b",
+      "functions": [
+        {
+          "name": "fit_feature_scaler",
+          "params": [
+            "features",
+            "train_indices"
+          ],
+          "returnType": "StandardScaler",
+          "exported": true,
+          "lineCount": 3
+        },
+        {
+          "name": "transform_feature_tensor",
+          "params": [
+            "features",
+            "scaler"
+          ],
+          "returnType": "np.ndarray",
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "save_feature_scaler",
+          "params": [
+            "scaler",
+            "path"
+          ],
+          "returnType": "None",
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "load_feature_scaler",
+          "params": [
+            "path"
+          ],
+          "returnType": "StandardScaler",
+          "exported": true,
+          "lineCount": 2
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "pathlib",
+          "specifiers": [
+            "Path"
+          ]
+        },
+        {
+          "source": "joblib",
+          "specifiers": [
+            "joblib"
+          ]
+        },
+        {
+          "source": "numpy",
+          "specifiers": [
+            "np"
+          ]
+        },
+        {
+          "source": "sklearn.preprocessing",
+          "specifiers": [
+            "StandardScaler"
+          ]
+        }
+      ],
+      "exports": [
+        "fit_feature_scaler",
+        "transform_feature_tensor",
+        "save_feature_scaler",
+        "load_feature_scaler"
+      ],
+      "totalLines": 29,
+      "hasStructuralAnalysis": true
+    },
+    "src/features/underwater.py": {
+      "filePath": "src/features/underwater.py",
+      "contentHash": "44bfa69913d4420aece509feb9369b53fef264d40b915a2cc3835e6e70b60ef8",
+      "functions": [
+        {
+          "name": "build_underwater",
+          "params": [
+            "df",
+            "config",
+            "investor",
+            "action"
+          ],
+          "returnType": "pd.Series",
+          "exported": true,
+          "lineCount": 2
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "pandas",
+          "specifiers": [
+            "pd"
+          ]
+        }
+      ],
+      "exports": [
+        "build_underwater"
+      ],
+      "totalLines": 8,
+      "hasStructuralAnalysis": true
+    },
+    "src/features/volatility.py": {
+      "filePath": "src/features/volatility.py",
+      "contentHash": "5b079e78feadf95c27639a57514d48ce7527ccbf1ec8a67e0bc62a5f1845a7f0",
+      "functions": [
+        {
+          "name": "volatility",
+          "params": [
+            "df",
+            "window"
+          ],
+          "returnType": "pd.Series",
+          "exported": true,
+          "lineCount": 3
+        },
+        {
+          "name": "build_volatility",
+          "params": [
+            "df",
+            "config",
+            "investor",
+            "action"
+          ],
+          "returnType": "pd.Series",
+          "exported": true,
+          "lineCount": 3
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "numpy",
+          "specifiers": [
+            "np"
+          ]
+        },
+        {
+          "source": "pandas",
+          "specifiers": [
+            "pd"
+          ]
+        }
+      ],
+      "exports": [
+        "volatility",
+        "build_volatility"
+      ],
+      "totalLines": 15,
+      "hasStructuralAnalysis": true
+    },
+    "src/models/__init__.py": {
+      "filePath": "src/models/__init__.py",
+      "contentHash": "2298f776bc3f528ff9f46299de2840cd21c60dd0328276180dcdea5726dacd00",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 3,
+      "hasStructuralAnalysis": true
+    },
+    "src/models/mac_irl.py": {
+      "filePath": "src/models/mac_irl.py",
+      "contentHash": "96b2f19e3908f73681721a352e038163bd660988fa0d516b8641e70cef5ff9d5",
+      "functions": [],
+      "classes": [
+        {
+          "name": "InvestorIRLModel",
+          "methods": [
+            "__init__",
+            "forward",
+            "l1_penalty"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 12
+        }
+      ],
+      "imports": [
+        {
+          "source": "torch",
+          "specifiers": [
+            "torch"
+          ]
+        },
+        {
+          "source": "torch",
+          "specifiers": [
+            "nn"
+          ]
+        },
+        {
+          "source": "src.models.policy",
+          "specifiers": [
+            "reward_logits"
+          ]
+        },
+        {
+          "source": "src.models.reward",
+          "specifiers": [
+            "FixedLinearReward"
+          ]
+        }
+      ],
+      "exports": [
+        "InvestorIRLModel"
+      ],
+      "totalLines": 22,
+      "hasStructuralAnalysis": true
+    },
+    "src/models/policy.py": {
+      "filePath": "src/models/policy.py",
+      "contentHash": "731e60cbcc21cf85f0f62a2d9049b7f7b9e748db9cf01223985e08d643a4e6f5",
+      "functions": [
+        {
+          "name": "reward_logits",
+          "params": [
+            "rewards",
+            "tau"
+          ],
+          "returnType": "torch.Tensor",
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "action_probabilities",
+          "params": [
+            "rewards",
+            "tau"
+          ],
+          "returnType": "torch.Tensor",
+          "exported": true,
+          "lineCount": 2
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "torch",
+          "specifiers": [
+            "torch"
+          ]
+        }
+      ],
+      "exports": [
+        "reward_logits",
+        "action_probabilities"
+      ],
+      "totalLines": 15,
+      "hasStructuralAnalysis": true
+    },
+    "src/models/reward.py": {
+      "filePath": "src/models/reward.py",
+      "contentHash": "3aafa16ce13fc61a6554ff372438917cf03ec720c4035b791703a23789410b88",
+      "functions": [],
+      "classes": [
+        {
+          "name": "FixedLinearReward",
+          "methods": [
+            "__init__",
+            "forward",
+            "l1_penalty"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 10
+        }
+      ],
+      "imports": [
+        {
+          "source": "torch",
+          "specifiers": [
+            "torch"
+          ]
+        },
+        {
+          "source": "torch",
+          "specifiers": [
+            "nn"
+          ]
+        }
+      ],
+      "exports": [
+        "FixedLinearReward"
+      ],
+      "totalLines": 17,
+      "hasStructuralAnalysis": true
+    },
+    "src/training/__init__.py": {
+      "filePath": "src/training/__init__.py",
+      "contentHash": "fb673fde2a683a9bc31a46f49d62d8c8b3272d019c84234653cb553895ab9e7e",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 3,
+      "hasStructuralAnalysis": true
+    },
+    "src/training/checkpoint.py": {
+      "filePath": "src/training/checkpoint.py",
+      "contentHash": "b6ca80183438ddb1b1d85a4f3b2628032d59291fc0668d67b5e89d04613e489d",
+      "functions": [
+        {
+          "name": "save_checkpoint",
+          "params": [
+            "path",
+            "model",
+            "optimizer",
+            "epoch",
+            "metrics"
+          ],
+          "returnType": "None",
+          "exported": true,
+          "lineCount": 12
+        },
+        {
+          "name": "load_checkpoint",
+          "params": [
+            "path",
+            "model",
+            "optimizer",
+            "map_location"
+          ],
+          "returnType": "dict",
+          "exported": true,
+          "lineCount": 6
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "pathlib",
+          "specifiers": [
+            "Path"
+          ]
+        },
+        {
+          "source": "torch",
+          "specifiers": [
+            "torch"
+          ]
+        }
+      ],
+      "exports": [
+        "save_checkpoint",
+        "load_checkpoint"
+      ],
+      "totalLines": 29,
+      "hasStructuralAnalysis": true
+    },
+    "src/training/losses.py": {
+      "filePath": "src/training/losses.py",
+      "contentHash": "0ca5467f6ff0214dbf0b6d3582cfaf77e9ae0add98a5cc4f4dc9acae3e7e5f8d",
+      "functions": [
+        {
+          "name": "behavior_nll",
+          "params": [
+            "logits",
+            "labels"
+          ],
+          "returnType": "torch.Tensor",
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "regularized_loss",
+          "params": [
+            "nll",
+            "l1_penalty",
+            "lambda_l1"
+          ],
+          "returnType": "torch.Tensor",
+          "exported": true,
+          "lineCount": 6
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "torch",
+          "specifiers": [
+            "torch"
+          ]
+        },
+        {
+          "source": "torch.nn.functional",
+          "specifiers": [
+            "F"
+          ]
+        }
+      ],
+      "exports": [
+        "behavior_nll",
+        "regularized_loss"
+      ],
+      "totalLines": 17,
+      "hasStructuralAnalysis": true
+    },
+    "src/training/trainer.py": {
+      "filePath": "src/training/trainer.py",
+      "contentHash": "2f0de901c476f3d2f4946d721de3659a44a2d45b68823ee40d94b981f195ce3f",
+      "functions": [
+        {
+          "name": "resolve_device",
+          "params": [
+            "name"
+          ],
+          "returnType": "torch.device",
+          "exported": true,
+          "lineCount": 8
+        },
+        {
+          "name": "train_investor_model",
+          "params": [
+            "model",
+            "train_loader",
+            "train_config",
+            "checkpoint_path"
+          ],
+          "returnType": "dict[str, float]",
+          "exported": true,
+          "lineCount": 35
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "pathlib",
+          "specifiers": [
+            "Path"
+          ]
+        },
+        {
+          "source": "torch",
+          "specifiers": [
+            "torch"
+          ]
+        },
+        {
+          "source": "torch.utils.data",
+          "specifiers": [
+            "DataLoader"
+          ]
+        },
+        {
+          "source": "src.training.checkpoint",
+          "specifiers": [
+            "save_checkpoint"
+          ]
+        },
+        {
+          "source": "src.training.losses",
+          "specifiers": [
+            "behavior_nll",
+            "regularized_loss"
+          ]
+        }
+      ],
+      "exports": [
+        "resolve_device",
+        "train_investor_model"
+      ],
+      "totalLines": 57,
+      "hasStructuralAnalysis": true
+    },
+    "src/utils/__init__.py": {
+      "filePath": "src/utils/__init__.py",
+      "contentHash": "9793f0bcab4321b5156ad18435a4fc585c46c5bca5b30e2f59bcda52e14b7c77",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 3,
+      "hasStructuralAnalysis": true
+    },
+    "src/utils/config.py": {
+      "filePath": "src/utils/config.py",
+      "contentHash": "e96306a0fc34ada949ee7db1f176b0ab80287b2ada3b27f62b48539d99b3c9ea",
+      "functions": [
+        {
+          "name": "load_yaml",
+          "params": [
+            "path"
+          ],
+          "returnType": "dict[str, Any]",
+          "exported": true,
+          "lineCount": 6
+        },
+        {
+          "name": "deep_merge",
+          "params": [
+            "base",
+            "override"
+          ],
+          "returnType": "dict[str, Any]",
+          "exported": true,
+          "lineCount": 8
+        },
+        {
+          "name": "load_configs",
+          "params": [],
+          "returnType": "dict[str, Any]",
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "dump_yaml",
+          "params": [
+            "config",
+            "path"
+          ],
+          "returnType": "None",
+          "exported": true,
+          "lineCount": 5
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "copy",
+          "specifiers": [
+            "deepcopy"
+          ]
+        },
+        {
+          "source": "pathlib",
+          "specifiers": [
+            "Path"
+          ]
+        },
+        {
+          "source": "typing",
+          "specifiers": [
+            "Any"
+          ]
+        },
+        {
+          "source": "yaml",
+          "specifiers": [
+            "yaml"
+          ]
+        }
+      ],
+      "exports": [
+        "load_yaml",
+        "deep_merge",
+        "load_configs",
+        "dump_yaml"
+      ],
+      "totalLines": 41,
+      "hasStructuralAnalysis": true
+    },
+    "src/utils/logging.py": {
+      "filePath": "src/utils/logging.py",
+      "contentHash": "e0f4814fbdc8d0b82807a65cf844e2715823a2a698f1f3da312af425f5c7e292",
+      "functions": [
+        {
+          "name": "configure_logging",
+          "params": [
+            "output_dir"
+          ],
+          "returnType": "logging.Logger",
+          "exported": true,
+          "lineCount": 13
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "logging",
+          "specifiers": [
+            "logging"
+          ]
+        },
+        {
+          "source": "pathlib",
+          "specifiers": [
+            "Path"
+          ]
+        }
+      ],
+      "exports": [
+        "configure_logging"
+      ],
+      "totalLines": 21,
+      "hasStructuralAnalysis": true
+    },
+    "src/utils/seed.py": {
+      "filePath": "src/utils/seed.py",
+      "contentHash": "622f108beb912e1820a412d29eeaa43ea750df13c4c49744c2feb172a8f47797",
+      "functions": [
+        {
+          "name": "set_seed",
+          "params": [
+            "seed"
+          ],
+          "returnType": "None",
+          "exported": true,
+          "lineCount": 9
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "os",
+          "specifiers": [
+            "os"
+          ]
+        },
+        {
+          "source": "random",
+          "specifiers": [
+            "random"
+          ]
+        },
+        {
+          "source": "numpy",
+          "specifiers": [
+            "np"
+          ]
+        },
+        {
+          "source": "torch",
+          "specifiers": [
+            "torch"
+          ]
+        }
+      ],
+      "exports": [
+        "set_seed"
+      ],
+      "totalLines": 20,
+      "hasStructuralAnalysis": true
+    },
+    "tests/test_average_cost.py": {
+      "filePath": "tests/test_average_cost.py",
+      "contentHash": "e13be85f6f82338c7f3de76e06a48d4b62bc7be41a62c27422120b7b73bd260c",
+      "functions": [
+        {
+          "name": "test_average_cost_state_updates_inventory_and_uses_trade_vwap",
+          "params": [],
+          "exported": true,
+          "lineCount": 15
+        },
+        {
+          "name": "test_sales_beyond_old_inventory_leave_new_buys_at_buy_vwap",
+          "params": [],
+          "exported": true,
+          "lineCount": 11
+        },
+        {
+          "name": "test_empty_inventory_has_no_underwater_exposure",
+          "params": [],
+          "exported": true,
+          "lineCount": 11
+        },
+        {
+          "name": "test_underwater_feature_is_one_identified_buy_sell_contrast",
+          "params": [],
+          "exported": true,
+          "lineCount": 8
+        },
+        {
+          "name": "test_average_cost_state_rejects_value_without_quantity",
+          "params": [],
+          "exported": true,
+          "lineCount": 9
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "numpy",
+          "specifiers": [
+            "np"
+          ]
+        },
+        {
+          "source": "pandas",
+          "specifiers": [
+            "pd"
+          ]
+        },
+        {
+          "source": "pytest",
+          "specifiers": [
+            "pytest"
+          ]
+        },
+        {
+          "source": "src.data.average_cost",
+          "specifiers": [
+            "calculate_average_cost_state"
+          ]
+        },
+        {
+          "source": "src.features.underwater",
+          "specifiers": [
+            "build_underwater"
+          ]
+        }
+      ],
+      "exports": [
+        "test_average_cost_state_updates_inventory_and_uses_trade_vwap",
+        "test_sales_beyond_old_inventory_leave_new_buys_at_buy_vwap",
+        "test_empty_inventory_has_no_underwater_exposure",
+        "test_underwater_feature_is_one_identified_buy_sell_contrast",
+        "test_average_cost_state_rejects_value_without_quantity"
+      ],
+      "totalLines": 71,
+      "hasStructuralAnalysis": true
+    },
+    "tests/test_config.py": {
+      "filePath": "tests/test_config.py",
+      "contentHash": "47bb315787e5760e09dc960d1be6f81fc9ca2f4041c1edc058731f0c46894fbe",
+      "functions": [
+        {
+          "name": "test_default_feature_config_matches_registry_schema",
+          "params": [],
+          "exported": true,
+          "lineCount": 5
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "src.utils.config",
+          "specifiers": [
+            "load_configs"
+          ]
+        }
+      ],
+      "exports": [
+        "test_default_feature_config_matches_registry_schema"
+      ],
+      "totalLines": 9,
+      "hasStructuralAnalysis": true
+    },
+    "tests/test_cpcv.py": {
+      "filePath": "tests/test_cpcv.py",
+      "contentHash": "f10a02b24c3cc796b918f0eb940b81e16057bd00d131e99a1f2e43d7ecf68bcc",
+      "functions": [
+        {
+          "name": "test_cpcv_produces_45_disjoint_train_test_splits",
+          "params": [],
+          "exported": true,
+          "lineCount": 18
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "numpy",
+          "specifiers": [
+            "np"
+          ]
+        },
+        {
+          "source": "src.data.splits",
+          "specifiers": [
+            "build_cpcv",
+            "combine_test_folds"
+          ]
+        }
+      ],
+      "exports": [
+        "test_cpcv_produces_45_disjoint_train_test_splits"
+      ],
+      "totalLines": 24,
+      "hasStructuralAnalysis": true
+    },
+    "tests/test_feature_modules.py": {
+      "filePath": "tests/test_feature_modules.py",
+      "contentHash": "9d8599e4f0467f7598020b7c4cb1593c0c103819a138058aeb347f52c6a5b90b",
+      "functions": [
+        {
+          "name": "test_each_reward_feature_is_owned_by_its_own_module",
+          "params": [],
+          "exported": true,
+          "lineCount": 10
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "src.features.registry",
+          "specifiers": [
+            "FEATURE_REGISTRY"
+          ]
+        }
+      ],
+      "exports": [
+        "test_each_reward_feature_is_owned_by_its_own_module"
+      ],
+      "totalLines": 14,
+      "hasStructuralAnalysis": true
+    },
+    "tests/test_features.py": {
+      "filePath": "tests/test_features.py",
+      "contentHash": "1dca6eba092b50b4e8fff20cbb5643f82d652783e068c32b452ac7b386506fce",
+      "functions": [
+        {
+          "name": "_config",
+          "params": [],
+          "exported": true,
+          "lineCount": 36
+        },
+        {
+          "name": "_gross_trade_columns",
+          "params": [
+            "n"
+          ],
+          "returnType": "dict[str, np.ndarray]",
+          "exported": true,
+          "lineCount": 10
+        },
+        {
+          "name": "test_feature_tensor_has_binary_actions_and_four_reward_features",
+          "params": [],
+          "exported": true,
+          "lineCount": 16
+        },
+        {
+          "name": "test_herd_feature_uses_only_lagged_flows",
+          "params": [],
+          "exported": true,
+          "lineCount": 18
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "numpy",
+          "specifiers": [
+            "np"
+          ]
+        },
+        {
+          "source": "pandas",
+          "specifiers": [
+            "pd"
+          ]
+        },
+        {
+          "source": "src.data.labels",
+          "specifiers": [
+            "add_action_labels"
+          ]
+        },
+        {
+          "source": "src.data.preprocess",
+          "specifiers": [
+            "prepare_daily_frame"
+          ]
+        },
+        {
+          "source": "src.features.registry",
+          "specifiers": [
+            "build_feature_tensor"
+          ]
+        }
+      ],
+      "exports": [
+        "_config",
+        "_gross_trade_columns",
+        "test_feature_tensor_has_binary_actions_and_four_reward_features",
+        "test_herd_feature_uses_only_lagged_flows"
+      ],
+      "totalLines": 95,
+      "hasStructuralAnalysis": true
+    },
+    "tests/test_labels.py": {
+      "filePath": "tests/test_labels.py",
+      "contentHash": "63e2517435e6d00bbe86b2b7265c479cd26070501baebce42e788196c8be3782",
+      "functions": [
+        {
+          "name": "test_binary_labels_use_past_window_only",
+          "params": [],
+          "exported": true,
+          "lineCount": 7
+        },
+        {
+          "name": "test_features_at_t_target_action_at_t_plus_one",
+          "params": [],
+          "exported": true,
+          "lineCount": 10
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "pandas",
+          "specifiers": [
+            "pd"
+          ]
+        },
+        {
+          "source": "src.data.labels",
+          "specifiers": [
+            "add_action_labels",
+            "rolling_binary_action_labels"
+          ]
+        }
+      ],
+      "exports": [
+        "test_binary_labels_use_past_window_only",
+        "test_features_at_t_target_action_at_t_plus_one"
+      ],
+      "totalLines": 25,
+      "hasStructuralAnalysis": true
+    },
+    "tests/test_loss_aversion.py": {
+      "filePath": "tests/test_loss_aversion.py",
+      "contentHash": "993ef2e78cd7dc305af9a74f67bf57c630055b8daec11c4bc6dba0a1f2288016",
+      "functions": [
+        {
+          "name": "test_loss_aversion_applies_price_gap_only_to_sell_action",
+          "params": [],
+          "exported": true,
+          "lineCount": 15
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "pandas",
+          "specifiers": [
+            "pd"
+          ]
+        },
+        {
+          "source": "src.features.loss_aversion",
+          "specifiers": [
+            "build_loss_aversion"
+          ]
+        }
+      ],
+      "exports": [
+        "test_loss_aversion_applies_price_gap_only_to_sell_action"
+      ],
+      "totalLines": 21,
+      "hasStructuralAnalysis": true
+    },
+    "tests/test_losses.py": {
+      "filePath": "tests/test_losses.py",
+      "contentHash": "59cbf6ffe31566827cc178b89324fd7b04e1a89653d76ffb838bee3467683964",
+      "functions": [
+        {
+          "name": "test_single_investor_loss_has_no_investor_sum",
+          "params": [],
+          "exported": true,
+          "lineCount": 8
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "torch",
+          "specifiers": [
+            "torch"
+          ]
+        },
+        {
+          "source": "src.training.losses",
+          "specifiers": [
+            "behavior_nll",
+            "regularized_loss"
+          ]
+        }
+      ],
+      "exports": [
+        "test_single_investor_loss_has_no_investor_sum"
+      ],
+      "totalLines": 14,
+      "hasStructuralAnalysis": true
+    },
+    "tests/test_model_shapes.py": {
+      "filePath": "tests/test_model_shapes.py",
+      "contentHash": "ef804e0c5dd9b3869b181991bef555c92143b8c61bfc7fc86a84447fad6662fd",
+      "functions": [
+        {
+          "name": "test_independent_investor_model_output_shape",
+          "params": [],
+          "exported": true,
+          "lineCount": 7
+        },
+        {
+          "name": "test_investor_models_do_not_share_reward_weights",
+          "params": [],
+          "exported": true,
+          "lineCount": 5
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "torch",
+          "specifiers": [
+            "torch"
+          ]
+        },
+        {
+          "source": "src.models.mac_irl",
+          "specifiers": [
+            "InvestorIRLModel"
+          ]
+        }
+      ],
+      "exports": [
+        "test_independent_investor_model_output_shape",
+        "test_investor_models_do_not_share_reward_weights"
+      ],
+      "totalLines": 20,
+      "hasStructuralAnalysis": true
+    },
+    "tests/test_no_lookahead.py": {
+      "filePath": "tests/test_no_lookahead.py",
+      "contentHash": "52b975e62c68ac1bd16cc22d5796c7eb9b4fb736a0b0a3ec62e95ee793a1181e",
+      "functions": [
+        {
+          "name": "test_standard_scaler_fit_uses_train_indices_only",
+          "params": [],
+          "exported": true,
+          "lineCount": 7
+        },
+        {
+          "name": "test_future_trades_do_not_change_current_average_cost_state",
+          "params": [],
+          "exported": true,
+          "lineCount": 16
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "numpy",
+          "specifiers": [
+            "np"
+          ]
+        },
+        {
+          "source": "pandas",
+          "specifiers": [
+            "pd"
+          ]
+        },
+        {
+          "source": "src.data.average_cost",
+          "specifiers": [
+            "calculate_average_cost_state"
+          ]
+        },
+        {
+          "source": "src.features.scaling",
+          "specifiers": [
+            "fit_feature_scaler"
+          ]
+        }
+      ],
+      "exports": [
+        "test_standard_scaler_fit_uses_train_indices_only",
+        "test_future_trades_do_not_change_current_average_cost_state"
+      ],
+      "totalLines": 33,
+      "hasStructuralAnalysis": true
+    },
+    "tests/test_processed_schema.py": {
+      "filePath": "tests/test_processed_schema.py",
+      "contentHash": "2fc17a91f3eec521e57e9b56f8cdffbdf1bd082b4259d39e1093fdac3a68a258",
+      "functions": [
+        {
+          "name": "_config",
+          "params": [],
+          "returnType": "dict",
+          "exported": true,
+          "lineCount": 6
+        },
+        {
+          "name": "test_processed_schema_rejects_stale_dataset_without_feature_names",
+          "params": [],
+          "exported": true,
+          "lineCount": 10
+        },
+        {
+          "name": "test_processed_schema_rejects_different_feature_meanings",
+          "params": [],
+          "exported": true,
+          "lineCount": 12
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "numpy",
+          "specifiers": [
+            "np"
+          ]
+        },
+        {
+          "source": "pytest",
+          "specifiers": [
+            "pytest"
+          ]
+        },
+        {
+          "source": "scripts.train",
+          "specifiers": [
+            "validate_processed_schema"
+          ]
+        }
+      ],
+      "exports": [
+        "_config",
+        "test_processed_schema_rejects_stale_dataset_without_feature_names",
+        "test_processed_schema_rejects_different_feature_meanings"
+      ],
+      "totalLines": 39,
+      "hasStructuralAnalysis": true
+    }
+  }
+}

@@ -1,0 +1,106 @@
+{
+  "nodes": [
+    {
+      "id": "config:configs/data.yaml",
+      "type": "config",
+      "name": "data.yaml",
+      "filePath": "configs/data.yaml",
+      "summary": "원천 일별 CSV 경로, 컬럼 매핑(가격/투자자별 매수·매도 거래), 투자자 유형, action 정의, rolling 분위수 라벨링, 샘플 기간 및 전처리(평균단가 rho 등)를 정의하는 데이터 준비용 설정 파일.",
+      "tags": ["configuration", "data-pipeline", "labeling", "preprocessing"],
+      "complexity": "simple",
+      "languageNotes": "investor_trades 아래 foreign/institution/retail를 동일 구조로 중첩 매핑하여 컬럼명을 코드와 분리한다."
+    },
+    {
+      "id": "config:configs/data_loss_aversion.yaml",
+      "type": "config",
+      "name": "data_loss_aversion.yaml",
+      "filePath": "configs/data_loss_aversion.yaml",
+      "summary": "loss aversion 실험 변형용 데이터 설정으로, data.yaml과 동일한 구조를 가지면서 손실회피 시나리오에 맞춘 데이터 준비 파라미터를 제공한다.",
+      "tags": ["configuration", "data-pipeline", "experiment-variant", "labeling"],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:configs/experiment.yaml",
+      "type": "config",
+      "name": "experiment.yaml",
+      "filePath": "configs/experiment.yaml",
+      "summary": "실험 이름, 출력 디렉터리, 체크포인트 저장 여부 및 feature/L1 ablation 토글을 정의하는 실험 메타 설정 파일.",
+      "tags": ["configuration", "experiment", "ablation"],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:configs/experiment_loss_aversion.yaml",
+      "type": "config",
+      "name": "experiment_loss_aversion.yaml",
+      "filePath": "configs/experiment_loss_aversion.yaml",
+      "summary": "loss aversion 실험 변형의 실험 메타 설정으로, 별도의 이름·출력 디렉터리와 ablation 토글을 정의한다.",
+      "tags": ["configuration", "experiment", "experiment-variant", "ablation"],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:configs/features.yaml",
+      "type": "config",
+      "name": "features.yaml",
+      "filePath": "configs/features.yaml",
+      "summary": "선택 feature(underwater, herd, momentum, volatility)와 각 feature의 window 파라미터, 그리고 standard scaling 방식을 정의하는 feature 엔지니어링 설정 파일.",
+      "tags": ["configuration", "feature-engineering", "scaler"],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:configs/features_loss_aversion.yaml",
+      "type": "config",
+      "name": "features_loss_aversion.yaml",
+      "filePath": "configs/features_loss_aversion.yaml",
+      "summary": "loss aversion 실험 변형의 feature 설정으로, features.yaml과 유사한 feature 선택과 scaling 방식을 손실회피 시나리오에 맞춰 제공한다.",
+      "tags": ["configuration", "feature-engineering", "experiment-variant", "scaler"],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:configs/model.yaml",
+      "type": "config",
+      "name": "model.yaml",
+      "filePath": "configs/model.yaml",
+      "summary": "보상 모델 타입(fixed_linear), 투자자 유형 목록, softmax 온도 tau 등 IRL 보상 모델의 하이퍼파라미터를 정의하는 설정 파일.",
+      "tags": ["configuration", "model", "reward-model"],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:configs/train.yaml",
+      "type": "config",
+      "name": "train.yaml",
+      "filePath": "configs/train.yaml",
+      "summary": "seed, device, epochs, batch_size, learning_rate, L1 정규화 lambda, 그리고 CPCV 교차검증(n_folds, purge/embargo) 파라미터를 정의하는 학습 설정 파일.",
+      "tags": ["configuration", "training", "cross-validation", "hyperparameters"],
+      "complexity": "simple",
+      "languageNotes": "cross_validation 블록에서 purged_size·embargo_size로 CPCV의 purge/embargo를 지정해 시계열 누설을 방지한다."
+    }
+  ],
+  "edges": [
+    {"source": "config:configs/data.yaml", "target": "file:scripts/prepare_data.py", "type": "configures", "direction": "forward", "weight": 0.6},
+    {"source": "config:configs/data.yaml", "target": "file:scripts/train.py", "type": "configures", "direction": "forward", "weight": 0.6},
+    {"source": "config:configs/data.yaml", "target": "file:scripts/run_ablation.py", "type": "configures", "direction": "forward", "weight": 0.6},
+
+    {"source": "config:configs/data_loss_aversion.yaml", "target": "file:scripts/prepare_data.py", "type": "configures", "direction": "forward", "weight": 0.6},
+    {"source": "config:configs/data_loss_aversion.yaml", "target": "file:scripts/train.py", "type": "configures", "direction": "forward", "weight": 0.6},
+
+    {"source": "config:configs/features.yaml", "target": "file:scripts/prepare_data.py", "type": "configures", "direction": "forward", "weight": 0.6},
+    {"source": "config:configs/features.yaml", "target": "file:scripts/train.py", "type": "configures", "direction": "forward", "weight": 0.6},
+    {"source": "config:configs/features.yaml", "target": "file:scripts/run_ablation.py", "type": "configures", "direction": "forward", "weight": 0.6},
+
+    {"source": "config:configs/features_loss_aversion.yaml", "target": "file:scripts/prepare_data.py", "type": "configures", "direction": "forward", "weight": 0.6},
+    {"source": "config:configs/features_loss_aversion.yaml", "target": "file:scripts/train.py", "type": "configures", "direction": "forward", "weight": 0.6},
+
+    {"source": "config:configs/model.yaml", "target": "file:scripts/train.py", "type": "configures", "direction": "forward", "weight": 0.6},
+    {"source": "config:configs/model.yaml", "target": "file:scripts/run_ablation.py", "type": "configures", "direction": "forward", "weight": 0.6},
+
+    {"source": "config:configs/train.yaml", "target": "file:scripts/train.py", "type": "configures", "direction": "forward", "weight": 0.6},
+    {"source": "config:configs/train.yaml", "target": "file:scripts/run_ablation.py", "type": "configures", "direction": "forward", "weight": 0.6},
+
+    {"source": "config:configs/experiment.yaml", "target": "file:scripts/train.py", "type": "configures", "direction": "forward", "weight": 0.6},
+    {"source": "config:configs/experiment.yaml", "target": "file:scripts/run_ablation.py", "type": "configures", "direction": "forward", "weight": 0.6},
+    {"source": "config:configs/experiment.yaml", "target": "file:scripts/evaluate.py", "type": "configures", "direction": "forward", "weight": 0.6},
+
+    {"source": "config:configs/experiment_loss_aversion.yaml", "target": "file:scripts/train.py", "type": "configures", "direction": "forward", "weight": 0.6},
+    {"source": "config:configs/experiment_loss_aversion.yaml", "target": "file:scripts/evaluate.py", "type": "configures", "direction": "forward", "weight": 0.6}
+  ]
+}

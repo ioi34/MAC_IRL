@@ -1,0 +1,166 @@
+{
+  "nodes": [
+    {
+      "id": "file:scripts/train.py",
+      "type": "file",
+      "name": "train.py",
+      "filePath": "scripts/train.py",
+      "summary": "CPCV 기반 다중 에이전트 IRL 학습 파이프라인의 엔트리 포인트로, 전처리 데이터 로드·스키마 검증·fold별 scaler 학습·투자자별 reward 모델 학습·평가·결과 집계 및 CSV/JSON 산출물 저장을 총괄한다.",
+      "tags": ["entry-point", "training", "pipeline", "cpcv", "orchestration"],
+      "complexity": "complex",
+      "languageNotes": "argparse CLI + numpy/pandas/torch를 결합한 단일 파일 학습 오케스트레이터로, fold 루프 안에서 scaler·model·평가를 순차 실행한다."
+    },
+    {
+      "id": "function:scripts/train.py:validate_processed_schema",
+      "type": "function",
+      "name": "validate_processed_schema",
+      "filePath": "scripts/train.py",
+      "lineRange": [43, 68],
+      "summary": "전처리된 .npz 데이터셋이 필수 키와 config에 명시된 feature_names/investors/action_values 정의와 일치하는지 검증하여 stale 데이터로 인한 무결성 오류를 사전에 차단한다.",
+      "tags": ["validation", "schema", "data-integrity"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:scripts/train.py:main",
+      "type": "function",
+      "name": "main",
+      "filePath": "scripts/train.py",
+      "lineRange": [71, 209],
+      "summary": "전체 학습 워크플로를 구동하는 메인 루틴으로, CPCV split 생성·저장, fold별 scaler fitting과 투자자별 reward 모델 학습, 평가 지표·reward weight 집계, confusion matrix 및 cv_summary 산출물 저장을 수행한다.",
+      "tags": ["orchestration", "training", "cpcv", "entry-point"],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:src/data/splits.py",
+      "type": "file",
+      "name": "splits.py",
+      "filePath": "src/data/splits.py",
+      "summary": "skfolio의 CombinatorialPurgedCV를 config로부터 구성하고 test fold들을 단일 인덱스 배열로 결합하는 CPCV 분할 유틸리티를 제공한다.",
+      "tags": ["utility", "cpcv", "data-split", "cross-validation"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/evaluation/interpret.py",
+      "type": "file",
+      "name": "interpret.py",
+      "filePath": "src/evaluation/interpret.py",
+      "summary": "학습된 reward 모델의 beta 가중치를 feature별 DataFrame으로 추출하고 투자자/feature 단위로 평균·부호 일관성 등을 요약하여 reward 함수 해석 결과를 제공한다.",
+      "tags": ["evaluation", "interpretability", "reward", "feature-importance"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/evaluation/interpret.py:reward_weights_frame",
+      "type": "function",
+      "name": "reward_weights_frame",
+      "filePath": "src/evaluation/interpret.py",
+      "lineRange": [6, 20],
+      "summary": "모델의 reward_model.beta 텐서를 numpy로 변환하여 투자자·split·feature 이름이 부착된 가중치 DataFrame으로 구성한다.",
+      "tags": ["evaluation", "reward", "serialization"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/evaluation/interpret.py:summarize_reward_weights",
+      "type": "function",
+      "name": "summarize_reward_weights",
+      "filePath": "src/evaluation/interpret.py",
+      "lineRange": [23, 42],
+      "summary": "split별 reward 가중치를 투자자·feature 단위로 groupby하여 평균·표준편차·부호 일관성 비율 등의 요약 통계를 산출한다.",
+      "tags": ["evaluation", "aggregation", "reward", "statistics"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:src/evaluation/metrics.py",
+      "type": "file",
+      "name": "metrics.py",
+      "filePath": "src/evaluation/metrics.py",
+      "summary": "모델 logits와 라벨로부터 accuracy, F1, log_loss, confusion matrix 등 이진 분류 평가 지표를 계산하는 함수를 제공한다.",
+      "tags": ["evaluation", "metrics", "classification"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/evaluation/reporting.py",
+      "type": "file",
+      "name": "reporting.py",
+      "filePath": "src/evaluation/reporting.py",
+      "summary": "fold별 CV 평가 지표를 long 포맷으로 변환한 뒤 투자자·metric 단위로 평균·표준편차를 집계하여 교차검증 결과 요약 테이블을 생성한다.",
+      "tags": ["evaluation", "reporting", "aggregation", "cross-validation"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/utils/logging.py",
+      "type": "file",
+      "name": "logging.py",
+      "filePath": "src/utils/logging.py",
+      "summary": "콘솔과 출력 디렉터리 파일 핸들러를 함께 설정하는 표준 로깅 구성 유틸리티를 제공한다.",
+      "tags": ["utility", "logging", "configuration"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/utils/seed.py",
+      "type": "file",
+      "name": "seed.py",
+      "filePath": "src/utils/seed.py",
+      "summary": "random·numpy·torch 및 CUDA 시드를 일괄 설정하여 학습 재현성을 보장하는 유틸리티를 제공한다.",
+      "tags": ["utility", "reproducibility", "seed"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:tests/test_cpcv.py",
+      "type": "file",
+      "name": "test_cpcv.py",
+      "filePath": "tests/test_cpcv.py",
+      "summary": "CombinatorialPurgedCV가 45개의 서로소(disjoint) train/test split을 생성하고 결합된 test fold가 전체 인덱스를 정확히 커버하는지 검증하는 테스트이다.",
+      "tags": ["test", "cpcv", "cross-validation"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:tests/test_processed_schema.py",
+      "type": "file",
+      "name": "test_processed_schema.py",
+      "filePath": "tests/test_processed_schema.py",
+      "summary": "validate_processed_schema가 feature_names 누락 등 stale 데이터셋과 feature 의미 불일치를 ValueError로 거부하는지 검증하는 테스트이다.",
+      "tags": ["test", "validation", "schema", "data-integrity"],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {"source": "file:scripts/train.py", "target": "function:scripts/train.py:validate_processed_schema", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:scripts/train.py", "target": "function:scripts/train.py:main", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:scripts/train.py", "target": "function:scripts/train.py:validate_processed_schema", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:scripts/train.py", "target": "function:scripts/train.py:main", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:scripts/train.py", "target": "file:src/data/splits.py", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:scripts/train.py", "target": "file:src/evaluation/interpret.py", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:scripts/train.py", "target": "file:src/evaluation/metrics.py", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:scripts/train.py", "target": "file:src/evaluation/reporting.py", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:scripts/train.py", "target": "file:src/features/scaling.py", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:scripts/train.py", "target": "file:src/models/mac_irl.py", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:scripts/train.py", "target": "file:src/training/trainer.py", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:scripts/train.py", "target": "file:src/utils/config.py", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:scripts/train.py", "target": "file:src/utils/logging.py", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:scripts/train.py", "target": "file:src/utils/seed.py", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "function:scripts/train.py:main", "target": "function:src/data/splits.py:build_cpcv", "type": "calls", "direction": "forward", "weight": 0.8},
+    {"source": "function:scripts/train.py:main", "target": "function:src/data/splits.py:combine_test_folds", "type": "calls", "direction": "forward", "weight": 0.8},
+    {"source": "function:scripts/train.py:main", "target": "function:src/evaluation/interpret.py:reward_weights_frame", "type": "calls", "direction": "forward", "weight": 0.8},
+    {"source": "function:scripts/train.py:main", "target": "function:src/evaluation/interpret.py:summarize_reward_weights", "type": "calls", "direction": "forward", "weight": 0.8},
+    {"source": "function:scripts/train.py:main", "target": "function:src/evaluation/reporting.py:summarize_cv_metrics", "type": "calls", "direction": "forward", "weight": 0.8},
+    {"source": "function:scripts/train.py:main", "target": "function:src/utils/logging.py:configure_logging", "type": "calls", "direction": "forward", "weight": 0.8},
+    {"source": "function:scripts/train.py:main", "target": "function:src/utils/seed.py:set_seed", "type": "calls", "direction": "forward", "weight": 0.8},
+    {"source": "function:scripts/train.py:main", "target": "function:src/features/scaling.py:fit_feature_scaler", "type": "calls", "direction": "forward", "weight": 0.8},
+    {"source": "function:scripts/train.py:main", "target": "function:src/features/scaling.py:save_feature_scaler", "type": "calls", "direction": "forward", "weight": 0.8},
+    {"source": "function:scripts/train.py:main", "target": "function:src/features/scaling.py:transform_feature_tensor", "type": "calls", "direction": "forward", "weight": 0.8},
+    {"source": "function:scripts/train.py:main", "target": "class:src/models/mac_irl.py:InvestorIRLModel", "type": "calls", "direction": "forward", "weight": 0.8},
+    {"source": "function:scripts/train.py:main", "target": "function:src/training/trainer.py:train_investor_model", "type": "calls", "direction": "forward", "weight": 0.8},
+    {"source": "function:scripts/train.py:main", "target": "function:src/utils/config.py:load_configs", "type": "calls", "direction": "forward", "weight": 0.8},
+    {"source": "function:scripts/train.py:main", "target": "function:src/utils/config.py:dump_yaml", "type": "calls", "direction": "forward", "weight": 0.8},
+    {"source": "file:src/data/splits.py", "target": "function:src/data/splits.py:build_cpcv", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:src/data/splits.py", "target": "function:src/data/splits.py:build_cpcv", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:src/evaluation/interpret.py", "target": "function:src/evaluation/interpret.py:reward_weights_frame", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:src/evaluation/interpret.py", "target": "function:src/evaluation/interpret.py:summarize_reward_weights", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:src/evaluation/interpret.py", "target": "function:src/evaluation/interpret.py:reward_weights_frame", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:src/evaluation/interpret.py", "target": "function:src/evaluation/interpret.py:summarize_reward_weights", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:tests/test_cpcv.py", "target": "file:src/data/splits.py", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:src/data/splits.py", "target": "file:tests/test_cpcv.py", "type": "tested_by", "direction": "forward", "weight": 0.5},
+    {"source": "file:tests/test_processed_schema.py", "target": "file:scripts/train.py", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:scripts/train.py", "target": "file:tests/test_processed_schema.py", "type": "tested_by", "direction": "forward", "weight": 0.5}
+  ]
+}

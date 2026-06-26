@@ -1,0 +1,41 @@
+{
+  "issues": [],
+  "warnings": [
+    "Node 'document:AGENTS.md' has no edges (orphan)",
+    "Node 'document:CLAUDE.md' has no edges (orphan)",
+    "Node 'document:notebooks/README.md' has no edges (orphan)",
+    "Node 'file:scripts/__init__.py' has no edges (orphan)",
+    "Node 'file:src/__init__.py' has no edges (orphan)",
+    "Node 'file:src/data/__init__.py' has no edges (orphan)",
+    "Node 'file:src/evaluation/__init__.py' has no edges (orphan)",
+    "Node 'file:src/features/__init__.py' has no edges (orphan)",
+    "Node 'file:src/models/__init__.py' has no edges (orphan)",
+    "Node 'file:src/training/__init__.py' has no edges (orphan)",
+    "Node 'file:src/utils/__init__.py' has no edges (orphan)"
+  ],
+  "stats": {
+    "totalNodes": 108,
+    "totalEdges": 193,
+    "totalLayers": 9,
+    "tourSteps": 14,
+    "nodeTypes": {
+      "file": 49,
+      "function": 40,
+      "class": 2,
+      "document": 6,
+      "config": 9,
+      "table": 2
+    },
+    "edgeTypes": {
+      "contains": 42,
+      "exports": 37,
+      "imports": 43,
+      "calls": 33,
+      "tested_by": 14,
+      "depends_on": 1,
+      "documents": 3,
+      "related": 1,
+      "configures": 19
+    }
+  }
+}
