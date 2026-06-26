@@ -18,7 +18,6 @@ features:
     volatility:
       window: 20
       magnitude: false
-      method: parkinson
     persist: {}
 
 scaling:
