@@ -5,23 +5,20 @@ paths:
 features:
   selected:
     - underwater
+    - herd
     - momentum
     - volatility
     - persist
-    - herd_from_foreign
-    - herd_from_institution
-    - herd_from_retail
   params:
     underwater: {}
+    herd:
+      window: 5
     momentum:
       window: 20
     volatility:
       window: 20
       magnitude: false
     persist: {}
-    herd_from_foreign: {}
-    herd_from_institution: {}
-    herd_from_retail: {}
 
 scaling:
   method: standard
