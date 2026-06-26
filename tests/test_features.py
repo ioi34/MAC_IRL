@@ -25,8 +25,8 @@ def _config():
             },
         },
         "investors": ["foreign", "institution", "retail"],
-        "action_values": [-1, 1],
-        "labeling": {"rolling_window": 3, "quantile": 0.50, "label_shift": 1},
+        "action_values": [-2, -1, 1, 2],
+        "labeling": {"rolling_window": 3, "quantiles": [0.25, 0.50, 0.75], "label_shift": 1},
         "preprocess": {
             "ticker": None,
             "drop_missing_required": True,
@@ -56,7 +56,7 @@ def _gross_trade_columns(n: int) -> dict[str, np.ndarray]:
     return columns
 
 
-def test_feature_tensor_has_binary_actions_and_four_reward_features():
+def test_feature_tensor_has_four_actions_and_four_reward_features():
     n = 12
     frame = pd.DataFrame(
         {
@@ -71,7 +71,7 @@ def test_feature_tensor_has_binary_actions_and_four_reward_features():
     features, names = build_feature_tensor(prepared, config)
 
     assert names == ["underwater", "herd", "momentum", "volatility"]
-    assert features.shape == (n, 3, 2, 4)
+    assert features.shape == (n, 3, 4, 4)
 
 
 def test_herd_feature_uses_only_lagged_flows():

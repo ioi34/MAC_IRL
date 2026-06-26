@@ -1,0 +1,27 @@
+paths:
+  processed_dataset: data/processed/dataset_exp_2019_pairwise_persist.npz
+  processed_metadata: data/processed/metadata_exp_2019_pairwise_persist.json
+
+features:
+  selected:
+    - underwater
+    - momentum
+    - volatility
+    - persist
+    - herd_from_foreign
+    - herd_from_institution
+    - herd_from_retail
+  params:
+    underwater: {}
+    momentum:
+      window: 20
+    volatility:
+      window: 20
+      magnitude: false
+    persist: {}
+    herd_from_foreign: {}
+    herd_from_institution: {}
+    herd_from_retail: {}
+
+scaling:
+  method: standard

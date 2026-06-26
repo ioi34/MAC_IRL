@@ -1,13 +1,11 @@
 paths:
-  raw_daily: samsung_macirl_EXTENDED_2021_2025.csv
-  processed_dataset: data/processed/dataset.npz
-  processed_metadata: data/processed/metadata.json
+  raw_daily: samsung_macirl_EXTENDED_2019_2025.csv
+  processed_dataset: data/processed/dataset_exp_2019_current_label.npz
+  processed_metadata: data/processed/metadata_exp_2019_current_label.json
 
 columns:
   date: date
   ticker: ticker
-  # adjusted_close 컬럼은 현재 raw CSV에 없어 fallback인 close(종가)가 실제로 사용됨.
-  # 수정종가를 쓰려면 CSV에 adjusted_close 컬럼을 추가하면 자동으로 우선 적용됨.
   price: adjusted_close
   fallback_price: close
   trading_value: trading_value
@@ -31,18 +29,18 @@ columns:
       sell_value: retail_sell_value
 
 investors: [foreign, institution, retail]
-action_values: [-2, -1, 1, 2]
-action_names: [strong_sell, weak_sell, weak_buy, strong_buy]
+action_values: [-1, 1]
+action_names: [sell, buy]
 
 labeling:
   rolling_window: 252
-  quantiles: [0.25, 0.50, 0.75]
+  quantile: 0.50
   label_shift: 1
 
 sample:
-  start: "2020-01-01"
+  start: "2019-01-01"
   end: "2025-12-31"
-  size: 973
+  size: 1467
   selection: latest
 
 preprocess:

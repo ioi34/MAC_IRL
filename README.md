@@ -40,7 +40,7 @@ python -m scripts.train
 python -m scripts.evaluate
 ```
 
-`prepare_data.py`는 252거래일의 과거 분포로 다음 날 행동을 라벨링하고 최신 유효 973거래일의 비표준화 특징을 저장합니다. `train.py`는 다음 CPCV 설정으로 45개 split을 실행합니다.
+`prepare_data.py`는 252거래일의 과거 분포로 다음 날 행동을 4단계로 라벨링하고 최신 유효 973거래일의 비표준화 특징을 저장합니다. `train.py`는 다음 CPCV 설정으로 45개 split을 실행합니다.
 
 ```text
 n_folds=10
@@ -53,7 +53,7 @@ embargo_size=5
 
 ## 모델 기본값
 
-- 행동: 과거 252거래일 rolling median 기준 `sell=-1`, `buy=1`
+- 행동: 과거 252거래일 rolling quartile 기준 `strong_sell=-2`, `weak_sell=-1`, `weak_buy=1`, `strong_buy=2`
 - 예측 시점: `S_t`로 `a_{t+1}` 예측
 - 보상특징: 평단 대비 손실구간 반응, 군집추종, 20일 모멘텀, 20일 변동성
 - reward: 투자자별 독립 fixed linear `R_i(a)=beta_i^T phi_i(a)`

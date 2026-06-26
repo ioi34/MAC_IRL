@@ -1,0 +1,50 @@
+{
+  "num_rows": 973,
+  "date_start": "2022-01-06",
+  "date_end": "2025-12-29",
+  "investors": [
+    "foreign",
+    "institution",
+    "retail"
+  ],
+  "action_values": [
+    -1,
+    1
+  ],
+  "feature_names": [
+    "loss_aversion",
+    "herd",
+    "momentum",
+    "volatility"
+  ],
+  "feature_shape": [
+    973,
+    3,
+    2,
+    4
+  ],
+  "source_rows": 1225,
+  "eligible_rows": 973,
+  "rows_excluded_before_sample": 251,
+  "scaling": "deferred_to_each_cpcv_training_split",
+  "action_distribution": {
+    "foreign": {
+      "sell": 484,
+      "buy": 489,
+      "sell_rate": 0.49743062692702983,
+      "buy_rate": 0.5025693730729702
+    },
+    "institution": {
+      "sell": 473,
+      "buy": 500,
+      "sell_rate": 0.48612538540596095,
+      "buy_rate": 0.513874614594039
+    },
+    "retail": {
+      "sell": 514,
+      "buy": 459,
+      "sell_rate": 0.5282631038026722,
+      "buy_rate": 0.47173689619732784
+    }
+  }
+}

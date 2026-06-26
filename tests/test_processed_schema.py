@@ -8,16 +8,16 @@ def _config() -> dict:
     return {
         "features": {"selected": ["underwater", "herd"]},
         "investors": ["foreign", "institution", "retail"],
-        "action_values": [-1, 1],
+        "action_values": [-2, -1, 1, 2],
     }
 
 
 def test_processed_schema_rejects_stale_dataset_without_feature_names():
     data = {
-        "features": np.empty((2, 3, 2, 2)),
+        "features": np.empty((2, 3, 4, 2)),
         "labels": np.empty((2, 3)),
         "dates": np.array(["2025-01-01", "2025-01-02"]),
-        "action_values": np.array([-1, 1]),
+        "action_values": np.array([-2, -1, 1, 2]),
     }
 
     with pytest.raises(ValueError, match="stale or incomplete"):
@@ -26,10 +26,10 @@ def test_processed_schema_rejects_stale_dataset_without_feature_names():
 
 def test_processed_schema_rejects_different_feature_meanings():
     data = {
-        "features": np.empty((2, 3, 2, 2)),
+        "features": np.empty((2, 3, 4, 2)),
         "labels": np.empty((2, 3)),
         "dates": np.array(["2025-01-01", "2025-01-02"]),
-        "action_values": np.array([-1, 1]),
+        "action_values": np.array([-2, -1, 1, 2]),
         "feature_names": np.array(["loss_aversion", "herd"]),
         "investors": np.array(["foreign", "institution", "retail"]),
     }
