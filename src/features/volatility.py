@@ -11,4 +11,7 @@ def volatility(df: pd.DataFrame, window: int) -> pd.Series:
 
 def build_volatility(df: pd.DataFrame, config: dict, investor: str, action: int) -> pd.Series:
     params = config["features"]["params"]["volatility"]
-    return -volatility(df, params["window"]) * action
+    base = volatility(df, params["window"])
+    if params.get("magnitude", False):
+        return base * abs(action)
+    return base * action
