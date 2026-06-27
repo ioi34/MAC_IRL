@@ -93,6 +93,28 @@ phi_underwater(s_t, a) = action * underwater_gap_t
 방향입니다. `t`의 거래로 갱신한 상태는 `a_(t+1)`을 설명하므로 미래 거래정보를
 사용하지 않습니다.
 
+## 환율·KOSPI 조건부 가중치
+
+Binary 기준선과 컨텍스트 실험은 다음 데이터셋을 공유합니다.
+
+```bash
+python -m scripts.prepare_data \
+  --data-config configs/data_context.yaml \
+  --features-config configs/features_context.yaml
+
+python -m scripts.train \
+  --data-config configs/data_context.yaml \
+  --features-config configs/features_context.yaml \
+  --model-config configs/model.yaml \
+  --train-config configs/train.yaml \
+  --experiment-config experiments/2026-06-27/configs/context_parkinson_e5_all.yaml
+```
+
+조건부 모델은 환율 1일·5일 로그수익률과 KOSPI200 1일·20일 수익률을 사용해
+`w_t = beta + B C_t`를 학습합니다. 컨텍스트는 각 CPCV train split에서만
+표준화하며 `context_weights.csv`에 `B`를 저장합니다. 기준 보상특징은
+`underwater + herd + momentum + Parkinson volatility`입니다.
+
 각 보상특징은 협업 시 충돌을 줄이기 위해 독립 파일이 계산과 행동 변환을 함께 소유합니다.
 
 ```text

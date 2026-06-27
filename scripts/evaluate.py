@@ -24,6 +24,11 @@ def main() -> None:
     print(metrics.to_string(index=False))
     print("\nReward weights (mean/std/direction consistency)\n")
     print(weights.to_string(index=False))
+    context_weights_path = output_dir / "context_weights_summary.csv"
+    if context_weights_path.exists():
+        context_weights = pd.read_csv(context_weights_path)
+        print("\nContext weights (mean/std/direction consistency)\n")
+        print(context_weights.to_string(index=False))
 
 
 if __name__ == "__main__":

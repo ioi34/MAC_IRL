@@ -12,6 +12,14 @@ def fit_feature_scaler(features: np.ndarray, train_indices: np.ndarray) -> Stand
     return StandardScaler().fit(train.reshape(-1, train.shape[-1]))
 
 
+def fit_context_scaler(contexts: np.ndarray, train_indices: np.ndarray) -> StandardScaler:
+    return StandardScaler().fit(contexts[train_indices])
+
+
+def transform_context_matrix(contexts: np.ndarray, scaler: StandardScaler) -> np.ndarray:
+    return scaler.transform(contexts).astype(np.float32)
+
+
 def transform_feature_tensor(features: np.ndarray, scaler: StandardScaler) -> np.ndarray:
     shape = features.shape
     transformed = scaler.transform(features.reshape(-1, shape[-1]))

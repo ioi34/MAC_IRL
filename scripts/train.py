@@ -11,10 +11,21 @@ import torch
 from torch.utils.data import DataLoader, TensorDataset
 
 from src.data.splits import build_cpcv, combine_test_folds
-from src.evaluation.interpret import reward_weights_frame, summarize_reward_weights
+from src.evaluation.interpret import (
+    context_weights_frame,
+    reward_weights_frame,
+    summarize_context_weights,
+    summarize_reward_weights,
+)
 from src.evaluation.metrics import evaluate_logits
 from src.evaluation.reporting import summarize_cv_metrics
-from src.features.scaling import fit_feature_scaler, save_feature_scaler, transform_feature_tensor
+from src.features.scaling import (
+    fit_context_scaler,
+    fit_feature_scaler,
+    save_feature_scaler,
+    transform_context_matrix,
+    transform_feature_tensor,
+)
 from src.models.mac_irl import InvestorIRLModel
 from src.training.trainer import train_investor_model
 from src.utils.config import dump_yaml, load_configs
@@ -32,11 +43,22 @@ def parse_args() -> argparse.Namespace:
     return parser.parse_args()
 
 
-def _evaluate_model(model, features: np.ndarray, labels: np.ndarray) -> dict:
+def _evaluate_model(
+    model,
+    features: np.ndarray,
+    labels: np.ndarray,
+    contexts: np.ndarray | None = None,
+) -> dict:
     model.to("cpu")
     model.eval()
     with torch.no_grad():
-        logits = model(torch.as_tensor(features, dtype=torch.float32))["logits"]
+        context_tensor = None
+        if contexts is not None:
+            context_tensor = torch.as_tensor(contexts, dtype=torch.float32)
+        logits = model(
+            torch.as_tensor(features, dtype=torch.float32),
+            context_tensor,
+        )["logits"]
     return evaluate_logits(logits, torch.as_tensor(labels, dtype=torch.long))
 
 
@@ -67,6 +89,23 @@ def validate_processed_schema(data, config: dict) -> None:
     if saved_actions != expected_actions:
         raise ValueError(f"Processed actions {saved_actions} do not match config {expected_actions}.")
 
+    selected_contexts = list(config.get("model", {}).get("context_names", []))
+    if selected_contexts:
+        context_required = {"contexts", "context_names"}
+        context_missing = sorted(context_required.difference(data))
+        if context_missing:
+            raise ValueError(
+                f"Processed dataset is missing contextual arrays: {context_missing}. "
+                "Run `python -m scripts.prepare_data` with the context configs."
+            )
+        saved_contexts = data["context_names"].astype(str).tolist()
+        unknown_contexts = sorted(set(selected_contexts).difference(saved_contexts))
+        if unknown_contexts:
+            raise ValueError(
+                f"Selected contexts {unknown_contexts} are absent from processed contexts "
+                f"{saved_contexts}."
+            )
+
 
 def main() -> None:
     args = parse_args()
@@ -84,6 +123,12 @@ def main() -> None:
     dates = data["dates"]
     investors = list(config["investors"])
     feature_names = list(config["features"]["selected"])
+    selected_context_names = list(config["model"].get("context_names", []))
+    contexts = None
+    if selected_context_names:
+        saved_context_names = data["context_names"].astype(str).tolist()
+        selected_context_indices = [saved_context_names.index(name) for name in selected_context_names]
+        contexts = data["contexts"][:, selected_context_indices]
     cv = build_cpcv(config)
     base_seed = int(config["seed"])
     output_dir = Path(config["experiment"]["output_dir"])
@@ -92,6 +137,7 @@ def main() -> None:
 
     metric_rows = []
     weight_frames = []
+    context_weight_frames = []
     confusion_records = []
     split_records = []
     split_input = np.arange(len(features)).reshape(-1, 1)
@@ -124,6 +170,15 @@ def main() -> None:
             }
         )
 
+        train_contexts = None
+        test_contexts = None
+        if contexts is not None:
+            context_scaler = fit_context_scaler(contexts, train_indices)
+            save_feature_scaler(context_scaler, split_dir / "context_scaler.joblib")
+            scaled_contexts = transform_context_matrix(contexts, context_scaler)
+            train_contexts = scaled_contexts[train_indices]
+            test_contexts = scaled_contexts[test_indices]
+
         for investor_idx, investor in enumerate(investors):
             seed = base_seed + split_id * len(investors) + investor_idx
             set_seed(seed)
@@ -132,10 +187,13 @@ def main() -> None:
             save_feature_scaler(scaler, split_dir / f"{investor}_scaler.joblib")
             train_features = transform_feature_tensor(investor_features[train_indices], scaler)
             test_features = transform_feature_tensor(investor_features[test_indices], scaler)
-            train_dataset = TensorDataset(
-                torch.as_tensor(train_features, dtype=torch.float32),
-                torch.as_tensor(labels[train_indices, investor_idx], dtype=torch.long),
+            train_tensors = [torch.as_tensor(train_features, dtype=torch.float32)]
+            if train_contexts is not None:
+                train_tensors.append(torch.as_tensor(train_contexts, dtype=torch.float32))
+            train_tensors.append(
+                torch.as_tensor(labels[train_indices, investor_idx], dtype=torch.long)
             )
+            train_dataset = TensorDataset(*train_tensors)
             generator = torch.Generator().manual_seed(seed)
             train_loader = DataLoader(
                 train_dataset,
@@ -146,6 +204,7 @@ def main() -> None:
             model = InvestorIRLModel(
                 num_features=features.shape[-1],
                 tau=float(config["model"]["tau"]),
+                num_contexts=len(selected_context_names),
             )
             train_metrics = train_investor_model(
                 model,
@@ -157,6 +216,7 @@ def main() -> None:
                 model,
                 test_features,
                 labels[test_indices, investor_idx],
+                test_contexts,
             )
             confusion_records.append(
                 {
@@ -176,6 +236,16 @@ def main() -> None:
                 }
             )
             weight_frames.append(reward_weights_frame(model, investor, feature_names, split_id))
+            if selected_context_names:
+                context_weight_frames.append(
+                    context_weights_frame(
+                        model,
+                        investor,
+                        feature_names,
+                        selected_context_names,
+                        split_id,
+                    )
+                )
 
         logger.info("completed CPCV split %d/%d", split_id + 1, cv.get_n_splits())
 
@@ -183,12 +253,22 @@ def main() -> None:
     weights = pd.concat(weight_frames, ignore_index=True)
     metrics_summary = summarize_cv_metrics(metrics)
     weights_summary = summarize_reward_weights(weights)
+    context_weights = None
+    context_weights_summary = None
+    if context_weight_frames:
+        context_weights = pd.concat(context_weight_frames, ignore_index=True)
+        context_weights_summary = summarize_context_weights(context_weights)
     split_summary = pd.DataFrame(split_records)
 
     metrics.to_csv(output_dir / "cv_metrics.csv", index=False)
     metrics_summary.to_csv(output_dir / "cv_metrics_summary.csv", index=False)
     weights.to_csv(output_dir / "reward_weights.csv", index=False)
     weights_summary.to_csv(output_dir / "reward_weights_summary.csv", index=False)
+    if context_weights is not None and context_weights_summary is not None:
+        context_weights.to_csv(output_dir / "context_weights.csv", index=False)
+        context_weights_summary.to_csv(
+            output_dir / "context_weights_summary.csv", index=False
+        )
     split_summary.to_csv(output_dir / "cv_splits.csv", index=False)
     with (output_dir / "confusion_matrices.json").open("w", encoding="utf-8") as f:
         json.dump(confusion_records, f, ensure_ascii=False, indent=2)
@@ -203,6 +283,11 @@ def main() -> None:
         },
         "metrics": metrics_summary.to_dict(orient="records"),
         "reward_weights": weights_summary.to_dict(orient="records"),
+        "context_weights": (
+            context_weights_summary.to_dict(orient="records")
+            if context_weights_summary is not None
+            else []
+        ),
     }
     with (output_dir / "cv_summary.json").open("w", encoding="utf-8") as f:
         json.dump(summary, f, ensure_ascii=False, indent=2)

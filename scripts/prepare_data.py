@@ -7,6 +7,7 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
+from src.data.contexts import build_context_matrix
 from src.data.labels import add_action_labels, labels_array
 from src.data.loaders import load_daily_frame
 from src.data.preprocess import prepare_daily_frame
@@ -28,6 +29,10 @@ def main() -> None:
     daily = prepare_daily_frame(raw, config)
     labeled = add_action_labels(daily, config)
     features, feature_names = build_feature_tensor(labeled, config)
+    contexts = None
+    context_names = []
+    if config.get("contexts", {}).get("selected"):
+        contexts, context_names = build_context_matrix(labeled, config)
 
     date_col = config["columns"]["date"]
     dates = pd.to_datetime(labeled[date_col])
@@ -35,7 +40,7 @@ def main() -> None:
     if sample.get("selection", "latest") != "latest":
         raise ValueError("Only sample.selection='latest' is supported")
     in_period = (dates >= pd.Timestamp(sample["start"])) & (dates <= pd.Timestamp(sample["end"]))
-    valid = valid_rows_for_model(labeled, features, config["investors"])
+    valid = valid_rows_for_model(labeled, features, config["investors"], contexts)
     eligible_indices = np.flatnonzero(in_period.to_numpy() & valid)
     sample_size = int(sample["size"])
     if len(eligible_indices) < sample_size:
@@ -46,19 +51,23 @@ def main() -> None:
     selected_indices = eligible_indices[-sample_size:]
     selected = labeled.iloc[selected_indices].reset_index(drop=True)
     selected_features = features[selected_indices]
+    selected_contexts = contexts[selected_indices] if contexts is not None else None
     labels = labels_array(selected, config["investors"])
 
     output_path = Path(config["paths"]["processed_dataset"])
     output_path.parent.mkdir(parents=True, exist_ok=True)
-    np.savez_compressed(
-        output_path,
-        features=selected_features.astype(np.float32),
-        labels=labels.astype(np.int64),
-        dates=np.asarray(selected[date_col].dt.strftime("%Y-%m-%d"), dtype="U10"),
-        action_values=np.asarray(config["action_values"], dtype=np.int64),
-        feature_names=np.asarray(feature_names, dtype=str),
-        investors=np.asarray(config["investors"], dtype=str),
-    )
+    arrays = {
+        "features": selected_features.astype(np.float32),
+        "labels": labels.astype(np.int64),
+        "dates": np.asarray(selected[date_col].dt.strftime("%Y-%m-%d"), dtype="U10"),
+        "action_values": np.asarray(config["action_values"], dtype=np.int64),
+        "feature_names": np.asarray(feature_names, dtype=str),
+        "investors": np.asarray(config["investors"], dtype=str),
+    }
+    if selected_contexts is not None:
+        arrays["contexts"] = selected_contexts.astype(np.float32)
+        arrays["context_names"] = np.asarray(context_names, dtype=str)
+    np.savez_compressed(output_path, **arrays)
 
     metadata = {
         "num_rows": len(selected),
@@ -84,6 +93,9 @@ def main() -> None:
             for investor_idx, investor in enumerate(config["investors"])
         },
     }
+    if selected_contexts is not None:
+        metadata["context_names"] = context_names
+        metadata["context_shape"] = list(selected_contexts.shape)
     metadata_path = Path(config["paths"]["processed_metadata"])
     metadata_path.parent.mkdir(parents=True, exist_ok=True)
     with metadata_path.open("w", encoding="utf-8") as f:
