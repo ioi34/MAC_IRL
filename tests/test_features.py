@@ -62,6 +62,8 @@ def test_feature_tensor_has_four_actions_and_four_reward_features():
         {
             "date": pd.date_range("2020-01-01", periods=n),
             "adjusted_close": np.linspace(100, 111, n),
+            "high": np.linspace(101, 112, n),
+            "low": np.linspace(99, 110, n),
             "trading_value": np.linspace(1000, 1110, n),
             **_gross_trade_columns(n),
         }
@@ -81,6 +83,8 @@ def test_herd_feature_uses_only_lagged_flows():
         {
             "date": pd.date_range("2020-01-01", periods=n),
             "adjusted_close": np.linspace(100, 111, n),
+            "high": np.linspace(101, 112, n),
+            "low": np.linspace(99, 110, n),
             "trading_value": np.ones(n) * 1000,
             **_gross_trade_columns(n),
         }

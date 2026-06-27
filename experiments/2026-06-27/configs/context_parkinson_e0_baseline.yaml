@@ -1,0 +1,8 @@
+experiment:
+  name: context_parkinson_e0_baseline
+  output_dir: runs/context_parkinson_e0_baseline
+  save_checkpoints: true
+
+model:
+  reward_type: fixed_linear
+  context_names: []

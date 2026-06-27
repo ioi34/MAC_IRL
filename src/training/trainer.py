@@ -45,12 +45,18 @@ def train_investor_model(
         model.train()        # 학습 모드로 전환
         total_nll = 0.0      # 이번 epoch의 손실 누적 합
         total_samples = 0    # 이번 epoch의 샘플 수 누적
-        # 미니배치 단위 반복: phi=feature 텐서, labels=실제 행동
-        for phi, labels in train_loader:
+        # 미니배치 단위 반복: phi=feature 텐서, context=컨텍스트, labels=실제 행동
+        for batch in train_loader:
+            if len(batch) == 2:
+                phi, labels = batch
+                context = None
+            else:
+                phi, context, labels = batch
+                context = context.to(device)
             phi = phi.to(device)
             labels = labels.to(device)
             optimizer.zero_grad(set_to_none=True)  # 이전 배치의 gradient 초기화
-            nll = behavior_nll(model(phi)["logits"], labels)        # 1) 손실 계산
+            nll = behavior_nll(model(phi, context)["logits"], labels)  # 1) 손실 계산
             loss = regularized_loss(nll, model.l1_penalty(), lambda_l1)  # 2) L1 정규화 추가
             loss.backward()    # 3) 역전파: 손실에 대한 gradient 계산
             optimizer.step()   # 4) gradient로 파라미터(beta) 갱신

@@ -1,0 +1,49 @@
+paths:
+  raw_daily: samsung_macirl_EXTENDED_2019_2025.csv
+  processed_dataset: data/processed/dataset_context_binary.npz
+  processed_metadata: data/processed/metadata_context_binary.json
+
+columns:
+  date: date
+  ticker: ticker
+  price: adjusted_close
+  fallback_price: close
+  trading_value: trading_value
+  usdkrw: usdkrw
+  kospi200_return: kospi200_return
+  investor_trades:
+    foreign:
+      buy_quantity: foreign_buy_volume
+      sell_quantity: foreign_sell_volume
+      buy_value: foreign_buy_value
+      sell_value: foreign_sell_value
+    institution:
+      buy_quantity: institution_buy_volume
+      sell_quantity: institution_sell_volume
+      buy_value: institution_buy_value
+      sell_value: institution_sell_value
+    retail:
+      buy_quantity: retail_buy_volume
+      sell_quantity: retail_sell_volume
+      buy_value: retail_buy_value
+      sell_value: retail_sell_value
+
+investors: [foreign, institution, retail]
+action_values: [-1, 1]
+action_names: [sell, buy]
+
+labeling:
+  rolling_window: 252
+  quantile: 0.50
+  label_shift: 1
+
+sample:
+  start: "2021-01-04"
+  end: "2025-12-29"
+  size: 973
+  selection: latest
+
+preprocess:
+  ticker: null
+  drop_missing_required: true
+  average_cost_rho: 0.98

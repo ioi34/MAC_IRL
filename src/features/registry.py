@@ -42,8 +42,16 @@ def build_feature_tensor(df: pd.DataFrame, config: dict) -> tuple[np.ndarray, li
     return tensor, feature_names
 
 
-def valid_rows_for_model(df: pd.DataFrame, features: np.ndarray, investors: list[str]) -> np.ndarray:
+def valid_rows_for_model(
+    df: pd.DataFrame,
+    features: np.ndarray,
+    investors: list[str],
+    contexts: np.ndarray | None = None,
+) -> np.ndarray:
     label_cols = [f"action_idx_{investor}" for investor in investors]
     labels_ok = df[label_cols].notna().all(axis=1).to_numpy()
     features_ok = np.isfinite(features).all(axis=(1, 2, 3))
-    return labels_ok & features_ok
+    contexts_ok = np.ones(len(df), dtype=bool)
+    if contexts is not None:
+        contexts_ok = np.isfinite(contexts).all(axis=1)
+    return labels_ok & features_ok & contexts_ok

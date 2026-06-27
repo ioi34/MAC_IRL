@@ -4,8 +4,7 @@ import numpy as np
 import pandas as pd
 
 
-# 모델 학습용으로 액션 값을 0부터 시작하는 정수 인덱스로 바꿀 때 쓰는 표입니다.
-# 원래 라벨은 -2, -1, 1, 2이고, 학습 배열에서는 각각 0, 1, 2, 3으로 표현합니다.
+# 4단계 모델 학습용으로 액션 값을 0부터 시작하는 정수 인덱스로 바꿀 때 쓰는 표입니다.
 ACTION_TO_INDEX = {-2: 0, -1: 1, 1: 2, 2: 3}
 
 # 위 표를 반대로 뒤집은 표입니다. 예: 0 -> -2, 3 -> 2
@@ -57,27 +56,50 @@ def rolling_quartile_action_labels(
     return labels
 
 
+def rolling_binary_action_labels(
+    flow: pd.Series,
+    window: int = 252,
+    quantile: float = 0.50,
+) -> pd.Series:
+    """과거 flow 중앙값보다 작으면 매도(-1), 크거나 같으면 매수(+1)로 분류합니다."""
+    if not 0 < quantile < 1:
+        raise ValueError("quantile must satisfy 0 < quantile < 1")
+
+    threshold = flow.shift(1).rolling(window=window, min_periods=window).quantile(quantile)
+    labels = pd.Series(np.nan, index=flow.index, dtype="float64")
+    labels = labels.mask(flow < threshold, -1)
+    labels = labels.mask(flow >= threshold, 1)
+    return labels
+
+
 def add_action_labels(df: pd.DataFrame, config: dict) -> pd.DataFrame:
     """투자자별 action 라벨 컬럼을 DataFrame에 추가합니다."""
     # 원본 df를 직접 바꾸지 않기 위해 복사본에 새 컬럼을 추가합니다.
     out = df.copy()
     labeling = config["labeling"]
     action_values = list(config["action_values"])
-    expected_actions = list(ACTION_TO_INDEX)
-    if action_values != expected_actions:
-        raise ValueError(f"action_values must be {expected_actions} for quartile labels")
+    if action_values not in ([-1, 1], list(ACTION_TO_INDEX)):
+        raise ValueError("action_values must be [-1, 1] or [-2, -1, 1, 2]")
+    action_to_index = {action: index for index, action in enumerate(action_values)}
 
     # config["investors"]에는 라벨을 만들 투자자 이름들이 들어 있습니다.
     for investor in config["investors"]:
         # 라벨 기준 flow는 투자자 자신의 총거래금액 대비 순매수 비율입니다.
         # 예: (foreign_buy_value - foreign_sell_value) / (foreign_buy_value + foreign_sell_value)
         label_flow = investor_trade_imbalance(out, config, investor)
-        quantiles = tuple(labeling.get("quantiles", [0.25, 0.50, 0.75]))
-        label = rolling_quartile_action_labels(
-            label_flow,
-            window=labeling["rolling_window"],
-            quantiles=quantiles,
-        )
+        if action_values == [-1, 1]:
+            label = rolling_binary_action_labels(
+                label_flow,
+                window=labeling["rolling_window"],
+                quantile=float(labeling.get("quantile", 0.50)),
+            )
+        else:
+            quantiles = tuple(labeling.get("quantiles", [0.25, 0.50, 0.75]))
+            label = rolling_quartile_action_labels(
+                label_flow,
+                window=labeling["rolling_window"],
+                quantiles=quantiles,
+            )
 
         # label_shift는 라벨을 앞으로 당기는 값입니다.
         # 기본값 1이면 오늘 행에 내일의 action 라벨을 붙입니다.
@@ -86,7 +108,7 @@ def add_action_labels(df: pd.DataFrame, config: dict) -> pd.DataFrame:
         out[f"action_{investor}"] = shifted
 
         # 모델은 -2/-1/1/2 같은 액션 값보다 0/1/2/3 인덱스를 다루기 쉬워서 함께 저장합니다.
-        out[f"action_idx_{investor}"] = shifted.map(ACTION_TO_INDEX)
+        out[f"action_idx_{investor}"] = shifted.map(action_to_index)
     return out
 
 

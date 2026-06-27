@@ -1,0 +1,25 @@
+paths:
+  processed_dataset: data/processed/dataset_context_binary.npz
+  processed_metadata: data/processed/metadata_context_binary.json
+
+features:
+  selected:
+    - underwater
+    - herd
+    - momentum
+  params:
+    underwater: {}
+    herd:
+      window: 5
+    momentum:
+      window: 20
+
+contexts:
+  selected:
+    - fx_return_1d
+    - fx_return_5d
+    - kospi_return_1d
+    - kospi_return_20d
+
+scaling:
+  method: standard
