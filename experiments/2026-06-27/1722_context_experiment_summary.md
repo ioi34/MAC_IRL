@@ -21,3 +21,4 @@
 - 실제 파일 기반: 각 `runs/context_e*/cv_metrics.csv`, `cv_metrics_summary.csv`, `context_weights_summary.csv`
 - 과거 결과 기반: E0 재현 비교에 `runs/exp_20260626_single_herd_no_volatility_2021_current_label/` 사용
 - 추론: 통합 모델 과적합 가능성은 파라미터 증가와 전체 투자자의 OOS NLL 악화를 함께 본 해석
+- 통합 가중치 상세 해석: `experiments/2026-06-27/1721_context_e5_all.md`
