@@ -1,0 +1,32 @@
+paths:
+  processed_dataset: data/processed/dataset_vkospi.npz
+  processed_metadata: data/processed/metadata_vkospi.json
+
+features:
+  selected:
+    - underwater
+    - herd
+    - momentum
+    - volatility
+    - persist
+  params:
+    underwater: {}
+    herd:
+      window: 5
+    momentum:
+      window: 20
+    volatility:
+      window: 20
+      magnitude: false
+    persist: {}
+
+contexts:
+  selected:
+    - fx_return_1d
+    - kospi_return_1d
+    - vkospi_1d
+    - vkospi_return_1d
+    - vkospi_return_5d
+
+scaling:
+  method: standard
