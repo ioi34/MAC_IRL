@@ -10,7 +10,7 @@ def build_context_matrix(df: pd.DataFrame, config: dict) -> tuple[np.ndarray, li
     fx = pd.to_numeric(df[columns["usdkrw"]], errors="raise")
     kospi_return = pd.to_numeric(df[columns["kospi200_return"]], errors="raise")
 
-    available = {
+    available: dict[str, pd.Series] = {
         "fx_return_1d": np.log(fx / fx.shift(1)),
         "fx_return_5d": np.log(fx / fx.shift(5)),
         "kospi_return_1d": kospi_return,
@@ -18,6 +18,13 @@ def build_context_matrix(df: pd.DataFrame, config: dict) -> tuple[np.ndarray, li
             window=20, min_periods=20
         ).sum(),
     }
+
+    if columns.get("vkospi") and columns["vkospi"] in df.columns:
+        vkospi = pd.to_numeric(df[columns["vkospi"]], errors="raise")
+        available["vkospi_1d"] = vkospi
+        available["vkospi_return_1d"] = np.log(vkospi / vkospi.shift(1))
+        available["vkospi_return_5d"] = np.log(vkospi / vkospi.shift(5))
+
     unknown = sorted(set(context_names).difference(available))
     if unknown:
         raise KeyError(f"Unknown contexts {unknown}. Available: {sorted(available)}")

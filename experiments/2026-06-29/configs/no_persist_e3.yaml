@@ -1,0 +1,9 @@
+experiment:
+  name: no_persist_e3
+  output_dir: runs/no_persist_e3
+  save_checkpoints: true
+
+model:
+  reward_type: contextual_linear
+  context_names:
+    - vkospi_1d

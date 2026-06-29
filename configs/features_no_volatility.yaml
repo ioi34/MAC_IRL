@@ -1,0 +1,20 @@
+paths:
+  processed_dataset: data/processed/dataset_no_volatility.npz
+  processed_metadata: data/processed/metadata_no_volatility.json
+
+features:
+  selected:
+    - underwater
+    - herd
+    - momentum
+    - persist
+  params:
+    underwater: {}
+    herd:
+      window: 5
+    momentum:
+      window: 20
+    persist: {}
+
+scaling:
+  method: standard

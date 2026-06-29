@@ -1,0 +1,10 @@
+experiment:
+  name: mac_irl_no_volatility_cpcv
+  output_dir: runs/mac_irl_no_volatility_cpcv
+  save_checkpoints: true
+  ablations:
+    remove_herd: false
+    remove_underwater: false
+    remove_momentum: false
+    remove_volatility: true
+    disable_l1: false
