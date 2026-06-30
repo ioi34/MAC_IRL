@@ -80,6 +80,8 @@ When running or comparing experiments:
   `experiments/YYYY-MM-DD/HHMM_experiment_name.md`
 - Write the experiment note in Korean.
 - Record what changed, what stayed fixed, and what result came out.
+- Record the resulting learned weights as a Markdown table with actual values. Use columns appropriate to the experiment, such as investor, feature, mean, standard deviation, sign consistency, `beta`, or context coefficient `B`.
+- State the source result file for the weight table. If weights are missing or were not produced, say so instead of omitting the table or guessing.
 - Keep the summary short enough to compare later.
 - Include paths to related run outputs, configs, logs, and result CSVs.
 - If an experiment was only planned but not run, mark it clearly as `미실행`.
@@ -98,6 +100,13 @@ Each experiment note should include:
 - 설정 파일:
 - 결과 폴더:
 - 주요 결과:
+
+## 가중치 결과
+
+| 대상 | 피처/가중치 | 값 | 변동성/일관성 | 출처 |
+| --- | --- | ---: | ---: | --- |
+| [투자자/모델] | [피처명] | [실제 값] | [표준편차/부호 일관성 등] | [결과 파일 경로] |
+
 - 해석:
 - 다음 액션:
 ```
