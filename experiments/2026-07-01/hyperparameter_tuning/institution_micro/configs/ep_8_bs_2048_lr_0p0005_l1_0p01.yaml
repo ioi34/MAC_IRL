@@ -1,0 +1,13 @@
+epochs: 8
+batch_size: 2048
+learning_rate: 0.0005
+loss:
+  lambda_l1: 0.01
+experiment:
+  name: ep_8_bs_2048_lr_0p0005_l1_0p01
+  output_dir: runs/hyperparameter_tuning/institution_micro/ep_8_bs_2048_lr_0p0005_l1_0p01
+  save_checkpoints: true
+model:
+  reward_type: contextual_linear
+  context_names:
+  - kospi_return_1d

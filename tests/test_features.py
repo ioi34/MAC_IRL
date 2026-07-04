@@ -4,6 +4,7 @@ import pandas as pd
 from src.data.labels import add_action_labels
 from src.data.preprocess import prepare_daily_frame
 from src.features.registry import build_feature_tensor
+from src.features.turnover import turnover_zscore
 
 
 def _config():
@@ -96,3 +97,39 @@ def test_herd_feature_uses_only_lagged_flows():
     herd_idx = config["features"]["selected"].index("herd")
 
     assert np.array_equal(original[8, 0, :, herd_idx], changed[8, 0, :, herd_idx])
+
+
+def test_turnover_zscore_uses_only_current_and_past_values():
+    frame = pd.DataFrame({"trading_value": np.exp(np.arange(8, dtype=float))})
+    original = turnover_zscore(frame, "trading_value", window=3)
+    changed_frame = frame.copy()
+    changed_frame.loc[7, "trading_value"] *= 100
+    changed = turnover_zscore(changed_frame, "trading_value", window=3)
+
+    np.testing.assert_allclose(original.iloc[:7], changed.iloc[:7], equal_nan=True)
+
+
+def test_turnover_reward_feature_changes_sign_with_binary_action():
+    config = _config()
+    config["features"]["selected"] = ["turnover_20"]
+    config["features"]["params"]["turnover_20"] = {"window": 3}
+    config["action_values"] = [-1, 1]
+    n = 12
+    frame = pd.DataFrame(
+        {
+            "date": pd.date_range("2020-01-01", periods=n),
+            "adjusted_close": np.linspace(100, 111, n),
+            "high": np.linspace(101, 112, n),
+            "low": np.linspace(99, 110, n),
+            "trading_value": np.exp(np.linspace(1, 3, n) ** 2),
+            **_gross_trade_columns(n),
+        }
+    )
+    prepared = add_action_labels(prepare_daily_frame(frame, config), config)
+    features, _ = build_feature_tensor(prepared, config)
+
+    np.testing.assert_allclose(
+        features[:, :, 0, 0],
+        -features[:, :, 1, 0],
+        equal_nan=True,
+    )
