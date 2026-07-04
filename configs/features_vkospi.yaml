@@ -8,7 +8,6 @@ features:
     - herd
     - momentum
     - volatility
-    - persist
   params:
     underwater: {}
     herd:
@@ -18,7 +17,6 @@ features:
     volatility:
       window: 20
       magnitude: false
-    persist: {}
 
 contexts:
   selected:
