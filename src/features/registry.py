@@ -7,7 +7,7 @@ import pandas as pd
 
 from src.features.herd import build_herd
 from src.features.momentum import build_momentum
-from src.features.persist import build_persist
+from src.features.relative import build_relative
 from src.features.turnover import (
     build_turnover_20,
     build_turnover_60,
@@ -23,8 +23,8 @@ FEATURE_REGISTRY: dict[str, FeatureBuilder] = {
     "underwater": build_underwater,
     "herd": build_herd,
     "momentum": build_momentum,
+    "relative": build_relative,
     "volatility": build_volatility,
-    "persist": build_persist,
     "turnover_20": build_turnover_20,
     "turnover_60": build_turnover_60,
     "turnover_120": build_turnover_120,

@@ -7,12 +7,15 @@ features:
     - underwater
     - herd
     - momentum
+    - relative
     - volatility
   params:
     underwater: {}
     herd:
       window: 5
     momentum:
+      window: 20
+    relative:
       window: 20
     volatility:
       window: 20
