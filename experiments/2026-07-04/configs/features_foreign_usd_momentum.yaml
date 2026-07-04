@@ -1,0 +1,26 @@
+paths:
+  processed_dataset: data/processed/dataset_foreign_usd_momentum.npz
+  processed_metadata: data/processed/metadata_foreign_usd_momentum.json
+
+features:
+  selected:
+    - underwater
+    - herd
+    - usd_momentum
+    - volatility
+  params:
+    underwater: {}
+    herd:
+      window: 5
+    usd_momentum:
+      window: 20
+    volatility:
+      window: 20
+      magnitude: false
+
+contexts:
+  selected:
+    - kospi_return_1d
+
+scaling:
+  method: standard

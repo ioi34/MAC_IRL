@@ -10,7 +10,7 @@ from src.utils.config import load_configs
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Display saved CPCV summaries")
-    parser.add_argument("--experiment-config", default="configs/experiment_underwater.yaml")
+    parser.add_argument("--experiment-config", default="configs/experiment_final.yaml")
     return parser.parse_args()
 
 

@@ -12,8 +12,8 @@ pip install -r requirements.txt
 
 ## 입력 데이터
 
-기본 입력은 `samsung_macirl_EXTENDED_2021_2025.csv`이며 컬럼명은
-`configs/data_extended.yaml`에서 변경할 수 있습니다.
+기본 입력은 `samsung_macirl_EXTENDED_2019_2025.csv`이며 컬럼명은
+`configs/data_context.yaml`에서 변경할 수 있습니다.
 
 필수 컬럼:
 
@@ -29,7 +29,7 @@ pip install -r requirements.txt
 `buy_value - sell_value`로 계산하므로 별도 입력하지 않습니다. 모든 수량과 금액은
 음수가 아니어야 하며 액면분할 등으로 단위가 바뀐 경우 사전에 보정해야 합니다.
 
-`kospi200`, `usdkrw`는 향후 context 모델을 위한 선택 컬럼이며 현재 모델에는 사용하지 않습니다.
+`kospi200_return`, `usdkrw`는 최종 컨텍스트 계산에 사용합니다.
 
 ## 실행
 
@@ -40,7 +40,9 @@ python -m scripts.train
 python -m scripts.evaluate
 ```
 
-`prepare_data.py`는 252거래일의 과거 분포로 다음 날 행동을 4단계로 라벨링하고 최신 유효 973거래일의 비표준화 특징을 저장합니다. `train.py`는 다음 CPCV 설정으로 45개 split을 실행합니다.
+`prepare_data.py`는 과거 252거래일 중앙값을 기준으로 다음 날 행동을
+매도·매수로 라벨링하고 최신 유효 973거래일의 비표준화 특징을 저장합니다.
+`train.py`는 다음 CPCV 설정으로 45개 split을 실행합니다.
 
 ```text
 n_folds=10
@@ -51,19 +53,20 @@ embargo_size=5
 
 각 split에서 scaler는 train index에만 fit되며 test, purge, embargo 관측치는 학습에서 제외됩니다.
 
-## 모델 기본값
+## 최종 모델
 
-- 행동: 과거 252거래일 rolling quartile 기준 `strong_sell=-2`, `weak_sell=-1`, `weak_buy=1`, `strong_buy=2`
+- 행동: 과거 252거래일 rolling median 기준 `sell=-1`, `buy=1`
 - 예측 시점: `S_t`로 `a_{t+1}` 예측
-- 보상특징: 평단 대비 손실구간 반응, 군집추종, 20일 모멘텀, 20일 변동성
-- reward: 투자자별 독립 fixed linear `R_i(a)=beta_i^T phi_i(a)`
+- 보상특징: `underwater`, `herd(5)`, 원화 `momentum(20)`, Parkinson `volatility(20)`
+- 컨텍스트: `KOSPI200 return(1d)`, 과거 252일 대비 `USD/KRW level z-score`
+- reward: 투자자별 독립 contextual linear `R_i(a)=(beta_i+B_i C_t)^T phi_i(a)`
 - loss: 투자자별 독립 NLL + L1
 - scaling: scikit-learn `StandardScaler`
 - metrics: scikit-learn accuracy, macro F1, log loss, confusion matrix
 
 ## 결과
 
-`runs/mac_irl_underwater_cpcv/`에 다음 파일이 생성됩니다.
+`runs/final_reward_context/`에 다음 파일이 생성됩니다.
 
 - `cv_metrics.csv`: split·투자자별 성능
 - `cv_metrics_summary.csv`: 성능 평균과 표준편차
@@ -95,25 +98,18 @@ phi_underwater(s_t, a) = action * underwater_gap_t
 
 ## 환율·KOSPI 조건부 가중치
 
-Binary 기준선과 컨텍스트 실험은 다음 데이터셋을 공유합니다.
+기본 실행은 최종 설정을 사용합니다.
 
 ```bash
-python -m scripts.prepare_data \
-  --data-config configs/data_context.yaml \
-  --features-config configs/features_context.yaml
-
-python -m scripts.train \
-  --data-config configs/data_context.yaml \
-  --features-config configs/features_context.yaml \
-  --model-config configs/model.yaml \
-  --train-config configs/train.yaml \
-  --experiment-config experiments/2026-06-27/configs/context_parkinson_e5_all.yaml
+python -m scripts.prepare_data
+python -m scripts.train
+python -m scripts.evaluate
 ```
 
-조건부 모델은 환율 1일·5일 로그수익률과 KOSPI200 1일·20일 수익률을 사용해
-`w_t = beta + B C_t`를 학습합니다. 컨텍스트는 각 CPCV train split에서만
-표준화하며 `context_weights.csv`에 `B`를 저장합니다. 기준 보상특징은
-`underwater + herd + momentum + Parkinson volatility`입니다.
+환율 수준은 현재 `log(USD/KRW)`를 전일까지의 252거래일 평균·표준편차와
+비교한 z-score입니다. 따라서 미래값 없이 현재가 과거 1년보다 높은 환율
+국면인지 해석할 수 있습니다. 조건부 모델은 `w_t = beta + B C_t`를 학습하며,
+컨텍스트는 각 CPCV train split에서만 추가 표준화됩니다.
 
 각 보상특징은 협업 시 충돌을 줄이기 위해 독립 파일이 계산과 행동 변환을 함께 소유합니다.
 
