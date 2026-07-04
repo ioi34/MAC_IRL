@@ -211,6 +211,8 @@ def main() -> None:
                 train_loader,
                 config,
                 split_dir / f"{investor}.pt",
+                feature_names,
+                selected_context_names,
             )
             test_metrics = _evaluate_model(
                 model,

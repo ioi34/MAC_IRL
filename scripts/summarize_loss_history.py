@@ -4,6 +4,8 @@ import argparse
 import csv
 from pathlib import Path
 
+import pandas as pd
+
 from src.utils.config import load_configs
 
 
@@ -29,6 +31,7 @@ def main() -> None:
     investors = config.get("investors", ["foreign", "institution", "retail"])
 
     rows = []
+    trajectory_frames = []
     split_dirs = sorted(output_dir.glob("split_*"))
     if not split_dirs:
         print(f"No split directories found in {output_dir}")
@@ -45,6 +48,17 @@ def main() -> None:
                 history = list(reader)
             if not history:
                 continue
+            trajectory = pd.DataFrame(history).astype(
+                {
+                    "epoch": int,
+                    "train_nll": float,
+                    "l1_penalty": float,
+                    "total_loss": float,
+                }
+            )
+            trajectory.insert(0, "investor", investor)
+            trajectory.insert(0, "split", split_id)
+            trajectory_frames.append(trajectory)
             nlls = [float(r["train_nll"]) for r in history]
             rows.append({
                 "split": split_id,
@@ -63,6 +77,24 @@ def main() -> None:
         writer = csv.DictWriter(f, fieldnames=fieldnames)
         writer.writeheader()
         writer.writerows(rows)
+
+    selected_epochs = [1, 5, 10, 20, 50, 100, 200]
+    trajectory = pd.concat(trajectory_frames, ignore_index=True)
+    trajectory = trajectory[trajectory["epoch"].isin(selected_epochs)]
+    trajectory_summary = (
+        trajectory.groupby(["investor", "epoch"], sort=False)[
+            ["train_nll", "l1_penalty", "total_loss"]
+        ]
+        .agg(["mean", "std"])
+        .reset_index()
+    )
+    trajectory_summary.columns = [
+        "_".join(part for part in column if part)
+        if isinstance(column, tuple)
+        else column
+        for column in trajectory_summary.columns
+    ]
+    trajectory_summary.to_csv(output_dir / "loss_trajectory_summary.csv", index=False)
 
     # 투자자별 평균 요약 출력
     print(f"\nLoss summary → {out_path}\n")
