@@ -1,0 +1,29 @@
+model:
+  reward_type: contextual_linear
+  context_names:
+    - kospi_return_1d
+
+investor_overrides:
+  foreign:
+    epochs: 100
+    batch_size: 256
+    learning_rate: 0.001
+    loss:
+      lambda_l1: 0.0
+  institution:
+    epochs: 15
+    batch_size: 2048
+    learning_rate: 0.0005
+    loss:
+      lambda_l1: 0.003
+  retail:
+    epochs: 15
+    batch_size: 512
+    learning_rate: 0.0015
+    loss:
+      lambda_l1: 0.0003
+
+experiment:
+  name: inst_l1_0003
+  output_dir: runs/inst_l1_0003
+  save_checkpoints: false

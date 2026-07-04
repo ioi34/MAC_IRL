@@ -5,23 +5,28 @@ paths:
 features:
   selected:
     - underwater
-    - herd
     - momentum
+    - relative
     - volatility
+    - herd_a
+    - herd_b
   params:
     underwater: {}
-    herd:
-      window: 5
     momentum:
+      window: 20
+    relative:
       window: 20
     volatility:
       window: 20
       magnitude: false
+    herd_a: {}
+    herd_b: {}
 
 contexts:
   selected:
     - fx_return_1d
     - kospi_return_1d
+    - fx_level_z_252
     - vkospi_1d
     - vkospi_return_1d
     - vkospi_return_5d

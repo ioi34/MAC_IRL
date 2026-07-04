@@ -16,3 +16,25 @@ def build_herd(df: pd.DataFrame, config: dict, investor: str, action: int) -> pd
     params = config["features"]["params"]["herd"]
     base = herd_flow(df, investor, config["investors"], params["window"])
     return base * action
+
+
+def _other_investors(investor: str, investors: list[str]) -> list[str]:
+    return [inv for inv in investors if inv != investor]
+
+
+def build_herd_a(df: pd.DataFrame, config: dict, investor: str, action: int) -> pd.Series:
+    source = _other_investors(investor, config["investors"])[0]
+    return df[f"u_{source}"].shift(1) * action
+
+
+def build_herd_b(df: pd.DataFrame, config: dict, investor: str, action: int) -> pd.Series:
+    source = _other_investors(investor, config["investors"])[1]
+    return df[f"u_{source}"].shift(1) * action
+
+
+def get_herd_source_map(investors: list[str]) -> list[dict]:
+    rows = []
+    for inv in investors:
+        others = _other_investors(inv, investors)
+        rows.append({"investor": inv, "herd_a": others[0], "herd_b": others[1]})
+    return rows
