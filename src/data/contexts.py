@@ -4,6 +4,13 @@ import numpy as np
 import pandas as pd
 
 
+def fx_level_zscore(fx: pd.Series, window: int) -> pd.Series:
+    log_fx = np.log(fx)
+    history = log_fx.shift(1).rolling(window=window, min_periods=window)
+    history_std = history.std(ddof=0).replace(0, np.nan)
+    return (log_fx - history.mean()) / history_std
+
+
 def build_context_matrix(df: pd.DataFrame, config: dict) -> tuple[np.ndarray, list[str]]:
     context_names = list(config["contexts"]["selected"])
     columns = config["columns"]
@@ -13,6 +20,7 @@ def build_context_matrix(df: pd.DataFrame, config: dict) -> tuple[np.ndarray, li
     available: dict[str, pd.Series] = {
         "fx_return_1d": np.log(fx / fx.shift(1)),
         "fx_return_5d": np.log(fx / fx.shift(5)),
+        "fx_level_z_252": fx_level_zscore(fx, window=252),
         "kospi_return_1d": kospi_return,
         "kospi_return_20d": np.log1p(kospi_return).rolling(
             window=20, min_periods=20

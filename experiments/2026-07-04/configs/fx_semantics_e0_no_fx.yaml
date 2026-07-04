@@ -1,0 +1,9 @@
+experiment:
+  name: fx_semantics_e0_no_fx
+  output_dir: runs/fx_semantics_e0_no_fx
+  save_checkpoints: true
+
+model:
+  reward_type: contextual_linear
+  context_names:
+    - kospi_return_1d

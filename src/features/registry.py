@@ -5,6 +5,7 @@ from collections.abc import Callable
 import numpy as np
 import pandas as pd
 
+from src.features.fx import build_fx_sensitivity_1d
 from src.features.herd import build_herd, build_herd_a, build_herd_b
 from src.features.momentum import build_momentum
 from src.features.relative import build_relative
@@ -14,6 +15,7 @@ from src.features.turnover import (
     build_turnover_120,
 )
 from src.features.underwater import build_underwater
+from src.features.usd_momentum import build_usd_momentum
 from src.features.volatility import build_volatility
 
 FeatureBuilder = Callable[[pd.DataFrame, dict, str, int], pd.Series]
@@ -26,7 +28,9 @@ FEATURE_REGISTRY: dict[str, FeatureBuilder] = {
     "herd_b": build_herd_b,
     "momentum": build_momentum,
     "relative": build_relative,
+    "usd_momentum": build_usd_momentum,
     "volatility": build_volatility,
+    "fx_sensitivity_1d": build_fx_sensitivity_1d,
     "turnover_20": build_turnover_20,
     "turnover_60": build_turnover_60,
     "turnover_120": build_turnover_120,

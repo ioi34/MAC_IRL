@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 
-from src.data.contexts import build_context_matrix
+from src.data.contexts import build_context_matrix, fx_level_zscore
 
 
 def _config() -> dict:
@@ -58,3 +58,25 @@ def test_future_values_do_not_change_context_prefix():
     changed, _ = build_context_matrix(changed_frame, _config())
 
     np.testing.assert_allclose(original[:25], changed[:25], equal_nan=True)
+
+
+def test_fx_level_zscore_compares_current_level_with_prior_history():
+    log_fx = np.arange(260, dtype=float) * 0.01
+    fx = pd.Series(np.exp(log_fx))
+
+    result = fx_level_zscore(fx, window=252)
+
+    expected = (log_fx[252] - log_fx[:252].mean()) / log_fx[:252].std(ddof=0)
+    assert result.iloc[:252].isna().all()
+    assert np.isclose(result.iloc[252], expected)
+
+
+def test_future_values_do_not_change_fx_level_prefix():
+    fx = pd.Series(1000.0 * np.exp(np.arange(300) * 0.001))
+    original = fx_level_zscore(fx, window=252)
+    changed = fx.copy()
+    changed.iloc[280:] = 5000.0
+
+    changed_result = fx_level_zscore(changed, window=252)
+
+    np.testing.assert_allclose(original.iloc[:280], changed_result.iloc[:280], equal_nan=True)

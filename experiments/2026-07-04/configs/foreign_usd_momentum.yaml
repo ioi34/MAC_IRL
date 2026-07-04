@@ -1,0 +1,9 @@
+experiment:
+  name: foreign_usd_momentum
+  output_dir: runs/foreign_usd_momentum
+  save_checkpoints: true
+
+model:
+  reward_type: contextual_linear
+  context_names:
+    - kospi_return_1d

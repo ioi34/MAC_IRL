@@ -1,0 +1,27 @@
+paths:
+  processed_dataset: data/processed/dataset_fx_semantics_base.npz
+  processed_metadata: data/processed/metadata_fx_semantics_base.json
+
+features:
+  selected:
+    - underwater
+    - herd
+    - momentum
+    - volatility
+  params:
+    underwater: {}
+    herd:
+      window: 5
+    momentum:
+      window: 20
+    volatility:
+      window: 20
+      magnitude: false
+
+contexts:
+  selected:
+    - fx_level_z_252
+    - kospi_return_1d
+
+scaling:
+  method: standard

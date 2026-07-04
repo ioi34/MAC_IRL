@@ -35,11 +35,11 @@ from src.utils.seed import set_seed
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Train independent investor models with CPCV")
-    parser.add_argument("--data-config", default="configs/data_extended.yaml")
-    parser.add_argument("--features-config", default="configs/features_underwater.yaml")
+    parser.add_argument("--data-config", default="configs/data_context.yaml")
+    parser.add_argument("--features-config", default="configs/features_final.yaml")
     parser.add_argument("--model-config", default="configs/model.yaml")
     parser.add_argument("--train-config", default="configs/train.yaml")
-    parser.add_argument("--experiment-config", default="configs/experiment_underwater.yaml")
+    parser.add_argument("--experiment-config", default="configs/experiment_final.yaml")
     return parser.parse_args()
 
 
