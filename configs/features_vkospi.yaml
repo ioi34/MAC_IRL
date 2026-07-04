@@ -5,14 +5,13 @@ paths:
 features:
   selected:
     - underwater
-    - herd
     - momentum
     - relative
     - volatility
+    - herd_a
+    - herd_b
   params:
     underwater: {}
-    herd:
-      window: 5
     momentum:
       window: 20
     relative:
@@ -20,6 +19,8 @@ features:
     volatility:
       window: 20
       magnitude: false
+    herd_a: {}
+    herd_b: {}
 
 contexts:
   selected:

@@ -139,6 +139,11 @@ def main() -> None:
     output_dir = Path(config["experiment"]["output_dir"])
     logger = configure_logging(output_dir)
     dump_yaml(config, output_dir / "config_snapshot.yaml")
+    if any(f in feature_names for f in ("herd_a", "herd_b")):
+        from src.features.herd import get_herd_source_map
+        pd.DataFrame(get_herd_source_map(investors)).to_csv(
+            output_dir / "herd_source_map.csv", index=False
+        )
 
     metric_rows = []
     weight_frames = []

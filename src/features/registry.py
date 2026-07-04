@@ -5,7 +5,7 @@ from collections.abc import Callable
 import numpy as np
 import pandas as pd
 
-from src.features.herd import build_herd
+from src.features.herd import build_herd, build_herd_a, build_herd_b
 from src.features.momentum import build_momentum
 from src.features.relative import build_relative
 from src.features.turnover import (
@@ -22,6 +22,8 @@ FeatureBuilder = Callable[[pd.DataFrame, dict, str, int], pd.Series]
 FEATURE_REGISTRY: dict[str, FeatureBuilder] = {
     "underwater": build_underwater,
     "herd": build_herd,
+    "herd_a": build_herd_a,
+    "herd_b": build_herd_b,
     "momentum": build_momentum,
     "relative": build_relative,
     "volatility": build_volatility,
