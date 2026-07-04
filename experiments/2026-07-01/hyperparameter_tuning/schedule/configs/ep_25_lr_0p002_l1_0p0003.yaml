@@ -1,0 +1,12 @@
+epochs: 25
+learning_rate: 0.002
+loss:
+  lambda_l1: 0.0003
+experiment:
+  name: ep_25_lr_0p002_l1_0p0003
+  output_dir: runs/hyperparameter_tuning/schedule/ep_25_lr_0p002_l1_0p0003
+  save_checkpoints: true
+model:
+  reward_type: contextual_linear
+  context_names:
+  - kospi_return_1d

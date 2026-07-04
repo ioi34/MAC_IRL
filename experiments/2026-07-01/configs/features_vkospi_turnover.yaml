@@ -1,0 +1,41 @@
+paths:
+  processed_dataset: data/processed/dataset_vkospi_turnover.npz
+  processed_metadata: data/processed/metadata_vkospi_turnover.json
+
+features:
+  selected:
+    - underwater
+    - herd
+    - momentum
+    - volatility
+    - persist
+    - turnover_20
+    - turnover_60
+    - turnover_120
+  params:
+    underwater: {}
+    herd:
+      window: 5
+    momentum:
+      window: 20
+    volatility:
+      window: 20
+      magnitude: false
+    persist: {}
+    turnover_20:
+      window: 20
+    turnover_60:
+      window: 60
+    turnover_120:
+      window: 120
+
+contexts:
+  selected:
+    - fx_return_1d
+    - kospi_return_1d
+    - vkospi_1d
+    - vkospi_return_1d
+    - vkospi_return_5d
+
+scaling:
+  method: standard

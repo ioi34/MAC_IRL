@@ -1,0 +1,13 @@
+epochs: 18
+batch_size: 512
+learning_rate: 0.0017
+loss:
+  lambda_l1: 0.0003
+experiment:
+  name: ep_18_bs_512_lr_0p0017_l1_0p0003
+  output_dir: runs/hyperparameter_tuning/retail_micro/ep_18_bs_512_lr_0p0017_l1_0p0003
+  save_checkpoints: true
+model:
+  reward_type: contextual_linear
+  context_names:
+  - kospi_return_1d

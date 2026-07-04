@@ -1,0 +1,31 @@
+seed: 43
+
+model:
+  reward_type: contextual_linear
+  context_names:
+    - kospi_return_1d
+
+investor_overrides:
+  foreign:
+    epochs: 100
+    batch_size: 256
+    learning_rate: 0.001
+    loss:
+      lambda_l1: 0.0
+  institution:
+    epochs: 15
+    batch_size: 2048
+    learning_rate: 0.0005
+    loss:
+      lambda_l1: 0.01
+  retail:
+    epochs: 15
+    batch_size: 512
+    learning_rate: 0.0015
+    loss:
+      lambda_l1: 0.0003
+
+experiment:
+  name: hyperparameter_tuned_investor_specific_seed43
+  output_dir: runs/hyperparameter_tuned_investor_specific_seed43
+  save_checkpoints: true

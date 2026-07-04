@@ -28,7 +28,7 @@ from src.features.scaling import (
 )
 from src.models.mac_irl import InvestorIRLModel
 from src.training.trainer import train_investor_model
-from src.utils.config import dump_yaml, load_configs
+from src.utils.config import deep_merge, dump_yaml, load_configs
 from src.utils.logging import configure_logging
 from src.utils.seed import set_seed
 
@@ -107,6 +107,11 @@ def validate_processed_schema(data, config: dict) -> None:
             )
 
 
+def resolve_investor_config(config: dict, investor: str) -> dict:
+    override = config.get("investor_overrides", {}).get(investor, {})
+    return deep_merge(config, override)
+
+
 def main() -> None:
     args = parse_args()
     config = load_configs(
@@ -182,6 +187,7 @@ def main() -> None:
         for investor_idx, investor in enumerate(investors):
             seed = base_seed + split_id * len(investors) + investor_idx
             set_seed(seed)
+            investor_config = resolve_investor_config(config, investor)
             investor_features = features[:, investor_idx]
             scaler = fit_feature_scaler(investor_features, train_indices)
             save_feature_scaler(scaler, split_dir / f"{investor}_scaler.joblib")
@@ -197,7 +203,7 @@ def main() -> None:
             generator = torch.Generator().manual_seed(seed)
             train_loader = DataLoader(
                 train_dataset,
-                batch_size=int(config["batch_size"]),
+                batch_size=int(investor_config["batch_size"]),
                 shuffle=True,
                 generator=generator,
             )
@@ -209,7 +215,7 @@ def main() -> None:
             train_metrics = train_investor_model(
                 model,
                 train_loader,
-                config,
+                investor_config,
                 split_dir / f"{investor}.pt",
                 feature_names,
                 selected_context_names,
