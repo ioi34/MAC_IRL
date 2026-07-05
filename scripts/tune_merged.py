@@ -18,16 +18,16 @@ from pathlib import Path
 import pandas as pd
 import yaml
 
-# Current best HP baseline (hold fixed when not being swept)
+# Current best HP baseline — confirmed from merged_e2
 BASE = {
-    "foreign":     {"epochs": 100, "batch_size": 256,  "learning_rate": 0.001,  "lambda_l1": 0.0},
-    "institution": {"epochs": 15,  "batch_size": 2048, "learning_rate": 0.0005, "lambda_l1": 0.01},
-    "retail":      {"epochs": 15,  "batch_size": 512,  "learning_rate": 0.0015, "lambda_l1": 0.0003},
+    "foreign":     {"epochs": 75,  "batch_size": 256,  "learning_rate": 0.001,  "lambda_l1": 0.0},
+    "institution": {"epochs": 10,  "batch_size": 2048, "learning_rate": 0.0005, "lambda_l1": 0.01},
+    "retail":      {"epochs": 20,  "batch_size": 512,  "learning_rate": 0.001,  "lambda_l1": 0.0003},
 }
 
 SWEEPS = {
     "foreign":     {"epochs": [75, 100, 150],     "learning_rate": [0.0005, 0.001]},
-    "institution": {"epochs": [10, 15, 20, 25],   "learning_rate": [0.0003, 0.0005, 0.00075]},
+    "institution": {"epochs": [10], "learning_rate": [0.0005], "lambda_l1": [0.0, 0.001, 0.003, 0.005, 0.01]},
     "retail":      {"epochs": [10, 15, 20, 25],   "learning_rate": [0.001, 0.0015, 0.002]},
 }
 
@@ -41,6 +41,12 @@ def parse_args() -> argparse.Namespace:
         metavar="CTX",
         help="Context names to pass to the model (default: kospi_return_1d fx_level_z_252)",
     )
+    parser.add_argument(
+        "--investor",
+        default=None,
+        choices=list(BASE.keys()),
+        help="Run sweep for one investor only",
+    )
     parser.add_argument("--data-config",     default="configs/data_vkospi.yaml")
     parser.add_argument("--features-config", default="configs/features_vkospi.yaml")
     parser.add_argument("--model-config",    default="configs/model.yaml")
@@ -48,7 +54,7 @@ def parse_args() -> argparse.Namespace:
     return parser.parse_args()
 
 
-def build_override(target: str, epochs: int, lr: float) -> dict:
+def build_override(target: str, epochs: int, lr: float, lambda_l1: float | None = None) -> dict:
     overrides = {}
     for inv, hp in BASE.items():
         if inv == target:
@@ -56,7 +62,7 @@ def build_override(target: str, epochs: int, lr: float) -> dict:
                 "epochs": epochs,
                 "batch_size": hp["batch_size"],
                 "learning_rate": lr,
-                "loss": {"lambda_l1": hp["lambda_l1"]},
+                "loss": {"lambda_l1": lambda_l1 if lambda_l1 is not None else hp["lambda_l1"]},
             }
         else:
             overrides[inv] = {
@@ -85,8 +91,13 @@ def main() -> None:
 
     results = []
     for target, sweep in SWEEPS.items():
-        for epochs, lr in product(sweep["epochs"], sweep["learning_rate"]):
+        if args.investor and target != args.investor:
+            continue
+        l1_list = sweep.get("lambda_l1", [None])
+        for epochs, lr, l1 in product(sweep["epochs"], sweep["learning_rate"], l1_list):
             name = f"{target}_ep{epochs}_lr{vname(lr)}"
+            if l1 is not None:
+                name += f"_l1_{vname(l1)}"
             output_dir  = run_root / name
             config_path = config_dir / f"{name}.yaml"
 
@@ -95,7 +106,7 @@ def main() -> None:
                     "reward_type": "contextual_linear",
                     "context_names": args.contexts,
                 },
-                "investor_overrides": build_override(target, epochs, lr),
+                "investor_overrides": build_override(target, epochs, lr, l1),
                 "experiment": {
                     "name": name,
                     "output_dir": str(output_dir),
@@ -120,6 +131,7 @@ def main() -> None:
 
             df = pd.read_csv(metrics_path)
             df.insert(0, "target_investor", target)
+            df.insert(0, "l1", l1)
             df.insert(0, "lr", lr)
             df.insert(0, "epochs", epochs)
             df.insert(0, "name", name)
@@ -130,10 +142,12 @@ def main() -> None:
     all_results.to_csv(result_dir / "all_results.csv", index=False)
 
     acc = all_results[all_results.metric == "accuracy"].copy()
-    for target in SWEEPS:
+    targets = [args.investor] if args.investor else list(SWEEPS.keys())
+    for target in targets:
         sub = acc[(acc.target_investor == target) & (acc.investor == target)]
         best = sub.sort_values("mean", ascending=False).iloc[0]
-        print(f"\n[best for {target}]  epochs={int(best.epochs)}  lr={best.lr}  acc={best['mean']:.4f}")
+        l1_info = f"  l1={best.get('l1', 'N/A')}" if "l1" in best else ""
+        print(f"\n[best for {target}]  epochs={int(best.epochs)}  lr={best.lr}{l1_info}  acc={best['mean']:.4f}")
 
 
 if __name__ == "__main__":
