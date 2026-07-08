@@ -1,0 +1,33 @@
+model:
+  reward_type: contextual_linear
+  investor_types:
+  - foreign
+  - institution
+  - retail
+  tau: 1.0
+  context_names:
+  - kospi_return_1d
+  - fx_level_z_252
+investor_overrides:
+  foreign:
+    epochs: 75
+    batch_size: 256
+    learning_rate: 0.001
+    loss:
+      lambda_l1: 0.0
+  institution:
+    epochs: 10
+    batch_size: 2048
+    learning_rate: 0.0005
+    loss:
+      lambda_l1: 0.01
+  retail:
+    epochs: 20
+    batch_size: 512
+    learning_rate: 0.001
+    loss:
+      lambda_l1: 0.0003
+experiment:
+  name: ablation_merged_e2_remove_traditional_group
+  output_dir: runs/ablation_merged_e2/remove_traditional_group
+  save_checkpoints: true

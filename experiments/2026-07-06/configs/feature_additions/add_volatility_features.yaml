@@ -1,0 +1,26 @@
+paths:
+  processed_dataset: data/processed/feature_additions/add_volatility.npz
+  processed_metadata: data/processed/feature_additions/add_volatility_metadata.json
+
+features:
+  selected: [momentum, relative, volatility]
+  params:
+    momentum:
+      window: 20
+    relative:
+      window: 20
+    volatility:
+      window: 20
+      magnitude: false
+
+contexts:
+  selected:
+    - fx_return_1d
+    - kospi_return_1d
+    - fx_level_z_252
+    - vkospi_1d
+    - vkospi_return_1d
+    - vkospi_return_5d
+
+scaling:
+  method: standard

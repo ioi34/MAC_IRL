@@ -1,0 +1,24 @@
+paths:
+  processed_dataset: data/processed/feature_additions/add_herd_a.npz
+  processed_metadata: data/processed/feature_additions/add_herd_a_metadata.json
+
+features:
+  selected: [momentum, relative, herd_a]
+  params:
+    momentum:
+      window: 20
+    relative:
+      window: 20
+    herd_a: {}
+
+contexts:
+  selected:
+    - fx_return_1d
+    - kospi_return_1d
+    - fx_level_z_252
+    - vkospi_1d
+    - vkospi_return_1d
+    - vkospi_return_5d
+
+scaling:
+  method: standard

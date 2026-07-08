@@ -59,7 +59,11 @@ def _evaluate_model(
             torch.as_tensor(features, dtype=torch.float32),
             context_tensor,
         )["logits"]
-    return evaluate_logits(logits, torch.as_tensor(labels, dtype=torch.long))
+    metrics = evaluate_logits(logits, torch.as_tensor(labels, dtype=torch.long))
+    probabilities = torch.softmax(logits, dim=-1).detach().cpu().numpy()
+    metrics["probabilities"] = probabilities
+    metrics["predicted"] = probabilities.argmax(axis=1)
+    return metrics
 
 
 def validate_processed_schema(data, config: dict) -> None:
@@ -149,6 +153,7 @@ def main() -> None:
     weight_frames = []
     context_weight_frames = []
     confusion_records = []
+    prediction_frames = []
     split_records = []
     split_input = np.arange(len(features)).reshape(-1, 1)
 
@@ -238,6 +243,19 @@ def main() -> None:
                     "matrix": test_metrics.pop("confusion_matrix"),
                 }
             )
+            probabilities = test_metrics.pop("probabilities")
+            predicted = test_metrics.pop("predicted")
+            prediction_data = {
+                "split": split_id,
+                "observation_index": test_indices,
+                "date": dates[test_indices].astype(str),
+                "investor": investor,
+                "y_true": labels[test_indices, investor_idx],
+                "y_pred": predicted,
+            }
+            for action_idx in range(probabilities.shape[1]):
+                prediction_data[f"probability_{action_idx}"] = probabilities[:, action_idx]
+            prediction_frames.append(pd.DataFrame(prediction_data))
             metric_rows.append(
                 {
                     "split": split_id,
@@ -272,6 +290,7 @@ def main() -> None:
         context_weights = pd.concat(context_weight_frames, ignore_index=True)
         context_weights_summary = summarize_context_weights(context_weights)
     split_summary = pd.DataFrame(split_records)
+    predictions = pd.concat(prediction_frames, ignore_index=True)
 
     metrics.to_csv(output_dir / "cv_metrics.csv", index=False)
     metrics_summary.to_csv(output_dir / "cv_metrics_summary.csv", index=False)
@@ -283,6 +302,7 @@ def main() -> None:
             output_dir / "context_weights_summary.csv", index=False
         )
     split_summary.to_csv(output_dir / "cv_splits.csv", index=False)
+    predictions.to_csv(output_dir / "predictions.csv", index=False)
     with (output_dir / "confusion_matrices.json").open("w", encoding="utf-8") as f:
         json.dump(confusion_records, f, ensure_ascii=False, indent=2)
     summary = {
