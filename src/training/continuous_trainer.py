@@ -28,7 +28,7 @@ def _continuous_weight_history_rows(
         for feature, weight in zip(feature_names, model.beta.detach().cpu().tolist(), strict=True)
     ]
     if context_names and model.context_weights is not None:
-        context_weights = model.context_weights.detach().cpu()
+        context_weights = model.effective_context_weights().detach().cpu()
         for feature_idx, feature in enumerate(feature_names):
             for context_idx, context in enumerate(context_names):
                 rows.append(

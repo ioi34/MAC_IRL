@@ -1,0 +1,16 @@
+features:
+  selected: [underwater, herd, momentum, volatility, benchmark_drift_20]
+
+model:
+  reward_type: continuous_contextual_linear
+  context_names: [kospi_return_1d, fx_level_z_252, quarter_end_intensity]
+  context_interactions:
+    kospi_return_1d: [underwater, herd, momentum, volatility]
+    fx_level_z_252: [underwater, herd, momentum, volatility]
+    quarter_end_intensity: [benchmark_drift_20]
+
+experiment:
+  name: continuous_inst_e5_drift_quarter_end
+  output_dir: runs/continuous_institution_ablation/e5_drift_quarter_end
+  investors: [institution]
+  save_checkpoints: true

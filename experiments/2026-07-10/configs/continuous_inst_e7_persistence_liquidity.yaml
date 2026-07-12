@@ -1,0 +1,16 @@
+features:
+  selected: [underwater, herd, momentum, volatility, execution_persistence_3]
+
+model:
+  reward_type: continuous_contextual_linear
+  context_names: [kospi_return_1d, fx_level_z_252, liquidity_capacity_20]
+  context_interactions:
+    kospi_return_1d: [underwater, herd, momentum, volatility]
+    fx_level_z_252: [underwater, herd, momentum, volatility]
+    liquidity_capacity_20: [execution_persistence_3]
+
+experiment:
+  name: continuous_inst_e7_persistence_liquidity
+  output_dir: runs/continuous_institution_ablation/e7_persistence_liquidity
+  investors: [institution]
+  save_checkpoints: true

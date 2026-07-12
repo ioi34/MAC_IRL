@@ -4,7 +4,7 @@ import torch
 
 from src.data.continuous_labels import add_continuous_action_labels, continuous_actions_array
 from src.features.continuous import build_state_feature_tensor, valid_rows_for_continuous_model
-from src.models.continuous import ContinuousInvestorIRLModel
+from src.models.continuous import ContinuousInvestorIRLModel, build_context_mask
 
 
 def test_continuous_actions_are_trade_imbalance_shifted_to_next_day():
@@ -75,3 +75,20 @@ def test_continuous_policy_outputs_clipped_state_score_and_l1():
     torch.testing.assert_close(output["state_score"], torch.tensor([1.0, -1.6]))
     torch.testing.assert_close(output["action"], torch.tensor([1.0, -1.0]))
     assert np.isclose(model.l1_penalty().item(), 1.8)
+
+
+def test_context_mask_limits_interactions_and_l1():
+    mask = build_context_mask(
+        ["persistence", "momentum"],
+        ["vkospi", "kospi"],
+        {"vkospi": ["persistence"], "kospi": ["momentum"]},
+    )
+    model = ContinuousInvestorIRLModel(2, 2, context_mask=mask)
+    model.context_weights.data.fill_(2.0)
+    features = torch.tensor([[1.0, 1.0]])
+    contexts = torch.tensor([[1.0, 1.0]])
+
+    output = model(features, contexts)
+
+    torch.testing.assert_close(output["state_score"], torch.tensor([4.0]))
+    assert np.isclose(model.l1_penalty().item(), 4.0)
