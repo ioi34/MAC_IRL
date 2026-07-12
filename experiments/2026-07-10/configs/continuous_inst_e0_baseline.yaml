@@ -1,0 +1,15 @@
+features:
+  selected: [underwater, herd, momentum, volatility]
+
+model:
+  reward_type: continuous_contextual_linear
+  context_names: [kospi_return_1d, fx_level_z_252]
+  context_interactions:
+    kospi_return_1d: [underwater, herd, momentum, volatility]
+    fx_level_z_252: [underwater, herd, momentum, volatility]
+
+experiment:
+  name: continuous_inst_e0_baseline
+  output_dir: runs/continuous_institution_ablation/e0_baseline
+  investors: [institution]
+  save_checkpoints: true

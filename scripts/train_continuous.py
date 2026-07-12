@@ -20,7 +20,7 @@ from src.features.scaling import (
     transform_context_matrix,
     transform_feature_tensor,
 )
-from src.models.continuous import ContinuousInvestorIRLModel
+from src.models.continuous import ContinuousInvestorIRLModel, build_context_mask
 from src.training.continuous_trainer import train_continuous_investor_model
 from src.utils.config import deep_merge, dump_yaml, load_configs
 from src.utils.logging import configure_logging
@@ -34,6 +34,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--model-config", default="configs/model.yaml")
     parser.add_argument("--train-config", default="configs/train.yaml")
     parser.add_argument("--experiment-config", default="configs/experiment_continuous.yaml")
+    parser.add_argument("--seed", type=int)
+    parser.add_argument("--output-dir")
     return parser.parse_args()
 
 
@@ -50,9 +52,11 @@ def validate_processed_schema(data, config: dict) -> None:
     saved_features = data["feature_names"].astype(str).tolist()
     expected_investors = list(config["investors"])
     saved_investors = data["investors"].astype(str).tolist()
-    if saved_features != expected_features:
+    missing_features = sorted(set(expected_features).difference(saved_features))
+    if missing_features:
         raise ValueError(
-            f"Processed features {saved_features} do not match config {expected_features}. "
+            f"Processed features {saved_features} do not match config {expected_features}; "
+            f"missing {missing_features}. "
             "Run `python -m scripts.prepare_continuous_data` again."
         )
     if saved_investors != expected_investors:
@@ -81,6 +85,16 @@ def validate_processed_schema(data, config: dict) -> None:
 def resolve_investor_config(config: dict, investor: str) -> dict:
     override = config.get("investor_overrides", {}).get(investor, {})
     return deep_merge(config, override)
+
+
+def resolve_training_investors(config: dict, investors: list[str]) -> list[tuple[int, str]]:
+    selected = list(config.get("experiment", {}).get("investors", investors))
+    if len(selected) != len(set(selected)):
+        raise ValueError(f"Duplicate experiment investors are not allowed: {selected}")
+    unknown = sorted(set(selected).difference(investors))
+    if unknown:
+        raise ValueError(f"Unknown experiment investors {unknown}; available: {investors}")
+    return [(investors.index(investor), investor) for investor in selected]
 
 
 def _evaluate_model(
@@ -130,7 +144,7 @@ def _context_weights_frame(
 ) -> pd.DataFrame:
     if model.context_weights is None:
         return pd.DataFrame()
-    values = model.context_weights.detach().cpu().numpy()
+    values = model.effective_context_weights().detach().cpu().numpy()
     rows = []
     for feature_idx, feature in enumerate(feature_names):
         for context_idx, context in enumerate(context_names):
@@ -177,12 +191,19 @@ def main() -> None:
         args.train_config,
         args.experiment_config,
     )
+    if args.seed is not None:
+        config["seed"] = args.seed
+    if args.output_dir is not None:
+        config["experiment"]["output_dir"] = args.output_dir
     data = np.load(config["paths"]["processed_dataset"], allow_pickle=False)
     validate_processed_schema(data, config)
-    features = data["features"]
+    saved_feature_names = data["feature_names"].astype(str).tolist()
+    selected_feature_indices = [saved_feature_names.index(name) for name in config["features"]["selected"]]
+    features = data["features"][..., selected_feature_indices]
     actions = data["actions"]
     dates = data["dates"]
     investors = list(config["investors"])
+    training_investors = resolve_training_investors(config, investors)
     feature_names = list(config["features"]["selected"])
     selected_context_names = list(config["model"].get("context_names", []))
     contexts = None
@@ -190,6 +211,11 @@ def main() -> None:
         saved_context_names = data["context_names"].astype(str).tolist()
         selected_context_indices = [saved_context_names.index(name) for name in selected_context_names]
         contexts = data["contexts"][:, selected_context_indices]
+    context_mask = build_context_mask(
+        feature_names,
+        selected_context_names,
+        config.get("model", {}).get("context_interactions"),
+    )
 
     cv = build_cpcv(config)
     base_seed = int(config["seed"])
@@ -241,7 +267,7 @@ def main() -> None:
             train_contexts = scaled_contexts[train_indices]
             test_contexts = scaled_contexts[test_indices]
 
-        for investor_idx, investor in enumerate(investors):
+        for investor_idx, investor in training_investors:
             seed = base_seed + split_id * len(investors) + investor_idx
             set_seed(seed)
             investor_config = resolve_investor_config(config, investor)
@@ -268,6 +294,7 @@ def main() -> None:
             model = ContinuousInvestorIRLModel(
                 num_features=features.shape[-1],
                 num_contexts=len(selected_context_names),
+                context_mask=context_mask,
             )
             train_metrics = train_continuous_investor_model(
                 model,
