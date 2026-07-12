@@ -1,7 +1,12 @@
 import numpy as np
 import pandas as pd
 
-from src.data.contexts import build_context_matrix, fx_level_zscore
+from src.data.contexts import (
+    build_context_matrix,
+    fx_level_zscore,
+    liquidity_capacity,
+    quarter_end_intensity,
+)
 
 
 def _config() -> dict:
@@ -80,3 +85,19 @@ def test_future_values_do_not_change_fx_level_prefix():
     changed_result = fx_level_zscore(changed, window=252)
 
     np.testing.assert_allclose(original.iloc[:280], changed_result.iloc[:280], equal_nan=True)
+
+
+def test_quarter_end_intensity_uses_known_calendar_distance():
+    dates = pd.Series(pd.to_datetime(["2025-03-23", "2025-03-27", "2025-03-31"]))
+
+    result = quarter_end_intensity(dates, window_days=7)
+
+    np.testing.assert_allclose(result, [0.0, 3.0 / 7.0, 1.0])
+
+
+def test_liquidity_capacity_increases_with_trading_value():
+    price = pd.Series([100.0, 101.0, 102.0])
+    low = liquidity_capacity(price, pd.Series([100.0, 100.0, 100.0]), window=1)
+    high = liquidity_capacity(price, pd.Series([1000.0, 1000.0, 1000.0]), window=1)
+
+    assert (high.iloc[1:] > low.iloc[1:]).all()

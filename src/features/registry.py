@@ -7,6 +7,12 @@ import pandas as pd
 
 from src.features.fx import build_fx_sensitivity_1d
 from src.features.herd import build_herd, build_herd_a, build_herd_b
+from src.features.institution import (
+    build_benchmark_drift_20,
+    build_execution_persistence_3,
+    build_short_residual_return_1,
+    build_short_residual_return_5,
+)
 from src.features.momentum import build_momentum
 from src.features.relative import build_relative
 from src.features.turnover import (
@@ -26,6 +32,10 @@ FEATURE_REGISTRY: dict[str, FeatureBuilder] = {
     "herd": build_herd,
     "herd_a": build_herd_a,
     "herd_b": build_herd_b,
+    "execution_persistence_3": build_execution_persistence_3,
+    "short_residual_return_1": build_short_residual_return_1,
+    "short_residual_return_5": build_short_residual_return_5,
+    "benchmark_drift_20": build_benchmark_drift_20,
     "momentum": build_momentum,
     "relative": build_relative,
     "usd_momentum": build_usd_momentum,

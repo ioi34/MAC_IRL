@@ -1,0 +1,32 @@
+features:
+  selected: [underwater, herd, momentum, volatility, execution_persistence_3]
+
+model:
+  reward_type: continuous_contextual_linear
+  context_names: [kospi_return_1d, fx_level_z_252]
+  context_interactions:
+    kospi_return_1d: [underwater, herd, momentum, volatility]
+    fx_level_z_252: [underwater, herd, momentum, volatility]
+
+experiment:
+  name: continuous_inst_t3_l1_0p003
+  output_dir: runs/continuous_institution_hparams/t3_ep50_lr0p001_l10p003
+  investors: [institution]
+  save_checkpoints: true
+
+seed: 42
+device: cpu
+epochs: 50
+batch_size: 2048
+learning_rate: 0.001
+weight_decay: 0.0
+log_every: 50
+
+loss:
+  lambda_l1: 0.003
+
+cross_validation:
+  n_folds: 10
+  n_test_folds: 2
+  purged_size: 1
+  embargo_size: 5

@@ -1,0 +1,40 @@
+paths:
+  processed_dataset: data/processed/dataset_continuous_institution_candidates.npz
+  processed_metadata: data/processed/metadata_continuous_institution_candidates.json
+
+features:
+  selected:
+    - underwater
+    - herd
+    - momentum
+    - volatility
+    - execution_persistence_3
+    - short_residual_return_1
+    - short_residual_return_5
+    - benchmark_drift_20
+  params:
+    underwater: {}
+    herd:
+      window: 5
+    momentum:
+      window: 20
+    volatility:
+      window: 20
+      magnitude: false
+    execution_persistence_3:
+      span: 3
+    short_residual_return_1: {}
+    short_residual_return_5: {}
+    benchmark_drift_20:
+      window: 20
+
+contexts:
+  selected:
+    - kospi_return_1d
+    - fx_level_z_252
+    - vkospi_return_1d
+    - quarter_end_intensity
+    - liquidity_capacity_20
+
+scaling:
+  method: standard

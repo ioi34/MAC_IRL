@@ -1,0 +1,15 @@
+features:
+  selected: [underwater, herd, momentum, volatility, short_residual_return_5]
+
+model:
+  reward_type: continuous_contextual_linear
+  context_names: [kospi_return_1d, fx_level_z_252]
+  context_interactions:
+    kospi_return_1d: [underwater, herd, momentum, volatility]
+    fx_level_z_252: [underwater, herd, momentum, volatility]
+
+experiment:
+  name: continuous_inst_e3_residual_5d
+  output_dir: runs/continuous_institution_ablation/e3_residual_5d
+  investors: [institution]
+  save_checkpoints: true
