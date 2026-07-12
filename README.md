@@ -12,7 +12,7 @@ pip install -r requirements.txt
 
 ## 입력 데이터
 
-기본 입력은 `samsung_macirl_EXTENDED_2019_2025.csv`이며 컬럼명은
+기본 입력은 `data/raw/samsung_macirl_EXTENDED_2019_2025.csv`이며 컬럼명은
 `configs/data_context.yaml`에서 변경할 수 있습니다.
 
 필수 컬럼:

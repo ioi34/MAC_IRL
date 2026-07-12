@@ -1,5 +1,5 @@
 paths:
-  raw_daily: samsung_macirl_EXTENDED_V2019_2025.csv
+  raw_daily: data/raw/samsung_macirl_EXTENDED_2019_2025.csv
   processed_dataset: data/processed/ablation_merged_e2/remove_underwater.npz
   processed_metadata: data/processed/ablation_merged_e2/remove_underwater_metadata.json
 columns:
