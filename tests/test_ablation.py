@@ -10,6 +10,10 @@ from src.evaluation.ablation import (
     moving_block_bootstrap_deltas,
     remove_features,
 )
+from src.evaluation.continuous_validation import (
+    aggregate_continuous_predictions,
+    moving_block_bootstrap_continuous_deltas,
+)
 
 
 def test_dynamic_ablation_variants_remove_each_selected_feature_and_preserve_source():
@@ -71,3 +75,30 @@ def test_vif_flags_collinear_features_and_bh_is_monotone():
     assert vif.loc[vif["feature"] == "a", "high_vif"].item()
     adjusted = benjamini_hochberg(pd.Series([0.01, 0.04, 0.03]))
     assert adjusted.tolist() == pytest.approx([0.03, 0.04, 0.04])
+
+
+def test_continuous_prediction_aggregation_and_bootstrap_are_reproducible():
+    predictions = pd.DataFrame(
+        {
+            "split": [0, 1, 0, 1],
+            "observation_index": [3, 3, 4, 4],
+            "date": ["2025-01-02", "2025-01-02", "2025-01-03", "2025-01-03"],
+            "investor": ["foreign"] * 4,
+            "actual_action": [0.5, 0.5, -0.5, -0.5],
+            "predicted_action": [0.3, 0.5, -0.2, -0.4],
+        }
+    )
+    aggregated = aggregate_continuous_predictions(predictions)
+    assert aggregated["predicted_action"].tolist() == pytest.approx([0.4, -0.3])
+
+    actual = np.array([1.0, -1.0, 0.5, -0.5, 0.8, -0.8])
+    baseline = actual * 0.9
+    ablation = -actual * 0.2
+    first = moving_block_bootstrap_continuous_deltas(
+        "rmse", actual, baseline, ablation, block_length=2, n_resamples=20, seed=7
+    )
+    second = moving_block_bootstrap_continuous_deltas(
+        "rmse", actual, baseline, ablation, block_length=2, n_resamples=20, seed=7
+    )
+    np.testing.assert_allclose(first, second)
+    assert (first > 0).all()

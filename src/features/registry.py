@@ -13,7 +13,7 @@ from src.features.institution import (
     build_short_residual_return_1,
     build_short_residual_return_5,
 )
-from src.features.momentum import build_momentum
+from src.features.momentum import build_momentum, build_shortmom_orth
 from src.features.relative import build_relative
 from src.features.turnover import (
     build_turnover_20,
@@ -37,6 +37,7 @@ FEATURE_REGISTRY: dict[str, FeatureBuilder] = {
     "short_residual_return_5": build_short_residual_return_5,
     "benchmark_drift_20": build_benchmark_drift_20,
     "momentum": build_momentum,
+    "shortmom_orth": build_shortmom_orth,
     "relative": build_relative,
     "usd_momentum": build_usd_momentum,
     "volatility": build_volatility,
