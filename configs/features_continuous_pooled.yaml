@@ -1,0 +1,26 @@
+paths:
+  processed_dataset: data/processed/dataset_continuous_pooled.npz
+  processed_metadata: data/processed/metadata_continuous_pooled.json
+
+features:
+  selected:
+    - underwater
+    - momentum
+    - relative
+    - herd
+  params:
+    underwater: {}
+    momentum:
+      window: 20
+    relative:
+      window: 20
+    herd:
+      window: 1
+
+contexts:
+  selected:
+    - kospi_return_1d
+    - fx_level_z_252
+
+scaling:
+  method: standard
