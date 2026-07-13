@@ -16,3 +16,4 @@ data/scalers/*
 !data/processed/.gitkeep
 !data/scalers/.gitkeep
 
+.DS_Store

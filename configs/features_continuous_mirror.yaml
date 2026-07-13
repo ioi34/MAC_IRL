@@ -1,0 +1,31 @@
+paths:
+  processed_dataset: data/processed/dataset_continuous_mirror.npz
+  processed_metadata: data/processed/metadata_continuous_mirror.json
+
+features:
+  selected:
+    - underwater
+    - momentum
+    - relative
+    - volatility
+    - herd_a
+    - herd_b
+  params:
+    underwater: {}
+    momentum:
+      window: 20
+    relative:
+      window: 20
+    volatility:
+      window: 20
+      magnitude: false
+    herd_a: {}
+    herd_b: {}
+
+contexts:
+  selected:
+    - kospi_return_1d
+    - fx_level_z_252
+
+scaling:
+  method: standard

@@ -1,0 +1,27 @@
+paths:
+  processed_dataset: data/processed/dataset_continuous_confirmed.npz
+  processed_metadata: data/processed/metadata_continuous_confirmed.json
+
+features:
+  selected:
+    - underwater
+    - momentum
+    - relative
+    - herd_a
+    - herd_b
+  params:
+    underwater: {}
+    momentum:
+      window: 20
+    relative:
+      window: 20
+    herd_a: {}
+    herd_b: {}
+
+contexts:
+  selected:
+    - kospi_return_1d
+    - fx_level_z_252
+
+scaling:
+  method: standard
