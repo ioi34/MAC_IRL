@@ -10,7 +10,9 @@ def read_table(path: str | Path) -> pd.DataFrame:
     if not source.exists():
         raise FileNotFoundError(f"Data file not found: {source}")
     if source.suffix.lower() == ".csv":
-        return pd.read_csv(source)
+        frame = pd.read_csv(source)
+        frame.columns = frame.columns.str.strip()
+        return frame
     if source.suffix.lower() in {".parquet", ".pq"}:
         return pd.read_parquet(source)
     raise ValueError(f"Unsupported data format: {source.suffix}")
@@ -18,4 +20,3 @@ def read_table(path: str | Path) -> pd.DataFrame:
 
 def load_daily_frame(config: dict) -> pd.DataFrame:
     return read_table(config["paths"]["raw_daily"])
-

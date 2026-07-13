@@ -12,6 +12,7 @@ def test_each_reward_feature_is_owned_by_its_own_module():
         "short_residual_return_5": "src.features.institution",
         "benchmark_drift_20": "src.features.institution",
         "momentum": "src.features.momentum",
+        "shortmom_orth": "src.features.momentum",
         "relative": "src.features.relative",
         "usd_momentum": "src.features.usd_momentum",
         "volatility": "src.features.volatility",

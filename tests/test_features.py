@@ -3,6 +3,7 @@ import pandas as pd
 
 from src.data.labels import add_action_labels
 from src.data.preprocess import prepare_daily_frame
+from src.features.momentum import shortmom_orth
 from src.features.registry import build_feature_tensor
 from src.features.turnover import turnover_zscore
 
@@ -97,6 +98,17 @@ def test_herd_feature_uses_only_lagged_flows():
     herd_idx = config["features"]["selected"].index("herd")
 
     assert np.array_equal(original[8, 0, :, herd_idx], changed[8, 0, :, herd_idx])
+
+
+def test_shortmom_orth_removes_proportional_long_momentum():
+    frame = pd.DataFrame({"price": np.exp(np.square(np.arange(25)) * 0.001)})
+
+    result = shortmom_orth(frame, short_window=5, long_window=20)
+
+    expected = np.log(frame.loc[20, "price"] / frame.loc[15, "price"]) - 0.25 * np.log(
+        frame.loc[20, "price"] / frame.loc[0, "price"]
+    )
+    assert np.isclose(result.iloc[20], expected)
 
 
 def test_turnover_zscore_uses_only_current_and_past_values():

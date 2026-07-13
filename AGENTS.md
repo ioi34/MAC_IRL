@@ -116,3 +116,10 @@ Before reporting conclusions, check whether the result is based on:
 1. actual files in `runs/` or `experiments/`,
 2. Notion/GitHub notes only,
 3. or inference from code/config changes.
+
+## 6. Default Model for Experiments
+
+**Use the continuous model by default for all model experiments.**
+
+- Unless the user explicitly requests otherwise, configure and run every model experiment with the continuous model.
+- Use a discrete or other model only when the user explicitly asks for it.

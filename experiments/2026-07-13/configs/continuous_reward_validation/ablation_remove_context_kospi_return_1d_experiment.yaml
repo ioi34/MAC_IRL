@@ -1,0 +1,27 @@
+model:
+  reward_type: continuous_contextual_linear
+  context_names:
+  - fx_level_z_252
+investor_overrides:
+  foreign:
+    epochs: 75
+    batch_size: 256
+    learning_rate: 0.001
+    loss:
+      lambda_l1: 0.0
+  institution:
+    epochs: 10
+    batch_size: 2048
+    learning_rate: 0.0005
+    loss:
+      lambda_l1: 0.01
+  retail:
+    epochs: 20
+    batch_size: 512
+    learning_rate: 0.001
+    loss:
+      lambda_l1: 0.0003
+experiment:
+  name: ablation_remove_context_kospi_return_1d
+  output_dir: runs/continuous_reward_validation/ablation/remove_context_kospi_return_1d
+  save_checkpoints: true

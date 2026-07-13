@@ -1,0 +1,27 @@
+paths:
+  raw_daily: samsung_macirl_EXTENDED_2019_2025.csv
+  processed_dataset: data/processed/dataset_continuous_reward5.npz
+  processed_metadata: data/processed/metadata_continuous_reward5.json
+features:
+  selected:
+  - momentum
+  - shortmom_orth
+  - relative
+  - underwater
+  params:
+    momentum:
+      window: 20
+    shortmom_orth:
+      short_window: 5
+      long_window: 20
+    relative:
+      window: 20
+    herd:
+      window: 1
+    underwater: {}
+contexts:
+  selected:
+  - kospi_return_1d
+  - fx_level_z_252
+scaling:
+  method: standard
