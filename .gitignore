@@ -16,4 +16,6 @@ data/scalers/*
 !data/processed/.gitkeep
 !data/scalers/.gitkeep
 
+acmart-primary/
+
 .DS_Store

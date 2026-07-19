@@ -1,0 +1,55 @@
+run,investor,metric,mean,std
+5features + context (7/13),foreign,mae,0.1975426043035225,0.0171946452220202
+5features + context (7/13),institution,mae,0.0947439630490955,0.0083295807680725
+5features + context (7/13),retail,mae,0.2671323620859878,0.0297666431153244
+5features + context (7/13),foreign,rmse,0.2482435144705861,0.0181000083668088
+5features + context (7/13),institution,rmse,0.125193649203653,0.0120206865235037
+5features + context (7/13),retail,rmse,0.3195103437058496,0.0305347056340626
+5features + context (7/13),foreign,mse,0.0619451725506337,0.008930463716547
+5features + context (7/13),institution,mse,0.0158147356631015,0.0030020705318497
+5features + context (7/13),retail,mse,0.1029985086887854,0.0188757434840439
+5features + context (7/13),foreign,direction_accuracy,0.6276193300422721,0.0364721835449372
+5features + context (7/13),institution,direction_accuracy,0.5202615405190107,0.039122433698181
+5features + context (7/13),retail,direction_accuracy,0.6071153208784691,0.0490455968285997
+5features + context (7/13),foreign,correlation,0.2599676423408174,0.1202028715523732
+5features + context (7/13),institution,correlation,0.040453422090534,0.0723694730432236
+5features + context (7/13),retail,correlation,0.2479383599234655,0.11023614457905
+5features + context (7/13),foreign,saturation_rate,0.0,0.0
+5features + context (7/13),institution,saturation_rate,0.0,0.0
+5features + context (7/13),retail,saturation_rate,0.0,0.0
+3features + context,foreign,mae,0.1956625396899231,0.0160384105908838
+3features + context,institution,mae,0.0944791734099831,0.0084706463920512
+3features + context,retail,mae,0.2666454944979121,0.0293328815281758
+3features + context,foreign,rmse,0.2463084024765958,0.0169957230900509
+3features + context,institution,rmse,0.1249674547591979,0.0121359318716044
+3features + context,retail,rmse,0.3195258024769594,0.0300179715514526
+3features + context,foreign,mse,0.0609502647427407,0.008309918991817
+3features + context,institution,mse,0.0157608726837756,0.0030266092126797
+3features + context,retail,mse,0.1029777930953628,0.018602098353821
+3features + context,foreign,direction_accuracy,0.6303614934207848,0.0376514054774354
+3features + context,institution,direction_accuracy,0.5296544385717027,0.0330903784227802
+3features + context,retail,direction_accuracy,0.5896087358487274,0.0546958415011284
+3features + context,foreign,correlation,0.2610825702027339,0.109901288790299
+3features + context,institution,correlation,0.0670538105138204,0.0732044820286151
+3features + context,retail,correlation,0.233032968362737,0.1140797415697276
+3features + context,foreign,saturation_rate,0.0,0.0
+3features + context,institution,saturation_rate,0.0,0.0
+3features + context,retail,saturation_rate,0.0,0.0
+3features no context,foreign,mae,0.1939458823466937,0.0153843956091591
+3features no context,institution,mae,0.0944846468685109,0.0084300958467882
+3features no context,retail,mae,0.267397894625188,0.0280074318182187
+3features no context,foreign,rmse,0.2439505048822332,0.0166875402310942
+3features no context,institution,rmse,0.1249192549114575,0.0121312812664642
+3features no context,retail,rmse,0.3190450924636098,0.0285120989844326
+3features no context,foreign,mse,0.0597841345201727,0.0080861233163122
+3features no context,institution,mse,0.0157487178331294,0.0030216637063833
+3features no context,retail,mse,0.1025846454849781,0.0176754084379683
+3features no context,foreign,direction_accuracy,0.6344921822759491,0.0388302472155535
+3features no context,institution,direction_accuracy,0.5250882364912403,0.0449955474208356
+3features no context,retail,direction_accuracy,0.6009454532768155,0.0560050082187582
+3features no context,foreign,correlation,0.2881946432786648,0.1087745887588512
+3features no context,institution,correlation,0.0725328610274831,0.0728129789601756
+3features no context,retail,correlation,0.2341265735435165,0.1183477441558811
+3features no context,foreign,saturation_rate,0.0,0.0
+3features no context,institution,saturation_rate,0.0,0.0
+3features no context,retail,saturation_rate,0.0,0.0

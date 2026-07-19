@@ -42,6 +42,28 @@ def summarize_reward_weights(weights: pd.DataFrame) -> pd.DataFrame:
     return pd.DataFrame(rows)
 
 
+def summarize_context_main_weights(weights: pd.DataFrame) -> pd.DataFrame:
+    rows = []
+    for (investor, context), group in weights.groupby(["investor", "context"], sort=False):
+        values = group["weight"]
+        mean = float(values.mean())
+        dominant_sign = 1 if mean > 0 else -1 if mean < 0 else 0
+        signs = values.map(lambda value: 1 if value > 0 else -1 if value < 0 else 0)
+        rows.append(
+            {
+                "investor": investor,
+                "context": context,
+                "mean": mean,
+                "std": float(values.std(ddof=1)),
+                "positive_rate": float((signs > 0).mean()),
+                "negative_rate": float((signs < 0).mean()),
+                "dominant_direction": {1: "positive", -1: "negative", 0: "zero"}[dominant_sign],
+                "direction_consistency": float((signs == dominant_sign).mean()),
+            }
+        )
+    return pd.DataFrame(rows)
+
+
 def context_weights_frame(
     model,
     investor: str,

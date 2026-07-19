@@ -77,6 +77,21 @@ def test_continuous_policy_outputs_clipped_state_score_and_l1():
     assert np.isclose(model.l1_penalty().item(), 1.8)
 
 
+def test_context_main_effect_shifts_state_score_and_l1():
+    model = ContinuousInvestorIRLModel(num_features=2, num_contexts=1, context_main_effect=True)
+    model.beta.data.copy_(torch.tensor([0.6, 0.6]))
+    model.context_weights.data.copy_(torch.tensor([[0.2], [-0.4]]))
+    model.context_main.data.copy_(torch.tensor([0.5]))
+    features = torch.tensor([[1.0, 1.0], [-2.0, 0.0]])
+    context = torch.tensor([[1.0], [1.0]])
+
+    output = model(features, context)
+
+    torch.testing.assert_close(output["state_score"], torch.tensor([1.5, -1.1]))
+    torch.testing.assert_close(output["action"], torch.tensor([1.0, -1.0]))
+    assert np.isclose(model.l1_penalty().item(), 2.3)
+
+
 def test_context_mask_limits_interactions_and_l1():
     mask = build_context_mask(
         ["persistence", "momentum"],

@@ -12,7 +12,11 @@ from torch.utils.data import DataLoader, TensorDataset
 
 from src.data.splits import build_cpcv, combine_test_folds
 from src.evaluation.continuous_metrics import evaluate_continuous_actions
-from src.evaluation.interpret import summarize_context_weights, summarize_reward_weights
+from src.evaluation.interpret import (
+    summarize_context_main_weights,
+    summarize_context_weights,
+    summarize_reward_weights,
+)
 from src.features.scaling import (
     fit_context_scaler,
     fit_feature_scaler,
@@ -160,6 +164,25 @@ def _context_weights_frame(
     return pd.DataFrame(rows)
 
 
+def _context_main_weights_frame(
+    model,
+    investor: str,
+    context_names: list[str],
+    split: int,
+) -> pd.DataFrame:
+    if model.context_main is None:
+        return pd.DataFrame()
+    values = model.context_main.detach().cpu().numpy()
+    return pd.DataFrame(
+        {
+            "split": split,
+            "investor": investor,
+            "context": context_names,
+            "weight": values.astype(float),
+        }
+    )
+
+
 def _summarize_metrics(metrics: pd.DataFrame) -> pd.DataFrame:
     value_columns = [
         "mae",
@@ -216,6 +239,7 @@ def main() -> None:
         selected_context_names,
         config.get("model", {}).get("context_interactions"),
     )
+    context_main_effect = bool(config.get("model", {}).get("context_main_effect", False))
 
     cv = build_cpcv(config)
     base_seed = int(config["seed"])
@@ -226,6 +250,7 @@ def main() -> None:
     metric_rows = []
     weight_frames = []
     context_weight_frames = []
+    context_main_frames = []
     prediction_frames = []
     split_records = []
     split_input = np.arange(len(features)).reshape(-1, 1)
@@ -295,6 +320,7 @@ def main() -> None:
                 num_features=features.shape[-1],
                 num_contexts=len(selected_context_names),
                 context_mask=context_mask,
+                context_main_effect=context_main_effect,
             )
             train_metrics = train_continuous_investor_model(
                 model,
@@ -346,6 +372,15 @@ def main() -> None:
                         split_id,
                     )
                 )
+            if context_main_effect:
+                context_main_frames.append(
+                    _context_main_weights_frame(
+                        model,
+                        investor,
+                        selected_context_names,
+                        split_id,
+                    )
+                )
 
         logger.info("completed continuous CPCV split %d/%d", split_id + 1, cv.get_n_splits())
 
@@ -358,6 +393,11 @@ def main() -> None:
     if context_weight_frames:
         context_weights = pd.concat(context_weight_frames, ignore_index=True)
         context_weights_summary = summarize_context_weights(context_weights)
+    context_main_weights = None
+    context_main_weights_summary = None
+    if context_main_frames:
+        context_main_weights = pd.concat(context_main_frames, ignore_index=True)
+        context_main_weights_summary = summarize_context_main_weights(context_main_weights)
     split_summary = pd.DataFrame(split_records)
     predictions = pd.concat(prediction_frames, ignore_index=True)
 
@@ -369,6 +409,11 @@ def main() -> None:
         context_weights.to_csv(output_dir / "context_weights.csv", index=False)
         context_weights_summary.to_csv(
             output_dir / "context_weights_summary.csv", index=False
+        )
+    if context_main_weights is not None and context_main_weights_summary is not None:
+        context_main_weights.to_csv(output_dir / "context_main_weights.csv", index=False)
+        context_main_weights_summary.to_csv(
+            output_dir / "context_main_weights_summary.csv", index=False
         )
     split_summary.to_csv(output_dir / "cv_splits.csv", index=False)
     predictions.to_csv(output_dir / "predictions.csv", index=False)
@@ -386,6 +431,11 @@ def main() -> None:
         "context_weights": (
             context_weights_summary.to_dict(orient="records")
             if context_weights_summary is not None
+            else []
+        ),
+        "context_main_weights": (
+            context_main_weights_summary.to_dict(orient="records")
+            if context_main_weights_summary is not None
             else []
         ),
     }
