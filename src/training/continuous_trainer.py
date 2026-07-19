@@ -40,6 +40,19 @@ def _continuous_weight_history_rows(
                         "weight": float(context_weights[feature_idx, context_idx]),
                     }
                 )
+    if context_names and getattr(model, "context_main", None) is not None:
+        for context, weight in zip(
+            context_names, model.context_main.detach().cpu().tolist(), strict=True
+        ):
+            rows.append(
+                {
+                    "epoch": epoch,
+                    "parameter": "alpha",
+                    "feature": "",
+                    "context": context,
+                    "weight": float(weight),
+                }
+            )
     return rows
 
 

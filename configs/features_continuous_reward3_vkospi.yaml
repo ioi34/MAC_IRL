@@ -1,0 +1,28 @@
+paths:
+  raw_daily: samsung_macirl_EXTENDED_2019_2025.csv
+  processed_dataset: data/processed/dataset_continuous_reward3_vkospi.npz
+  processed_metadata: data/processed/metadata_continuous_reward3_vkospi.json
+
+columns:
+  vkospi: vkospi
+
+features:
+  selected:
+    - momentum
+    - herd
+    - underwater
+  params:
+    momentum:
+      window: 20
+    herd:
+      window: 1
+    underwater: {}
+
+contexts:
+  selected:
+    - kospi_return_1d
+    - fx_level_z_252
+    - vkospi_1d
+
+scaling:
+  method: standard

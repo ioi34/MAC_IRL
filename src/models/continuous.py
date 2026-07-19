@@ -44,6 +44,7 @@ class ContinuousInvestorIRLModel(nn.Module):
         num_features: int,
         num_contexts: int = 0,
         context_mask: torch.Tensor | None = None,
+        context_main_effect: bool = False,
     ):
         super().__init__()
         self.num_contexts = num_contexts
@@ -58,11 +59,18 @@ class ContinuousInvestorIRLModel(nn.Module):
                     f"({num_features}, {num_contexts})"
                 )
             self.register_buffer("context_mask", context_mask.detach().clone().float())
+            if context_main_effect:
+                self.context_main = nn.Parameter(torch.zeros(num_contexts))
+            else:
+                self.register_parameter("context_main", None)
         else:
             if context_mask is not None:
                 raise ValueError("context_mask requires at least one context")
+            if context_main_effect:
+                raise ValueError("context_main_effect requires at least one context")
             self.register_parameter("context_weights", None)
             self.register_buffer("context_mask", None)
+            self.register_parameter("context_main", None)
 
     def effective_context_weights(self) -> torch.Tensor | None:
         if self.context_weights is None:
@@ -86,6 +94,8 @@ class ContinuousInvestorIRLModel(nn.Module):
             state_score = features @ weights
         else:
             state_score = torch.einsum("bf,bf->b", features, weights)
+        if self.context_main is not None:
+            state_score = state_score + context @ self.context_main
         action = torch.clamp(state_score, -1.0, 1.0)
         reward_at_policy = state_score * action - 0.5 * action.square()
         return {
@@ -98,4 +108,6 @@ class ContinuousInvestorIRLModel(nn.Module):
         penalty = self.beta.abs().sum()
         if self.context_weights is not None:
             penalty = penalty + self.effective_context_weights().abs().sum()
+        if self.context_main is not None:
+            penalty = penalty + self.context_main.abs().sum()
         return penalty

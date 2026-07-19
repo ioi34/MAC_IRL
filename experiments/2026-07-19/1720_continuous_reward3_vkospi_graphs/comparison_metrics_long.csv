@@ -1,0 +1,73 @@
+run,investor,metric,mean,std
+no context,foreign,mae,0.1939458823466937,0.0153843956091591
+no context,institution,mae,0.0944846468685109,0.0084300958467882
+no context,retail,mae,0.267397894625188,0.0280074318182187
+no context,foreign,rmse,0.2439505048822332,0.0166875402310942
+no context,institution,rmse,0.1249192549114575,0.0121312812664642
+no context,retail,rmse,0.3190450924636098,0.0285120989844326
+no context,foreign,mse,0.0597841345201727,0.0080861233163122
+no context,institution,mse,0.0157487178331294,0.0030216637063833
+no context,retail,mse,0.1025846454849781,0.0176754084379683
+no context,foreign,direction_accuracy,0.6344921822759491,0.0388302472155535
+no context,institution,direction_accuracy,0.5250882364912403,0.0449955474208356
+no context,retail,direction_accuracy,0.6009454532768155,0.0560050082187582
+no context,foreign,correlation,0.2881946432786648,0.1087745887588512
+no context,institution,correlation,0.0725328610274831,0.0728129789601756
+no context,retail,correlation,0.2341265735435165,0.1183477441558811
+no context,foreign,saturation_rate,0.0,0.0
+no context,institution,saturation_rate,0.0,0.0
+no context,retail,saturation_rate,0.0,0.0
+default (kospi+fx),foreign,mae,0.1956625396899231,0.0160384105908838
+default (kospi+fx),institution,mae,0.0944791734099831,0.0084706463920512
+default (kospi+fx),retail,mae,0.2666454944979121,0.0293328815281758
+default (kospi+fx),foreign,rmse,0.2463084024765958,0.0169957230900509
+default (kospi+fx),institution,rmse,0.1249674547591979,0.0121359318716044
+default (kospi+fx),retail,rmse,0.3195258024769594,0.0300179715514526
+default (kospi+fx),foreign,mse,0.0609502647427407,0.008309918991817
+default (kospi+fx),institution,mse,0.0157608726837756,0.0030266092126797
+default (kospi+fx),retail,mse,0.1029777930953628,0.018602098353821
+default (kospi+fx),foreign,direction_accuracy,0.6303614934207848,0.0376514054774354
+default (kospi+fx),institution,direction_accuracy,0.5296544385717027,0.0330903784227802
+default (kospi+fx),retail,direction_accuracy,0.5896087358487274,0.0546958415011284
+default (kospi+fx),foreign,correlation,0.2610825702027339,0.109901288790299
+default (kospi+fx),institution,correlation,0.0670538105138204,0.0732044820286151
+default (kospi+fx),retail,correlation,0.233032968362737,0.1140797415697276
+default (kospi+fx),foreign,saturation_rate,0.0,0.0
+default (kospi+fx),institution,saturation_rate,0.0,0.0
+default (kospi+fx),retail,saturation_rate,0.0,0.0
+vkospi only,foreign,mae,0.1927668736476697,0.0142162977149819
+vkospi only,institution,mae,0.0945293589738667,0.0084039619592275
+vkospi only,retail,mae,0.2682036901644659,0.026355142043585
+vkospi only,foreign,rmse,0.2418960665665366,0.0159041383235477
+vkospi only,institution,rmse,0.1249778823613401,0.0121334710261273
+vkospi only,retail,rmse,0.3195992005285313,0.0271393665749156
+vkospi only,foreign,mse,0.0587610277113809,0.0076775622784296
+vkospi only,institution,mse,0.0157634206182414,0.0030242343394407
+vkospi only,retail,mse,0.1028638265250509,0.0168653850676022
+vkospi only,foreign,direction_accuracy,0.6329303818445061,0.0469297858168717
+vkospi only,institution,direction_accuracy,0.5142219198632407,0.0364078323750121
+vkospi only,retail,direction_accuracy,0.5982155005494794,0.0562004976696756
+vkospi only,foreign,correlation,0.2953567998656295,0.0887996043948832
+vkospi only,institution,correlation,0.055152734640171,0.0739742833786447
+vkospi only,retail,correlation,0.2305021334541947,0.1009592461298778
+vkospi only,foreign,saturation_rate,0.0,0.0
+vkospi only,institution,saturation_rate,0.0,0.0
+vkospi only,retail,saturation_rate,0.0,0.0
+default + vkospi,foreign,mae,0.1940024733806667,0.0148153644417116
+default + vkospi,institution,mae,0.0945257472230321,0.0084287417859577
+default + vkospi,retail,mae,0.2681296264415302,0.0276727347413591
+default + vkospi,foreign,rmse,0.2438297324649803,0.0167855486122185
+default + vkospi,institution,rmse,0.1250123254845447,0.0121255258974758
+default + vkospi,retail,rmse,0.3207119520221029,0.0284093783452064
+default + vkospi,foreign,mse,0.0597284318618856,0.0082674135909295
+default + vkospi,institution,mse,0.0157718426040487,0.0030258110148982
+default + vkospi,retail,mse,0.1036453135527229,0.0177349909279912
+default + vkospi,foreign,direction_accuracy,0.6272274262854617,0.0466046627270319
+default + vkospi,institution,direction_accuracy,0.5210843058244806,0.0307210490723053
+default + vkospi,retail,direction_accuracy,0.5851588256842326,0.0586087345291901
+default + vkospi,foreign,correlation,0.2766910635357176,0.0884669373394795
+default + vkospi,institution,correlation,0.0552145209358075,0.0719727107304744
+default + vkospi,retail,correlation,0.2270854017069097,0.0955772088634516
+default + vkospi,foreign,saturation_rate,0.0,0.0
+default + vkospi,institution,saturation_rate,0.0,0.0
+default + vkospi,retail,saturation_rate,0.0,0.0

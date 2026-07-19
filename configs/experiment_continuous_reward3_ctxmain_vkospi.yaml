@@ -1,0 +1,30 @@
+model:
+  reward_type: continuous_contextual_linear
+  context_names:
+    - vkospi_1d
+  context_main_effect: true
+
+investor_overrides:
+  foreign:
+    epochs: 75
+    batch_size: 256
+    learning_rate: 0.001
+    loss:
+      lambda_l1: 0.0
+  institution:
+    epochs: 10
+    batch_size: 2048
+    learning_rate: 0.0005
+    loss:
+      lambda_l1: 0.01
+  retail:
+    epochs: 20
+    batch_size: 512
+    learning_rate: 0.001
+    loss:
+      lambda_l1: 0.0003
+
+experiment:
+  name: continuous_reward3_ctxmain_vkospi
+  output_dir: runs/continuous_reward3_ctxmain_vkospi
+  save_checkpoints: true
