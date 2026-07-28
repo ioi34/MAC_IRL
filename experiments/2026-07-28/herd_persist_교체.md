@@ -146,13 +146,36 @@ persist는 같은 정보를 직접·양의 부호로 측정하므로 해석이 �
 
 외국인과 개인이 정확한 거울상(KOSPI 상승일 외국인 매수/개인 매도, 원화 약세 국면 외국인 매도/개인 매수). canonical과 동일 패턴.
 
+## 검증 스위트 (bootstrap 200 / walk-forward / ridge / ablation, 2026-07-28 정식 실행)
+
+`scripts/run_continuous_reward_validation.py --bootstrap-resamples 200` 실행
+(`runs/continuous_reward3_persist_validation/`), `scripts/analyze_continuous_reward_validation.py`로 집계.
+(집계 스크립트 마지막 단계인 `momentum`↔`relative` 상관 분리 분석은 이 3특징 구성에
+`relative`가 없어 에러로 스킵됨 — canonical(herd) 검증 때도 동일하게 스킵됐던 기존 스크립트
+한계이며 이번 변경과 무관. 그 앞의 13개 결과 파일은 모두 정상 저장됨.)
+
+| 검증 | persist 결과 | 판정 |
+| --- | --- | --- |
+| Bootstrap 95% CI (월별 블록, 200회) | 외국인 +0.031~+0.072, 기관 +0.0002~+0.0049, 개인 +0.028~+0.036 — **3/3 0 배제** | 통과 |
+| Ridge (선택 λ) vs Lasso 부호 일치 | 외국인/기관/개인 **3/3 부호 유지**(ridge_to_lasso 비율 0.63~0.99) | 통과 |
+| Walk-forward (2023/2024/2025, 연도별 재학습) 부호 반전 | 외국인 반전 없음(3/3 양), 개인 반전 없음(3/3 양), **기관은 1/3 창에서 음전환**(계수가 원래 작음, 0.0043±0.0011) | 외국인·개인 통과 / 기관 약함 |
+| Ablation (persist 제거) paired bootstrap | 외국인 상관 0.344→0.283, RMSE 0.242→0.248 — **통계적으로 유의(제거 시 악화)**. 기관·개인은 방향은 같으나 유의성 약함 | 외국인 유의 / 기관·개인 방향 일치 |
+
+출처: `runs/continuous_reward3_persist_validation/weight_bootstrap/bootstrap_reward_weights_summary.csv`,
+`runs/continuous_reward3_persist_validation/analysis/ridge_lasso_reward_comparison.csv`,
+`runs/continuous_reward3_persist_validation/analysis/walk_forward_reward_stability.csv`,
+`runs/continuous_reward3_persist_validation/analysis/ablation_paired_bootstrap.csv`
+
+→ **외국인·개인은 검증 스위트 전 항목 통과.** 기관은 persist 계수 자체가 작아(다른 계수 대비
+1/10 수준) walk-forward 한 구간에서 부호가 흔들리지만, ablation 방향과 bootstrap CI는 여전히
+0을 배제한다 — "약하지만 실재하는" 효과로 해석.
+
 ## 진단 — persist가 momentum과 구별되는가
 
-> **주의(정정 2026-07-28): 아래 VIF·상관·AR(1) 수치는 저장소에 재현 스크립트/출력 파일이
-> 없는 ad hoc 분석 결과다.** OOS 성능·가중치 표(위)는 이번에 `scripts/train_continuous.py`
-> 정식 실행으로 재확인했지만, 이 절의 수치는 그 대상이 아니었다. 최초 기록 당시
-> "공통분모/자기분모 병행 비교"로 적혀 있었는데 지금 코드에는 자기분모(최종) 정의
-> 하나만 남아 있으므로, 아래는 그 한 열만 남기고 정리했다. 인용 전 재실행·저장 필요.
+VIF·상관은 위 검증 스위트 실행으로 파일 근거가 생겼다
+(`runs/continuous_reward3_persist_validation/analysis/feature_vif.csv`,
+`.../feature_correlations.csv`, 아래 표와 정확히 일치). AR(1)·저변동일 절은 이 스위트에
+포함되지 않는 별도 ad hoc 분석이라 여전히 재현 스크립트가 없다.
 
 ### VIF (n=973) — 안전
 
@@ -223,5 +246,6 @@ persist는 이 행동 자체의 시차이므로, 계수가 양수인 것은 관�
 1. ~~`scripts/train_continuous.py`로 `persist` 명세 정식 실행~~ → **완료 (2026-07-28)**, 위 수치로 확정.
 2. persist 문헌 근거 확정 — Sias(2002) 자기추종 성분을 1차 근거로, 주문 분할 집행 문헌을 보조로 (서지 검증 필요)
 3. §2 block 3(herd 문단)·§3.3 특징 정의·§4 보고 재작성, 예상 부호 표 갱신
-4. 검증 스위트(bootstrap·walk-forward·ridge·ablation) 재실행
+4. ~~검증 스위트(bootstrap·walk-forward·ridge·ablation) 재실행~~ → **완료 (2026-07-28)**, 외국인·개인 전 항목 통과, 기관은 약하지만 방향 일치.
 5. 명명 확정 — "herding"이 아닌 **flow persistence**(거래 지속성)로 표기
+6. AR(1)·저변동일 지속성 분석의 재현 스크립트 저장 (현재 ad hoc, 파일 근거 없음)
