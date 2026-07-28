@@ -7,6 +7,7 @@ def test_each_reward_feature_is_owned_by_its_own_module():
         "herd": "src.features.herd",
         "herd_a": "src.features.herd",
         "herd_b": "src.features.herd",
+        "persist": "src.features.persist",
         "execution_persistence_3": "src.features.institution",
         "short_residual_return_1": "src.features.institution",
         "short_residual_return_5": "src.features.institution",

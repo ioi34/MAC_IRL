@@ -14,6 +14,7 @@ from src.features.institution import (
     build_short_residual_return_5,
 )
 from src.features.momentum import build_momentum, build_shortmom_orth
+from src.features.persist import build_persist
 from src.features.relative import build_relative
 from src.features.turnover import (
     build_turnover_20,
@@ -32,6 +33,7 @@ FEATURE_REGISTRY: dict[str, FeatureBuilder] = {
     "herd": build_herd,
     "herd_a": build_herd_a,
     "herd_b": build_herd_b,
+    "persist": build_persist,
     "execution_persistence_3": build_execution_persistence_3,
     "short_residual_return_1": build_short_residual_return_1,
     "short_residual_return_5": build_short_residual_return_5,
