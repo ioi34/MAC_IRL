@@ -1,0 +1,67 @@
+% ---------------------------------------------------------------------
+%  미리보기 전용 래퍼 (kotex이 없는 환경에서 PDF를 뽑기 위한 파일)
+%
+%  kotex이 설치된 환경에서는 build-sections-ko.tex 을 쓴다. 이 파일은
+%  kotex/xeCJK를 쓰지 않고 fontspec만으로 한글을 조판하므로, acmart의
+%  기본 라틴 서체(Libertine)가 CJK 서체로 대체된다. 내용 확인용이며
+%  최종 제출본 조판에는 사용하지 않는다.
+%
+%  컴파일:
+%    xelatex build-sections-ko-preview && bibtex build-sections-ko-preview \
+%      && xelatex build-sections-ko-preview && xelatex build-sections-ko-preview
+% ---------------------------------------------------------------------
+
+\documentclass[sigconf,nonacm]{acmart}
+
+\usepackage{fontspec}
+\IfFontExistsTF{Noto Serif CJK KR}{%
+  \setmainfont{Noto Serif CJK KR}%
+  \setsansfont{Noto Sans CJK KR}%
+}{%
+  \setmainfont{Noto Serif CJK JP}%
+  \setsansfont{Noto Sans CJK JP}%
+}
+\XeTeXlinebreaklocale "ko"
+\XeTeXlinebreakskip = 0pt plus 0.1em
+
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{array}
+\usepackage{url}
+
+\settopmatter{printacmref=false,printfolios=true}
+\setcopyright{none}
+
+\makeatletter
+\let\proposition\relax \let\endproposition\relax
+\makeatother
+\theoremstyle{acmplain}
+\newtheorem{proposition}{명제}[section]
+
+% 캡션 이름을 본문 표기(그림/표)와 일치시킨다.
+\AtBeginDocument{%
+  \renewcommand{\figurename}{그림}%
+  \renewcommand{\tablename}{표}%
+}
+
+
+\begin{document}
+
+\title{[초안] 방법과 실험 절 조판 확인용}
+\author{저자명}
+\affiliation{%
+  \institution{소속기관}
+  \city{서울}
+  \country{대한민국}}
+\email{author@example.com}
+\renewcommand{\shortauthors}{저자명}
+
+\maketitle
+
+\input{sections-method-experiments-ko}
+
+\bibliographystyle{ACM-Reference-Format}
+\bibliography{paper-ko,paper-refs-additional}
+
+\end{document}

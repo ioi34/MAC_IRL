@@ -1,0 +1,35 @@
+% Minimal wrapper for typesetting Sections 3 and 4 on their own.
+% Build: xelatex build-sections-en && bibtex build-sections-en
+%        && xelatex build-sections-en && xelatex build-sections-en
+% (pdflatex also works if the local TeX installation has scalable Type 1 fonts.)
+
+\documentclass[sigconf,nonacm]{acmart}
+
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{array}
+\usepackage{url}
+
+\settopmatter{printacmref=false,printfolios=true}
+\setcopyright{none}
+
+\begin{document}
+
+\title{[Draft] Method and Experiments sections, typesetting check}
+\author{Anonymous Author(s)}
+\affiliation{%
+  \institution{Institution}
+  \city{Seoul}
+  \country{Republic of Korea}}
+\email{author@example.com}
+\renewcommand{\shortauthors}{Anon.}
+
+\maketitle
+
+\input{sections-method-experiments-en}
+
+\bibliographystyle{ACM-Reference-Format}
+\bibliography{paper-ko,paper-refs-additional}
+
+\end{document}

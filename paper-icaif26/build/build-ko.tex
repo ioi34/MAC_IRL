@@ -1,0 +1,51 @@
+% 3장/4장 분량 확인용 래퍼.
+% 컴파일: (paper-icaif26/ 에서)
+%   xelatex -output-directory=build build/build-ko.tex   ... 은 경로가 꼬이므로
+%   아래처럼 paper-icaif26/ 에서 실행한다:
+%   cp build/build-ko.tex . && xelatex build-ko && bibtex build-ko && xelatex build-ko && xelatex build-ko
+
+\documentclass[sigconf,nonacm]{acmart}
+
+\IfFileExists{kotex.sty}{\usepackage{kotex}}{%
+  \usepackage{fontspec}%
+  \IfFontExistsTF{Noto Serif CJK KR}{\setmainfont{Noto Serif CJK KR}}{%
+    \setmainfont{Noto Serif CJK JP}}%
+  \XeTeXlinebreaklocale "ko"%
+  \XeTeXlinebreakskip = 0pt plus 0.1em%
+}
+
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{array}
+
+\settopmatter{printacmref=false,printfolios=true}
+\setcopyright{none}
+
+\makeatletter
+\let\proposition\relax \let\endproposition\relax
+\makeatother
+\theoremstyle{acmplain}
+\newtheorem{proposition}{명제}[section]
+
+\AtBeginDocument{%
+  \renewcommand{\figurename}{그림}%
+  \renewcommand{\tablename}{표}%
+}
+
+\begin{document}
+
+\title{[분량 확인] SPR-IRL 방법과 실험}
+\author{저자명}
+\affiliation{\institution{소속기관}\city{서울}\country{대한민국}}
+\email{author@example.com}
+\renewcommand{\shortauthors}{저자명}
+\maketitle
+
+\input{sections/03-04-ko}
+\input{sections/05-ko}
+
+\bibliographystyle{ACM-Reference-Format}
+\bibliography{paper-ko,paper-refs-additional}
+
+\end{document}

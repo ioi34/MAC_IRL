@@ -1,0 +1,66 @@
+% =====================================================================
+%  Section 5, Discussion and Limitations (English)
+%
+%  "What this study does not claim" belongs here, not in Section 4 (Results).
+%  Length target: ~0.6 pp.
+% =====================================================================
+
+\section{Discussion and Limitations}
+\label{sec:discussion}
+
+What SPR-IRL recovers is a picture that places the preferences of three investor
+types side by side on one common scale. Foreign and retail investors diverge in
+opposite directions on momentum, the same contrast reappears in the context
+response, and institutional investors show no identified preference once herding
+is set aside. All three findings come from giving every type the same features
+and the same model form and estimating only the parameters separately, so the
+contrast was not imposed by design.
+
+\subsection{What This Study Does Not Claim}
+\label{sec:notclaim}
+
+As the final stage of the protocol we state what the results do not support.
+
+\textbf{(1) Return predictability.} Our metrics are reproduction errors for the
+direction and intensity of order flow and include no returns, Sharpe ratios or
+transaction costs. No trading rule follows from Table~\ref{tab:performance}.
+
+\textbf{(2) Superior flow prediction.} The persistence baseline beats SPR-IRL on
+directional accuracy and correlation (\S\ref{sec:oos}). Preference recovery and
+prediction call for different feature sets. In a preliminary check, adding the
+lagged own action as a fourth feature lifts the model above the baseline
+(directional accuracy $0.646/0.569/0.629$) but reverses the sign of the retail
+$\alpha^{KOSPI}$ and eliminates the underwater coefficient. \textbf{Some of the
+mirror images reported here are therefore not separable from the autocorrelation
+of order flow.}
+
+\textbf{(3) Causal effects.} The recovered weights are conditional associations
+among standardized observed features. Because feature--context correlations range
+from $-0.29$ to $0.22$, the magnitude of any coefficient depends on the other
+terms being controlled for.
+
+\textbf{(4) A behavioural reading of the negative cross-type association.} The
+herding coefficient and the mirrored context responses are not separable from the
+market-clearing constraint (\S\ref{sec:beta}).
+
+\textbf{(5) A test of the disposition effect.} The retail underwater sign agrees
+with the literature but does not pass the month-block bootstrap, and the
+average-cost proxy is built from aggregate trades rather than account-level
+realized gains.
+
+\textbf{(6) Generalization across stocks.} The single-stock design is a control
+for isolating heterogeneity across types; extension to other stocks and markets
+is untested.
+
+\subsection{Future Work}
+
+The most pressing task is to add the lagged own action as a feature and check
+whether the mirror images survive once autocorrelation is controlled. Next,
+decomposing the ``institutional'' category into pension funds, investment trusts,
+insurers and others may reveal preferences currently hidden by offsetting flows.
+Finally, the myopia assumption remains to be relaxed. As
+Proposition~\ref{prop:lasso} shows, a one-step-ahead setting makes the reward
+coincide with the policy; introducing state dynamics and multi-period value
+separates the two and turns the exercise into a structural recovery that
+regression cannot reach. The symmetric estimation and validation protocol of
+SPR-IRL carry over unchanged to that extension.

@@ -1,0 +1,245 @@
+% =====================================================================
+%  [개정본 2026-07-27] 부록 (한국어)
+%  \appendix 이후에 \input{sections/appendix-ko}
+%  표 본문은 sections/generated/*.tex (결과 CSV에서 자동 생성)
+% =====================================================================
+
+\appendix
+
+\section{식 (6)의 비볼록성, 제약 추정량, 그리고 유일성}
+\label{app:convexity}
+
+\textbf{비볼록성.} 한 관측의 손실을 $\ell(u)=(\mathrm{clip}(u,-1,1)-a)^2$라 하면
+$a=0$일 때 $\ell(-2)=1$, $\ell(-1)=1$, $\ell(0)=0$이므로
+$\ell(-1)=1>\tfrac{1}{2}[\ell(-2)+\ell(0)]=0.5$이고, 따라서 $\ell$은 볼록이 아니다.
+$z_t\neq 0$인 관측이 하나라도 있으면 식~\eqref{eq:loss}도 $\theta$에 대해 볼록이 아니다.
+
+\textbf{포화는 오차를 줄일 수 있다.} $\mathrm{clip}(\cdot)$은 상자 $[-1,1]^n$으로의
+사영 $\Pi$이고 $a\in[-1,1]^n$이므로 사영의 비확장성에 의해 모든 $\theta$에서
+$\lVert\Pi(Z\theta)-a\rVert\le\lVert Z\theta-a\rVert$다. 이것이 등호가 아닐 수 있음을
+보이는 최소 예: $Z=(1,\ 0.1)^{\top}$, $a=(1,1)^{\top}$이면 무제약 최소제곱해
+$\theta=1.089$에서 식~\eqref{eq:loss}의 값은 $0.397$이지만 $\theta=20$(두 관측 모두
+포화)에서는 $0$이다. 즉 포화영역의 해가 무제약 문제에서 엄격히 우월할 수 있으므로,
+어떤 해에서 $|q|<1$임을 확인하는 것만으로는 전역 최적성이 따라오지 않는다.
+
+\textbf{명제~\ref{prop:lasso}의 증명.}
+(a) $\theta\in\mathcal{C}_i$이면 모든 $t\in\mathcal{D}_i$에서 $|z_t^{\top}\theta|\le1$이라
+$\mathrm{clip}(z_t^{\top}\theta)=z_t^{\top}\theta$이므로 두 목적식이 항등적으로 같다.
+(b) $\tilde\theta$가 $\mathbb{R}^{p}$ 전체에서 Lasso 목적식 $L$을 최소화하고
+$\tilde\theta\in\mathcal{C}_i\subset\mathbb{R}^{p}$이면, 임의의 $\theta\in\mathcal{C}_i$에
+대해 $L(\tilde\theta)\le L(\theta)$이므로 $\tilde\theta$는 식~\eqref{eq:closs}의 전역해다.
+$\tilde\theta$가 $\mathcal{C}_i$의 내부에 있으면 활성 제약이 없어 KKT 승수가 모두 0이고,
+식~\eqref{eq:closs}의 정상성 조건은 Lasso의 그것과 동일하다.
+(c) $\mathcal{C}_i$는 $2|\mathcal{D}_i|$개 반공간의 교집합이므로 볼록 다면체이고 목적식은
+볼록이므로 식~\eqref{eq:closs}은 볼록 문제다. $\lambda_i=0$이면 $\mathrm{rank}(Z_i)=p$일 때
+목적식이 강볼록이라 해가 유일하다. $\lambda_i>0$이면 등상관 집합 $E$에 대해
+$\mathrm{rank}(Z_{i,E})=|E|$인 것이 Lasso 해의 유일성에 대한 충분조건이다(연속 분포를
+갖는 설계에서는 일반위치 조건이 확률 1로 성립한다).\hfill$\square$
+
+\textbf{포화 관측 수에 대한 경계.} $S(\theta)=\{t:|z_t^{\top}\theta|>1\}$이라 하면
+$t\in S(\theta)$에서 예측값이 $\pm1$이므로 손실이 $(\pm1-a_t)^2\ge(1-|a_t|)^2$이고, 나머지
+항과 $\lambda\lVert\theta\rVert_1$은 음이 아니다. 따라서
+\begin{equation}
+F(\theta)\ \ge\ \frac{1}{n}\sum_{t\in S(\theta)}\bigl(1-|a_t|\bigr)^2 .
+\label{eq:satbound}
+\end{equation}
+$(1-|a_t|)^2$을 오름차순으로 정렬해 누적하면, $F(\theta)<F(\hat\theta)$인 모든 $\theta$에
+대해 $|S(\theta)|\le k^{*}$라는 상한이 나온다. 특히 $S=\mathcal{D}_i$(완전 포화)이면
+$F(\theta)\ge\overline{(1-|a|)^2}$이다. 표~\ref{tab:F1}이 그 값이다. 완전 포화해의 하한은
+$\hat\theta$의 목적값보다 5--47배 크고, $k^{*}$는 학습 관측의 4.2--40.2\%다. 본 표본에서
+$\max_t|a_t|\le0.850$이라 $(1-|a_t|)^2$이 0에서 떨어져 있는 것이 이 경계의 원천이다.
+
+\textbf{다중시작 탐색.} 위 경계는 포화 규모를 제한할 뿐 전역 최적성을 증명하지 않으므로,
+분할ㆍ유형마다 939개 시작점(무제약 해의 배율 확대 7개, $\mathrm{sign}(a)$를 맞추는 선형
+분류 방향의 배율 6개, 로그균등 노름의 무작위 방향 300개, 그리고 각 시작점을 근사경사
+300회로 정련)에서 식~\eqref{eq:loss}을 직접 최소화했다. 합계 42{,}255개 시작점 가운데
+$\hat\theta$보다 나은 목적값을 준 것은 없었다(최대 개선 $5.6\times10^{-17}$, 수치 오차
+수준). 이는 증명이 아니라 수치적 증거이며, 본 논문이 추정량을 식~\eqref{eq:closs}으로
+정의하는 이유이기도 하다.
+
+\begin{table*}[t]
+  \caption{제약 추정량의 실현가능성ㆍ유일성ㆍ포화 경계(45개 분할, 학습 인덱스 기준).
+  $\max|q|$와 조건수는 분할 간 최악값, 완전 포화 하한은 최소값이다.}
+  \label{tab:F1}
+  \small
+  \centering
+  \begin{tabular}{@{}lcclccc c@{}}
+    \toprule
+    유형 & $\max|q|$ & 조건수 & 유일성 조건 & $F(\hat\theta)$ & $k^{*}/n$ (\%)
+      & 완전포화 하한 & 개선 발견 \\
+    \midrule
+    \inputrows{sections/generated/tabF_body.tex}
+    \bottomrule
+  \end{tabular}
+\end{table*}
+
+\section{정확해 추정과 Adam 해의 대조}
+\label{app:exact}
+
+명제~\ref{prop:lasso}에 따라 제약 추정량~\eqref{eq:closs}은 $z\in\mathbb{R}^{11}$ 위의
+$L_1$ 회귀와 일치하므로 좌표하강으로 정확히 풀 수 있다. 표~\ref{tab:A1}은 주 사양(현행 $\lambda$,
+동일 CPCV 45개 분할, 동일 표준화)에서 Adam 해와 정확해를 항목별로 대조한 것이다.
+목적함수의 상대 격차는 외국인 0.21\%, 기관 0.17\%, 개인 0.92\%로 세 유형 모두 최적해
+근방에 도달했으나, 계수는 소수 넷째 자리에서 일치하지 않는다. 세 가지가 관찰된다.
+(i) 개인의 계수는 Adam이 20--45\% 과소추정했다. (ii) 기관의 모멘텀ㆍ손실구간은
+정확해에서 45개 분할 중 36개ㆍ44개가 정확히 0이므로, Adam이 남긴 $-0.0006$ㆍ$-0.0008$과
+그 부호 일관성은 최적화 잔여물이다. (iii) 개인 모멘텀$\times$환율은 부호가 뒤집힌다.
+본 개정의 모든 확장 사양은 이 정확해로 추정했으며 새 사양에 Adam을 재튜닝하지 않았다.
+
+\begin{table}[t]
+  \caption{Adam 해와 정확해의 계수 대조(45개 분할 평균, 괄호는 부호 일관성 \%).
+  ``0 비율''은 정확해가 정확히 0을 준 분할의 비율이다.}
+  \label{tab:A1}
+  \scriptsize
+  \setlength{\tabcolsep}{2.5pt}
+  \centering
+  \begin{tabular}{@{}llcccc@{}}
+    \toprule
+    유형 & 항 & Adam & 정확해 & 차이 & 0 비율 \\
+    \midrule
+    \inputrows{sections/generated/tabA1_body.tex}
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\section{청산 제약이 유도하는 계수 성분}
+\label{app:derivation}
+
+\textbf{유도.} 다음 네 가정에서 출발한다. (A1) $u_{i,t}=\mathit{net}_{i,t}/W_{i,t}$,
+$W_{i,t}=V^{buy}_{i,t}+V^{sell}_{i,t}$ (식~\eqref{eq:action}). (A2) 청산:
+$\mathit{net}_f+\mathit{net}_{\mathit{inst}}+\mathit{net}_r+\varepsilon=0$이며
+$\varepsilon$은 기타법인ㆍ기타외국인 등 잔차다. (A3) 외국인이 표준화 특징 $x$에
+$\beta_f$만큼 반응하면 금액 기준 반응은 $\mathrm{d}\,\mathit{net}_f=\beta_f W_f$이다
+($W$를 $x$와 독립인 규모 변수로 보는 1차 근사). (A4) 그 금액 반응 중 개인이 흡수하는
+몫 $\phi_r$은 일별 금액 회귀 $\mathit{net}_r=a+\phi_r\,\mathit{net}_f+e$의 기울기로
+추정하며, $x$가 유발한 변동과 그 밖의 변동에 대해 흡수율이 같다고 본다(동질 흡수).
+그러면
+\begin{equation}
+\beta^{ind}_{r}=\phi_r\,\beta_f\,\mathbb{E}\!\left[W_f/W_r\right].
+\label{eq:induced}
+\end{equation}
+
+\textbf{측정값.} 본 표본에서 $\phi_r=-0.924$(기관 $-0.059$, 잔차 $-0.017$, 합
+$-1.000$)이고 $\mathbb{E}[W_f/W_r]$은 가중 방식에 따라 1.420(단순평균),
+1.205(거래대금 가중), 1.292(중앙값)다. 잔차는 일평균 $|\varepsilon|=144$억 원으로
+거래대금의 1.34\%, 순매수 금액 기준으로는 외국인 순매수 절대값의 중앙값 대비
+4.5\%다. 표~\ref{tab:A2}는 식~\eqref{eq:induced}의 유도 성분을 관측 계수와 대조한
+것이다. 시차 교차연관은 유형마다 회귀자가 달라 식~\eqref{eq:induced}의 공유 회귀자
+가정이 성립하지 않으므로 대신 합성 실험으로 판정한다.
+
+\begin{table}[t]
+  \caption{외국인 계수가 청산 제약을 통해 개인 계수에 유도하는 성분과 관측치의 대조.
+  유도 성분의 범위는 세 가지 가중 방식에서 온다. 관측치는 주 사양(표~\ref{tab:performance},
+  그림~\ref{fig:forest})의 값이다.}
+  \label{tab:A2}
+  \footnotesize
+  \setlength{\tabcolsep}{3pt}
+  \centering
+  \begin{tabular}{@{}lcccc@{}}
+    \toprule
+    항 & 관측 외국인 & 유도 개인 & 관측 개인 & 유도/관측 (\%) \\
+    \midrule
+    \inputrows{sections/generated/tabA2_body.tex}
+    \bottomrule
+  \end{tabular}
+  \par\smallskip
+  {\footnotesize $^{\dagger}$ 시차 교차연관은 유형별 회귀자가 다르므로
+  식~\eqref{eq:induced}가 적용되지 않는다. 표~\ref{tab:A2b} 참조.}
+\end{table}
+
+\textbf{합성 실험.} 두 가지 인공 자료를 각 1{,}000회 생성해 동일 파이프라인으로
+추정했다. \emph{무선호 null}은 외국인ㆍ기관의 $u$를 관측 표준편차ㆍ1차 자기상관에
+맞춘 AR(1) 잡음으로 만들고 잔차도 같은 방식으로 생성한 뒤, 개인을 청산식의 나머지로
+정의한다. 즉 선호가 전혀 없고 청산 상쇄만 있는 세계다. \emph{반-null}은 외국인만
+관측된 계수($\beta^{mom}=+0.0502$, $\alpha^{KOSPI}=+0.0360$, $\alpha^{FX}=-0.0269$)로
+거래하고 나머지는 동일하다. 표~\ref{tab:A2b}가 결과다. 무선호 null에서 모멘텀과
+$\alpha$의 95\% 대역은 0을 중심으로 $\pm0.04$ 이내인 반면 시차 교차연관은 선호 없이도
+음수가 되며 관측치가 대역 내부에 있다. 반-null에서 개인이 물려받는 $\beta^{mom}$
+대역은 $[-0.101,-0.015]$로 관측치($-0.0304$)를 포함하고, 시뮬레이션의 88.7\%가
+관측보다 더 음수를 만든다. 이 세계는 동시점 상관($-0.74$ 대 관측 $-0.77$; 기관--개인
+$-0.50$ 대 $-0.50$)과 기관 null도 재현한다. 보정의 한계는 그대로 보고한다. 개인을
+순수 흡수자로 두면 개인 $u$의 표준편차가 0.49로 관측(0.334)보다 크고 $|u|>1$이
+5.2\% 발생하므로, 유도 성분의 \emph{크기}는 상한으로 읽는 것이 안전하다. 그럼에도
+관측을 초과한다는 결론은 바뀌지 않는다.
+
+\begin{table}[t]
+  \caption{합성 실험의 계수 95\% 대역(각 1{,}000회). 무선호 null은 선호가 전혀 없고
+  청산 상쇄만 있는 세계, 반-null은 외국인만 관측 계수로 거래하고 개인은 순수
+  흡수자인 세계다.}
+  \label{tab:A2b}
+  \small
+  \centering
+  \begin{tabular}{@{}llcc@{}}
+    \toprule
+    유형 & 항 & 무선호 null & 반-null \\
+    \midrule
+    \inputrows{sections/generated/tabA2b_body.tex}
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\section{\texorpdfstring{통일 $\lambda$ 강건성}{통일 lambda 강건성}}
+\label{app:lambda}
+
+표~\ref{tab:A3}은 세 유형에 동일한 $\lambda$를 부여해 정확해로 재추정한 결과다.
+거울상을 이루는 항의 부호와 크기는 세 $\lambda$ 전부에서 유지되므로 $\lambda$
+비대칭이 거울상을 만든다는 설명은 기각된다. 두 가지는 정직하게 보고한다. 손실구간
+계수는 $\lambda=0.01$에서 약해지고(외국인 부호 일관성 53.3\%), \S\ref{sec:null}의
+``다른 유형의 $1/40$''이라는 비교는 $\lambda=0.01$의 산물이어서 $\lambda=0$에서는
+약 $1/15$--$1/20$이 된다. 참고로 학습 인덱스 내 전진형 내부 교차검증으로 MSE 기준
+$\lambda$를 고르면 $\lambda$가 0.025--0.063으로 커지고 기관의 전 계수가 0으로
+소거되는데, 본 논문의 주 지표는 방향 정확도이므로 목적 불일치가 있어 본문 사양으로
+쓰지 않았다.
+
+\begin{table}[t]
+  \caption{세 유형에 $\lambda$를 통일한 재추정((F1)--(F3), 정확해, 45개 분할 평균,
+  괄호는 부호 일관성 \%). 현행 $\lambda$(0/0.01/0.0003)를 쓴 주 사양은 변경하지 않았다.}
+  \label{tab:A3}
+  \footnotesize
+  \setlength{\tabcolsep}{3pt}
+  \centering
+  \begin{tabular}{@{}llccc@{}}
+    \toprule
+    유형 & 항 & $\lambda=0$ & $\lambda=0.0005$ & $\lambda=0.01$ \\
+    \midrule
+    \inputrows{sections/generated/tabA3_body.tex}
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\section{하이퍼파라미터 민감도}
+\label{app:sensitivity}
+
+표~\ref{tab:A4}는 망각계수 $\rho$와 모멘텀 창의 아홉 조합에서 특징을 재구축해
+정확해로 재추정한 결과다. 모든 조합에서 표본 크기(973행)와 기간은 동일하다. 아홉
+조합 전부에서 외국인 모멘텀은 100\% 양수, 개인 모멘텀은 100\% 음수이고 개인
+손실구간은 91\% 이상 양수이므로 \textbf{거울상이 깨지는 조합은 없다}. 외국인
+손실구간은 긴 창에서 불안정해져 $(\rho,\text{창})=(0.99,60)$에서 부호가 뒤집히는데,
+이 항목은 본문에서도 신뢰구간을 통과하지 못하는 항이다.
+
+\begin{table}[t]
+  \caption{$\rho\times$모멘텀 창 민감도(정확해, 45개 분할 평균, 괄호는 부호 일관성 \%).
+  $^{\ddagger}$는 본문 주 사양의 조합이다.}
+  \label{tab:A4}
+  \scriptsize
+  \setlength{\tabcolsep}{2pt}
+  \centering
+  \begin{tabular}{@{}llcccc@{}}
+    \toprule
+    & & \multicolumn{2}{c}{$\beta^{mom}$} & \multicolumn{2}{c}{$\beta^{uw}$} \\
+    \cmidrule(lr){3-4}\cmidrule(lr){5-6}
+    $\rho$ & 창 & 외국인 & 개인 & 개인 & 외국인 \\
+    \midrule
+    \inputrows{sections/generated/tabA4_body.tex}
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\section{재현}
+\label{app:repro}
+
+모든 개정 결과는 기존 973행 표본과 그로부터 파생 가능한 변수만 사용하며 신규 데이터
+수집은 없다. 정확해 재계산은 저장된 기존 정확해 산출물과 최대 편차 $9.9\times10^{-17}$로
+일치하고, 표~\ref{tab:A4}의 기준 조합$(\rho,\text{창})=(0.98,20)$은 본문 특징 행렬을
+편차 0으로 재현한다. 재현 스크립트는 \texttt{scripts/revision\_20260727\_*.py},
+결과는 \texttt{runs/revision\_20260727/}이며 기존 산출물은 변경하지 않았다.

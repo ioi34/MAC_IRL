@@ -1,0 +1,131 @@
+% =====================================================================
+%  개정본(2026-07-27) 컴파일 래퍼 — acmart sigconf
+%  00_템플릿_요구사항_정리.md 의 강제 항목을 모두 반영:
+%    - \documentclass[sigconf]{acmart}  (제출 시 nonacm 제거: 아래 주석 참조)
+%    - abstract 는 \maketitle 앞
+%    - CCSXML + \ccsdesc, \keywords
+%    - 모든 figure 에 \Description
+%    - booktabs, 세로줄 없음 / 폭 넓은 표·그림은 table*, figure*
+%    - \appendix 이후 부록, ACM-Reference-Format
+%
+%  컴파일 (paper-icaif26/ 에서):
+%    cp build/build-ko-rev.tex . && xelatex build-ko-rev && bibtex build-ko-rev \
+%      && xelatex build-ko-rev && xelatex build-ko-rev
+% =====================================================================
+
+% 제출본에서는 nonacm 을 제거하고, CFP 가 익명심사를 요구하면 anonymous 를 추가한다.
+\documentclass[sigconf,nonacm]{acmart}
+
+\IfFileExists{kotex.sty}{\usepackage{kotex}}{%
+  \usepackage{fontspec}%
+  % 제목ㆍ절 표제는 acmart 가 sans 계열로 조판하므로 sans/mono 도 CJK 로 지정해야
+  % 한글 글립이 누락되지 않는다.
+  \IfFontExistsTF{Noto Serif CJK KR}{%
+    \setmainfont{Noto Serif CJK KR}[BoldFont={Noto Serif CJK KR Bold},
+                                    ItalicFont={Noto Serif CJK KR},
+                                    BoldItalicFont={Noto Serif CJK KR Bold}]%
+    \setsansfont{Noto Sans CJK KR}[BoldFont={Noto Sans CJK KR Bold},
+                                   ItalicFont={Noto Sans CJK KR},
+                                   BoldItalicFont={Noto Sans CJK KR Bold}]%
+    \setmonofont{Noto Sans Mono CJK KR}[Scale=0.92]%
+  }{\setmainfont{Noto Serif CJK JP}\setsansfont{Noto Sans CJK JP}}%
+  \XeTeXlinebreaklocale "ko"%
+  \XeTeXlinebreakskip = 0pt plus 0.1em%
+}
+
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{array}
+
+% tabular 내부에서 행 조각 파일을 읽기 위한 원시 \input (LaTeX \input 은 정렬을 깨뜨린다)
+\makeatletter
+\newcommand{\inputrows}[1]{\@@input #1 }
+\makeatother
+
+\settopmatter{printacmref=false,printfolios=true}
+\setcopyright{none}
+
+\makeatletter
+\let\proposition\relax \let\endproposition\relax
+\makeatother
+\theoremstyle{acmplain}
+\newtheorem{proposition}{명제}[section]
+
+\AtBeginDocument{%
+  \renewcommand{\figurename}{그림}%
+  \renewcommand{\tablename}{표}%
+  \renewcommand{\appendixname}{부록}%
+}
+
+\begin{document}
+
+\title{SPR-IRL: 집계 수급에서 투자자 유형별 선호를 복원할 때의 식별 경계}
+\subtitle{방법, 실험, 그리고 청산 제약의 정량화 (2026-07-27 개정본)}
+
+\author{저자명}
+\affiliation{\institution{소속기관}\city{서울}\country{대한민국}}
+\email{author@example.com}
+\renewcommand{\shortauthors}{저자명}
+
+\begin{abstract}
+본 논문은 외국인ㆍ기관ㆍ개인 세 투자자 유형에 동일한 특징과 동일한 모형 형태를
+부여하고 파라미터만 분리 학습해 일별 순매수 강도로부터 보상 가중치를 복원하는
+대칭 선호복원(SPR-IRL) 절차를 제시한다. 근시안ㆍ이차보상 설정에서 최적 정책이 절단
+선형이므로 추정 문제를 정책이 내부해인 영역 위의 제약 $L_1$ 회귀로 정의하면 볼록 문제가
+되고, 자료에서 그 제약이 여유롭게 성립함을 확인해 해의 존재ㆍ유일성을 보장한다. 본 논문은
+이 환원을 결함이 아니라 검증 가능성의 근거로 사용한다. 삼성전자 973 거래일 자료에서 조합형
+정화 교차검증, 달력월 블록 부트스트랩, expanding walk-forward, 벌점 교체의 네 단계
+검증을 적용한 결과, 모멘텀 축에서 외국인과 개인이 정반대 부호로 갈리는 대비가
+지연 자기행동을 통제한 뒤에도 살아남는다. 그러나 시장 청산 제약이 한 유형의 계수로부터
+다른 유형에 유도하는 성분을 정량화하면, 그 성분이 관측된 개인 계수의 84--214\%에
+이르므로 개인 측 계수는 독립적 선호로 해석되지 않는다. 컨텍스트 주효과의 대비는
+자기상관 통제 시 부호가 반전되어 서술적 결과로 격하되고, 기관은 합산 범주의 상쇄로
+식별되는 선호를 보이지 않는다. 본 논문의 기여는 복원된 부호 자체가 아니라, 집계
+수급에서 선호를 복원할 때 자기상관과 청산 제약이 만드는 함정을 탐지하고 그 크기를
+계산하는 절차에 있다.
+\end{abstract}
+
+\begin{CCSXML}
+<ccs2012>
+<concept>
+<concept_id>10010147.10010257.10010293.10010294</concept_id>
+<concept_desc>Computing methodologies~Neural networks</concept_desc>
+<concept_significance>300</concept_significance>
+</concept>
+<concept>
+<concept_id>10010147.10010257.10010258.10010261</concept_id>
+<concept_desc>Computing methodologies~Inverse reinforcement learning</concept_desc>
+<concept_significance>500</concept_significance>
+</concept>
+<concept>
+<concept_id>10003752.10010070.10010071.10010261</concept_id>
+<concept_desc>Theory of computation~Machine learning theory</concept_desc>
+<concept_significance>300</concept_significance>
+</concept>
+<concept>
+<concept_id>10010405.10010455.10010461</concept_id>
+<concept_desc>Applied computing~Economics</concept_desc>
+<concept_significance>500</concept_significance>
+</concept>
+</ccs2012>
+\end{CCSXML}
+
+\ccsdesc[500]{Computing methodologies~Inverse reinforcement learning}
+\ccsdesc[500]{Applied computing~Economics}
+\ccsdesc[300]{Theory of computation~Machine learning theory}
+
+\keywords{역강화학습, 선호 복원, 투자자 유형, 시장 청산 제약, 조합형 정화 교차검증,
+식별}
+
+\maketitle
+
+\input{sections/03-04-ko-rev}
+\input{sections/05-ko-rev}
+
+\bibliographystyle{ACM-Reference-Format}
+\bibliography{paper-ko,paper-refs-additional}
+
+\input{sections/appendix-ko}
+
+\end{document}

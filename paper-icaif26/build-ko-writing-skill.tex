@@ -1,0 +1,86 @@
+% =====================================================================
+%  research-paper-writing 스킬을 적용한 4쪽 한국어본 컴파일 래퍼.
+%  템플릿 요구사항(00_템플릿_요구사항_정리.md): sigconf, CCSXML+ccsdesc, keywords,
+%  모든 figure 에 \Description, booktabs, 세로줄 금지, ACM-Reference-Format.
+%
+%  컴파일 (paper-icaif26/ 에서):
+%    xelatex build-ko-4p && bibtex build-ko-4p \
+%      && xelatex build-ko-4p && xelatex build-ko-4p
+% =====================================================================
+
+% 제출본에서는 nonacm 을 제거하고, CFP 가 익명심사를 요구하면 anonymous 를 추가한다.
+\documentclass[sigconf,nonacm]{acmart}
+
+\IfFileExists{kotex.sty}{\usepackage{kotex}}{%
+  \usepackage{fontspec}%
+  \IfFontExistsTF{Noto Serif CJK KR}{%
+    \setmainfont{Noto Serif CJK KR}[BoldFont={Noto Serif CJK KR Bold},
+                                    ItalicFont={Noto Serif CJK KR},
+                                    BoldItalicFont={Noto Serif CJK KR Bold}]%
+    \setsansfont{Noto Sans CJK KR}[BoldFont={Noto Sans CJK KR Bold},
+                                   ItalicFont={Noto Sans CJK KR},
+                                   BoldItalicFont={Noto Sans CJK KR Bold}]%
+    \setmonofont{Noto Sans Mono CJK KR}[Scale=0.92]%
+  }{\setmainfont{Noto Serif CJK JP}\setsansfont{Noto Sans CJK JP}}%
+  \XeTeXlinebreaklocale "ko"%
+  \XeTeXlinebreakskip = 0pt plus 0.1em%
+}
+
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{array}
+\usepackage{placeins}
+\setlength{\emergencystretch}{1em}
+
+% tabular 내부에서 행 조각 파일을 읽기 위한 원시 \input
+\makeatletter
+\newcommand{\inputrows}[1]{\@@input #1 }
+\makeatother
+
+\settopmatter{printacmref=false,printfolios=true}
+\setcopyright{none}
+
+\AtBeginDocument{%
+  \renewcommand{\figurename}{그림}%
+  \renewcommand{\tablename}{표}%
+}
+
+\begin{document}
+
+\title{집계 거래 흐름에서 투자자 유형별 행동계수의 표본 안정성}
+\subtitle{4단계 검증을 통한 대칭 선호복원}
+
+\author{저자명}
+\affiliation{\institution{소속기관}\city{서울}\country{대한민국}}
+\email{author@example.com}
+\renewcommand{\shortauthors}{저자명}
+
+\begin{CCSXML}
+<ccs2012>
+<concept>
+<concept_id>10010405.10010455.10010461</concept_id>
+<concept_desc>Applied computing~Economics</concept_desc>
+<concept_significance>500</concept_significance>
+</concept>
+<concept>
+<concept_id>10003752.10010070.10010071.10010261</concept_id>
+<concept_desc>Theory of computation~Machine learning theory</concept_desc>
+<concept_significance>300</concept_significance>
+</concept>
+</ccs2012>
+\end{CCSXML}
+
+\ccsdesc[500]{Applied computing~Economics}
+\ccsdesc[300]{Theory of computation~Machine learning theory}
+
+\keywords{투자자 유형별 수급, 벌점 회귀, 표본 안정성, 조합형 정화 교차검증, 행동재무}
+
+\maketitle
+
+\input{sections/4page-ko-writing-skill}
+
+\bibliographystyle{ACM-Reference-Format}
+\bibliography{paper-ko,paper-refs-additional}
+
+\end{document}

@@ -1,0 +1,148 @@
+%%% -*-BibTeX-*-
+%%% Do NOT edit. File created by BibTeX with style
+%%% ACM-Reference-Format-Journals [18-Jan-2012].
+
+\begin{thebibliography}{9}
+
+%%% ====================================================================
+%%% NOTE TO THE USER: you can override these defaults by providing
+%%% customized versions of any of these macros before the \bibliography
+%%% command.  Each of them MUST provide its own final punctuation,
+%%% except for \shownote{} and \showURL{}.  The latter two
+%%% do not use final punctuation, in order to avoid confusing it with
+%%% the Web address.
+%%%
+%%% To suppress output of a particular field, define its macro to expand
+%%% to an empty string, or better, \unskip, like this:
+%%%
+%%% \newcommand{\showURL}[1]{\unskip}   % LaTeX syntax
+%%%
+%%% \def \showURL #1{\unskip}           % plain TeX syntax
+%%%
+%%% ====================================================================
+
+\ifx \showCODEN    \undefined \def \showCODEN     #1{\unskip}     \fi
+\ifx \showISBNx    \undefined \def \showISBNx     #1{\unskip}     \fi
+\ifx \showISBNxiii \undefined \def \showISBNxiii  #1{\unskip}     \fi
+\ifx \showISSN     \undefined \def \showISSN      #1{\unskip}     \fi
+\ifx \showLCCN     \undefined \def \showLCCN      #1{\unskip}     \fi
+\ifx \shownote     \undefined \def \shownote      #1{#1}          \fi
+\ifx \showarticletitle \undefined \def \showarticletitle #1{#1}   \fi
+\ifx \showURL      \undefined \def \showURL       {\relax}        \fi
+% The following commands are used for tagged output and should be
+% invisible to TeX
+\providecommand\bibfield[2]{#2}
+\providecommand\bibinfo[2]{#2}
+\providecommand\natexlab[1]{#1}
+\providecommand\showeprint[2][]{arXiv:#2}
+
+\bibitem[Choe et~al\mbox{.}(1999)]%
+        {choe1999foreign}
+\bibfield{author}{\bibinfo{person}{Hyuk Choe}, \bibinfo{person}{Bong-Chan Kho},
+  {and} \bibinfo{person}{Ren{\'e}~M. Stulz}.} \bibinfo{year}{1999}\natexlab{}.
+\newblock \showarticletitle{Do Foreign Investors Destabilize Stock Markets? The
+  Korean Experience in 1997}.
+\newblock \bibinfo{journal}{\emph{Journal of Financial Economics}}
+  \bibinfo{volume}{54}, \bibinfo{number}{2} (\bibinfo{year}{1999}),
+  \bibinfo{pages}{227--264}.
+\newblock
+\href{https://doi.org/10.1016/S0304-405X(99)00037-9}{doi:\nolinkurl{10.1016/S0304-405X(99)00037-9}}
+
+
+\bibitem[de~Prado(2018)]%
+        {lopez2018advances}
+\bibfield{author}{\bibinfo{person}{Marcos~L{\'o}pez de Prado}.}
+  \bibinfo{year}{2018}\natexlab{}.
+\newblock \bibinfo{booktitle}{\emph{Advances in Financial Machine Learning}}.
+\newblock \bibinfo{publisher}{Wiley}, \bibinfo{address}{Hoboken, NJ}.
+\newblock
+\showISBNx{9781119482086}
+
+
+\bibitem[Grinblatt and Keloharju(2000)]%
+        {grinblatt2000investment}
+\bibfield{author}{\bibinfo{person}{Mark Grinblatt} {and} \bibinfo{person}{Matti
+  Keloharju}.} \bibinfo{year}{2000}\natexlab{}.
+\newblock \showarticletitle{The investment behavior and performance of various
+  investor types: a study of {Finland}'s unique data set}.
+\newblock \bibinfo{journal}{\emph{Journal of Financial Economics}}
+  \bibinfo{volume}{55}, \bibinfo{number}{1} (\bibinfo{year}{2000}),
+  \bibinfo{pages}{43--67}.
+\newblock
+\href{https://doi.org/10.1016/S0304-405X(99)00044-6}{doi:\nolinkurl{10.1016/S0304-405X(99)00044-6}}
+
+
+\bibitem[Kaniel et~al\mbox{.}(2008)]%
+        {kaniel2008individual}
+\bibfield{author}{\bibinfo{person}{Ron Kaniel}, \bibinfo{person}{Gideon Saar},
+  {and} \bibinfo{person}{Sheridan Titman}.} \bibinfo{year}{2008}\natexlab{}.
+\newblock \showarticletitle{Individual investor trading and stock returns}.
+\newblock \bibinfo{journal}{\emph{The Journal of Finance}}
+  \bibinfo{volume}{63}, \bibinfo{number}{1} (\bibinfo{year}{2008}),
+  \bibinfo{pages}{273--310}.
+\newblock
+\href{https://doi.org/10.1111/j.1540-6261.2008.01316.x}{doi:\nolinkurl{10.1111/j.1540-6261.2008.01316.x}}
+
+
+\bibitem[Kingma and Ba(2015)]%
+        {kingma2015adam}
+\bibfield{author}{\bibinfo{person}{Diederik~P. Kingma} {and}
+  \bibinfo{person}{Jimmy Ba}.} \bibinfo{year}{2015}\natexlab{}.
+\newblock \showarticletitle{{Adam}: a method for stochastic optimization}. In
+  \bibinfo{booktitle}{\emph{Proceedings of the 3rd International Conference on
+  Learning Representations (ICLR)}}.
+\newblock
+
+
+\bibitem[Lakonishok et~al\mbox{.}(1992)]%
+        {lakonishok1992impact}
+\bibfield{author}{\bibinfo{person}{Josef Lakonishok}, \bibinfo{person}{Andrei
+  Shleifer}, {and} \bibinfo{person}{Robert~W. Vishny}.}
+  \bibinfo{year}{1992}\natexlab{}.
+\newblock \showarticletitle{The impact of institutional trading on stock
+  prices}.
+\newblock \bibinfo{journal}{\emph{Journal of Financial Economics}}
+  \bibinfo{volume}{32}, \bibinfo{number}{1} (\bibinfo{year}{1992}),
+  \bibinfo{pages}{23--43}.
+\newblock
+\href{https://doi.org/10.1016/0304-405X(92)90023-Q}{doi:\nolinkurl{10.1016/0304-405X(92)90023-Q}}
+
+
+\bibitem[Odean(1998)]%
+        {odean1998investors}
+\bibfield{author}{\bibinfo{person}{Terrance Odean}.}
+  \bibinfo{year}{1998}\natexlab{}.
+\newblock \showarticletitle{Are investors reluctant to realize their losses?}
+\newblock \bibinfo{journal}{\emph{The Journal of Finance}}
+  \bibinfo{volume}{53}, \bibinfo{number}{5} (\bibinfo{year}{1998}),
+  \bibinfo{pages}{1775--1798}.
+\newblock
+\href{https://doi.org/10.1111/0022-1082.00072}{doi:\nolinkurl{10.1111/0022-1082.00072}}
+
+
+\bibitem[Shefrin and Statman(1985)]%
+        {shefrin1985disposition}
+\bibfield{author}{\bibinfo{person}{Hersh Shefrin} {and} \bibinfo{person}{Meir
+  Statman}.} \bibinfo{year}{1985}\natexlab{}.
+\newblock \showarticletitle{The Disposition to Sell Winners Too Early and Ride
+  Losers Too Long: Theory and Evidence}.
+\newblock \bibinfo{journal}{\emph{The Journal of Finance}}
+  \bibinfo{volume}{40}, \bibinfo{number}{3} (\bibinfo{year}{1985}),
+  \bibinfo{pages}{777--790}.
+\newblock
+\href{https://doi.org/10.1111/j.1540-6261.1985.tb05002.x}{doi:\nolinkurl{10.1111/j.1540-6261.1985.tb05002.x}}
+
+
+\bibitem[Ziebart et~al\mbox{.}(2008)]%
+        {ziebart2008maximum}
+\bibfield{author}{\bibinfo{person}{Brian~D. Ziebart}, \bibinfo{person}{Andrew
+  Maas}, \bibinfo{person}{J.~Andrew Bagnell}, {and} \bibinfo{person}{Anind~K.
+  Dey}.} \bibinfo{year}{2008}\natexlab{}.
+\newblock \showarticletitle{Maximum Entropy Inverse Reinforcement Learning}. In
+  \bibinfo{booktitle}{\emph{Proceedings of the Twenty-Third AAAI Conference on
+  Artificial Intelligence}}. \bibinfo{publisher}{AAAI Press},
+  \bibinfo{address}{Menlo Park, CA}, \bibinfo{pages}{1433--1438}.
+\newblock
+
+
+\end{thebibliography}
