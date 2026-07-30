@@ -1,0 +1,32 @@
+model:
+  reward_type: continuous_contextual_linear
+  context_names:
+  - kospi_return_1d
+  - fx_level_z_252
+  context_main_effect: true
+investor_overrides:
+  foreign:
+    epochs: 75
+    batch_size: 256
+    learning_rate: 0.001
+    loss:
+      lambda_l1: 0.0
+    weight_decay: 0.0003
+  institution:
+    epochs: 75
+    batch_size: 2048
+    learning_rate: 0.0005
+    loss:
+      lambda_l1: 0.0
+    weight_decay: 0.0003
+  retail:
+    epochs: 75
+    batch_size: 512
+    learning_rate: 0.001
+    loss:
+      lambda_l1: 0.0
+    weight_decay: 0.0003
+experiment:
+  name: ridge_3e-04
+  output_dir: runs/continuous_reward3_persist_epochs75_validation/regularization/ridge_3e-04
+  save_checkpoints: true

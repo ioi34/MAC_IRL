@@ -1,0 +1,43 @@
+## epoch만 통일한 비교 실험 (2026-07-30)
+##
+## HP 전면 통일(experiment_..._hpunified.yaml)은 기관을 발산시켰다: batch 2048→256,
+## lr 5e-4→1e-3이 되어 epoch당 gradient step이 8배, 학습률이 2배가 되었기 때문이다.
+## 기관 행동 계열의 산포가 작아(표준편차 0.125 vs 개인 0.334) 이 설정은 과격하다.
+##
+## 여기서는 **각 유형의 튜닝된 batch·lr을 유지하고 epoch만 75로 통일**한다.
+## 목적: "기관 null은 10 epoch 미학습 탓"이라는 반론을 최적화기 과격성이라는
+## 교란 없이 단독으로 검정한다.
+##
+## 비교 기준: runs/continuous_reward3_persist/ (canonical)
+
+model:
+  reward_type: continuous_contextual_linear
+  context_names:
+    - kospi_return_1d
+    - fx_level_z_252
+  context_main_effect: true
+
+investor_overrides:
+  foreign:
+    epochs: 75
+    batch_size: 256
+    learning_rate: 0.001
+    loss:
+      lambda_l1: 0.005
+  institution:
+    epochs: 75
+    batch_size: 2048      # canonical 유지
+    learning_rate: 0.0005 # canonical 유지
+    loss:
+      lambda_l1: 0.005
+  retail:
+    epochs: 75
+    batch_size: 512       # canonical 유지
+    learning_rate: 0.001  # canonical 유지
+    loss:
+      lambda_l1: 0.005
+
+experiment:
+  name: continuous_reward3_persist_epochs75
+  output_dir: runs/continuous_reward3_persist_epochs75
+  save_checkpoints: true

@@ -1,0 +1,48 @@
+## HP 통일 비교 실험 (2026-07-30)
+##
+## 목적: 기여 ①이 주장하는 "동일 조건"을 문자 그대로 만든다. λ는 이미 0.005로
+## 통일되어 있었으나 epochs·batch·lr이 유형별로 달라, "동일 조건"이라는 서술과
+## 어긋나고 기관 null이 미학습 탓이라는 반론 여지를 남겼다.
+##
+## 통일값은 세 설정 중 가장 많이 학습되는 외국인 설정을 채택한다.
+## 어느 유형도 미학습이 되지 않도록 하는 것이 기준이다.
+##
+## 문제가 볼록이고 해가 유일하므로(rank 11, worst cond 6.94 — 45분할×3유형 전부),
+## 수렴만 하면 HP와 무관하게 같은 해에 도달해야 한다. 따라서 canonical 대비
+## 계수가 소수 3~4자리까지 유지되는 것이 정상이며, 크게 움직이면 기존 run이
+## 수렴하지 않았다는 뜻이다.
+##
+## 비교 기준: runs/continuous_reward3_persist/
+
+model:
+  reward_type: continuous_contextual_linear
+  context_names:
+    - kospi_return_1d
+    - fx_level_z_252
+  context_main_effect: true
+
+## 세 유형 동일 — investor_overrides로 명시해 두어 상속 여부에 의존하지 않는다.
+investor_overrides:
+  foreign:
+    epochs: 75
+    batch_size: 256
+    learning_rate: 0.001
+    loss:
+      lambda_l1: 0.005
+  institution:
+    epochs: 75
+    batch_size: 256
+    learning_rate: 0.001
+    loss:
+      lambda_l1: 0.005
+  retail:
+    epochs: 75
+    batch_size: 256
+    learning_rate: 0.001
+    loss:
+      lambda_l1: 0.005
+
+experiment:
+  name: continuous_reward3_persist_hpunified
+  output_dir: runs/continuous_reward3_persist_hpunified
+  save_checkpoints: true
