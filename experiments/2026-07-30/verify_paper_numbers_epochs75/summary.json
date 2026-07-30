@@ -15,9 +15,9 @@
   "combinations_checked": 135,
   "rank_min": 11,
   "rank_deficient": 0,
-  "cond_W_max": 6.936266551685941,
+  "cond_W_max": 6.936266551685934,
   "cond_W_min": 2.4882546078123964,
-  "cond_WtW_max": 48.11179367604483,
+  "cond_WtW_max": 48.11179367603896,
   "worst_cond_at": {
     "split": 39,
     "investor": "retail"
@@ -33,9 +33,9 @@
     "retail": 0.08378552487677542
   },
   "action_ar1": {
-    "foreign": 0.40124132386688427,
-    "institution": 0.14893782415994195,
-    "retail": 0.3445473123442875
+    "foreign": 0.40124132386688416,
+    "institution": 0.14893782415994183,
+    "retail": 0.34454731234428726
   },
   "convergence": {
     "foreign": {

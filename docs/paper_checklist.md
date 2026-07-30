@@ -15,7 +15,31 @@
 
 ## A. Experiments
 
-### A-H1 🔴 BLOCKING — herd feature is not identified as a cross-type quantity
+### A-H1 ✅ RESOLVED 2026-07-28 — replaced by `persist`
+
+> **Outcome.** `herd` → `persist`, redefined on the **own-denominator action** so the
+> coefficient is a literal AR(1) on behaviour (commit `9f0289d`). `persist` was also missing
+> from `FEATURE_REGISTRY` and has been registered.
+>
+> **All four validations pass, and persist is the strongest feature in the model:** bootstrap
+> 200 excludes zero for **all three types** (the only feature that does); walk-forward gives
+> foreign `persist` the smallest dispersion of the nine coefficients (sd 0.0021); ridge agrees
+> on sign 9/9; and in the ablation `remove_persist` is the **only** variant with a significant
+> degradation after BH correction (foreign correlation q = 0.0014, RMSE q = 0.0007).
+>
+> **Headline preserved and performance improved** — momentum and underwater coefficients move
+> in the fourth decimal, and foreign correlation rises 0.284 → **0.306**.
+>
+> **Naming: flow persistence, never herding.** At the type-aggregate level Sias's
+> own-following and mutual-following components cannot be separated, so only the measurable
+> own-following component is used.
+>
+> Detail: `experiments/2026-07-28/herd_persist_교체.md`,
+> `experiments/2026-07-28/2038_persist_검증스위트.md`, `docs/persist_spec_and_results.md`.
+> The diagnosis that motivated the change is retained in `docs/herd_identification_brief.md`.
+
+<details>
+<summary>Original A-H1 record (kept for the paper trail)</summary>
 
 > 📄 **Full working brief: `docs/herd_identification_brief.md`** — self-contained, written so a
 > fresh session can pick this up cold. Includes the cause, the evidence, the already-available
@@ -78,12 +102,12 @@ matrix before they enter the paper.**
 
 **To do**
 
-- [ ] Recompute A-H1 diagnostics from the canonical run feature matrix (not the raw CSV), to fix n and the exact values
-- [ ] Decide the specification (options below) — **not yet decided**
-- [ ] Re-run the canonical run and the validation suite under the chosen specification
-- [ ] Confirm momentum coefficients are stable across old and new specification (this is the check that protects the headline)
-- [ ] Rewrite §2 block 3 motivation and §4 herd reporting to match
-- [ ] Update the sign-expectation table
+- [x] ~~Recompute diagnostics from the canonical feature matrix~~ — superseded; the feature was replaced rather than re-measured
+- [x] **Decide the specification** → **Option B**
+- [x] **Re-run canonical + validation suite** → `runs/continuous_reward3_persist{,_validation}`
+- [x] **Confirm momentum stability** → moves in the fourth decimal; headline intact
+- [ ] Rewrite §3.4 motivation and §4 reporting to match — **§3 scaffolded 2026-07-28, prose pending (Tony)**
+- [ ] Update the sign-expectation table — `persist` now carries a **+** expectation for all three types
 
 **Options considered (2026-07-27)**
 
@@ -94,11 +118,21 @@ matrix before they enter the paper.**
 | C | Use one other type only (`herd_a`/`herd_b`, already implemented) | config + re-run | corr(foreign, institution) = −0.048 → that pair *is* identified, but retail pairs are −0.818 / −0.522. Identification quality differs by type, which **breaks the symmetric-estimation selling point** |
 | D | Drop to 2 features | re-run | Loses the control; persistence may leak into momentum |
 
+**Chosen: B.** Note that the implemented `persist` differs from the option as described above —
+it was redefined on the **own-denominator action** rather than the common-denominator `u`, so
+that the feature and the action share one definition and the coefficient is a literal AR(1).
+The Oh (2025) tension flagged in the table is still live: Oh reports persistence strongest for
+**retail**, our AR(1) says **foreign** (+0.403 vs +0.344). §2's Oh sentence needs the ordering
+softened, or the difference in statistic (DFA Hurst vs AR(1)), sample, and stock stated.
+
+</details>
+
 ---
 
-### A-2 Bootstrap resamples *(재구성)*
+### A-2 Bootstrap resamples ✅ RESOLVED 2026-07-28
 
-- [ ] Re-run block bootstrap at 200 resamples (currently 100)
+- [x] Re-run block bootstrap at 200 resamples — done in `runs/continuous_reward3_persist_validation`
+      (`n_resamples = 200`; the earlier herd-spec run was 100)
 
 ---
 

@@ -1,34 +1,21 @@
 # Section 2 — Related Work (English, for review and editing)
 
-> Mirrors `acmart-primary/mac_irl_icaif26.tex` §2. Last synced 2026-07-27 (after moving the feature-justification block to §3).
-> **Format**: Pattern A — bold run-in headings, no numbered subsections.
-> **Length**: **455 words ≈ 0.48 page** in sigconf two-column (was 644 / 0.68 page before the move).
-> **Blocks**: three, matching the lead-in sentence.
-> **Table 1 lives in §4** — sign expectations appear beside the recovered coefficients there.
-> **Citations**: all verified against source PDFs (`refs_checklist.md` — ⚠️ that file is currently missing from `docs/`).
+> **Generated from `mac_irl_icaif26.tex` — do not hand-edit the prose above the design notes.**
+> Regenerate with `python scripts/tex_to_md_mirror.py --section 2 --out docs/paper_ch2_en.md` after changing the manuscript.
 
 ---
 
-## 2 Related Work
+## Related Work
 
-To place our contribution, we review three lines of work and note what each leaves open.
+To place our contribution, we review four lines of work and note what each leaves open.
 
----
+**Empirical evidence on investor-type flows.** That trading behavior differs systematically across investor types is well documented across markets [choe_kho_stulz,grinblatt_keloharju2001,kaniel_saar_titman]. Korean foreign flow shows positive-feedback trading and daily herding [choe_kho_stulz], and short-horizon contrarian patterns appear in US individual flow [kaniel_saar_titman]. The sharpest evidence comes from a Finnish register recording every investor's daily buys, sells, and holds: Grinblatt and Keloharju [grinblatt_keloharju2001] find contrarian behavior strongest among households, while foreign investors tend to be momentum traders. The topic remains active—Oh [oh2025] applies detrended fluctuation analysis to Korean daily flows from 2015 to 2024 and finds long-range dependence in all three types, with the cross-type ranking visible in gross buys and sells attenuating once flows are netted. These findings, however, either characterize the time-series properties of flow or come from separate regressions on different samples and specifications, each targeting one phenomenon at a time, so the resulting coefficients cannot be placed side by side across types.
 
-**Empirical evidence on investor-type flows.** That trading behavior differs systematically across investor types is well documented. Working directly with Korean data, Choe, Kho, and Stulz [choe_kho_stulz] document positive-feedback trading and herding among foreign investors at the daily frequency. Using the Finnish central register, which records the buys, sells, and holds of every investor daily, Grinblatt and Keloharju [grinblatt_keloharju2001] report that contrarian behavior is strongest among households while foreign investors tend to be momentum traders; Kaniel, Saar, and Titman [kaniel_saar_titman] document short-horizon contrarian patterns in US individual flow. Type-segregated Korean flow remains an active object of study: Oh [oh2025] applies detrended fluctuation analysis to daily buy, sell, and net flows from 2015 to 2024 and finds persistence strongest for retail and weakest for foreign investors. These findings, however, either characterize the time-series properties of flow or come from separate regressions on different samples and specifications, each targeting one phenomenon at a time, so the resulting coefficients cannot be placed side by side.
+**Behavioral regularities behind type differences.** Three regularities recur across this literature. Medium-term return persistence underlies momentum and contrarian trading [jegadeesh_titman]. The disposition effect—reluctance to realize losses [shefrin_statman,odean1998]—is documented in US brokerage accounts and recovered from daily Finnish trades [grinblatt_keloharju2001]. Herding measures [lakonishok_shleifer_vishny] capture participants *of the same type* trading a stock simultaneously; Sias [sias2004] separates institutions that follow each other from institutions that follow their own lagged trades. Each regularity has been established in isolation, for one phenomenon and often one investor type, so none of them indicates how strongly a given type weighs one regularity against another.
 
----
+**Demand systems for heterogeneous investors.** A separate line estimates type-level preferences within a single framework. Koijen and Yogo [koijen_yogo2019] develop a characteristics-based demand system and estimate it on Form 13F holdings, recovering how demand varies across institution types and what that heterogeneity implies for prices. The estimation applies a shared specification to all investors, as we require, but it operates on *quarterly* holdings and on firm fundamentals rather than the behavioral state variables where the regularities above are defined. Daily flow falls outside its scope.
 
-**Demand systems for heterogeneous investors.** A separate line estimates type-level preferences within a single framework. Koijen and Yogo [koijen_yogo2019] develop a characteristics-based demand system and estimate it on Form 13F holdings, recovering how demand varies across institution types and what that heterogeneity implies for prices. The estimation is symmetric across investors in the sense we require, but it operates on *quarterly* holdings and on characteristics such as market equity, book equity, profitability, investment, dividends, and market beta. Daily flow and behavioral state variables—where the regularities above are defined—fall outside its scope.
-
----
-
-> 📤 **MOVED OUT on 2026-07-27 — "Behavioral regularities behind our features" (189 words) now lives in §3 Method.**
-> It justified our feature choices, which is method motivation rather than a survey of prior work — and §2's lead-in promises "three lines of work" while four bold blocks were present. With the block gone, the lead-in is now accurate and §2 drops from 644 to 455 words, returning ~0.2 page to the 8-page ICAIF budget for §4.
-> The paragraph text, the A-H1 HOLD notice, and hand-off instructions for 유민 are in the `\section{Method}` block of `mac_irl_icaif26.tex`. See `paper_checklist.md` → **B-§2-LEN**.
-> Consequence to watch: §2 no longer cites `jegadeesh_titman`, `shefrin_statman`, `odean1998`, or `lakonishok_shleifer_vishny` — they all moved to §3. Behavioral coverage in §2 now rests on block 1 (GK2001, CKS, KST, Oh), which is sufficient.
-
-**Inverse reinforcement learning and preference estimation in finance.** Inverse reinforcement learning recovers a reward that rationalizes observed behavior, with non-uniqueness resolved by the maximum-entropy principle [ziebart2008]. Outside finance it has been used to interpret behavior—Liu, Wu, and Liu [liu2019risk], for instance, recover an implicit reward to characterize risk-prone and risk-averse decision making. In finance the dominant use is learning or improving trading strategies: Yang, Yu, and Almahdi [yang2018gpirl] learn a sentiment-based reward with Gaussian process IRL to build a trading system; Sun, Gong, and Si [sun2023transaction] recover strategies under transaction costs; and Halperin, Liu, and Zhang [halperin2022] recover the implied reward of individual fund managers and feed it to a forward RL algorithm to improve their allocations. The shared objective in this line is a profitable policy or the reward of a single actor, recovered to be imitated or improved. To our knowledge, no prior work estimates the rewards of *heterogeneous investor types* on a shared feature set so that they can be compared with one another, nor subjects the recovered rewards themselves to out-of-sample stability and construct-validity testing.
+**Inverse reinforcement learning and preference estimation in finance.** Inverse reinforcement learning recovers a reward that rationalizes observed behavior, with non-uniqueness resolved by the maximum-entropy principle [ziebart2008]. In finance the dominant use is learning or improving trading strategies: a sentiment-based reward learned with Gaussian process IRL to drive a trading system [yang2018gpirl], strategy recovery under transaction costs [sun2023transaction], and—closest to our setting—Halperin et al. [halperin2022], who recover the implied reward of individual fund managers and feed it to a forward RL algorithm to improve their allocations. Outside finance the same machinery has been used to interpret behavior rather than to trade, for instance to characterize risk-prone and risk-averse decision making [liu2019risk]. The shared objective in this line is a profitable policy or the reward of a single actor, recovered to be imitated or improved. To our knowledge, no prior work estimates the rewards of *heterogeneous investor types* on a shared feature set so that they can be compared with one another, nor subjects the recovered rewards themselves to out-of-sample stability and construct-validity testing.
 
 ---
 
@@ -94,3 +81,8 @@ To place our contribution, we review three lines of work and note what each leav
 
 - ~~Consider naming Wermers (1998) explicitly for the "quarterly estimates for US mutual funds" comparison.~~ **Resolved 2026-07-27 — comparison clause cut.** It rested on a 1998 quarterly benchmark, overstated the ratio ("an order of magnitude" vs. the actual ~4×), said "large stocks" where CKS says large *past winners*, and established a fact (foreign herding is strong) that we never use. Cutting it also removes a slight tension with block 3, where we distance our cross-type feature from the literature's within-type herding measures.
 - `kingma2015` (Adam) is in the bibliography but not yet cited — it belongs in §3.4.
+
+
+
+
+

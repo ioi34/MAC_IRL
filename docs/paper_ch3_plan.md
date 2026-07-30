@@ -1,198 +1,396 @@
-# Section 3 — Method: plan and hand-off spec
+# §3 Method — 기획서 (v2, 2026-07-28 초안 기반 전면 개정)
 
-> Written 2026-07-27. Primary author: **권유민**.
-> Target: `acmart-primary/mac_irl_icaif26.tex` `\section{Method}`.
-> This is a **plan**, not prose. The paragraph currently sitting in `\section{Method}` is raw
-> material moved out of §2 — it is written in §2's voice and **must not be kept as-is**.
-> Section 3.4 below says exactly how it dissolves.
+> **v1 폐기.** v1은 herd 사양·λ 통일 전 기준이었다. 이 버전은 (a) 유민 초안
+> `SPR_4page_...pdf`의 구조를 골격으로 삼고, (b) `persist` 확정 사양과 최신 실행
+> 수치에 맞춘 것이다.
+>
+> 원고: `acmart-primary/mac_irl_icaif26.tex` `\section{Method}` · 주 작성 권유민
+> 근거: `runs/continuous_reward3_persist/`, `runs/continuous_reward3_persist_validation/`
+> 관련: `docs/persist_spec_and_results.md`, `docs/cpcv_vs_walkforward_roles.md`,
+> `experiments/2026-07-28/2038_persist_검증스위트.md`
+> 마감: **2026-08-02 AOE**, 8페이지(참고문헌 포함)
 
 ---
 
-## Locked decisions (2026-07-27)
+## 확정 결정 (2026-07-28)
 
-| # | Decision | Rationale |
+| # | 결정 | 근거 |
 | --- | --- | --- |
-| D1 | **The validation protocol is specified in §3; §4 reports only results.** | Matches the abstract ("we specify and apply a procedure") and contribution #2. If the procedure *is* the contribution, it belongs in Method. §4 then stays focused on tables and interpretation. |
-| D2 | **3.4 presents each feature as definition → grounding → sign expectation**, one short unit per feature, with a summary table. | Keeps each feature's formula next to its justification. The alternative (definitions grouped, justification in a separate paragraph) is what §2 was doing and is the reason the reader has to backtrack. |
-| D3 | **Sign expectations are stated in §3 and echoed in §4** beside the recovered coefficients. | Stating them before results is what makes §4 a test rather than a post-hoc rationalization. The echo in §4 costs about one table column. |
+| **D1** | **IRL 유지 + 조기 환원.** 3.2에서 보상·정책을 IRL 언어로 정의하고, 3.3에서 벌점 최소제곱으로의 환원을 즉시 선언한 뒤, 3.4부터는 회귀 언어만 쓴다 | 제목·초록·§1·§2가 IRL 기반. 환원을 먼저 밝히면 "Lasso에 IRL 라벨" 반론이 무장해제되고, IRL 장치 비용을 한 번만 지불 |
+| **D2** | **SPR = Shared-specification Preference Recovery** | 초안의 `Symmetric`은 계량에서 다른 뜻(대칭 분포·행렬)으로 굳어 오독됨. 약어는 유지하고 확장만 교체 — 기제("동일 사양")를 그대로 진술 |
+| **D3** | **CPCV가 주 프로토콜, walk-forward는 보조(3개 창 유지)** | 부호 일관성·산포·OOS 성능이 모두 CPCV 산출물. walk-forward 10창 전환은 `train_continuous_walk_forward.py` 코드 수정이 필요해 마감 4일 전 위험 대비 실익 부족 |
+| D4 | 3.4는 피처별 **정의 → 근거 → 예상 부호** 순 + 요약 표 | v1에서 확정, 유지 |
+| D5 | 검증 프로토콜은 §3에 명세, §4는 결과만 | v1에서 확정, 유지 |
 
 ---
 
-## Page budget
+## 구조 — 초안 대응표
 
-ICAIF 2026 allows **8 pages including figures and references, no exceptions**
-([CFP](https://icaif2026.org/call-for-papers.html)). At ≈ 945 words/page in sigconf:
+초안은 Method가 §1이고 소절이 1.1~1.4다. 우리 논문에서는 §3이 되고, IRL 층(3.2)과
+환원(3.3)이 새로 들어가 6개 소절이 된다.
 
-| Item | Estimate |
-| --- | ---: |
-| Title, abstract, CCS, keywords, copyright block | ~470 |
-| §1 | ~500 |
-| §2 | 450 |
-| References (17 entries) | ~490 |
-| **Available for §3 + §4 + §5** | **~5,650 (≈ 6 pages)** |
+| 우리 | 초안 | 내용 | 분량 | 상태 |
+| --- | --- | --- | ---: | --- |
+| 3.1 | 1.1 | Setup — 유형, 행동 `u`, 시점, 표본 | ~190 | 초안 재사용 가능 |
+| **3.2** | **없음** | **보상과 최적행동** (IRL 층) | ~220 | **신규 작성** |
+| **3.3** | 1.3 | **모수화와 벌점 최소제곱으로의 환원** | ~280 | 초안 식 (3)(4) + 환원 논증 신규 |
+| 3.4 | 1.2 | 특징·컨텍스트 + 예상 부호 + Table 1 | ~330 | **persist로 전면 수정** |
+| 3.5 | 1.4 전반 | 추정, 해의 유일성, λ | ~200 | 초안 재사용 + λ 수정 |
+| 3.6 | 1.4 후반 | 검증 프로토콜 V1–V4 | ~330 | 초안 골격 + 실제 실행값 |
 
-**§3 may occupy 1.5–2 pages.** There is no need to compress. Earlier framing that §2 had to
-shrink for page reasons was overstated — the §2 move was justified by placement, not budget.
-
----
-
-## Structure
-
-| Sub | Title | Words | Extras | Status |
-| --- | --- | ---: | --- | --- |
-| 3.1 | Setup | ~180 | — | ready to write |
-| 3.2 | Reward and policy | ~250 | 2 equations | ready to write |
-| 3.3 | Maximum-entropy IRL and the Lasso equivalence | ~250 | derivation | ready to write |
-| 3.4 | Features and sign expectations | ~250 | Table 1 | 🔴 **partially blocked (A-H1)** |
-| 3.5 | Estimation | ~150 | — | ready to write |
-| 3.6 | Validation protocol | ~350 | — | ready to write |
-
-Total ≈ 1,530 words + table + equations ≈ 1.9 pages.
+합계 ≈ 1,550단어 + 식 + Table 1 ≈ 1.9페이지. §3+§4+§5 가용 약 6페이지 안에서 여유.
 
 ---
 
-### 3.1 Setup
+## 3.1 Setup
 
-**Job:** establish what is observed, what is latent, and what the estimation target is.
+초안 1.1을 거의 그대로 쓸 수 있다. 초안의 식 (1):
 
-Cover:
+$$u_{i,t} = \frac{V^{buy}_{i,t} - V^{sell}_{i,t}}{V^{buy}_{i,t} + V^{sell}_{i,t}} \in [-1, 1]$$
 
-- Three investor types — foreign, institutional, retail — each treated as an **independent agent**. State plainly that they are estimated separately and *not* as a game; this pre-empts the "why not multi-agent IRL?" question.
-- The action variable. `u_i(t) = net_buy_i(t) / trading_value(t)`, bounded in `[−1, 1]`. **Define the denominator explicitly** — it is the stock's *total* trading value, shared across types. (See A-H1: this shared denominator is exactly what broke the herd feature's interpretation. Being explicit here is now mandatory, not optional.)
-- Timing. Features at `t−1`, action at `t`. State the convention once, clearly, and use it consistently — a date-alignment error already cost us one retracted claim (`experiments/2026-07-24/1745_동시점_가격영향_정렬오류_반증.md`).
-- Sample. Samsung Electronics (005930), 973 trading days.
+**반드시 지킬 것**
 
----
+- 세 유형을 **독립 에이전트**로 추정하며 게임으로 모형화하지 않음을 명시 → "왜 multi-agent IRL이 아닌가" 선제 차단
+- 예측 대상 $a_{i,t+1} = u_{i,t+1}$, 상태 $s_{i,t} = (x_{i,t}, C_t)$는 $t$일까지 정보만 — 초안 문장이 정확하다
+- 표본: 삼성전자(005930), **973일, 2022-01-06 ~ 2025-12-29**
+- 초안의 종목 고정 근거("횡단면 일반화는 제한된다")를 유지 — 정직한 헤지
 
-### 3.2 Reward and policy
-
-**Job:** define the reward and show that trading *intensity* is derived rather than assumed.
-
-Cover:
-
-- Contextual linear reward gradient: `g_i = αᵢᵀC + (βᵢ + Bᵢ·C)ᵀx`, with `x` the reward features and `C` the two market contexts.
-- Concave reward `R(a) = g·a − ½κa²`, `κ = 1`. Say why concave: a linear reward would push the action to a bound every day, so intensity would carry no information.
-- Optimal action `a* = clip(g, −1, 1)`.
-- **The point worth making explicitly:** because the reward is concave, the model predicts *how much* a type trades, not merely the direction. This is what lets us speak about magnitudes at all, and it connects directly to contribution #1 ("comparable in magnitude, not only in sign").
+**⚠️ 분모 정합성을 여기서 명시할 것.** 행동 $u$는 **자기 총거래금액** 분모다. 반면
+`preprocess.py:53`이 만드는 $u$(특징 재료용)는 **종목 전체 거래대금** 분모다. 이 불일치가
+herd 실패의 원인이었고 `persist`가 자기분모로 정의된 이유다. 숨기면 심사자가 찾아낸다.
 
 ---
 
-### 3.3 Maximum-entropy IRL and the Lasso equivalence
+## 3.2 보상과 최적행동 — 신규
 
-**Job:** state the equivalence openly and reframe what the contribution is.
+초안에 없는 층. IRL 프레이밍을 여기서 **한 번만** 지불한다.
 
-Cover:
+- 보상 $R_i(a) = g_{i,t}\,a - \tfrac{1}{2}\kappa a^2$, $\kappa = 1$
+- 최적행동 $a^*_{i,t} = \mathrm{clip}(g_{i,t}, -1, 1)$
+- **오목성의 역할을 반드시 쓸 것**: 선형 보상이면 매일 경계로 밀려 강도가 정보를 잃는다.
+  오목하기 때문에 *얼마나* 거래하는지가 **가정이 아니라 도출**된다. 이것이 기여 ①의
+  "comparable in magnitude, not only in sign"을 지탱하는 유일한 근거다.
 
-- IRL recovers a reward rationalizing observed behavior; non-uniqueness resolved by maximum entropy [`ziebart2008`].
-- Under a **one-step (myopic) horizon**, the estimator reduces exactly to a Lasso. Show the derivation compactly.
-- Then the framing sentence, which matters more than the derivation: *we state this rather than obscure it; the contribution is the validation protocol, not a new estimator.* §1 already says this — keep the wording consistent between the two.
+### "그럼 IRL을 왜 쓰는가"에 대한 답 — 3.2에 배치
 
-⚠️ Do **not** oversell the IRL framing. A reviewer who spots an undisclosed Lasso equivalence will discount the whole paper; a paper that discloses it up front is simply honest about its estimator.
+심사자가 반드시 묻는다. 사는 것과 못 사는 것을 구분해 쓴다.
+
+**사는 것 세 가지**
+
+1. **오목 보상이 강도를 도출한다.** 이것이 없으면 연속 행동에 clip을 붙이는 것이 임의적 선택이 된다.
+2. **함수형태에 근거를 준다.** 특징에 선형인 보상 → 선형 점수. 왜 이 명세인지가 설명된다.
+3. **확장 경로를 연다.** §5의 구조적 보상 복원(실제 horizon 도입)이 이 프레이밍 위에 놓인다.
+
+**사지 못하는 것**: 반사실 전이(counterfactual transfer). **암시조차 하지 않는다.**
 
 ---
 
-### 3.4 Features and sign expectations 🔴
+## 3.3 모수화와 환원 — 핵심 소절
 
-**Job:** define the three reward features and the two contexts, ground each in prior work, and
-commit to sign expectations before any result is shown.
+### (a) 모수화 — 초안 식 (3) 그대로
 
-#### Scope correction, 2026-07-27
+$$q_{i,t} = (\beta_i + B_i C_t)^\top x_{i,t} + \alpha_i^\top C_t$$
 
-The first move took the **whole** §2 paragraph, which was too aggressive. §1 names the
-disposition effect and institutional herding as the motivating gap, so §2 must elaborate them
-— otherwise the §1 → §2 chain breaks. The literature-establishing half has therefore been
-**returned to §2** as its own block, "Behavioral regularities behind type differences."
+IRL 언어로는 $q_{i,t} = g_{i,t}$, 즉 **보상의 기울기**다. 초안의 rvec 벡터화
+$w_{i,t} = [x_{i,t};\ \mathrm{rvec}(x_{i,t}C_t^\top);\ C_t]$, $\theta_i \in \mathbb{R}^{11}$
+를 그대로 쓴다. 절편 없음.
 
-**3.4 keeps only the mapping**: which regularity motivates which feature, and the expected
-sign. Cite the regularities; do **not** re-explain them. Budget drops from ~350 to **~250
-words**.
+### (b) 환원 — 신규 논증
 
-#### How the remaining material dissolves
+근시안 1스텝 + 가우시안 정책이면 로그우도 최대화가 $g$와 관측 행동의 제곱오차 최소화와
+일치하고, $L_1$ 벌점을 붙이면 초안 식 (4)가 된다.
 
-Do **not** paste it. Distribute it:
+$$\hat\theta_i = \arg\min_\theta \Big\{ \tfrac{1}{|\mathcal{D}_i|}\sum_{t \in \mathcal{D}_i}\big(w_{i,t}^\top\theta - a_{i,t+1}\big)^2 + \lambda_i\|\theta\|_1 \Big\}$$
 
-| Sentence in the moved paragraph | Destination |
+**⭐ 반드시 넣을 사실 — 환원이 정확히 성립한다.**
+clip 때문에 환원이 근사에 그칠 우려가 있으나, **세 유형 모두 포화율이 0.0000**이다
+(`runs/continuous_reward3_persist/cv_metrics_summary.csv`). clip이 한 번도 작동하지
+않았으므로 관측 표본에서 환원은 **근사가 아니라 등식**이다.
+
+### (c) 식별의 범위 — "보상함수가 결과적으로 추정되는가"에 대한 답 ⭐
+
+**형식적으로는 예.** 모형 안에서 보상은 점식별된다. $\hat g$를 얻으면
+$\hat R_i(a \mid s) = \hat g_{i,t} a - \tfrac{1}{2}a^2$가 완전히 결정된다.
+
+**그러나 두 가지가 그 의미를 깎는다. 둘 다 원고에 명시한다.**
+
+**(i) $\kappa$는 추정된 것이 아니라 정규화다.** 최적행동이 $a^* = g/\kappa$이므로
+$\kappa$와 $g$를 같은 배수로 늘리면 행동이 불변이다. 관측 행동은 $\kappa$를 식별하지
+못하고, $\kappa=1$은 효용 척도 고정과 같은 임의 선택이다.
+
+> ⚠️ **귀결**: "크기가 비교 가능하다"는 **발견이 아니라 부과**다. 세 유형에 같은
+> $\kappa=1$을 강제했기 때문에 비교된다. "동일 정규화를 부과했으므로 비교 가능"으로
+> 써야 하고, "데이터가 비교 가능함을 보인다"로 쓰면 과장이다.
+>
+> ✅ **확인 완료**: 현재 기여 ① 문장("Estimating three investor types under identical
+> conditions---the same features, the same model form---**makes** their recovered weights
+> comparable")은 비교가능성을 **추정 설계에 귀속**시키고 있어 과장이 아니다. 수정 불필요.
+
+**(ii) 근시안이 보상을 정책으로 붕괴시킨다.** 일반 IRL에서 보상이 값진 이유는 정책과
+다르기 때문이다 — 여러 스텝을 계획하므로 보상이 더 깊은 층에 있고 환경 변화 시 재계획에
+쓸 수 있다. 우리는 1스텝이라 $a^* = \mathrm{clip}(g)$, 즉 **보상의 기울기가 곧 정책**이다.
+가치함수·전이·계획이 없다. 따라서 복원물의 정확한 이름은 **정규화된 조건부 최적반응함수**이며,
+"보상"은 해석 어휘를 주지만 추가 경험적 내용은 주지 않는다.
+
+**식별되지 않는 것 — 원고에 목록으로 밝힌다**
+
+| 항목 | 내용 |
 | --- | --- |
-| "specified in advance rather than selected by search" | **Opening sentence of 3.4** — it is the framing claim for the whole subsection |
-| Momentum grounding [`jegadeesh_titman`] | Immediately after the **momentum definition** — one clause, cite only |
-| Disposition grounding [`shefrin_statman`, `odean1998`] + Grinblatt–Keloharju | Immediately after the **loss-region definition** — one clause, cite only |
-| Herding grounding + the caveat | After the **third feature's definition** — 🔴 frozen, see A-H1. The *caveat* stays here (it is about our feature, not the literature); the description of what herding measures are now belongs to §2 |
-| "sign expectations … carried into Section 4" | **Table 1 caption**, or the closing line of 3.4 |
+| **선호 / 신념 / 제약** | 외국인이 모멘텀에 양으로 반응하는 이유가 추세를 *선호*해서인지, 예측력이 있다고 *믿어서*인지, 위임 계약이 *강제*해서인지 — **세 경우의 flow가 완전히 동일**하다. IRL 일반의 한계이며 우리 구현의 결함이 아니다 |
+| 보상의 함수형태 | 2차식은 가정이고 검정하지 않는다 |
+| 전략적 상호작용 | 세 유형을 독립 추정하므로 균형 효과가 계수에 흡수된다 |
+| 집계 수준 | 개별 투자자 보상의 평균인지 대표 투자자의 보상인지 구분되지 않는다 |
+| $\kappa$ (척도) | 위 (i) — 정규화로 소거 |
 
-Also drop these §2 artifacts: the bold run-in heading (becomes a normal subsection heading),
-the phrase "with one caveat we state up front" (survey rhetoric), and the forward references
-written in §2's voice.
+### (c-2) 프레이밍 문장
 
-#### Per-feature units
+§1과 표현이 어긋나지 않게 쓴다. 요지: *환원을 숨기지 않고 먼저 밝힌다. 기여는 새 추정량이
+아니라 검증 프로토콜이다.* 그리고 초안의 헤지를 반드시 수입한다 —
 
-For each feature, in this order: **formula → one or two sentences of grounding → expected sign.**
+> 복원된 계수는 집계 수급의 조건부 연관을 나타낼 뿐 구조적 선호를 뜻하지 않는다.
 
-1. **Momentum** — 20-day return. Grounding: medium-term return persistence [`jegadeesh_titman`]. Expected: **+** foreign, **−** retail, weak for institution.
-2. **Loss region (underwater)** — defined relative to a decayed average cost; state the decay explicitly. Grounding: the disposition effect [`shefrin_statman`, `odean1998`], also recovered from daily Finnish trades by Grinblatt and Keloharju [`grinblatt_keloharju2001`]. Expected: **+** retail; unclear for foreign; weak for institution.
-3. **Third feature** — 🔴 **BLOCKED by checklist A-H1.** The current herd feature is a near-exact affine transform of the type's own lagged flow (r ≈ −0.99), so its coefficient is not a cross-type quantity and the market-clearing justification in the moved text names the wrong mechanism. Write 3.4 with features 1 and 2 complete and leave this unit as a stub until the specification is chosen (options A–D in the checklist).
+이 문장이 §3 전체의 해석 범위를 정한다. 영문 대응:
 
-Then the **two contexts**: `kospi_return_1d`, `fx_level_z_252`. Say what each is meant to capture and note that context enters through `B` as an interaction, not as an additive term.
+> The recovered coefficients are conditional associations in aggregate flow, not structural preferences.
 
-#### Table 1
+여기에 식별 범위 문장을 **함께** 넣는다. 심사자가 "보상이 정말 추정된 것인가"를 물을 때
+답이 원고에 미리 있어야 한다.
+
+> Because the horizon is one step, the recovered reward is informationally equivalent to the
+> conditional best response, and $\kappa$ is normalized to one, so magnitudes are expressed in
+> units of that normalization and are comparable across types only because the same
+> normalization is imposed on all three. We read $\beta$ as a conditional association between
+> state and flow, and do not claim to separate preferences from beliefs or institutional
+> constraints.
+
+**3.4 이후로는 IRL 어휘를 쓰지 않는다.** β를 "reward weight"로 부르지 말고 coefficient로
+쓴다. 한 번 건넌 다리로 돌아오지 않는다.
+
+---
+
+## 3.4 특징과 예상 부호 — persist로 전면 수정
+
+### 초안에서 반드시 고칠 것 🔴
+
+| 초안 | 문제 | 조치 |
+| --- | --- | --- |
+| $x^{cross}_{i,t} = (u_{j,t-1}+u_{k,t-1})/2$ | **herd 사양.** 폐기됨 | `persist`로 교체 |
+| "행동을 한 시점 지연하면 같은 거래일 투자자 수급 사이의 기계적 상쇄가 배제된다" | **틀린 주장.** A-H1이 반증 — 공통분모 때문에 지연해도 herd ≈ −½·자기시차(r = −0.99) | **삭제.** 이 논리를 최종본에 남기지 않는다 |
+| "이 특징은 유형 간 시차 관계를 측정하며" | 측정하지 못했다 | 재작성 |
+| 특징–컨텍스트 상관 −0.29 ~ 0.22 | 구 사양 수치 | `analysis/feature_correlations.csv`로 갱신 |
+
+### 피처별 유닛 (정의 → 근거 → 예상 부호)
+
+**1. momentum** — $x^{mom}_t = \log(P_t/P_{t-20})$
+근거: 중기 수익률 지속 [`jegadeesh_titman`]. 예상: 외국인 **+**(추세추종), 개인 **−**(역행), 기관 약함.
+
+**2. persist** ★ 신규 — $\phi^{persist}_{i,t} = a_{i,t-1}$, 행동과 **동일 정의(자기분모)**
+- 계수가 행동의 문자 그대로의 AR(1)이 된다. 실측 AR(1): 외국인 **+0.403** / 기관 +0.151 / 개인 **+0.344** → 양(+) 예상이 원자료와 직접 대응
+- 근거: **Sias(2004) 분해의 자기추종(following own lagged trades) 성분.** 유형 수준 집계에서는 자기추종과 상호추종을 분리할 수 없으므로, 측정 가능한 자기추종 성분만 사용
+- **명명: "herding"이라 부르지 않는다. `flow persistence`(거래 지속성).** 이것이 §2 herding 문헌과의 관계를 정직하게 정리하는 유일한 방법
+- 예상: 세 유형 **+**
+- ✅ **서지 확정 (2026-07-28).** 인용은 **`sias2004`** — Sias, "Institutional Herding," *RFS* 17, 1 (2004), 165–206. 저장소의 `uploads/herd.pdf`는 같은 논문의 **2002년 워킹페이퍼**(WSU, 51면)이며, 초안의 "Sias(2002)"는 이 판본을 가리킨다. 출판본을 인용하므로 `.tex` 현재 항목이 맞다.
+- ⚠️ **분해 수치를 원고에 넣지 말 것.** `docs/herd_sias2002_analysis.md`의 0.1193 = 0.0614 + 0.0579는 **2002 워킹페이퍼 값**이고 RFS 개정본에서 바뀌었을 수 있다(출판본 미보유). 현재 §2·§3은 질적 진술만 하므로 안전하며, **이 상태를 유지한다.** persist의 근거로 필요한 것은 "herding 측정치에 자기지속 성분이 크게 섞여 있고 Sias가 이를 분리했다"는 사실뿐이다.
+
+**3. underwater** — 초안 1.2의 재귀식을 **그대로 살린다** (이 논문 최고 자산 중 하나)
+
+$$\tilde H = \rho H_{t-1},\quad O = [\tilde H - Q^s]^+,\quad H = [\tilde H + Q^b - Q^s]^+,\quad N = H - O$$
+$$\bar P = \frac{O\bar P_{t-1} + N P^b}{H},\qquad x^{uw}_{i,t} = \big[(\bar P_{i,t} - P^{vwap}_{i,t})/\bar P_{i,t}\big]^+$$
+
+$\rho = 0.98$, 반감기 약 34거래일. $H_{i,0}=0$, 분모 0인 VWAP 항 제외.
+근거: 처분효과 [`shefrin_statman`, `odean1998`], GK 일별 핀란드 자료.
+초안의 헤지 유지 — **계좌별 원가가 아닌 집계 대용치**이므로 부호 비교는 가능하나 직접 식별은 아님.
+예상: 개인 **+**, 외국인 불명, 기관 약함.
+
+**컨텍스트**: $C_t = (r_t, z^{FX}_t)^\top$. 초안의 $z^{FX}$ 정의(252일 롤링 표준화)를 그대로 사용.
+컨텍스트는 $B$를 통한 상호작용과 $\alpha$를 통한 주효과로 **모두** 들어감을 명시.
+
+### Table 1 — 특징 사양과 예상 부호
 
 | Feature | Definition | Grounding | Expected sign (foreign / retail / institution) |
 | --- | --- | --- | --- |
 
-Caption should carry the pre-registration point — these expectations are fixed before
-estimation and §4 reads the recovered weights against them.
-
-⚠️ If the third feature becomes `persist` (checklist Option B), it **gains** a **+**
-expectation and the "no directional expectation" framing disappears. That is why the closing
-sentence of the moved paragraph is frozen too.
+캡션에 **사전 확정**임을 명시 — 추정 전에 고정했고 §4가 이에 대조해 읽는다는 것.
 
 ---
 
-### 3.5 Estimation
+## 3.5 추정, 유일성, λ
 
-**Job:** make the run reproducible and justify the one choice a reviewer will probe.
+### 초안에서 살릴 자산 ⭐
 
-Cover:
+**Lasso 해의 유일성 검증** — 우리에게 없던 엄밀성. 그대로 가져온다.
 
-- Standardization computed on **training folds only**.
-- **λ = 0.005, unified across all three types.** This is the choice to defend: a common penalty is what makes coefficient *magnitudes* comparable across types, and it is also what shows the institutional null is a real null rather than an artifact of heavier shrinkage on that type. Do not bury this.
-- Optimizer: Adam [`kingma2015`] — **this citation is currently in the bibliography but uncited; 3.5 is where it belongs.**
-- Seed 42; convergence criterion; confirm convergence for all three types (the institutional null depends on this).
+- $\lambda_i = 0$이면 $\mathrm{rank}(W_i) = 11$ 확인
+- $\lambda_i > 0$이면 $g_i = 2W_i^\top(y_i - W_i\hat\theta_i)/n_i$, $E_i = \{j : |g_{i,j}| = \lambda_i\}$에 대해 $\mathrm{rank}(W_{i,E_i}) = |E_i|$ 확인
+- **세 유형 45개 분할 전부에서 해가 유일, 최악 조건수 6.86**
 
----
+### 🔴 λ는 반드시 고칠 것
 
-### 3.6 Validation protocol
-
-**Job (D1):** specify the procedure completely, so §4 only has to report outcomes.
-
-Cover, in order:
-
-- **CPCV** [`lopezdeprado2018`]: 10 folds, 2 test folds, purge 1, embargo 5 → **45 splits**. Explain *why* purging and embargo are needed with overlapping-horizon financial data; do not just state the parameters.
-- **Sign consistency** across the 45 splits — define the statistic and state the threshold in advance.
-- **Calendar-month block bootstrap.** ⚠️ Currently 100 resamples; checklist item A-2 raises this to 200 before submission. Report whatever number is actually run.
-- **Expanding walk-forward** — 2023 / 2024 / 2025.
-- **Ridge comparison** and **VIF** — collinearity diagnostics.
-- **Paired block-bootstrap ablation with FDR control.**
-- **A statement of what would count as failure.** This is the part that makes the protocol credible: name in advance the outcomes that would have led us to withdraw a claim. We have precedent — two claims were retracted this way (§4.7 price impact; the disposition contribution), and that record is a strength, not an embarrassment.
-
----
-
-## Blocking items
-
-| Item | Blocks | Owner |
+| | 초안 | 확정 사양 |
 | --- | --- | --- |
-| **A-H1** — third feature specification | 3.4 unit 3, Table 1 row 3, the closing framing | decision needed from Tony |
-| **A-2** — bootstrap at 200 resamples | the number quoted in 3.6 | rerun |
+| λ | 유형별 **0 / 0.01 / 0.0003** ("선행 사양에서 이월") | **0.005, 세 유형 통일** |
 
-Everything else in §3 can be written now.
+**λ 통일이 기여 ①의 근거다.** 공통 벌점이라야 계수 *크기*가 유형 간 비교 가능하고, 기관의
+null이 더 센 축소의 산물이 아니라는 것도 증명된다. 초안처럼 유형별로 다르면 "크기 비교"
+주장이 무너진다. 반드시 통일값으로 서술한다.
+
+### 기타
+
+- 표준화는 **각 split의 학습 인덱스에서만** 적합 후 시험에 적용 (초안 문장 정확)
+- 투자자별 HP: 외국인 ep75/lr1e-3, 기관 ep10/bs2048/lr5e-4, 개인 ep20/bs512/lr1e-3
+- Adam [`kingma2015`] — **현재 참고문헌에 있으나 미인용. 여기가 인용 위치다**
+- seed 42
+- ⚠️ **취약점 대비**: HP가 유형별로 다른데 §1은 "identical conditions"라 쓴다. "기관 null은
+  10 epoch 미학습 탓 아니냐"는 반론이 나올 수 있다. **수렴 근거를 여기서 제시**할 것
+  (loss history 파일이 split별로 저장돼 있음)
 
 ---
 
-## Consistency checks before §3 is called done
+## 3.6 검증 프로토콜 V1–V4
 
-- [ ] The Lasso-equivalence wording in 3.3 matches §1 — no drift between the two statements
-- [ ] The timing convention (features `t−1`, action `t`) is stated once and never contradicted
-- [ ] `kingma2015` is cited in 3.5
-- [ ] `lopezdeprado2018` is cited in 3.6
-- [ ] Table 1's expectations match the echo column in §4
-- [ ] No claim of return predictability anywhere (red line D)
-- [ ] The shared denominator in `u` is stated explicitly in 3.1
+초안의 V1–V4 라벨 체계를 채택한다(상호참조에 유용). **단 실제 실행값으로 고친다.**
+
+| | 초안 | 실제 실행 |
+| --- | --- | --- |
+| V2 부트스트랩 | 1,000회 | **200회** |
+| V3 walk-forward | 10개 확장창 (400관측 시작, 60일 스텝) | **3개 연도 2023/24/25** (train 242/487/731, test 245/244/241) |
+| V4 | L1/L2/무벌점 3종 비교 | **ridge 15강도 스윕 + 유형별 선택** (외국인 1.0 / 기관 10.0 / 개인 0.3) |
+| ablation | **없음** | **있음 — persist 최강 근거** |
+
+### V1 CPCV — 주 프로토콜
+
+10폴드 중 2개를 시험으로 고르는 모든 조합 → **C(10,2) = 45 split**. purge 1, embargo 5.
+실측: train **765~775**, test **194~197**, purge·embargo 제외 **1~14**일
+(`cv_splits.csv` — ⚠️ `cpcv_vs_walkforward_roles.md`의 766~773 / 194 / 6~13은 오류, 수정 필요).
+
+**정직하게 밝힐 것**: 시험 폴드 2개가 인접할 필요가 없어 **시험 시점보다 미래 데이터로
+학습하는 split이 섞인다.** 이는 버그가 아니라 CPCV의 설계 의도(López de Prado)이며,
+짧은 표본에서 다수 분할을 확보하려는 것이다. 따라서 CPCV 성능은 예보 성능이 아니라
+조건부 연관의 표본외 크기다. 부호 일관성을 **p-값으로 해석하지 않는다**(초안 문장 유지).
+
+### V2 달력월 블록 부트스트랩 (200회)
+
+리샘플 단위 달력월 → 월내 의존성 보존. **왜 필요한가를 반드시 쓸 것**: 45개 CPCV split이
+관측치를 공유하므로 부호 일관성만으로는 불확실성을 **과소평가**한다. 초안 문장이 정확하다.
+
+> 관측을 공유하는 CPCV의 부호 일관성만으로는 불확실성을 과소평가한다.
+
+⚠️ **부트스트랩은 in-sample**이다(테스트 분할 없음, `predictions.csv` 미생성).
+**계수 구간 전용 도구이며 성능 수치를 여기서 인용하지 않는다.**
+
+### V3 확장창 Walk-forward (3개 연도) — 보조
+
+엄격한 시간순, 미래 누출 없음. 스케일러도 각 창의 학습 구간에서만 적합.
+담당하는 것은 **두 가지뿐**: (1) 계수 부호의 시간 안정성, (2) 레짐 의존성 진단.
+
+한계를 명시 — 창 3개라 유의성 검정 불가, **baseline만 실행되어 persist의 기여에 대해
+아무 말도 할 수 없다**(그 근거는 ablation 단독).
+
+### V4 추정량 대체 — ridge 스윕
+
+15강도 훑어 유형별 선택. 부호 일치 여부로 판정. 결론이 $L_1$ 선택에 의존하지 않음을 보임.
+
+### ablation (초안에 없던 항목 — 신규 서술)
+
+paired block bootstrap (block 20, 10,000 resample), **BH FDR 보정**.
+⚠️ **집계 방식 각주 필수**: ablation 표는 45 split 예측을 **풀링**해 계산(외국인 상관 0.344)
+하므로 §4.1의 split별 평균(0.306)과 직접 비교 불가.
+⚠️ **그룹 ablation 2종은 3특징에서 축퇴** — `remove_behavioral_group`→[momentum, persist]
+= `remove_underwater`, `remove_traditional_group`→[persist, underwater] = `remove_momentum`.
+**논문 표에서 제외하고 단일 제거 3종 + 컨텍스트 제거 2종만 보고.**
+
+### 평가지표
+
+방향정확도(sign(0)=0), 상관, MAE, RMSE, **표본외 R²**.
+⚠️ **R²는 `cv_metrics_summary.csv`에 없다.** `predictions.csv`에서 계산해야 한다
+(실측: 외국인 **+0.1042** / 기관 **+0.0020** / 개인 **+0.0909**).
+**재현 스크립트를 저장할 것.** 행동 산포가 유형별로 다르므로 절대 MAE로 유형 순위를
+매기지 않는다(초안 문장 유지).
+
+### 실패 기준 명시
+
+무엇을 실패로 간주할지 사전에 밝힌다. 우리는 이미 두 건을 이 기준으로 철회했다
+(동시점 가격영향, 처분효과 기여) — 약점이 아니라 프로토콜 신뢰성의 증거다.
+
+---
+
+## 초안에서 살릴 자산 목록
+
+| 자산 | 위치 | 비고 |
+| --- | --- | --- |
+| Lasso 유일성 검증 (rank, 조건수 6.86) | 1.4 → 3.5 | 우리에게 없던 엄밀성 |
+| underwater 재귀식 (H̃/O/N/P̄, ρ=0.98, 반감기 34일) | 1.2 → 3.4 | 정밀, 그대로 사용 |
+| V1–V4 라벨 체계 | 1.4 → 3.6 | 상호참조 편의 |
+| 강건성 격자 (ρ 3종 × 모멘텀 3종 = 9조합) | 2.2 → §4 | persist 사양으로 재실행 여부 결정 필요 |
+| 헤지 문장 ("조건부 연관, 구조적 선호 아님") | 1 → 3.3 | §3 해석 범위를 정함 |
+| 그림 1 설계 (CPCV 점 + 부트스트랩 CI + 빈 표식) | → §4 | 표보다 우수 |
+| 표본외 R² + 학습평균 기준선 | 2.1 → 3.6 | 재현 스크립트 필요 |
+
+---
+
+## 해소된 한계 (초안 대비 개선)
+
+초안 한계 (2)의 **"개인 손실구간 계수는 달력월 블록 부트스트랩을 통과하지 못한다"**가
+최신 실행에서 **해소**됐다 — CI [+0.0258, +0.0353], 부호 100%, 0 배제.
+초안 한계 절에서 이 항목을 삭제하고, 남은 헤지(집계 대용치라 직접 식별 아님)만 유지한다.
+
+---
+
+---
+
+## 기관 null의 서술 — 식별 논의와 연결
+
+사용자 방침: **정직하게 보고하고, 왜 잘 안 나오는지를 쓴다.** 3.3의 식별 논의가 여기에
+그대로 쓰인다.
+
+기관에 식별된 보상이 없다는 것은 **집계 수준에서 안정적인 상태→행동 사상이 존재하지
+않는다**는 뜻이다. 근거는 이미 세 겹이다.
+
+| 근거 | 값 |
+| --- | --- |
+| 표본외 설명력 | R² = **+0.0020**, 상관 0.0757 |
+| walk-forward | **세 특징 전부 부호 반전** |
+| ablation | momentum 제거 시 상관 0.061 → 0.099로 **유의하게 개선** (q = 0.0084) |
+| 부트스트랩 | momentum·underwater 모두 CI가 0 포함 |
+
+**가장 설득력 있는 해석은 집계다.** KRX의 "기관"은 연기금·보험·자산운용·증권 자기매매를
+한 범주로 묶으므로 서로 다른 보상이 상쇄된다. 유일하게 견고한 신호가 persist뿐이라는 점
+(+0.0047, 100%, CI 0 배제)은 **"기관 flow는 상태 반응이 아니라 실행 관성으로 설명된다"**
+로 쓸 수 있다.
+
+**그리고 이 해석은 검정 가능하다.** KRX가 세분 투자자 범주를 공개하므로 같은 추정을 하위
+범주에 적용하면 직접 확인된다. §5에 **가설이 아니라 검정 설계**로 쓴다 — 유민 초안
+결론부에도 같은 취지가 있어 표현을 맞추면 된다.
+
+⚠️ 3.5의 HP 취약점과 반드시 함께 다룰 것: 기관은 epoch 10이므로 "미학습 아니냐"는 반론이
+가능하다. **수렴 근거(loss history)를 제시한 뒤에야** 집계 해석이 설 수 있다. 순서가 중요하다.
+
+---
+
+## 남은 결정 사항
+
+1. **기관 momentum 제거 여부** — 검증 3종이 모두 "해롭다"를 가리킴(부트스트랩 CI 0 포함,
+   ablation 제거 시 유의 개선 q=0.0084, walk-forward 부호 반전). 그러나 세 유형 공통
+   특징셋 유지가 비교 해석에 유리. **사용자 판단 필요.**
+2. **강건성 격자(ρ×모멘텀 9조합) persist 사양 재실행 여부** — 초안은 herd 기준 수치.
+3. ~~**`sias2002` vs `sias2004`** 서지 확정.~~ → **완료 2026-07-28.** `sias2004`(RFS 17(1), 165–206) 유지. 보유 PDF는 2002 워킹페이퍼. 분해 수치는 원고 미반영 유지. 같은 확인 과정에서 `lakonishok_shleifer_vishny`(JFE 32, 1 (1992), 23–43)도 정확함을 확인했다 — PDF 헤더의 `31(1992) 13-43`은 스캔 OCR 오류이며, 본문 인쇄 페이지번호(24, 25)와 21면 분량이 23–43을 뒷받침한다.
+4. **walk-forward ablation 추가 여부** — 권장하지 않음(창 3개, 8배 비용, 유의성 불가).
+
+---
+
+## §3 완료 전 정합성 점검
+
+- [ ] 3.3의 환원 서술이 §1의 Lasso 문장과 표현이 어긋나지 않는가
+- [ ] 시점 규약(특징 $t$·$t-1$, 행동 $t+1$)이 한 번만 선언되고 모순 없는가
+- [ ] `kingma2015`가 3.5에 인용됐는가
+- [ ] `lopezdeprado2018`이 3.6에 인용됐는가
+- [ ] λ가 **0.005 통일**로 서술됐는가 (초안의 0/0.01/0.0003이 남아있지 않은가)
+- [ ] 세 번째 특징이 **persist**이며 "herding"으로 불리지 않는가
+- [ ] 초안의 "지연하면 상쇄가 배제된다"는 문장이 삭제됐는가
+- [ ] 행동 $u$의 **자기분모**와 특징 재료 $u$의 **공통분모** 차이가 3.1에 명시됐는가
+- [ ] 3.4 이후 IRL 어휘("reward weight")가 등장하지 않는가
+- [ ] 수익 예측 주장이 없는가 (레드라인 D)
+- [ ] **$\kappa=1$이 정규화임이 명시됐는가** — 크기 비교가 부과된 것임을 밝혔는가
+- [ ] **근시안 때문에 보상 ≡ 최적반응임이 명시됐는가**
+- [ ] **선호/신념/제약을 분리하지 않는다는 진술이 있는가**
+- [ ] 기관 null 서술이 **수렴 근거 제시 후에** 집계 해석으로 가는 순서인가
