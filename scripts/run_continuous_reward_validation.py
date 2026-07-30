@@ -268,6 +268,7 @@ def _run_monthly_block_bootstrap(
         context_names,
         config.get("model", {}).get("context_interactions"),
     )
+    context_main_effect = bool(config.get("model", {}).get("context_main_effect", False))
 
     dates = pd.to_datetime(data["dates"].astype(str))
     month_values = dates.to_period("M").astype(str).to_numpy()
@@ -276,6 +277,7 @@ def _run_monthly_block_bootstrap(
     rng = np.random.default_rng(int(config["seed"]) + 91_000)
     reward_rows = []
     context_rows = []
+    context_main_rows = []
     draw_rows = []
     output_dir.mkdir(parents=True, exist_ok=True)
     dump_yaml(config, output_dir / "config_snapshot.yaml")
@@ -333,6 +335,7 @@ def _run_monthly_block_bootstrap(
                     num_features=len(feature_names),
                     num_contexts=len(context_names),
                     context_mask=context_mask,
+                    context_main_effect=context_main_effect,
                 )
                 train_continuous_investor_model(
                     model,
@@ -368,6 +371,17 @@ def _run_monthly_block_bootstrap(
                                     "weight": float(values[feature_idx, context_idx]),
                                 }
                             )
+                if model.context_main is not None:
+                    main_values = model.context_main.detach().cpu().tolist()
+                    for context_idx, context in enumerate(context_names):
+                        context_main_rows.append(
+                            {
+                                "resample": resample,
+                                "investor": investor,
+                                "context": context,
+                                "weight": float(main_values[context_idx]),
+                            }
+                        )
             if (resample + 1) % 20 == 0 or resample + 1 == args.bootstrap_resamples:
                 print(
                     f"completed monthly block bootstrap {resample + 1}/"
@@ -389,6 +403,16 @@ def _run_monthly_block_bootstrap(
             context_weights, ["investor", "feature", "context"]
         ).to_csv(
             output_dir / "bootstrap_context_weights_summary.csv", index=False
+        )
+    if context_main_rows:
+        context_main_weights = pd.DataFrame(context_main_rows)
+        context_main_weights.to_csv(
+            output_dir / "bootstrap_context_main_weights.csv", index=False
+        )
+        _weight_summary(
+            context_main_weights, ["investor", "context"]
+        ).to_csv(
+            output_dir / "bootstrap_context_main_weights_summary.csv", index=False
         )
     pd.DataFrame(draw_rows).to_csv(
         output_dir / "bootstrap_month_draws.csv", index=False
