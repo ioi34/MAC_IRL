@@ -10,6 +10,7 @@ from sklearn.metrics import balanced_accuracy_score, f1_score
 from torch.utils.data import DataLoader, TensorDataset
 
 from scripts.train_continuous import (
+    _context_main_weights_frame,
     _context_weights_frame,
     _evaluate_model,
     _reward_weights_frame,
@@ -17,7 +18,11 @@ from scripts.train_continuous import (
     resolve_training_investors,
     validate_processed_schema,
 )
-from src.evaluation.interpret import summarize_context_weights, summarize_reward_weights
+from src.evaluation.interpret import (
+    summarize_context_main_weights,
+    summarize_context_weights,
+    summarize_reward_weights,
+)
 from src.features.scaling import (
     fit_context_scaler,
     fit_feature_scaler,
@@ -110,11 +115,13 @@ def main() -> None:
         context_names,
         config.get("model", {}).get("context_interactions"),
     )
+    context_main_effect = bool(config.get("model", {}).get("context_main_effect", False))
 
     metric_rows = []
     prediction_frames = []
     weight_frames = []
     context_weight_frames = []
+    context_main_frames = []
     purge = int(config["cross_validation"].get("purged_size", 0))
     base_seed = int(config["seed"])
     for test_year in args.test_years:
@@ -169,6 +176,7 @@ def main() -> None:
                 num_features=len(feature_names),
                 num_contexts=len(context_names),
                 context_mask=context_mask,
+                context_main_effect=context_main_effect,
             )
             train_continuous_investor_model(
                 model,
@@ -222,6 +230,15 @@ def main() -> None:
                         test_year,
                     )
                 )
+            if context_main_effect:
+                context_main_frames.append(
+                    _context_main_weights_frame(
+                        model,
+                        investor,
+                        context_names,
+                        test_year,
+                    )
+                )
 
     metrics = pd.DataFrame(metric_rows)
     predictions = pd.concat(prediction_frames, ignore_index=True)
@@ -238,6 +255,13 @@ def main() -> None:
         context_weights.to_csv(output_dir / "context_weights.csv", index=False)
         summarize_context_weights(context_weights).to_csv(
             output_dir / "context_weights_summary.csv",
+            index=False,
+        )
+    if context_main_frames:
+        context_main_weights = pd.concat(context_main_frames, ignore_index=True)
+        context_main_weights.to_csv(output_dir / "context_main_weights.csv", index=False)
+        summarize_context_main_weights(context_main_weights).to_csv(
+            output_dir / "context_main_weights_summary.csv",
             index=False,
         )
     print(metrics.to_string(index=False))

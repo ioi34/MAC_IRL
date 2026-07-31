@@ -19,6 +19,15 @@
 \usepackage{tikz}
 \usetikzlibrary{arrows.meta,positioning,fit,backgrounds,calc}
 
+%% 4-5장 그림 자리. 이미지 파일(fig_*.pdf/png)이 있으면 그것을 쓰고,
+%% 없으면 같은 높이의 안내 박스를 그려 페이지 수가 실제와 어긋나지 않게 한다.
+\newcommand{\figorbox}[2]{%
+  \IfFileExists{#1.pdf}{\includegraphics[width=\textwidth]{#1.pdf}}{%
+  \IfFileExists{#1.png}{\includegraphics[width=\textwidth]{#1.png}}{%
+    \fbox{\parbox[c][#2][c]{\dimexpr\textwidth-2\fboxsep-2\fboxrule\relax}%
+      {\centering\ttfamily\footnotesize figure file not found:\\ \detokenize{#1}.pdf / \detokenize{#1}.png}}}}}
+
+
 \AtBeginDocument{%
   \providecommand\BibTeX{{Bib\TeX}}}
 
@@ -61,8 +70,9 @@
 \begin{abstract}
 Foreign, institutional, and retail investors trade the same asset for
 different reasons, yet the regularities that describe them---momentum
-versus contrarian trading, the disposition effect, herding---have been
-established one phenomenon at a time, leaving no common scale on which
+versus contrarian trading, the disposition effect, persistence in a
+type's own flow---have been established one phenomenon at a time,
+leaving no common scale on which
 their preferences can be compared. We build such a scale with inverse
 reinforcement learning: each type is an agent whose daily net-buy
 intensity reveals a latent reward over three shared market-state features
@@ -129,7 +139,9 @@ trading~\cite{grinblatt_keloharju2001}, the disposition
 effect~\cite{shefrin_statman,odean1998}, institutional
 herding~\cite{lakonishok_shleifer_vishny}---have been established one
 phenomenon at a time, in separate reduced-form regressions on different
-samples and specifications. Asset demand systems~\cite{koijen_yogo2019}
+samples and specifications; of the third we operationalize only the
+own-following component~\cite{sias2004}, for the reason given in
+Section~\ref{sec:method-features}. Asset demand systems~\cite{koijen_yogo2019}
 do estimate type-level preferences within a single framework, but from
 quarterly holdings rather than daily flow, and without behavioral state
 variables. As a result, even a simple comparison---does foreign flow load
@@ -337,9 +349,10 @@ themselves to out-of-sample stability and construct-validity testing.
 \node[hdr] (modh) at ([yshift=-2.5mm]mod.north) {Reward \& policy};
 \node[anchor=north, align=center, text width=30mm, font=\tiny]
   at ([yshift=-1.5mm]modh.south)
-  {$R_i(a\mid s_{i,t})=g_{i,t}\,a-\tfrac12 a^{2}$\\[3pt]
-   $a^{*}_{i,t}=\operatorname{clip}(g_{i,t},-1,1)$\\[5pt]
-   score, one shared form:\\[2pt]
+  {$R_i(a\mid s_{i,t})=g_{i,t}\,a-\tfrac12\kappa a^{2}$\\[3pt]
+   $a^{*}_{i,t}=\operatorname{clip}(g_{i,t}/\kappa,-1,1)$\\[1pt]
+   with $\kappa\equiv1$\\[5pt]
+   $g_{i,t}$, one shared form:\\[2pt]
    $g_{i,t}=(\beta_i+B_iC_t)^{\!\top}x_{i,t}$\\ $\quad{}+\,\alpha_i^{\!\top}C_t$};
 
 %% ---- 4 estimation ----------------------------------------------------
@@ -424,10 +437,14 @@ separately rather than as players in a game, so no equilibrium
 restriction is imposed and none is recovered. The prediction target is
 $a_{i,t+1} = u_{i,t+1}$, and the state $s_{i,t} = (x_{i,t}, C_t)$
 contains only information observable through day~$t$. The three types
-share the same feature set $x_{i,t} \in \mathbb{R}^3$, the same market
-context $C_t \in \mathbb{R}^2$, and the same model form, with only
-the parameters fitted separately from each type's own data. We refer to
-this design as shared-specification preference recovery (SPR).
+share the same feature set $x_{i,t} \in \mathbb{R}^3$---20-day momentum,
+the type's own lagged flow, and an aggregate loss-region indicator---and
+the same market context $C_t \in \mathbb{R}^2$, the KOSPI~200 one-day
+return and a 252-day $z$-score of the won--dollar rate.
+Section~\ref{sec:method-features} defines all five and states the sign
+expected for each feature from prior evidence. The model form is shared likewise,
+with only the parameters fitted separately from each type's own data. We
+refer to this design as shared-specification preference recovery (SPR).
 
 We estimate on Samsung Electronics (005930) over the five calendar years
 2021--2025. The exchange-rate context standardizes the log rate against
@@ -441,16 +458,20 @@ of cross-sectional generalization.
 \label{sec:method-reward}
 
 Each type is modelled as choosing a daily action that maximizes a
-state-dependent reward. Writing $g_{i,t}$ for the reward gradient at
-state $s_{i,t}$,
+state-dependent reward. Let $\kappa > 0$ be the curvature of the quadratic
+cost, and let $g_{i,t}$ be the marginal reward of the first unit traded at
+state $s_{i,t}$---a scalar function of the state whose parametric form is
+given in~(3). Then
 
 \begin{equation}
   R_i(a \mid s_{i,t}) = g_{i,t}\, a - \tfrac{1}{2}\kappa a^2,
   \qquad
-  a^{*}_{i,t} = \operatorname{clip}(g_{i,t}, -1, 1),
+  a^{*}_{i,t} = \operatorname{clip}\!\bigl(g_{i,t}/\kappa,\, -1,\, 1\bigr).
 \end{equation}
 
-with $\kappa$ normalized to one. Concavity is what makes intensity
+Only the ratio $g_{i,t}/\kappa$ is identified from observed actions, so we
+normalize $\kappa = 1$ throughout and read $g_{i,t}$ on the action scale.
+Concavity is what makes intensity
 informative. Under a reward linear in $a$ the optimal action would sit at
 a bound every day, so observed magnitudes would carry no information
 about the state. With a concave reward the optimal action is graded, and
@@ -458,8 +479,8 @@ about the state. With a concave reward the optimal action is graded, and
 imposed by a link function chosen for convenience. This is what allows
 the fitted coefficients to be read as magnitudes rather than signs alone.
 
-A reward linear in the state features implies a linear score,
-which is why the specification below takes the form it does rather than
+A reward linear in the state features implies that $g_{i,t}$ is linear in
+them, which is why the specification below takes the form it does rather than
 being one functional choice among many, and it places the present myopic
 model on a path toward structural recovery under a genuine planning
 horizon, which we return to in Section~\ref{sec:discussion}. It does not
@@ -470,11 +491,12 @@ other than the one observed, and we make no such claim.
 \subsection{Parameterization and reduction}
 \label{sec:method-reduction}
 
-The score separates an average feature sensitivity, a context-dependent
-adjustment of that sensitivity, and a direct context effect:
+The reward gradient $g_{i,t}$ of Section~\ref{sec:method-reward}
+separates an average feature sensitivity, a context-dependent adjustment
+of that sensitivity, and a direct context effect:
 
 \begin{equation}
-  q_{i,t} = (\beta_i + B_i C_t)^{\top} x_{i,t} + \alpha_i^{\top} C_t .
+  g_{i,t} = (\beta_i + B_i C_t)^{\top} x_{i,t} + \alpha_i^{\top} C_t .
 \end{equation}
 
 Here $\beta_i \in \mathbb{R}^3$ is the sensitivity at mean context,
@@ -493,16 +515,15 @@ for vertical concatenation,
   \end{aligned}
 \end{equation}
 
-so that $q_{i,t} = \theta_i^{\top} w_{i,t}$ and the predicted action is
+so that $g_{i,t} = \theta_i^{\top} w_{i,t}$ and the predicted action is
 $\hat a_{i,t+1} = \operatorname{clip}(\hat\theta_i^{\top} w_{i,t}, -1, 1)$.
-Under the reading of Section~\ref{sec:method-reward}, $q_{i,t}$ is the
-reward gradient $g_{i,t}$. The five coefficients in $\beta_i$ and
+The five coefficients in $\beta_i$ and
 $\alpha_i$ carry the interpretation; the six entries of $B_i$ are
 retained in every fit as conditional adjustments.
 
 With a one-step horizon and a Gaussian policy centred on the optimal
 action, maximizing the log-likelihood of the observed actions is
-equivalent to minimizing squared error between the score and the realized
+equivalent to minimizing squared error between $g_{i,t}$ and the realized
 action. Adding an $L_1$ penalty gives
 
 \begin{equation}
@@ -618,9 +639,11 @@ We verify uniqueness rather than assume it. With $n_i = |\mathcal{D}_i|$,
 $W_i = [w_{i,t}^{\top}]_{t \in \mathcal{D}_i}$ and
 $y_i = [a_{i,t+1}]_{t \in \mathcal{D}_i}$: when $\lambda_i = 0$ we check
 $\operatorname{rank}(W_i) = 11$; when $\lambda_i > 0$ we form
-$g_i = 2 W_i^{\top}(y_i - W_i \hat\theta_i) / n_i$ and the
-equicorrelation set $E_i = \{ j : |g_{i,j}| = \lambda_i \}$ and check
-$\operatorname{rank}(W_{i,E_i}) = |E_i|$; full column rank of $W_i$
+$c_i = 2 W_i^{\top}(y_i - W_i \hat\theta_i) / n_i$, which at the optimum
+equals $\lambda_i$ times a subgradient of $\lVert \hat\theta_i \rVert_1$ and
+therefore saturates only on the coordinates that can be nonzero, and check
+$\operatorname{rank}(W_{i,E_i}) = |E_i|$ on the equicorrelation set
+$E_i = \{ j : |c_{i,j}| = \lambda_i \}$; full column rank of $W_i$
 implies the latter for every subset. Across all 45 splits and all three
 types the design matrix had full rank 11, with worst-case condition
 number 6.94.
@@ -713,26 +736,306 @@ splits of V1 \emph{and} its V2 interval excludes zero; otherwise it is
 reported as unidentified rather than interpreted. V3 is reported
 alongside as evidence on temporal stability rather than on
 identification: with only three windows the procedure is weak in both
-directions---in our results one coefficient survives V3 while failing
-both V1 and V2. A feature whose
+directions---in our results one coefficient is sign-stable across all
+three V3 windows yet fails V1 and V2 and contradicts its CPCV mean.
+A feature whose
 removal does not degrade performance is reported as contributing
 nothing. Two earlier claims were withdrawn on
 these grounds.
 
 \section{Experiments}
 \label{sec:experiments}
-%% Run pointers corrected 2026-07-28 (the previous ones were stale and
-%% pointed at pre-persist runs).
-% Canonical run:     runs/continuous_reward3_persist/
-% Validation suite:  runs/continuous_reward3_persist_validation/
-% Comparison base:   runs/continuous_reward3_lambda_unified/   (herd spec)
-% Results and validation write-up: MAC_IRL/docs/persist_spec_and_results.md
-%                                  MAC_IRL/experiments/2026-07-28/2038_persist_검증스위트.md
+%% Canonical run:     runs/continuous_reward3_persist_epochs75/
+%% Validation suite:  runs/continuous_reward3_persist_epochs75_validation/
+%% Numbers verified against the run CSVs on 2026-07-30; see
+%% MAC_IRL/docs/revision_plan_icaif26.md appendix A.
+%% NOTE: Sections 4-5 were reconstructed from the compiled PDF because the
+%% original source file (sections/4page-en-writing-skill.tex) was not at hand.
+%% Prose and tables are verbatim; the three figures are placeholders until the
+%% image files are dropped in (see \figorbox below).
 
-\section{Discussion and Limitations}
+The experiments follow the evidence order used in the validation protocol.
+Section~\ref{sec:exp-data} describes the controlled sample, action dispersion,
+and out-of-sample evaluation. Section~\ref{sec:exp-stability} then evaluates the
+recovered coefficients under CPCV splits, calendar-month resampling, strict
+temporal refitting, and an alternative penalty. Section~\ref{sec:exp-interp}
+interprets only the patterns that survive these checks and states the boundary
+of each claim.
+
+\subsection{Data}
+\label{sec:exp-data}
+
+We evaluate the common specification in a single-stock controlled setting using
+Samsung Electronics (005930). The sample contains the latest 973 daily
+observations for which the 252-day exchange-rate history, 20-day momentum,
+flow-\hspace{0pt}persistence lag, aggregate loss-\hspace{0pt}region proxy, and
+ next-day action are all
+available. State dates run from January~6, 2022 through December~29, 2025.
+Holding the security fixed removes cross-stock heterogeneity from the
+investor-type comparison, but it also limits any claim of cross-sectional
+generalization.
+
+The three action series have means close to zero but substantially different
+dispersion. Their standard deviations are 0.257 for foreign investors, 0.125 for
+institutional investors, and 0.334 for retail investors. First-order
+autocorrelations are 0.401, 0.149, and 0.345, respectively, which motivates
+including each type's own lagged net-buy intensity as flow persistence.
+Contemporaneous actions are strongly negatively correlated for foreign--retail
+($-0.772$) and institutional--retail ($-0.499$) pairs. This market-clearing
+dependence is a reason to interpret opposite investor-type coefficients as
+conditional associations rather than independent structural preferences.
+
+\begin{table}[t]
+\caption{CPCV out-of-sample performance across 45 splits. Out-of-sample $R^2$
+uses the mean action in each split's training set as the benchmark.}
+\label{tab:cpcv-performance}
+\small
+\setlength{\tabcolsep}{3.5pt}
+\begin{tabular}{lccc}
+\toprule
+Metric & Foreign & Institutional & Retail \\
+\midrule
+Directional accuracy & $0.644 \pm 0.040$ & $0.539 \pm 0.033$ & $0.606 \pm 0.043$ \\
+Correlation          & $0.306 \pm 0.106$ & $0.068 \pm 0.060$ & $0.242 \pm 0.109$ \\
+RMSE                 & $0.242 \pm 0.020$ & $0.125 \pm 0.012$ & $0.318 \pm 0.029$ \\
+Out-of-sample $R^2$  & $0.130$           & $-0.003$          & $0.107$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+All investor types use the same three reward features, two market contexts,
+contextual linear model, and $L_1$ penalty $\lambda = 0.005$. We use 10 ordered
+folds, choose two test folds at a time, and apply a one-day purge and five-day
+embargo, producing 45 CPCV splits. Standardization is fitted on training indices
+only. All three models are trained for 75 epochs; investor-specific mini-batch
+sizes and learning rates are retained because the action dispersions differ.
+Table~\ref{tab:cpcv-performance} reports the mean and standard deviation of
+split-level out-of-sample metrics.
+
+Foreign and retail predictions retain positive association with realized
+actions, whereas institutional performance is close to the mean-action
+benchmark. Figure~\ref{fig:actual-vs-pred} shows the same distinction at a lower
+frequency. The foreign and retail predictions follow part of the broad variation
+in realized flow, while the institutional prediction remains close to zero.
+These metrics evaluate conditional trading-flow associations; they do not
+measure return predictability, trading profitability, or superiority to a
+separately optimized forecasting model.
+
+\begin{figure*}[t]
+\centering
+\figorbox{fig_actual_vs_pred}{108mm}
+\caption{Realized actions and CPCV out-of-sample predictions by investor type.
+The nine available test-path predictions are first averaged for each date, after
+which 20-trading-day rolling means are applied to both realized and predicted
+actions. All panels use the same vertical scale.}
+\Description{Three stacked time-series panels, one per investor type, comparing realized net-buy action with the CPCV out-of-sample prediction from 2022 to 2026.}
+\label{fig:actual-vs-pred}
+\end{figure*}
+
+\subsection{Coefficients and Sample Stability}
+\label{sec:exp-stability}
+
+The stability results separate a reproducible foreign--retail contrast from weak
+institutional prediction. Table~\ref{tab:beta} reports the mean reward weights
+and the three sample-stability decisions. Figure~\ref{fig:beta-stability}
+visualizes the same results, distinguishing coefficients whose calendar-month
+intervals include zero and marking institutional flow persistence as a boundary
+case.
+
+\begin{table*}[t]
+\caption{Recovered reward weights $\beta$ and sample-stability assessments.
+Values are CPCV mean $\pm$ standard deviation. V1 is the proportion of splits
+matching the mean sign; V2 indicates whether the calendar-month block-bootstrap
+95\% interval excludes zero; V3 counts the 2023--2025 expanding walk-forward
+windows retaining the CPCV mean sign.}
+\label{tab:beta}
+\begin{tabular}{llrccc}
+\toprule
+Investor & Feature & $\beta$ & V1: sign consistency & V2: excludes zero & V3: sign retained \\
+\midrule
+Foreign       & Momentum         & $+0.0435 \pm 0.0090$ & 100.0\% & Yes                     & 3/3 \\
+              & Flow persistence & $+0.0505 \pm 0.0060$ & 100.0\% & Yes                     & 3/3 \\
+              & Loss region      & $+0.0061 \pm 0.0048$ & 91.1\%  & No                      & 2/3 \\
+\midrule
+Institutional & Momentum         & $-0.0015 \pm 0.0022$ & 75.6\%  & No                      & 2/3 \\
+              & Flow persistence & $+0.0102 \pm 0.0031$ & 100.0\% & Yes\textsuperscript{a}  & 2/3 \\
+              & Loss region      & $-0.0003 \pm 0.0006$ & 75.6\%  & No                      & 0/3\textsuperscript{b} \\
+\midrule
+Retail        & Momentum         & $-0.0356 \pm 0.0066$ & 100.0\% & Yes                     & 3/3 \\
+              & Flow persistence & $+0.0462 \pm 0.0078$ & 100.0\% & Yes                     & 3/3 \\
+              & Loss region      & $+0.0288 \pm 0.0125$ & 97.8\%  & No                      & 2/3 \\
+\bottomrule
+\end{tabular}
+
+\vspace{2pt}
+{\footnotesize \textsuperscript{a}The lower bootstrap bound is close to zero, one
+walk-forward window reverses sign, and institutional out-of-sample $R^2$ is
+negative. \textsuperscript{b}The institutional loss-region estimates are positive
+in all three walk-forward windows and therefore disagree with the negative CPCV
+mean.}
+\end{table*}
+
+\textbf{V1: CPCV split stability.} Foreign momentum is positive in all 45
+splits, whereas retail momentum is negative in all 45. Flow persistence is
+positive in every split for both types and has similar magnitude, $+0.0505$ and
+$+0.0462$. Retail loss-region exposure is positive in 97.8\% of splits, but the
+foreign loss-region and institutional momentum and loss-region estimates are
+less consistent. The full design matrix has rank 11 for every split and investor
+type, with a worst-case condition number of 6.94, so these differences are not
+caused by rank deficiency.
+
+\textbf{V2: calendar-month block bootstrap.} The intervals exclude zero for
+foreign and retail momentum and flow persistence. The retail loss-region
+interval includes zero despite its high CPCV sign consistency, showing that
+overlapping CPCV splits alone understate time-series uncertainty. The direct
+context effects in Table~\ref{tab:alpha} and Figure~\ref{fig:alpha} reinforce
+the foreign--retail contrast: KOSPI effects are $+0.0325$ and $-0.0217$, while
+exchange-rate effects are $-0.0225$ and $+0.0322$. All four intervals exclude
+zero. The institutional KOSPI interval ends near zero, and its exchange-rate
+interval includes zero.
+
+\begin{figure*}[t]
+\centering
+\figorbox{fig_beta_stability}{108mm}
+\caption{Reward-weight sample stability. Points and whiskers show CPCV means and
+one standard deviation. Filled markers indicate that the V2 calendar-month
+block-bootstrap 95\% interval excludes zero; open markers indicate that it
+includes zero. Text reports V1 sign consistency and V3 sign retention.}
+\Description{Nine reward weights on a common horizontal axis, grouped by investor type, with error bars and marker fill indicating whether the bootstrap interval excludes zero.}
+\label{fig:beta-stability}
+\end{figure*}
+
+\begin{table*}[t]
+\caption{Calendar-month block-bootstrap means and 95\% intervals for direct
+context effects $\alpha$.}
+\label{tab:alpha}
+\begin{tabular}{lll}
+\toprule
+Investor & KOSPI 200 one-day return & FX level (252-day $z$-score) \\
+\midrule
+Foreign       & $+0.0325$ $[+0.0178, +0.0483]$ & $-0.0225$ $[-0.0479, -0.0002]$ \\
+Institutional & $-0.0061$ $[-0.0119, -0.0002]$ & $-0.0038$ $[-0.0122, +0.0003]$ \\
+Retail        & $-0.0217$ $[-0.0424, -0.0059]$ & $+0.0322$ $[+0.0017, +0.0643]$ \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+\textbf{V3: strict temporal refitting.} Foreign and retail momentum and flow
+persistence retain their CPCV signs in all three expanding walk-forward windows.
+Institutional flow persistence reverses sign in one window, while the
+loss-region sign disagrees with the CPCV mean in all three. We therefore do not
+promote the institutional persistence coefficient to a main result even though
+its CPCV and bootstrap signs are positive.
+
+\textbf{V4: penalty replacement and feature removal.} Replacing $L_1$ with $L_2$
+regularization preserves the signs of all nine reward weights. Feature removal
+provides a stricter predictive check. Removing flow persistence from the foreign
+model increases RMSE and decreases correlation after false-discovery-rate
+adjustment ($q = 0.0007$ and $q = 0.0014$). Removing the retail loss-region
+feature reduces correlation ($q = 0.0322$), but its coefficient still fails V2
+and one V3 window. Conversely, removing institutional momentum improves both
+correlation and RMSE ($q = 0.0122$ and $q = 0.0231$), which weighs against
+interpreting the institutional momentum estimate.
+
+The 75-epoch fits also make incomplete optimization an unlikely explanation for
+the institutional result. The last epoch contributes only 1.6\%, 0.4\%, and
+0.1\% of total loss reduction for foreign, institutional, and retail investors,
+respectively. A common mini-batch size and learning rate instead increases
+institutional loss in some splits, so the shared statistical specification is
+retained while optimization settings reflect each series' dispersion.
+
+\subsection{Interpretation}
+\label{sec:exp-interp}
+
+\begin{itemize}
+\item \textbf{Foreign investors trade with the recent price direction and
+continue their own prior flow.} The positive momentum weight ($+0.0435$) means
+that, conditional on the other variables, a larger 20-day price increase is
+followed by stronger foreign net buying, whereas a price decline shifts foreign
+flow toward selling. The positive persistence weight ($+0.0505$) means that
+foreign buying tends to be followed by further buying and foreign selling by
+further selling. Market context reinforces this procyclical pattern: foreign net
+buying increases on positive KOSPI~200 days ($+0.0325$) but decreases when the
+won--dollar rate is high relative to its trailing 252-day level ($-0.0225$),
+that is, when the won is relatively weak. The foreign loss-region estimate is
+small and unstable, so the model provides no evidence that aggregate foreign
+flow changes systematically with the average-cost proxy.
+
+\item \textbf{Retail investors trade against recent price and market movements
+but also continue their own prior flow.} The negative momentum weight
+($-0.0356$) implies weaker retail net buying, or stronger selling, after a
+20-day price increase and stronger buying after a decline. The negative KOSPI
+effect ($-0.0217$) and positive exchange-rate effect ($+0.0322$) give the same
+regime-level reading: retail flow shifts toward selling on positive market days
+and toward buying when the won is relatively weak. At the same time, the
+positive persistence weight ($+0.0462$) implies that retail buying and selling
+each tend to continue in their existing direction. The positive loss-region
+estimate ($+0.0288$) is consistent with additional buying or delayed selling
+when the current price lies below the aggregate cost proxy, but its bootstrap
+interval includes zero; it is therefore a predictive signal, not evidence that
+identifies the disposition effect.
+
+\item \textbf{The Korean aggregate ``institutional'' category is not explained
+by the selected reward features and contexts.} Its out-of-sample correlation is
+only 0.068 and its $R^2$ is $-0.003$, so the fitted model performs slightly
+worse than the training-mean benchmark. Momentum and loss-region weights are
+near zero and unstable; the small positive persistence weight reverses in one
+temporal window; and removing institutional momentum improves both correlation
+and RMSE. Within this specification, aggregate institutional trading therefore
+behaves as if it largely ignores 20-day momentum, its own lagged flow, the
+aggregate loss region, the daily KOSPI return, and the won--dollar level. This
+is a statement about the explanatory boundary of the observed aggregate
+category, not proof that individual institutions literally disregard these
+variables: offsetting subtypes or omitted mandate-specific signals can produce
+the same null result.
+\end{itemize}
+
+\begin{figure*}[t]
+\centering
+\figorbox{fig_alpha_context}{54mm}
+\caption{Direct market-context effects. Points and whiskers show calendar-month
+block-bootstrap means and 95\% intervals. The diamond marks the institutional
+KOSPI estimate as a boundary case because its interval ends close to zero; the
+institutional FX interval includes zero.}
+\Description{Two panels showing the direct KOSPI and FX context effects for the three investor types with bootstrap confidence intervals.}
+\label{fig:alpha}
+\end{figure*}
+
+\textbf{Validation and scope.} The foreign and retail momentum, persistence, and
+direct context directions survive the main split, resampling, and temporal
+checks; the institutional interpretation is instead a null supported by
+near-benchmark prediction and unstable coefficients. All statements remain
+conditional associations in one stock: market clearing, common shocks, beliefs,
+institutional mandates, and within-category heterogeneity are not separately
+identified, and the aggregate loss-region proxy cannot distinguish additional
+buying from delayed selling.
+
+\section{Conclusion}
+\label{sec:conclusion}
 \label{sec:discussion}
-% Myopic policy => regression equivalence; structural recovery as future work
-% Single name, daily frequency; institutional null; no return predictability
+
+This study compares investor types under the same three reward features, two
+market contexts, model form, normalization, penalty, and validation rules. The
+strongest result is a stable foreign--retail contrast in momentum: foreign
+momentum is positive and retail momentum is negative across CPCV splits,
+calendar-month resampling, strict temporal refitting, and penalty replacement.
+Both investor types also exhibit positive flow persistence of similar magnitude.
+Their direct KOSPI and exchange-rate effects have opposite signs, whereas
+aggregate institutional flow remains close to the out-of-sample mean benchmark
+and yields no coefficient that supports a strong behavioral interpretation.
+Retail loss-region exposure contributes to prediction but does not pass the
+bootstrap identification criterion.
+
+These findings demonstrate what a symmetric recovery design can and cannot
+establish from aggregate flow. It can isolate recurring conditional action
+coefficients on a common scale, but it cannot separate structural preferences
+from market clearing, shared information, or aggregation. The next step is to
+apply the same specification and V1--V4 protocol across securities with
+different foreign ownership and liquidity, and to finer institutional
+categories. Account-level or counterparty-linked data would further allow the
+average-cost proxy, within-category heterogeneity, and contemporaneous
+market-clearing mechanisms to be tested directly.
+
 
 %% ---------------------------------------------------------------------
 %% References. Verified 2026-07-24 (docs/refs_checklist.md).
