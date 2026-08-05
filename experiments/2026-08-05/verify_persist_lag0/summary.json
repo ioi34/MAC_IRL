@@ -1,0 +1,66 @@
+{
+  "run_dir": "runs/continuous_reward3_persist_lag0",
+  "dataset": "data/processed/dataset_continuous_reward3_persist_lag0.npz",
+  "n_observations": 973,
+  "features": [
+    "momentum",
+    "persist",
+    "underwater"
+  ],
+  "contexts": [
+    "kospi_return_1d",
+    "fx_level_z_252"
+  ],
+  "design_columns": 11,
+  "combinations_checked": 135,
+  "rank_min": 11,
+  "rank_deficient": 0,
+  "cond_W_max": 7.104436473481045,
+  "cond_W_min": 2.6160121405116668,
+  "cond_WtW_max": 50.47301760573616,
+  "worst_cond_at": {
+    "split": 39,
+    "investor": "retail"
+  },
+  "r2_train_mean": {
+    "foreign": 0.1849144722151465,
+    "institution": 0.023804048782862314,
+    "retail": 0.1519821088411013
+  },
+  "r2_zero": {
+    "foreign": 0.1608170591618549,
+    "institution": 0.022394328517459743,
+    "retail": 0.13015769622925133
+  },
+  "action_ar1": {
+    "foreign": 0.40124132386688427,
+    "institution": 0.14893782415994195,
+    "retail": 0.3445473123442875
+  },
+  "convergence": {
+    "foreign": {
+      "n_epochs": 150,
+      "drop_share_by_80pct_min": 0.9746528114984944,
+      "drop_share_by_80pct_mean": 1.001562604845275,
+      "final_step_share_max": 0.005129027087674433,
+      "weight_step_max": 0.0027593324775807,
+      "weight_step_rel_max": 0.04357189877820209
+    },
+    "institution": {
+      "n_epochs": 75,
+      "drop_share_by_80pct_min": 0.9793281653746765,
+      "drop_share_by_80pct_mean": 0.9933115786348872,
+      "final_step_share_max": 0.002105263157896836,
+      "weight_step_max": 0.00013660080730919927,
+      "weight_step_rel_max": 0.0056128248525489175
+    },
+    "retail": {
+      "n_epochs": 300,
+      "drop_share_by_80pct_min": 0.9971542713292838,
+      "drop_share_by_80pct_mean": 1.0000977748399404,
+      "final_step_share_max": 0.0008716767324575131,
+      "weight_step_max": 0.0005675102584063,
+      "weight_step_rel_max": 0.005288386157290312
+    }
+  }
+}

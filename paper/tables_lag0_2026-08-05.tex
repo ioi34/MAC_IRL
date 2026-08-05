@@ -1,0 +1,147 @@
+%% =====================================================================
+%%  §4 표 3종 — persist lag0(AR(1) 정합) 재실행 수치로 갱신
+%%  생성 2026-08-05 · 출처 runs/continuous_reward3_persist_lag0{,_validation}
+%%
+%%  원고의 tab:reward-weights / tab:context-interactions /
+%%  tab:cross-stock-performance 를 그대로 대체한다.
+%%
+%%  구 canonical(runs/continuous_reward3_persist_epochs75) 대비 판정이
+%%  바뀐 행에는 % CHANGED 주석을 달았다. 제출 전 주석은 지울 것.
+%% =====================================================================
+
+%% ---------------------------------------------------------------------
+%% Table 1 — baseline weights and stability decisions
+%% ---------------------------------------------------------------------
+\begin{table}[t]
+  \caption{Samsung Electronics baseline feature weights $\beta$, direct
+  context effects $\alpha$, and stability decisions. $\beta$ values are
+  CPCV mean $\pm$ standard deviation, and $\alpha$ values are bootstrap
+  mean [95\% interval]. V1 is the share of 45 splits retaining the
+  reported sign. V3 is the number of three expanding windows retaining
+  that sign; V3 was not estimated for $\alpha$ and is reported as n/a.}
+  \label{tab:reward-weights}
+  \centering
+  \scriptsize
+  \setlength{\tabcolsep}{2pt}
+  \begin{tabular}{@{}p{0.14\columnwidth}p{0.20\columnwidth}p{0.25\columnwidth}p{0.32\columnwidth}@{}}
+    \toprule
+    Investor & Coefficient & Estimate & Stability decision \\
+    \midrule
+    Foreign
+      & $\beta$: momentum         & $+0.0386 \pm 0.0082$ & V1 100.0\%; V2 excludes 0; Interpret; V3 3/3 \\
+      & $\beta$: flow persistence & $+0.0799 \pm 0.0076$ & V1 100.0\%; V2 excludes 0; Interpret; V3 3/3 \\
+      & $\beta$: loss region      & $+0.0112 \pm 0.0041$ & V1 100.0\%; V2 includes 0; Withhold; V3 3/3 \\
+    \addlinespace
+    Institutional
+      & $\beta$: momentum         & $-0.0009 \pm 0.0018$ & V1 62.2\%; V2 includes 0; Withhold; V3 1/3 \\
+      & $\beta$: flow persistence & $+0.0232 \pm 0.0022$ & V1 100.0\%; V2 excludes 0; Interpret; V3 3/3 \\ % CHANGED: V3 2/3 -> 3/3
+      & $\beta$: loss region      & $-0.0003 \pm 0.0005$ & V1 77.8\%; V2 includes 0; Withhold; V3 1/3 \\
+    \addlinespace
+    Retail
+      & $\beta$: momentum         & $-0.0277 \pm 0.0063$ & V1 100.0\%; V2 excludes 0; Interpret; V3 3/3 \\
+      & $\beta$: flow persistence & $+0.1050 \pm 0.0101$ & V1 100.0\%; V2 excludes 0; Interpret; V3 3/3 \\
+      & $\beta$: loss region      & $+0.0183 \pm 0.0130$ & V1 88.9\%; V2 includes 0; Withhold; V3 2/3 \\ % CHANGED: V1 97.8% -> 88.9% (now fails V1 as well)
+    \midrule
+    Foreign
+      & $\alpha$: KOSPI return & \shortstack[l]{$+0.0067$\\$[-0.0029,+0.0210]$} & V1 88.9\%; V2 includes 0; Withhold; V3 n/a \\ % CHANGED: Interpret -> Withhold
+      & $\alpha$: FX level     & \shortstack[l]{$-0.0214$\\$[-0.0409,-0.0010]$} & V1 100.0\%; V2 excludes 0; Interpret; V3 n/a \\
+    Institutional
+      & $\alpha$: KOSPI return & \shortstack[l]{$-0.0165$\\$[-0.0240,-0.0088]$} & V1 100.0\%; V2 excludes 0; Interpret; V3 n/a \\
+      & $\alpha$: FX level     & \shortstack[l]{$-0.0038$\\$[-0.0123,+0.0001]$} & V1 97.8\%; V2 includes 0; Withhold; V3 n/a \\
+    Retail
+      & $\alpha$: KOSPI return & \shortstack[l]{$+0.0303$\\$[+0.0060,+0.0565]$} & V1 100.0\%; V2 excludes 0; Interpret; V3 n/a \\ % CHANGED: sign flipped negative -> positive
+      & $\alpha$: FX level     & \shortstack[l]{$+0.0297$\\$[+0.0028,+0.0636]$} & V1 100.0\%; V2 excludes 0; Interpret; V3 n/a \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+
+%% ---------------------------------------------------------------------
+%% Table 2 — feature-context interactions B
+%% ---------------------------------------------------------------------
+\begin{table}[t]
+  \caption{Feature--context interaction coefficients $B$ for Samsung
+  Electronics. Each cell reports the CPCV mean $\pm$ standard deviation,
+  followed in parentheses by the share of splits retaining the mean sign.
+  These values are reported descriptively for transparency and are not
+  promoted to core investor tendencies based on CPCV sign consistency
+  alone.}
+  \label{tab:context-interactions}
+  \centering
+  \scriptsize
+  \setlength{\tabcolsep}{1.5pt}
+  \begin{tabular}{@{}llcc@{}}
+    \toprule
+    Investor & Feature $j$ & \shortstack{$B_{j,\mathrm{KOSPI}}$\\mean $\pm$ SD (sign)} & \shortstack{$B_{j,\mathrm{FX}}$\\mean $\pm$ SD (sign)} \\
+    \midrule
+    Foreign
+      & Momentum         & \shortstack{$-0.0084 \pm 0.0047$\\$(95.6\%)$} & \shortstack{$-0.0027 \pm 0.0039$\\$(84.4\%)$} \\
+      & Flow persistence & \shortstack{$+0.0004 \pm 0.0043$\\$(46.7\%)$} & \shortstack{$-0.0015 \pm 0.0038$\\$(62.2\%)$} \\
+      & Loss region      & \shortstack{$-0.0009 \pm 0.0037$\\$(68.9\%)$} & \shortstack{$-0.0057 \pm 0.0053$\\$(84.4\%)$} \\
+    \addlinespace
+    Institutional
+      & Momentum         & \shortstack{$-0.0007 \pm 0.0018$\\$(77.8\%)$} & \shortstack{$+0.0011 \pm 0.0012$\\$(91.1\%)$} \\
+      & Flow persistence & \shortstack{$-0.0021 \pm 0.0028$\\$(97.8\%)$} & \shortstack{$-0.0002 \pm 0.0007$\\$(57.8\%)$} \\
+      & Loss region      & \shortstack{$+0.0045 \pm 0.0017$\\$(100.0\%)$} & \shortstack{$+0.0015 \pm 0.0013$\\$(97.8\%)$} \\
+    \addlinespace
+    Retail
+      & Momentum         & \shortstack{$-0.0001 \pm 0.0045$\\$(33.3\%)$} & \shortstack{$-0.0012 \pm 0.0032$\\$(71.1\%)$} \\
+      & Flow persistence & \shortstack{$-0.0108 \pm 0.0106$\\$(77.8\%)$} & \shortstack{$+0.0019 \pm 0.0040$\\$(66.7\%)$} \\
+      & Loss region      & \shortstack{$-0.0008 \pm 0.0023$\\$(68.9\%)$} & \shortstack{$-0.0256 \pm 0.0078$\\$(100.0\%)$} \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+
+%% ---------------------------------------------------------------------
+%% Table 3 — performance.  현대차 행은 재실행 전까지 비워 둔다.
+%% ---------------------------------------------------------------------
+\begin{table}[t]
+  \caption{Test-path-ensemble performance for the Samsung Electronics
+  source sample. Nine CPCV test-path predictions are averaged by date.
+  Out-of-sample $R^2$ is measured against each split's training-mean
+  action.}
+  \label{tab:cross-stock-performance}
+  \centering
+  \scriptsize
+  \setlength{\tabcolsep}{2pt}
+  \begin{tabular}{@{}llrrrrr@{}}
+    \toprule
+    Stock & Investor & \shortstack{State\\days} & \shortstack{Directional\\accuracy} & Correlation & RMSE & OOS $R^2$ \\
+    \midrule
+    \shortstack[l]{Samsung\\Electronics} & Foreign       & 973 & 0.649 & 0.364 & 0.235 & \phantom{-}0.185 \\
+                                          & Institutional & 973 & 0.557 & 0.165 & 0.124 & \phantom{-}0.024 \\ % CHANGED: R2 was negative
+                                          & Retail        & 973 & 0.633 & 0.312 & 0.310 & \phantom{-}0.152 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+
+%% ---------------------------------------------------------------------
+%% Table 4 (NEW) — 자기 흐름 지속성을 통제할 때와 하지 않을 때의 momentum
+%%   §4.2 에 넣을 것을 제안한다. 출처:
+%%   runs/continuous_reward3_persist_lag0_validation/analysis/
+%%     ablation_reward_weights_summary.csv  (variant = baseline / remove_persist)
+%% ---------------------------------------------------------------------
+\begin{table}[t]
+  \caption{Momentum coefficients estimated with and without own-flow
+  persistence in the same specification. Removing persistence from the
+  feature set inflates the momentum response by roughly 70\% for the two
+  types whose momentum coefficient is identified, indicating that a
+  specification without own-flow persistence attributes part of a type's
+  flow inertia to its price response. CPCV mean $\pm$ standard deviation
+  over 45 splits.}
+  \label{tab:momentum-conditioning}
+  \centering
+  \scriptsize
+  \setlength{\tabcolsep}{3pt}
+  \begin{tabular}{@{}lccc@{}}
+    \toprule
+    Investor & \shortstack{$\beta$: momentum\\(with persistence)} & \shortstack{$\beta$: momentum\\(without persistence)} & Change \\
+    \midrule
+    Foreign       & $+0.0386 \pm 0.0082$ & $+0.0648 \pm 0.0123$ & $+68\%$ \\
+    Institutional & $-0.0009 \pm 0.0018$ & $-0.0013 \pm 0.0022$ & (unidentified) \\
+    Retail        & $-0.0277 \pm 0.0063$ & $-0.0482 \pm 0.0083$ & $+74\%$ \\
+    \bottomrule
+  \end{tabular}
+\end{table}
