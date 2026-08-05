@@ -1,0 +1,53 @@
+## persist lag=0 실험 (2026-08-05)
+##
+## src/features/persist.py의 build_persist가 investor_trade_imbalance(...).shift(1)로
+## a_{t-1}을 반환하는데, 타깃(label_shift: 1)은 a_{t+1}이라 실제로는 AR(2)(a_t를
+## 건너뜀)였다. docs/persist_spec_and_results.md가 명시한 "어제의 행동 그
+## 자체"·"AR(1)" 의도와 구현을 일치시키기 위해 lag=0(a_t)으로 재실행한다.
+##
+## HP는 canonical(epochs75)과 동일하게 유지한다 — "함정 6" 수렴 확인 후에만 바꾼다.
+##
+## 비교 기준: runs/continuous_reward3_persist_epochs75/ (canonical)
+
+model:
+  reward_type: continuous_contextual_linear
+  context_names:
+    - kospi_return_1d
+    - fx_level_z_252
+  context_main_effect: true
+
+## 2026-08-05 18:20 수정: exact Lasso 대조(compare_exact_lasso.py) 결과 epoch75에서
+## 외국인(persist mean_diff 0.00246, 경계 초과)·개인(persist 0.0215, kospi α 0.0122,
+## underwater 0.0062 — 전부 0.002 문턱 크게 초과)이 미수렴으로 판정됨. 기관은 수렴
+## (전부 <=0.0003, epoch75 유지). "함정 6" 지시대로 batch·lr은 건드리지 않고 epoch만
+## 외국인·개인 150으로 늘려 재실행. 근거: experiments/2026-08-05/exact_lasso_lag0/
+##
+## 2026-08-05 18:22 추가 수정: epoch150 재대조 결과 외국인은 수렴(전부 <=0.00054),
+## 개인은 kospi α·underwater는 수렴했으나 persist mean_diff가 0.00219로 문턱을
+## 근소하게 초과. 개인만 epoch 300으로 재차 증가.
+## 근거: experiments/2026-08-05/exact_lasso_lag0_ep150/
+
+investor_overrides:
+  foreign:
+    epochs: 150
+    batch_size: 256
+    learning_rate: 0.001
+    loss:
+      lambda_l1: 0.005
+  institution:
+    epochs: 75
+    batch_size: 2048      # canonical 유지
+    learning_rate: 0.0005 # canonical 유지
+    loss:
+      lambda_l1: 0.005
+  retail:
+    epochs: 300
+    batch_size: 512       # canonical 유지
+    learning_rate: 0.001  # canonical 유지
+    loss:
+      lambda_l1: 0.005
+
+experiment:
+  name: continuous_reward3_persist_lag0
+  output_dir: runs/continuous_reward3_persist_lag0
+  save_checkpoints: true

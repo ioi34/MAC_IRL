@@ -24,6 +24,7 @@ from pathlib import Path
 
 import numpy as np
 import pandas as pd
+import yaml
 from sklearn.linear_model import Lasso
 from sklearn.preprocessing import StandardScaler
 
@@ -31,6 +32,22 @@ RUN = Path("runs/continuous_reward3_persist_epochs75")
 DATA = Path("data/processed/dataset_continuous_reward3_persist.npz")
 LAMBDA = 0.005
 INVESTORS = ["foreign", "institution", "retail"]
+
+
+def resolve_data_path(run: Path) -> Path:
+    """run/config_snapshot.yaml의 paths.processed_dataset을 따라간다.
+
+    run-dir이 바뀌면 그 run이 실제로 쓴 데이터셋(예: persist_lag0)도 같이
+    바뀌어야 split indices.npz의 행 번호가 어긋나지 않는다. 스냅샷을 못 읽으면
+    기존 하드코딩 DATA로 폴백한다.
+    """
+    snapshot = run / "config_snapshot.yaml"
+    if not snapshot.exists():
+        return DATA
+    with snapshot.open() as f:
+        config = yaml.safe_load(f)
+    path = config.get("paths", {}).get("processed_dataset")
+    return Path(path) if path else DATA
 
 
 def design(x: np.ndarray, c: np.ndarray) -> np.ndarray:
@@ -54,25 +71,28 @@ def adam_theta(split: int, investor: str, features: list[str], contexts: list[st
 def main() -> None:
     p = argparse.ArgumentParser()
     p.add_argument("-o", "--out-dir", default="experiments/2026-07-31/exact_lasso")
+    p.add_argument("--run-dir", type=Path, default=RUN)
     args = p.parse_args()
     out = Path(args.out_dir)
     out.mkdir(parents=True, exist_ok=True)
+    run = args.run_dir
+    data_path = resolve_data_path(run)
 
-    d = np.load(DATA, allow_pickle=False)
+    d = np.load(data_path, allow_pickle=False)
     feature_names = d["feature_names"].astype(str).tolist()
     context_names = d["context_names"].astype(str).tolist()
     features, actions, contexts = d["features"], d["actions"], d["contexts"]
 
-    beta_df = pd.read_csv(RUN / "reward_weights.csv")
-    ctx_df = pd.read_csv(RUN / "context_weights.csv")
-    main_df = pd.read_csv(RUN / "context_main_weights.csv")
+    beta_df = pd.read_csv(run / "reward_weights.csv")
+    ctx_df = pd.read_csv(run / "context_weights.csv")
+    main_df = pd.read_csv(run / "context_main_weights.csv")
 
     names = (feature_names
              + [f"{f}x{c}" for f in feature_names for c in context_names]
              + context_names)
 
     rows, sat_rows = [], []
-    for split_dir in sorted(RUN.glob("split_*")):
+    for split_dir in sorted(run.glob("split_*")):
         split = int(split_dir.name.split("_")[1])
         idx = np.load(split_dir / "indices.npz")["train_indices"]
         cs = StandardScaler().fit(contexts[idx])

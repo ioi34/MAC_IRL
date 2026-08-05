@@ -1,0 +1,29 @@
+model:
+  reward_type: continuous_contextual_linear
+  context_names:
+  - kospi_return_1d
+  - fx_level_z_252
+  context_main_effect: true
+investor_overrides:
+  foreign:
+    epochs: 150
+    batch_size: 256
+    learning_rate: 0.001
+    loss:
+      lambda_l1: 0.005
+  institution:
+    epochs: 75
+    batch_size: 2048
+    learning_rate: 0.0005
+    loss:
+      lambda_l1: 0.005
+  retail:
+    epochs: 300
+    batch_size: 512
+    learning_rate: 0.001
+    loss:
+      lambda_l1: 0.005
+experiment:
+  name: ablation_remove_traditional_group
+  output_dir: runs/continuous_reward3_persist_lag0_validation/ablation/remove_traditional_group
+  save_checkpoints: true
