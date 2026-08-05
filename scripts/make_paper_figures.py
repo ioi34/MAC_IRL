@@ -4,8 +4,8 @@
   fig_actual_vs_pred_1col.png   (70mm)  — 실현 행동 vs CPCV 표본외 예측
   fig_weights_1col.png          (90mm)  — beta(위) + alpha(아래) 2패널, 기존 Fig 3+4 병합
 
-식별 표시는 V2(부트스트랩 95% 구간의 0 배제) 하나만 쓴다.
-V3는 식별 판정에 쓰지 않으므로 'boundary case' 마커를 두지 않는다.
+식별 표시는 사전등록 규칙 그대로 V1(CPCV 부호 일관성 >= 90%) AND V2(부트스트랩 95%
+구간의 0 배제). V3는 식별 판정에 쓰지 않으므로 'boundary case' 마커를 두지 않는다.
 
 사용:
   python3 scripts/make_paper_figures.py --out-dir ../acmart-primary
@@ -34,6 +34,7 @@ FEATURE_LABEL = {"momentum": "Momentum", "persist": "Flow persistence", "underwa
 FEATURES = ["momentum", "persist", "underwater"]
 CONTEXT_LABEL = {"kospi_return_1d": "KOSPI 200 return", "fx_level_z_252": "FX level"}
 CONTEXTS = ["kospi_return_1d", "fx_level_z_252"]
+V1_THRESHOLD = 0.90  # §3.6 의 식별 기준
 
 
 def _style() -> None:
@@ -53,9 +54,9 @@ def _style() -> None:
     )
 
 
-def _marker(excludes_zero: bool) -> dict:
-    """V2 통과 여부만으로 채움을 정한다."""
-    return dict(marker="o", markersize=3.2, markerfacecolor=None) if excludes_zero else dict(
+def _marker(identified: bool) -> dict:
+    """V1+V2 를 모두 통과한 계수만 채운다."""
+    return dict(marker="o", markersize=3.2, markerfacecolor=None) if identified else dict(
         marker="o", markersize=3.2, markerfacecolor="white"
     )
 
@@ -64,7 +65,13 @@ def fig_weights(out_path: Path) -> None:
     beta = pd.read_csv(VALIDATION / "ablation/baseline/reward_weights_summary.csv")
     beta_v2 = pd.read_csv(VALIDATION / "weight_bootstrap/bootstrap_reward_weights_summary.csv")
     beta = beta.merge(beta_v2[["investor", "feature", "ci_excludes_zero"]], on=["investor", "feature"])
+    beta["identified"] = (beta.direction_consistency >= V1_THRESHOLD) & beta.ci_excludes_zero
+
     alpha = pd.read_csv(VALIDATION / "weight_bootstrap/bootstrap_context_main_weights_summary.csv")
+    alpha_v1 = pd.read_csv(CANONICAL / "context_main_weights_summary.csv")
+    alpha = alpha.drop(columns=["direction_consistency"]).merge(
+        alpha_v1[["investor", "context", "direction_consistency"]], on=["investor", "context"])
+    alpha["identified"] = (alpha.direction_consistency >= V1_THRESHOLD) & alpha.ci_excludes_zero
 
     fig, (ax_b, ax_a) = plt.subplots(
         2, 1, figsize=(COL_W, 3.54), height_ratios=[9, 6], constrained_layout=True
@@ -75,7 +82,7 @@ def fig_weights(out_path: Path) -> None:
     for inv in INVESTORS:
         for feat in FEATURES:
             r = beta[(beta.investor == inv) & (beta.feature == feat)].iloc[0]
-            rows.append((inv, r["mean"], r["std"], bool(r["ci_excludes_zero"])))
+            rows.append((inv, r["mean"], r["std"], bool(r["identified"])))
             labels.append(FEATURE_LABEL[feat])
     for y, (inv, m, s, ok) in enumerate(reversed(rows)):
         c = COLOR[inv]
@@ -102,7 +109,7 @@ def fig_weights(out_path: Path) -> None:
     for inv in INVESTORS:
         for ctx in CONTEXTS:
             r = alpha[(alpha.investor == inv) & (alpha.context == ctx)].iloc[0]
-            rows.append((inv, r["mean"], r["ci_lower"], r["ci_upper"], bool(r["ci_excludes_zero"])))
+            rows.append((inv, r["mean"], r["ci_lower"], r["ci_upper"], bool(r["identified"])))
             labels.append(CONTEXT_LABEL[ctx])
     for y, (inv, m, lo, hi, ok) in enumerate(reversed(rows)):
         c = COLOR[inv]
@@ -135,9 +142,10 @@ def fig_weights(out_path: Path) -> None:
         ax.margins(y=0.08)
 
     handles = [
-        plt.Line2D([], [], color="0.2", marker="o", markersize=3.2, lw=0.7, label="V2 interval excludes zero"),
         plt.Line2D([], [], color="0.2", marker="o", markersize=3.2, lw=0.7,
-                   markerfacecolor="white", label="V2 interval includes zero"),
+                   label="Identified (V1+V2)"),
+        plt.Line2D([], [], color="0.2", marker="o", markersize=3.2, lw=0.7,
+                   markerfacecolor="white", label="Not identified"),
     ]
     fig.legend(handles=handles, loc="lower center", ncol=2, frameon=False,
                bbox_to_anchor=(0.5, -0.035))
