@@ -1,0 +1,108 @@
+paths:
+  raw_daily: samsung_macirl_EXTENDED_2019_2025.csv
+  processed_dataset: data/processed/dataset_continuous_reward3_persist_lag0.npz
+  processed_metadata: data/processed/metadata_continuous_reward3_persist_lag0.json
+columns:
+  date: date
+  ticker: ticker
+  price: adjusted_close
+  fallback_price: close
+  trading_value: trading_value
+  usdkrw: usdkrw
+  kospi200_return: kospi200_return
+  investor_trades:
+    foreign:
+      buy_quantity: foreign_buy_volume
+      sell_quantity: foreign_sell_volume
+      buy_value: foreign_buy_value
+      sell_value: foreign_sell_value
+    institution:
+      buy_quantity: institution_buy_volume
+      sell_quantity: institution_sell_volume
+      buy_value: institution_buy_value
+      sell_value: institution_sell_value
+    retail:
+      buy_quantity: retail_buy_volume
+      sell_quantity: retail_sell_volume
+      buy_value: retail_buy_value
+      sell_value: retail_sell_value
+investors:
+- foreign
+- institution
+- retail
+labeling:
+  label_shift: 1
+sample:
+  start: '2020-01-01'
+  end: '2025-12-31'
+  size: 973
+  selection: latest
+preprocess:
+  ticker: null
+  drop_missing_required: true
+  average_cost_rho: 0.98
+features:
+  selected:
+  - momentum
+  - persist
+  - underwater
+  params:
+    momentum:
+      window: 20
+    persist:
+      lag: 0
+    underwater: {}
+contexts:
+  selected:
+  - kospi_return_1d
+  - fx_level_z_252
+scaling:
+  method: standard
+model:
+  reward_type: continuous_contextual_linear
+  investor_types:
+  - foreign
+  - institution
+  - retail
+  tau: 1.0
+  context_names:
+  - kospi_return_1d
+  - fx_level_z_252
+  context_main_effect: true
+seed: 42
+device: cpu
+epochs: 200
+batch_size: 256
+learning_rate: 0.01
+weight_decay: 0.0
+log_every: 20
+loss:
+  lambda_l1: 0.001
+cross_validation:
+  n_folds: 10
+  n_test_folds: 2
+  purged_size: 1
+  embargo_size: 5
+investor_overrides:
+  foreign:
+    epochs: 150
+    batch_size: 256
+    learning_rate: 0.001
+    loss:
+      lambda_l1: 0.005
+  institution:
+    epochs: 75
+    batch_size: 2048
+    learning_rate: 0.0005
+    loss:
+      lambda_l1: 0.005
+  retail:
+    epochs: 300
+    batch_size: 512
+    learning_rate: 0.001
+    loss:
+      lambda_l1: 0.005
+experiment:
+  name: continuous_reward3_persist_lag0
+  output_dir: runs/continuous_reward3_persist_lag0
+  save_checkpoints: true

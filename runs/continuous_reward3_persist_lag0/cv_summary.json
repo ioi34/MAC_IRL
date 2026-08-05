@@ -1,0 +1,474 @@
+{
+  "n_observations": 973,
+  "n_splits": 45,
+  "n_test_paths": 9,
+  "versions": {
+    "skfolio": "0.20.1",
+    "scikit-learn": "1.9.0",
+    "torch": "2.12.1"
+  },
+  "metrics": [
+    {
+      "investor": "foreign",
+      "metric": "mae",
+      "mean": 0.18541140606953913,
+      "std": 0.015251290294379619
+    },
+    {
+      "investor": "institution",
+      "metric": "mae",
+      "mean": 0.09344526714293616,
+      "std": 0.00885511987227479
+    },
+    {
+      "investor": "retail",
+      "metric": "mae",
+      "mean": 0.2557014975670397,
+      "std": 0.0261115247493801
+    },
+    {
+      "investor": "foreign",
+      "metric": "rmse",
+      "mean": 0.23458489437999286,
+      "std": 0.01732109202971755
+    },
+    {
+      "investor": "institution",
+      "metric": "rmse",
+      "mean": 0.12375599754912936,
+      "std": 0.012254332573460088
+    },
+    {
+      "investor": "retail",
+      "metric": "rmse",
+      "mean": 0.3101265540438609,
+      "std": 0.028683816890657687
+    },
+    {
+      "investor": "foreign",
+      "metric": "mse",
+      "mean": 0.0553234257841721,
+      "std": 0.008108376494710592
+    },
+    {
+      "investor": "institution",
+      "metric": "mse",
+      "mean": 0.015462378514716168,
+      "std": 0.0030351505146609284
+    },
+    {
+      "investor": "retail",
+      "metric": "mse",
+      "mean": 0.09698295728894954,
+      "std": 0.017483575414065967
+    },
+    {
+      "investor": "foreign",
+      "metric": "direction_accuracy",
+      "mean": 0.64864200115129,
+      "std": 0.0361237981698393
+    },
+    {
+      "investor": "institution",
+      "metric": "direction_accuracy",
+      "mean": 0.5569254743256523,
+      "std": 0.0397920488596281
+    },
+    {
+      "investor": "retail",
+      "metric": "direction_accuracy",
+      "mean": 0.6329158453550101,
+      "std": 0.03371333197440691
+    },
+    {
+      "investor": "foreign",
+      "metric": "correlation",
+      "mean": 0.36388142645035837,
+      "std": 0.09056216853456499
+    },
+    {
+      "investor": "institution",
+      "metric": "correlation",
+      "mean": 0.16527007397427984,
+      "std": 0.07357557748140402
+    },
+    {
+      "investor": "retail",
+      "metric": "correlation",
+      "mean": 0.3122620956710272,
+      "std": 0.09077779011998241
+    },
+    {
+      "investor": "foreign",
+      "metric": "saturation_rate",
+      "mean": 0.0,
+      "std": 0.0
+    },
+    {
+      "investor": "institution",
+      "metric": "saturation_rate",
+      "mean": 0.0,
+      "std": 0.0
+    },
+    {
+      "investor": "retail",
+      "metric": "saturation_rate",
+      "mean": 0.0,
+      "std": 0.0
+    }
+  ],
+  "reward_weights": [
+    {
+      "investor": "foreign",
+      "feature": "momentum",
+      "mean": 0.038572633494105606,
+      "std": 0.008247257306269042,
+      "positive_rate": 1.0,
+      "negative_rate": 0.0,
+      "dominant_direction": "positive",
+      "direction_consistency": 1.0
+    },
+    {
+      "investor": "foreign",
+      "feature": "persist",
+      "mean": 0.07989775952365663,
+      "std": 0.00761808127189904,
+      "positive_rate": 1.0,
+      "negative_rate": 0.0,
+      "dominant_direction": "positive",
+      "direction_consistency": 1.0
+    },
+    {
+      "investor": "foreign",
+      "feature": "underwater",
+      "mean": 0.011203544605005946,
+      "std": 0.004115364760625187,
+      "positive_rate": 1.0,
+      "negative_rate": 0.0,
+      "dominant_direction": "positive",
+      "direction_consistency": 1.0
+    },
+    {
+      "investor": "institution",
+      "feature": "momentum",
+      "mean": -0.0008743258482960906,
+      "std": 0.0018237138392184116,
+      "positive_rate": 0.37777777777777777,
+      "negative_rate": 0.6222222222222222,
+      "dominant_direction": "negative",
+      "direction_consistency": 0.6222222222222222
+    },
+    {
+      "investor": "institution",
+      "feature": "persist",
+      "mean": 0.02321019089884228,
+      "std": 0.0021972346500812173,
+      "positive_rate": 1.0,
+      "negative_rate": 0.0,
+      "dominant_direction": "positive",
+      "direction_consistency": 1.0
+    },
+    {
+      "investor": "institution",
+      "feature": "underwater",
+      "mean": -0.00025106245132822856,
+      "std": 0.000470575915243809,
+      "positive_rate": 0.2222222222222222,
+      "negative_rate": 0.7777777777777778,
+      "dominant_direction": "negative",
+      "direction_consistency": 0.7777777777777778
+    },
+    {
+      "investor": "retail",
+      "feature": "momentum",
+      "mean": -0.02771743480116129,
+      "std": 0.006312109459729605,
+      "positive_rate": 0.0,
+      "negative_rate": 1.0,
+      "dominant_direction": "negative",
+      "direction_consistency": 1.0
+    },
+    {
+      "investor": "retail",
+      "feature": "persist",
+      "mean": 0.10500979986455705,
+      "std": 0.010133832669772516,
+      "positive_rate": 1.0,
+      "negative_rate": 0.0,
+      "dominant_direction": "positive",
+      "direction_consistency": 1.0
+    },
+    {
+      "investor": "retail",
+      "feature": "underwater",
+      "mean": 0.018314329623697428,
+      "std": 0.013029314404248942,
+      "positive_rate": 0.8888888888888888,
+      "negative_rate": 0.1111111111111111,
+      "dominant_direction": "positive",
+      "direction_consistency": 0.8888888888888888
+    }
+  ],
+  "context_weights": [
+    {
+      "investor": "foreign",
+      "feature": "momentum",
+      "context": "kospi_return_1d",
+      "mean": -0.008349928585084853,
+      "std": 0.0047341237930279105,
+      "positive_rate": 0.044444444444444446,
+      "negative_rate": 0.9555555555555556,
+      "dominant_direction": "negative",
+      "direction_consistency": 0.9555555555555556
+    },
+    {
+      "investor": "foreign",
+      "feature": "momentum",
+      "context": "fx_level_z_252",
+      "mean": -0.0026883338316110892,
+      "std": 0.003866835867633425,
+      "positive_rate": 0.15555555555555556,
+      "negative_rate": 0.8444444444444444,
+      "dominant_direction": "negative",
+      "direction_consistency": 0.8444444444444444
+    },
+    {
+      "investor": "foreign",
+      "feature": "persist",
+      "context": "kospi_return_1d",
+      "mean": 0.0003681419220002782,
+      "std": 0.004341244891073233,
+      "positive_rate": 0.4666666666666667,
+      "negative_rate": 0.5333333333333333,
+      "dominant_direction": "positive",
+      "direction_consistency": 0.4666666666666667
+    },
+    {
+      "investor": "foreign",
+      "feature": "persist",
+      "context": "fx_level_z_252",
+      "mean": -0.0015180628158203843,
+      "std": 0.0038234201696125147,
+      "positive_rate": 0.37777777777777777,
+      "negative_rate": 0.6222222222222222,
+      "dominant_direction": "negative",
+      "direction_consistency": 0.6222222222222222
+    },
+    {
+      "investor": "foreign",
+      "feature": "underwater",
+      "context": "kospi_return_1d",
+      "mean": -0.0008547592454407196,
+      "std": 0.003654850551994209,
+      "positive_rate": 0.3111111111111111,
+      "negative_rate": 0.6888888888888889,
+      "dominant_direction": "negative",
+      "direction_consistency": 0.6888888888888889
+    },
+    {
+      "investor": "foreign",
+      "feature": "underwater",
+      "context": "fx_level_z_252",
+      "mean": -0.005694798967387113,
+      "std": 0.0052789125360540754,
+      "positive_rate": 0.15555555555555556,
+      "negative_rate": 0.8444444444444444,
+      "dominant_direction": "negative",
+      "direction_consistency": 0.8444444444444444
+    },
+    {
+      "investor": "institution",
+      "feature": "momentum",
+      "context": "kospi_return_1d",
+      "mean": -0.0007132906322011776,
+      "std": 0.0017674220745602116,
+      "positive_rate": 0.2222222222222222,
+      "negative_rate": 0.7777777777777778,
+      "dominant_direction": "negative",
+      "direction_consistency": 0.7777777777777778
+    },
+    {
+      "investor": "institution",
+      "feature": "momentum",
+      "context": "fx_level_z_252",
+      "mean": 0.001094935918141952,
+      "std": 0.0011755519942418448,
+      "positive_rate": 0.9111111111111111,
+      "negative_rate": 0.08888888888888889,
+      "dominant_direction": "positive",
+      "direction_consistency": 0.9111111111111111
+    },
+    {
+      "investor": "institution",
+      "feature": "persist",
+      "context": "kospi_return_1d",
+      "mean": -0.0021223179165746034,
+      "std": 0.0027524055237171108,
+      "positive_rate": 0.022222222222222223,
+      "negative_rate": 0.9777777777777777,
+      "dominant_direction": "negative",
+      "direction_consistency": 0.9777777777777777
+    },
+    {
+      "investor": "institution",
+      "feature": "persist",
+      "context": "fx_level_z_252",
+      "mean": -0.0001813697269729649,
+      "std": 0.0006758322293213176,
+      "positive_rate": 0.4222222222222222,
+      "negative_rate": 0.5777777777777777,
+      "dominant_direction": "negative",
+      "direction_consistency": 0.5777777777777777
+    },
+    {
+      "investor": "institution",
+      "feature": "underwater",
+      "context": "kospi_return_1d",
+      "mean": 0.004471885071446498,
+      "std": 0.0017116108047636545,
+      "positive_rate": 1.0,
+      "negative_rate": 0.0,
+      "dominant_direction": "positive",
+      "direction_consistency": 1.0
+    },
+    {
+      "investor": "institution",
+      "feature": "underwater",
+      "context": "fx_level_z_252",
+      "mean": 0.0015034453673555012,
+      "std": 0.001302153068534336,
+      "positive_rate": 0.9777777777777777,
+      "negative_rate": 0.022222222222222223,
+      "dominant_direction": "positive",
+      "direction_consistency": 0.9777777777777777
+    },
+    {
+      "investor": "retail",
+      "feature": "momentum",
+      "context": "kospi_return_1d",
+      "mean": -8.269591214937262e-05,
+      "std": 0.004494205826062941,
+      "positive_rate": 0.6666666666666666,
+      "negative_rate": 0.3333333333333333,
+      "dominant_direction": "negative",
+      "direction_consistency": 0.3333333333333333
+    },
+    {
+      "investor": "retail",
+      "feature": "momentum",
+      "context": "fx_level_z_252",
+      "mean": -0.001165803008674023,
+      "std": 0.0031895553503268753,
+      "positive_rate": 0.28888888888888886,
+      "negative_rate": 0.7111111111111111,
+      "dominant_direction": "negative",
+      "direction_consistency": 0.7111111111111111
+    },
+    {
+      "investor": "retail",
+      "feature": "persist",
+      "context": "kospi_return_1d",
+      "mean": -0.01082551368421668,
+      "std": 0.010618412854550766,
+      "positive_rate": 0.2222222222222222,
+      "negative_rate": 0.7777777777777778,
+      "dominant_direction": "negative",
+      "direction_consistency": 0.7777777777777778
+    },
+    {
+      "investor": "retail",
+      "feature": "persist",
+      "context": "fx_level_z_252",
+      "mean": 0.001926966394158727,
+      "std": 0.0039912706026993434,
+      "positive_rate": 0.6666666666666666,
+      "negative_rate": 0.3333333333333333,
+      "dominant_direction": "positive",
+      "direction_consistency": 0.6666666666666666
+    },
+    {
+      "investor": "retail",
+      "feature": "underwater",
+      "context": "kospi_return_1d",
+      "mean": -0.0008193704131473269,
+      "std": 0.002252655703356711,
+      "positive_rate": 0.3111111111111111,
+      "negative_rate": 0.6888888888888889,
+      "dominant_direction": "negative",
+      "direction_consistency": 0.6888888888888889
+    },
+    {
+      "investor": "retail",
+      "feature": "underwater",
+      "context": "fx_level_z_252",
+      "mean": -0.02557310441560629,
+      "std": 0.007762323113847097,
+      "positive_rate": 0.0,
+      "negative_rate": 1.0,
+      "dominant_direction": "negative",
+      "direction_consistency": 1.0
+    }
+  ],
+  "context_main_weights": [
+    {
+      "investor": "foreign",
+      "context": "kospi_return_1d",
+      "mean": 0.006309905282210417,
+      "std": 0.005897378120072718,
+      "positive_rate": 0.8888888888888888,
+      "negative_rate": 0.1111111111111111,
+      "dominant_direction": "positive",
+      "direction_consistency": 0.8888888888888888
+    },
+    {
+      "investor": "foreign",
+      "context": "fx_level_z_252",
+      "mean": -0.020998354773554537,
+      "std": 0.00882977615348424,
+      "positive_rate": 0.0,
+      "negative_rate": 1.0,
+      "dominant_direction": "negative",
+      "direction_consistency": 1.0
+    },
+    {
+      "investor": "institution",
+      "context": "kospi_return_1d",
+      "mean": -0.016539059641460577,
+      "std": 0.0028583666563457904,
+      "positive_rate": 0.0,
+      "negative_rate": 1.0,
+      "dominant_direction": "negative",
+      "direction_consistency": 1.0
+    },
+    {
+      "investor": "institution",
+      "context": "fx_level_z_252",
+      "mean": -0.0035758864163653926,
+      "std": 0.0023631331536742226,
+      "positive_rate": 0.022222222222222223,
+      "negative_rate": 0.9777777777777777,
+      "dominant_direction": "negative",
+      "direction_consistency": 0.9777777777777777
+    },
+    {
+      "investor": "retail",
+      "context": "kospi_return_1d",
+      "mean": 0.028860041002432505,
+      "std": 0.008177245700754527,
+      "positive_rate": 1.0,
+      "negative_rate": 0.0,
+      "dominant_direction": "positive",
+      "direction_consistency": 1.0
+    },
+    {
+      "investor": "retail",
+      "context": "fx_level_z_252",
+      "mean": 0.030464153095251984,
+      "std": 0.0098894253302961,
+      "positive_rate": 1.0,
+      "negative_rate": 0.0,
+      "dominant_direction": "positive",
+      "direction_consistency": 1.0
+    }
+  ]
+}
